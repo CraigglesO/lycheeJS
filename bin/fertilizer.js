@@ -62,7 +62,7 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.log('Available Fertilizers:                                ');
 	console.log('                                                      ');
-	console.log('   html, html-nwjs, html-webview, node');
+	console.log('   html, html-nwjs, html-webview, node                ');
 	console.log('                                                      ');
 	console.log('Available Projects:                                   ');
 	console.log('                                                      ');
@@ -177,10 +177,12 @@ var _settings = (function() {
 					identifier: identifier,
 					settings:   settings
 				});
-				sandbox.MAIN.init();
+
 				sandbox.MAIN.bind('destroy', function() {
 					process.exit(0);
 				});
+
+				sandbox.MAIN.init();
 
 
 				process.on('SIGHUP',  function() { sandbox.MAIN.destroy(); this.exit(1); });
