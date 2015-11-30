@@ -57,7 +57,7 @@ requirement for the script is `curl` and `unzip`.
 
 ```bash
 # This will create a lycheeJS Installation in ./lycheejs
-wget -q -O - http://lycheejs.org/download/lycheejs-latest-netinstall.sh | bash;
+wget -q -O - http://lycheejs.org/download/lycheejs-latest.sh | bash;
 ```
 
 
