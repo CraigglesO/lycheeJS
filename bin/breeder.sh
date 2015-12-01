@@ -9,6 +9,7 @@ ARCH=`lowercase \`uname -m\``;
 
 LYCHEEJS_NODE="";
 LYCHEEJS_ROOT=$(cd "$(dirname "$0")/../"; pwd);
+PROJECT_ROOT="$PWD";
 
 
 if [ "$ARCH" == "x86_64" -o "$ARCH" == "amd64" ]; then
@@ -42,32 +43,17 @@ if [ ! -f $LYCHEEJS_NODE ]; then
 fi;
 
 
-if [ -d "$3" ]; then
-	project="$3";
-else
-	project="$PWD";
-fi;
-
-
-
-cd $LYCHEEJS_ROOT;
-
-if [ ! -f "./lychee/build/node/core.js" ]; then
-	$LYCHEEJS_NODE ./bin/configure.js;
-fi;
-
-
 
 case "$1" in
 
 	configure)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js configure "$2" "$project";
+		$LYCHEEJS_NODE ./bin/breeder.js configure "$2" "$PROJECT_ROOT";
 	;;
 
 	fertilize)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js fertilize "$project";
+		$LYCHEEJS_NODE ./bin/breeder.js fertilize "$PROJECT_ROOT";
 	;;
 
 	*)

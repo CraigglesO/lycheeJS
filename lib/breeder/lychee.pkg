@@ -8,7 +8,7 @@
 				"build":    "breeder.Main",
 				"debug":    false,
 				"sandbox":  false,
-				"packages": [ [ "breeder", "./lychee.pkg" ] ],
+				"packages": [ [ "breeder", "./lychee.pkg" ], [ "fertilizer", "/lib/fertilizer/lychee.pkg" ]],
 				"tags":     { "platform": [ "node" ] },
 				"variant":  "application"
 			}
@@ -32,15 +32,16 @@
 		},
 
 		"files": {
-
-			"data": {
-				"Filesystem": [ "js" ],
-				"Shell":      [ "js" ]
+			"template": {
+				"html": {
+					"Application": [
+						"js"
+					]
+				}
 			},
-
-			"Main":     [ "js" ],
-			"Template": [ "js" ]
-
+			"Main": [
+				"js"
+			]
 		}
 
 	}
