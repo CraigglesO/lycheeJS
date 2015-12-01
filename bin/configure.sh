@@ -69,6 +69,8 @@ else
 		./bin/fertilizer.sh lychee node/dist;
 		./bin/fertilizer.sh lychee node-sdl/dist;
 
+		./bin/fertilizer.sh sorbet node/main;
+
 
 		echo "> DONE";
 

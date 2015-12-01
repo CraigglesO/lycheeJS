@@ -1,24 +1,9 @@
 {
-
 	"build": {
-
 		"environments": {
-
-			"node/main": {
-				"build":    "breeder.Main",
-				"debug":    false,
-				"sandbox":  false,
-				"packages": [ [ "breeder", "./lychee.pkg" ], [ "fertilizer", "/lib/fertilizer/lychee.pkg" ]],
-				"tags":     { "platform": [ "node" ] },
-				"variant":  "application"
-			}
-
 		},
-
 		"files": {
-
 		}
-
 	},
 
 	"source": {
