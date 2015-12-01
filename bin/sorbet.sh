@@ -9,7 +9,7 @@ ARCH=`lowercase \`uname -m\``;
 
 LYCHEEJS_NODE="";
 LYCHEEJS_ROOT=$(cd "$(dirname "$0")/../"; pwd);
-SORBET_PID="$LYCHEEJS_ROOT/sorbet/.pid";
+SORBET_PID="$LYCHEEJS_ROOT/bin/sorbet.pid";
 SORBET_LOG="/var/log/sorbet.log";
 SORBET_ERR="/var/log/sorbet.err";
 SORBET_USER=`whoami`;
