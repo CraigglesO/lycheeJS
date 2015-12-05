@@ -1,24 +1,19 @@
 {
 	"build": {
-		"environments": {
-		},
-		"files": {
-		}
+		"environments": {},
+		"files": {}
 	},
-
 	"source": {
-
-		"environments": {
-
-		},
-
-		"tags": {
-
-		},
-
+		"environments": {},
+		"tags": {},
 		"files": {
 			"template": {
 				"html": {
+					"Application": [
+						"js"
+					]
+				},
+				"node": {
 					"Application": [
 						"js"
 					]
@@ -28,7 +23,8 @@
 				"js"
 			]
 		}
-
+	},
+	"api": {
+		"files": {}
 	}
-
 }
