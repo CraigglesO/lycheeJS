@@ -69,6 +69,11 @@
 					"index": [
 						"js"
 					]
+				},
+				"main": {
+					"index": [
+						"js"
+					]
 				}
 			},
 			"html-nwjs": {
@@ -121,68 +126,55 @@
 			}
 		},
 		"files": {
-			"platform": {
-				"html": {
-					"bootstrap": [
+			"DIST": [
+				"js"
+			],
+			"ai": {
+				"neural": {
+					"Agent": [
 						"js"
 					],
-					"net": {
-						"Client": [
-							"js"
-						],
-						"Remote": [
-							"js"
-						],
-						"Server": [
-							"js"
-						]
-					},
-					"Input": [
+					"Evolution": [
 						"js"
 					],
-					"Renderer": [
+					"Genome": [
 						"js"
 					],
-					"Storage": [
-						"js"
-					],
-					"Viewport": [
-						"js"
-					]
-				},
-				"node": {
-					"bootstrap": [
-						"js"
-					],
-					"net": {
-						"Client": [
-							"js"
-						],
-						"Remote": [
-							"js"
-						],
-						"Server": [
-							"js"
-						]
-					},
-					"Input": [
-						"js"
-					],
-					"Renderer": [
-						"js"
-					],
-					"Storage": [
-						"js"
-					],
-					"Viewport": [
+					"Network": [
 						"js"
 					]
 				}
 			},
-			"core": {
-				"lychee": [
+			"app": {
+				"Entity": [
 					"js"
 				],
+				"Jukebox": [
+					"js"
+				],
+				"Layer": [
+					"js"
+				],
+				"Loop": [
+					"js"
+				],
+				"Main": [
+					"js"
+				],
+				"Sprite": [
+					"js"
+				],
+				"State": [
+					"js"
+				],
+				"state": {
+					"Menu": [
+						"js",
+						"json"
+					]
+				}
+			},
+			"core": {
 				"Asset": [
 					"js"
 				],
@@ -197,6 +189,14 @@
 				],
 				"Package": [
 					"js"
+				],
+				"lychee": [
+					"js"
+				]
+			},
+			"crypto": {
+				"SHA1": [
+					"js"
 				]
 			},
 			"data": {
@@ -206,18 +206,27 @@
 				"BitON": [
 					"js"
 				],
+				"HTML": [
+					"js"
+				],
 				"JSON": [
 					"js"
 				],
 				"MD": [
 					"js"
-				],
-				"HTML": [
-					"js"
 				]
 			},
 			"effect": {
 				"Alpha": [
+					"js"
+				],
+				"Color": [
+					"js"
+				],
+				"Depth": [
+					"js"
+				],
+				"Height": [
 					"js"
 				],
 				"Lightning": [
@@ -238,19 +247,10 @@
 				"Velocity": [
 					"js"
 				],
-				"Color": [
+				"Visible": [
 					"js"
 				],
 				"Width": [
-					"js"
-				],
-				"Height": [
-					"js"
-				],
-				"Depth": [
-					"js"
-				],
-				"Visible": [
 					"js"
 				]
 			},
@@ -320,59 +320,117 @@
 					]
 				}
 			},
+			"platform": {
+				"html": {
+					"Input": [
+						"js"
+					],
+					"Renderer": [
+						"js"
+					],
+					"Storage": [
+						"js"
+					],
+					"Viewport": [
+						"js"
+					],
+					"bootstrap": [
+						"js"
+					],
+					"net": {
+						"Client": [
+							"js"
+						],
+						"Remote": [
+							"js"
+						],
+						"Server": [
+							"js"
+						]
+					}
+				},
+				"node": {
+					"Input": [
+						"js"
+					],
+					"Renderer": [
+						"js"
+					],
+					"Storage": [
+						"js"
+					],
+					"Viewport": [
+						"js"
+					],
+					"bootstrap": [
+						"js"
+					],
+					"net": {
+						"Client": [
+							"js"
+						],
+						"Remote": [
+							"js"
+						],
+						"Server": [
+							"js"
+						]
+					}
+				}
+			},
 			"ui": {
 				"Background": [
 					"js"
 				],
+				"Blueprint": [
+					"js"
+				],
 				"Button": [
-					"js",
-					"fnt"
-				],
-				"Entity": [
+					"fnt",
 					"js"
-				],
-				"Input": [
-					"js",
-					"fnt"
-				],
-				"Joystick": [
-					"js"
-				],
-				"Label": [
-					"js",
-					"fnt"
-				],
-				"Layer": [
-					"js"
-				],
-				"Select": [
-					"js",
-					"fnt"
-				],
-				"Slider": [
-					"js",
-					"fnt"
-				],
-				"Sprite": [
-					"js"
-				],
-				"Switch": [
-					"js",
-					"fnt"
-				],
-				"Textarea": [
-					"js",
-					"fnt"
-				],
-				"Menu": [
-					"js",
-					"fnt"
 				],
 				"Emblem": [
 					"js",
 					"png"
 				],
-				"Blueprint": [
+				"Entity": [
+					"js"
+				],
+				"Input": [
+					"fnt",
+					"js"
+				],
+				"Joystick": [
+					"js"
+				],
+				"Label": [
+					"fnt",
+					"js"
+				],
+				"Layer": [
+					"js"
+				],
+				"Menu": [
+					"fnt",
+					"js"
+				],
+				"Select": [
+					"fnt",
+					"js"
+				],
+				"Slider": [
+					"fnt",
+					"js"
+				],
+				"Sprite": [
+					"js"
+				],
+				"Switch": [
+					"fnt",
+					"js"
+				],
+				"Textarea": [
+					"fnt",
 					"js"
 				]
 			},
@@ -395,60 +453,7 @@
 				"World": [
 					"js"
 				]
-			},
-			"ai": {
-				"neural": {
-					"Agent": [
-						"js"
-					],
-					"Evolution": [
-						"js"
-					],
-					"Genome": [
-						"js"
-					],
-					"Network": [
-						"js"
-					]
-				}
-			},
-			"app": {
-				"Entity": [
-					"js"
-				],
-				"Jukebox": [
-					"js"
-				],
-				"Layer": [
-					"js"
-				],
-				"Loop": [
-					"js"
-				],
-				"Main": [
-					"js"
-				],
-				"Sprite": [
-					"js"
-				],
-				"State": [
-					"js"
-				],
-				"state": {
-					"Menu": [
-						"js",
-						"json"
-					]
-				}
-			},
-			"crypto": {
-				"SHA1": [
-					"js"
-				]
-			},
-			"DIST": [
-				"js"
-			]
+			}
 		}
 	},
 	"api": {
@@ -482,33 +487,33 @@
 					"md"
 				]
 			},
-			"event": {
-				"Emitter": [
-					"md"
-				],
-				"Queue": [
-					"md"
-				],
-				"Flow": [
-					"md"
-				]
-			},
-			"net": {
-				"Tunnel": [
-					"md"
-				]
-			},
 			"data": {
-				"JSON": [
+				"BENCODE": [
 					"md"
 				],
 				"BitON": [
 					"md"
 				],
-				"BENCODE": [
+				"JSON": [
 					"md"
 				],
 				"MD": [
+					"md"
+				]
+			},
+			"event": {
+				"Emitter": [
+					"md"
+				],
+				"Flow": [
+					"md"
+				],
+				"Queue": [
+					"md"
+				]
+			},
+			"net": {
+				"Tunnel": [
 					"md"
 				]
 			}

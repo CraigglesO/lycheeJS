@@ -75,16 +75,9 @@
 		},
 		"files": {
 			"node": {
-				"main": {
-					"index": [
-						"js"
-					]
-				},
+				"main": {},
 				"main-linux": {
 					"arm": {
-						"index": [
-							"js"
-						],
 						"node": [
 							""
 						],
@@ -93,9 +86,6 @@
 						]
 					},
 					"x86_64": {
-						"index": [
-							"js"
-						],
 						"node": [
 							""
 						],
@@ -106,9 +96,6 @@
 				},
 				"main-osx": {
 					"x86_64": {
-						"index": [
-							"js"
-						],
 						"node": [
 							""
 						],
@@ -119,15 +106,9 @@
 				},
 				"main-windows": {
 					"x86_64": {
-						"index": [
-							"js"
-						],
 						"node": [
 							"exe",
 							"lib"
-						],
-						"sorbet": [
-							"cmd"
 						]
 					}
 				}

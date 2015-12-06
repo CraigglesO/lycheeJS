@@ -158,7 +158,42 @@ lycheejs-breeder migrate;
 <footer>
 	lycheeJS is (c) 2012-2016 by Artificial-Engineering and released under MIT license.
 </footer>
-<script src="./index.js"></script>
+<script>
+(function(lychee, global) {
+
+	var environment = new lychee.Environment({
+		id:      'separated-boilerplate',
+		debug:   true,
+		sandbox: false,
+		build:   'app.Main',
+		type:    'source',
+		packages: [
+			new lychee.Package('app', '../lychee.pkg')
+		],
+		tags:     {
+			platform: [ 'html' ]
+		}
+	});
+
+
+	lychee.setEnvironment(environment);
+
+	lychee.inject(lychee.ENVIRONMENTS['lychee']);
+
+	lychee.init(function(sandbox) {
+
+		var lychee = sandbox.lychee;
+		var app    = sandbox.app;
+
+
+		// This allows using #MAIN in JSON files
+		sandbox.MAIN = new app.Main();
+		sandbox.MAIN.init();
+
+	});
+
+})(lychee, typeof global !== 'undefined' ? global : this);
+</script>
 <script>
 var codes = [].slice.call(document.querySelectorAll('code'));
 if (codes.length > 0) {

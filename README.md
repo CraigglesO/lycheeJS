@@ -2,6 +2,7 @@
 # lycheeJS (2015-Q4)
 
 
+
 ## Overview
 
 lycheeJS is a Next-Gen Isomorphic Application Engine that
@@ -40,6 +41,7 @@ repository contains all logic required to generate operating
 system ready bundles.
 
 
+
 ## Bundle Installation
 
 There are prebuilt bundles that ship all dependencies and
@@ -47,6 +49,7 @@ runtimes lycheeJS needs in order to work and cross-compile
 properly. These bundles should be installed on the developer's
 machine and not on the target platform. Visit [lycheejs.org](http://lycheejs.org)
 for a list of available bundles.
+
 
 
 ## Manual Installation
@@ -59,6 +62,7 @@ requirement for the script is `curl` and `unzip`.
 # This will create a lycheeJS Installation in ./lycheejs
 wget -q -O - http://lycheejs.org/download/lycheejs-latest.sh | bash;
 ```
+
 
 
 ## Contributor Installation
@@ -76,11 +80,6 @@ sudo ./bin/configure.sh;           # use --no-integration if you want a sandboxe
 ./bin/sorbet.sh start development; # no sudo required
 ```
 
-
-## Contribution
-
-You want to contribute to the project?
-Take a look at the [CONTRIBUTION.md](asset/CONTRIBUTION.md) file.
 
 
 ## License
