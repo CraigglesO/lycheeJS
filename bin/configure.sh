@@ -63,14 +63,14 @@ else
 
 		$LYCHEEJS_NODE ./bin/configure.js;
 
-		./bin/fertilizer.sh lychee html/dist;
-		./bin/fertilizer.sh lychee html-nwjs/dist;
-		./bin/fertilizer.sh lychee html-webview/dist;
-		./bin/fertilizer.sh lychee node/dist;
-		./bin/fertilizer.sh lychee node-sdl/dist;
+		./bin/fertilizer.sh /lib/lychee html/dist;
+		./bin/fertilizer.sh /lib/lychee html-nwjs/dist;
+		./bin/fertilizer.sh /lib/lychee html-webview/dist;
+		./bin/fertilizer.sh /lib/lychee node/dist;
+		./bin/fertilizer.sh /lib/lychee node-sdl/dist;
 
-		./bin/fertilizer.sh sorbet node/dist;
-		./bin/fertilizer.sh sorbet node-sdl/dist;
+		./bin/fertilizer.sh /lib/sorbet node/dist;
+		./bin/fertilizer.sh /lib/sorbet node-sdl/dist;
 
 
 		echo "> DONE";
