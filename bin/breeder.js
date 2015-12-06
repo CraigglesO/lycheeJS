@@ -28,7 +28,7 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.log('                                                      ');
 	console.log('Available Actions:                                    ');
-	console.log('   configure, inject, fertilize                       ');
+	console.log('   configure, install, fertilize                      ');
 	console.log('                                                      ');
 	console.log('Available Fertilizers:                                ');
 	console.log('                                                      ');
@@ -39,7 +39,7 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.log('    cd myproject;                                     ');
 	console.log('    breeder configure node;                           ');
-	console.log('    breeder inject node/dist /lib/sorbet;             ');
+	console.log('    breeder install node/dist /lib/sorbet;            ');
 	console.log('    breeder fertilize node/main;                      ');
 	console.log('                                                      ');
 
@@ -96,9 +96,9 @@ var _settings = (function() {
 		settings.platform = raw_arg1.split('/')[0] || null;
 		settings.target   = raw_arg1.split('/')[1] || null;
 
-	} else if (raw_arg0 === 'inject') {
+	} else if (raw_arg0 === 'install') {
 
-		settings.action   = 'inject';
+		settings.action   = 'install';
 		settings.platform = raw_arg1.split('/')[0] || null;
 		settings.target   = raw_arg1.split('/')[1] || null;
 
@@ -225,7 +225,7 @@ var _bootup = function(settings) {
 
 		_bootup(settings);
 
-	} else if (action === 'inject' && has_project && has_platform && has_target && has_library) {
+	} else if (action === 'install' && has_project && has_platform && has_target && has_library) {
 
 		_bootup(settings);
 
