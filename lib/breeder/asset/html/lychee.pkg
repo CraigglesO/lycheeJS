@@ -1,4 +1,7 @@
 {
+	"api": {
+		"files": {}
+	},
 	"build": {
 		"environments": {},
 		"files": {}
@@ -7,6 +10,16 @@
 		"environments": {},
 		"tags": {},
 		"files": {
+			"net": {
+				"client": {
+					"Ping": [
+						"js"
+					]
+				},
+				"Client": [
+					"js"
+				]
+			},
 			"state": {
 				"Welcome": [
 					"js"
@@ -16,14 +29,13 @@
 				]
 			},
 			"Main": [
-				"js"
+				"js",
+				"json"
 			],
 			"index": [
+				"html",
 				"js"
 			]
 		}
-	},
-	"api": {
-		"files": {}
 	}
 }

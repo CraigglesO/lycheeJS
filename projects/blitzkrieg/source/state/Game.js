@@ -20,7 +20,7 @@ lychee.define('game.state.Game').requires([
 	};
 
 	var _levels = {
-		debug: attachments['debug.json'].buffer
+		debug: attachments["debug.json"].buffer
 	};
 
 

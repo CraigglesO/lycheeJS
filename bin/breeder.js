@@ -38,9 +38,9 @@ var _print_help = function() {
 	console.log('Examples:                                             ');
 	console.log('                                                      ');
 	console.log('    cd myproject;                                     ');
-	console.log('    breeder configure html;                           ');
-	console.log('    breeder inject html/dist /opt/lycheejs/lib/sorbet;');
-	console.log('    breeder fertilize html/main;                      ');
+	console.log('    breeder configure node;                           ');
+	console.log('    breeder inject node/dist /lib/sorbet;             ');
+	console.log('    breeder fertilize node/main;                      ');
 	console.log('                                                      ');
 
 };
@@ -104,8 +104,8 @@ var _settings = (function() {
 
 		try {
 
-			var stat1 = fs.lstatSync(raw_arg2);
-			var stat2 = fs.lstatSync(raw_arg2 + '/lychee.pkg');
+			var stat1 = fs.lstatSync(root + '/' + raw_arg2);
+			var stat2 = fs.lstatSync(root + '/' + raw_arg2 + '/lychee.pkg');
 			if (stat1.isDirectory() && stat2.isFile()) {
 				settings.library = raw_arg2;
 			}

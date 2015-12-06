@@ -13,19 +13,19 @@ lychee.define('game.Logic').requires([
 ]).exports(function(lychee, game, global, attachments) {
 
 	var _music  = {
-		battle:    attachments['battle.msc'],
-		commando:  attachments['commando.msc']
+		battle:    attachments["battle.msc"],
+		commando:  attachments["commando.msc"]
 	};
 
 	var _sounds = {
 
-		select_tank:     attachments['select-tank.snd'],
-		select_position: attachments['select-position.snd'],
-		lightning:       attachments['lightning.snd'],
+		select_tank:     attachments["select-tank.snd"],
+		select_position: attachments["select-position.snd"],
+		lightning:       attachments["lightning.snd"],
 
-		voice_idle:      attachments['voice-idle.snd'],
-		voice_move:      attachments['voice-move.snd'],
-		voice_attack:    attachments['voice-attack.snd']
+		voice_idle:      attachments["voice-idle.snd"],
+		voice_move:      attachments["voice-move.snd"],
+		voice_attack:    attachments["voice-attack.snd"]
 
 	};
 

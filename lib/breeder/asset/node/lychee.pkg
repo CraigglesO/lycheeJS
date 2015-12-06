@@ -1,4 +1,7 @@
 {
+	"api": {
+		"files": {}
+	},
 	"build": {
 		"environments": {},
 		"files": {}
@@ -8,26 +11,15 @@
 		"tags": {},
 		"files": {
 			"net": {
-				"client": {
-					"Ping": [
-						"js"
-					]
-				},
 				"remote": {
 					"Ping": [
 						"js"
 					]
 				},
-				"Client": [
-					"js"
-				],
 				"Server": [
 					"js"
 				]
 			}
 		}
-	},
-	"api": {
-		"files": {}
 	}
 }
