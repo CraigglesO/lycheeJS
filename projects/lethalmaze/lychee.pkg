@@ -1,13 +1,25 @@
 {
+	"api": {
+		"files": {}
+	},
 	"build": {
 		"environments": {},
 		"files": {}
 	},
 	"source": {
 		"environments": {},
-		"tags": {},
 		"files": {
-			"layer": {},
+			"Controller": [
+				"js"
+			],
+			"Main": [
+				"js"
+			],
+			"data": {
+				"Level": [
+					"js"
+				]
+			},
 			"effect": {
 				"Explosion": [
 					"js",
@@ -32,18 +44,29 @@
 					"png",
 					"snd"
 				],
-				"Wall": [
+				"Terrain": [
 					"js",
 					"json",
 					"png"
 				],
-				"Terrain": [
+				"Wall": [
 					"js",
 					"json",
 					"png"
 				]
 			},
+			"index": [
+				"html",
+				"js"
+			],
+			"layer": {},
 			"net": {
+				"Client": [
+					"js"
+				],
+				"Server": [
+					"js"
+				],
 				"client": {
 					"Controller": [
 						"js"
@@ -53,48 +76,25 @@
 					"Controller": [
 						"js"
 					]
-				},
-				"Client": [
-					"js"
-				],
-				"Server": [
-					"js"
-				]
+				}
 			},
 			"state": {
 				"Game": [
+					"death.snd",
+					"explosion.snd",
+					"fnt",
 					"js",
 					"json",
 					"levels.json",
-					"fnt",
-					"death.snd",
-					"explosion.snd",
-					"powerup.snd",
-					"msc"
+					"msc",
+					"powerup.snd"
 				],
 				"Game___OLD": [
 					"js"
 				]
 			},
-			"ui": {},
-			"Main": [
-				"js"
-			],
-			"index": [
-				"js",
-				"html"
-			],
-			"Controller": [
-				"js"
-			],
-			"data": {
-				"Level": [
-					"js"
-				]
-			}
-		}
-	},
-	"api": {
-		"files": {}
+			"ui": {}
+		},
+		"tags": {}
 	}
 }

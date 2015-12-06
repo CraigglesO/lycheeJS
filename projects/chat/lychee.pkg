@@ -1,16 +1,19 @@
 {
+	"api": {
+		"files": {}
+	},
 	"build": {
 		"environments": {
 			"html-nwjs/main": {
 				"build": "app.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"app",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"html-nwjs",
@@ -22,13 +25,13 @@
 			"html/main": {
 				"build": "app.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"app",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"html"
@@ -39,13 +42,13 @@
 			"node/server": {
 				"build": "app.net.Server",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"app",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"node"
@@ -58,24 +61,30 @@
 	},
 	"source": {
 		"environments": {},
-		"tags": {},
 		"files": {
+			"Main": [
+				"js"
+			],
+			"index": [
+				"html",
+				"js"
+			],
 			"net": {
-				"client": {},
-				"remote": {},
+				"Client": [
+					"js"
+				],
 				"Server": [
 					"js"
 				],
-				"Client": [
-					"js"
-				]
+				"client": {},
+				"remote": {}
 			},
 			"state": {
 				"Chat": [
-					"js",
-					"json",
 					"join_empty.snd",
 					"join_full.snd",
+					"js",
+					"json",
 					"message.snd"
 				]
 			},
@@ -85,20 +94,11 @@
 					"png"
 				],
 				"Messages": [
-					"js",
-					"fnt"
+					"fnt",
+					"js"
 				]
-			},
-			"Main": [
-				"js"
-			],
-			"index": [
-				"js",
-				"html"
-			]
-		}
-	},
-	"api": {
-		"files": {}
+			}
+		},
+		"tags": {}
 	}
 }

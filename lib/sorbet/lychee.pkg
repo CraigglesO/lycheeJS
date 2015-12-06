@@ -1,16 +1,19 @@
 {
+	"api": {
+		"files": {}
+	},
 	"build": {
 		"environments": {
-			"node/dist": {
+			"node-sdl/dist": {
 				"build": "sorbet.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"sorbet",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"node"
@@ -18,16 +21,33 @@
 				},
 				"variant": "library"
 			},
-			"node-sdl/dist": {
+			"node-sdl/main": {
 				"build": "sorbet.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"sorbet",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
+				"tags": {
+					"platform": [
+						"node"
+					]
+				},
+				"variant": "application"
+			},
+			"node/dist": {
+				"build": "sorbet.Main",
+				"debug": false,
+				"packages": [
+					[
+						"sorbet",
+						"./lychee.pkg"
+					]
+				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"node"
@@ -38,30 +58,13 @@
 			"node/main": {
 				"build": "sorbet.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"sorbet",
 						"./lychee.pkg"
 					]
 				],
-				"tags": {
-					"platform": [
-						"node"
-					]
-				},
-				"variant": "application"
-			},
-			"node-sdl/main": {
-				"build": "sorbet.Main",
-				"debug": false,
 				"sandbox": false,
-				"packages": [
-					[
-						"sorbet",
-						"./lychee.pkg"
-					]
-				],
 				"tags": {
 					"platform": [
 						"node"
@@ -70,17 +73,78 @@
 				"variant": "application"
 			}
 		},
-		"files": {}
+		"files": {
+			"node": {
+				"main": {
+					"index": [
+						"js"
+					]
+				},
+				"main-linux": {
+					"arm": {
+						"index": [
+							"js"
+						],
+						"node": [
+							""
+						],
+						"sorbet": [
+							""
+						]
+					},
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"node": [
+							""
+						],
+						"sorbet": [
+							""
+						]
+					}
+				},
+				"main-osx": {
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"node": [
+							""
+						],
+						"sorbet": [
+							""
+						]
+					}
+				},
+				"main-windows": {
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"node": [
+							"exe",
+							"lib"
+						],
+						"sorbet": [
+							"cmd"
+						]
+					}
+				}
+			}
+		}
 	},
 	"source": {
 		"environments": {},
-		"tags": {},
 		"files": {
+			"Main": [
+				"js"
+			],
 			"data": {
-				"Host": [
+				"Filesystem": [
 					"js"
 				],
-				"Filesystem": [
+				"Host": [
 					"js"
 				],
 				"Package": [
@@ -94,13 +158,13 @@
 				]
 			},
 			"mod": {
+				"Fertilizer": [
+					"js"
+				],
 				"Package": [
 					"js"
 				],
 				"Server": [
-					"js"
-				],
-				"Fertilizer": [
 					"js"
 				]
 			},
@@ -113,6 +177,15 @@
 				]
 			},
 			"serve": {
+				"API": [
+					"js"
+				],
+				"File": [
+					"js"
+				],
+				"Redirect": [
+					"js"
+				],
 				"api": {
 					"Asset": [
 						"js"
@@ -126,23 +199,9 @@
 					"Server": [
 						"js"
 					]
-				},
-				"API": [
-					"js"
-				],
-				"File": [
-					"js"
-				],
-				"Redirect": [
-					"js"
-				]
-			},
-			"Main": [
-				"js"
-			]
-		}
-	},
-	"api": {
-		"files": {}
+				}
+			}
+		},
+		"tags": {}
 	}
 }

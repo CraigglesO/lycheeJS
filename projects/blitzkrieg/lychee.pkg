@@ -1,13 +1,33 @@
 {
+	"api": {
+		"files": {}
+	},
 	"build": {
 		"environments": {},
 		"files": {}
 	},
 	"source": {
 		"environments": {},
-		"tags": {},
 		"files": {
+			"Logic": [
+				"battle.msc",
+				"commando.msc",
+				"js",
+				"lightning.snd",
+				"select-position.snd",
+				"select-tank.snd",
+				"voice-attack.snd",
+				"voice-idle.snd",
+				"voice-move.snd"
+			],
+			"Main": [
+				"js"
+			],
 			"entity": {
+				"Emblem": [
+					"js",
+					"png"
+				],
 				"Object": [
 					"js",
 					"json",
@@ -22,12 +42,12 @@
 					"js",
 					"json",
 					"png"
-				],
-				"Emblem": [
-					"js",
-					"png"
 				]
 			},
+			"index": [
+				"html",
+				"js"
+			],
 			"logic": {
 				"Blitz": [
 					"js"
@@ -40,6 +60,12 @@
 				]
 			},
 			"net": {
+				"Client": [
+					"js"
+				],
+				"Server": [
+					"js"
+				],
 				"client": {
 					"Multiplayer": [
 						"js"
@@ -49,21 +75,15 @@
 					"Multiplayer": [
 						"js"
 					]
-				},
-				"Client": [
-					"js"
-				],
-				"Server": [
-					"js"
-				]
+				}
 			},
 			"state": {
 				"Game": [
+					"debug.json",
+					"headline.fnt",
 					"js",
 					"json",
-					"headline.fnt",
-					"normal.fnt",
-					"debug.json"
+					"normal.fnt"
 				],
 				"Menu": [
 					"headline.fnt",
@@ -77,10 +97,10 @@
 					"png"
 				],
 				"Cursor": [
+					"fnt",
 					"js",
 					"json",
-					"png",
-					"fnt"
+					"png"
 				],
 				"Overlay": [
 					"js",
@@ -90,28 +110,8 @@
 				"Path": [
 					"js"
 				]
-			},
-			"Logic": [
-				"js",
-				"battle.msc",
-				"commando.msc",
-				"lightning.snd",
-				"select-position.snd",
-				"select-tank.snd",
-				"voice-attack.snd",
-				"voice-idle.snd",
-				"voice-move.snd"
-			],
-			"Main": [
-				"js"
-			],
-			"index": [
-				"html",
-				"js"
-			]
-		}
-	},
-	"api": {
-		"files": {}
+			}
+		},
+		"tags": {}
 	}
 }

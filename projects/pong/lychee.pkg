@@ -1,16 +1,19 @@
 {
+	"api": {
+		"files": {}
+	},
 	"build": {
 		"environments": {
 			"html-nwjs/main": {
 				"build": "game.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"game",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"html-nwjs",
@@ -22,13 +25,13 @@
 			"html/main": {
 				"build": "game.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"game",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"html"
@@ -41,8 +44,10 @@
 	},
 	"source": {
 		"environments": {},
-		"tags": {},
 		"files": {
+			"Main": [
+				"js"
+			],
 			"entity": {
 				"Background": [
 					"js",
@@ -55,18 +60,22 @@
 					"png"
 				],
 				"Paddle": [
+					"enemy.png",
 					"js",
 					"json",
-					"enemy.png",
 					"player.png"
 				]
 			},
+			"index": [
+				"html",
+				"js"
+			],
 			"state": {
 				"Game": [
-					"js",
-					"json",
 					"boo.snd",
 					"cheer.snd",
+					"js",
+					"json",
 					"music.msc",
 					"ping.snd",
 					"pong.snd"
@@ -77,17 +86,8 @@
 					"js",
 					"png"
 				]
-			},
-			"Main": [
-				"js"
-			],
-			"index": [
-				"js",
-				"html"
-			]
-		}
-	},
-	"api": {
-		"files": {}
+			}
+		},
+		"tags": {}
 	}
 }

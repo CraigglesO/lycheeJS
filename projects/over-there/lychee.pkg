@@ -1,16 +1,19 @@
 {
+	"api": {
+		"files": {}
+	},
 	"build": {
 		"environments": {
 			"html-nwjs/main": {
 				"build": "app.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"app",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"html-nwjs",
@@ -22,13 +25,13 @@
 			"html/main": {
 				"build": "app.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"app",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"html"
@@ -39,13 +42,13 @@
 			"node/server": {
 				"build": "app.net.Server",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"app",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"node"
@@ -58,8 +61,10 @@
 	},
 	"source": {
 		"environments": {},
-		"tags": {},
 		"files": {
+			"Main": [
+				"js"
+			],
 			"entity": {
 				"Airlock": [
 					"js",
@@ -67,18 +72,22 @@
 					"png"
 				],
 				"Astronaut": [
+					"blue.png",
+					"green.png",
 					"js",
 					"json",
-					"blue.png",
 					"light.png",
-					"green.png",
-					"red.png",
 					"orange.png",
 					"pink.png",
 					"purple.png",
+					"red.png",
 					"yellow.png"
 				],
 				"Background": [
+					"js",
+					"png"
+				],
+				"Emblem": [
 					"js",
 					"png"
 				],
@@ -90,22 +99,22 @@
 					"js",
 					"json",
 					"png"
-				],
-				"Emblem": [
-					"js",
-					"png"
 				]
 			},
+			"index": [
+				"html",
+				"js"
+			],
 			"net": {
-				"client": {},
-				"remote": {},
 				"Client": [
 					"js",
 					"json"
 				],
 				"Server": [
 					"js"
-				]
+				],
+				"client": {},
+				"remote": {}
 			},
 			"state": {
 				"App": [
@@ -116,28 +125,19 @@
 			},
 			"ui": {
 				"Bubble": [
+					"avatar.json",
+					"avatar.png",
 					"fnt",
 					"js",
 					"json",
-					"png",
-					"avatar.json",
-					"avatar.png"
+					"png"
 				],
 				"Overlay": [
-					"js",
-					"fnt"
+					"fnt",
+					"js"
 				]
-			},
-			"Main": [
-				"js"
-			],
-			"index": [
-				"js",
-				"html"
-			]
-		}
-	},
-	"api": {
-		"files": {}
+			}
+		},
+		"tags": {}
 	}
 }

@@ -1,33 +1,19 @@
 {
+	"api": {
+		"files": {}
+	},
 	"build": {
 		"environments": {
-			"html/main": {
-				"build": "app.Main",
-				"debug": false,
-				"sandbox": false,
-				"packages": [
-					[
-						"app",
-						"./lychee.pkg"
-					]
-				],
-				"tags": {
-					"platform": [
-						"html"
-					]
-				},
-				"variant": "application"
-			},
 			"html-nwjs/main": {
 				"build": "app.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"app",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"html-nwjs",
@@ -39,13 +25,13 @@
 			"html-webview/main": {
 				"build": "app.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"app",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"html-webview",
@@ -54,16 +40,33 @@
 				},
 				"variant": "application"
 			},
-			"node/server": {
-				"build": "app.net.Server",
+			"html/main": {
+				"build": "app.Main",
 				"debug": false,
-				"sandbox": false,
 				"packages": [
 					[
 						"app",
 						"./lychee.pkg"
 					]
 				],
+				"sandbox": false,
+				"tags": {
+					"platform": [
+						"html"
+					]
+				},
+				"variant": "application"
+			},
+			"node/server": {
+				"build": "app.net.Server",
+				"debug": false,
+				"packages": [
+					[
+						"app",
+						"./lychee.pkg"
+					]
+				],
+				"sandbox": false,
 				"tags": {
 					"platform": [
 						"node"
@@ -76,9 +79,21 @@
 	},
 	"source": {
 		"environments": {},
-		"tags": {},
 		"files": {
+			"Main": [
+				"js"
+			],
+			"index": [
+				"html",
+				"js"
+			],
 			"net": {
+				"Client": [
+					"js"
+				],
+				"Server": [
+					"js"
+				],
 				"client": {
 					"Ping": [
 						"js"
@@ -88,29 +103,14 @@
 					"Ping": [
 						"js"
 					]
-				},
-				"Client": [
-					"js"
-				],
-				"Server": [
-					"js"
-				]
+				}
 			},
 			"state": {
 				"Menu": [
 					"js"
 				]
-			},
-			"Main": [
-				"js"
-			],
-			"index": [
-				"js",
-				"html"
-			]
-		}
-	},
-	"api": {
-		"files": {}
+			}
+		},
+		"tags": {}
 	}
 }
