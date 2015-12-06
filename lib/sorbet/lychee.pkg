@@ -99,6 +99,9 @@
 				],
 				"Server": [
 					"js"
+				],
+				"Fertilizer": [
+					"js"
 				]
 			},
 			"net": {
