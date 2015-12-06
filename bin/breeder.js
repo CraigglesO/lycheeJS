@@ -24,21 +24,23 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Breeder');
 	console.log('                                                      ');
-	console.log('Usage: breeder [Action] [Platform]                    ');
+	console.log('Usage: breeder [Action] [Platform] [Library]          ');
 	console.log('                                                      ');
 	console.log('                                                      ');
 	console.log('Available Actions:                                    ');
-	console.log('   configure, fertilize                               ');
+	console.log('   configure, inject, fertilize                       ');
 	console.log('                                                      ');
 	console.log('Available Fertilizers:                                ');
 	console.log('                                                      ');
-	console.log('   html, node                                         ');
+	console.log('   html, html-nwjs, html-webview, node, node-sdl      ');
 	console.log('                                                      ');
 	console.log('                                                      ');
 	console.log('Examples:                                             ');
 	console.log('                                                      ');
-	console.log('    cd myproject; breeder configure html;             ');
-	console.log('    cd myproject; breeder fertilize html;             ');
+	console.log('    cd myproject;                                     ');
+	console.log('    breeder configure html;                           ');
+	console.log('    breeder inject html/dist /opt/lycheejs/lib/sorbet;');
+	console.log('    breeder fertilize html/main;                      ');
 	console.log('                                                      ');
 
 };
@@ -50,30 +52,77 @@ var _settings = (function() {
 	var settings = {
 		action:   null,
 		platform: null,
-		project:  null
+		target:   null,
+		project:  null,
+		library:  null
 	};
 
 
 	var raw_arg0 = process.argv[2] || '';
 	var raw_arg1 = process.argv[3] || '';
 	var raw_arg2 = process.argv[4] || '';
+	var raw_arg3 = process.argv[5] || '';
 
-	if (raw_arg0.match(/configure|fertilize/g)) {
-		settings.action = raw_arg0;
+
+	var tmp = null;
+	if (raw_arg2.substr(0, 10) === '--project=') {
+		tmp = raw_arg2.substr(10);
+	} else if (raw_arg3.substr(0, 10) === '--project=') {
+		tmp = raw_arg3.substr(10);
 	}
 
-	if (raw_arg1.match(/html|node/g)) {
-		settings.platform = raw_arg1;
-	}
 
-	try {
+	if (tmp !== null) {
 
-		var stat = fs.lstatSync(raw_arg2);
-		if (stat.isDirectory()) {
-			settings.project = raw_arg2;
+		try {
+
+			var stat1 = fs.lstatSync(tmp);
+			if (stat1.isDirectory()) {
+				settings.project = tmp;
+			}
+
+		} catch(e) {
+
+			settings.project = null;
+
 		}
 
-	} catch(e) {
+	}
+
+
+	if (raw_arg0 === 'configure') {
+
+		settings.action   = 'configure';
+		settings.platform = raw_arg1.split('/')[0] || null;
+		settings.target   = raw_arg1.split('/')[1] || null;
+
+	} else if (raw_arg0 === 'inject') {
+
+		settings.action   = 'inject';
+		settings.platform = raw_arg1.split('/')[0] || null;
+		settings.target   = raw_arg1.split('/')[1] || null;
+
+		try {
+
+			var stat1 = fs.lstatSync(raw_arg2);
+			var stat2 = fs.lstatSync(raw_arg2 + '/lychee.pkg');
+			if (stat1.isDirectory() && stat2.isFile()) {
+				settings.library = raw_arg2;
+			}
+
+		} catch(e) {
+
+			settings.library = null;
+
+		}
+
+
+	} else if (raw_arg0 === 'fertilize') {
+
+		settings.action = 'fertilize';
+		settings.platform = raw_arg1.split('/')[0] || null;
+		settings.target   = raw_arg1.split('/')[1] || null;
+
 	}
 
 
@@ -81,96 +130,118 @@ var _settings = (function() {
 
 })();
 
+var _bootup = function(settings) {
+
+	console.info('BOOTUP (' + process.pid + ')');
+
+	lychee.setEnvironment(new lychee.Environment({
+		id:      'breeder',
+		debug:   false,
+		sandbox: false,
+		build:   'breeder.Main',
+		timeout: 1000,
+		packages: [
+			new lychee.Package('lychee', '/lib/lychee/lychee.pkg'),
+			new lychee.Package('breeder', '/lib/breeder/lychee.pkg'),
+			new lychee.Package('fertilizer', '/lib/fertilizer/lychee.pkg')
+		],
+		tags:     {
+			platform: [ 'node' ]
+		}
+	}));
 
 
-(function(project, action, platform) {
+	lychee.init(function(sandbox) {
+
+		if (sandbox !== null) {
+
+			var lychee     = sandbox.lychee;
+			var breeder    = sandbox.breeder;
+			var fertilizer = sandbox.fertilizer;
+
+
+			// Show less debug messages
+			lychee.debug = true;
+
+
+			// This allows using #MAIN in JSON files
+			sandbox.MAIN = new breeder.Main(settings);
+
+			sandbox.MAIN.bind('destroy', function() {
+				process.exit(0);
+			});
+
+			sandbox.MAIN.init();
+
+
+			process.on('SIGHUP',  function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('SIGINT',  function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('SIGQUIT', function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('SIGABRT', function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('SIGTERM', function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('error',   function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('exit',    function() {});
+
+
+			new lychee.Input({
+				key:         true,
+				keymodifier: true
+			}).bind('escape', function() {
+
+				console.warn('breeder: [ESC] pressed, exiting ...');
+				sandbox.MAIN.destroy();
+
+			}, this);
+
+		} else {
+
+			console.error('BOOTUP FAILURE');
+
+			process.exit(1);
+
+		}
+
+	});
+
+};
+
+
+
+(function(settings) {
 
 	/*
 	 * IMPLEMENTATION
 	 */
 
-	if (project !== null && action !== null && platform !== null) {
-
-		console.info('Starting Instance (' + process.pid + ') ... ');
-
-		lychee.setEnvironment(new lychee.Environment({
-			id:      'breeder',
-			debug:   false,
-			sandbox: false,
-			build:   'breeder.Main',
-			timeout: 1000,
-			packages: [
-				new lychee.Package('lychee', '/lib/lychee/lychee.pkg'),
-				new lychee.Package('breeder', '/lib/breeder/lychee.pkg'),
-				new lychee.Package('fertilizer', '/lib/fertilizer/lychee.pkg')
-			],
-			tags:     {
-				platform: [ 'node' ]
-			}
-		}));
+	var action       = settings.action;
+	var has_action   = settings.action !== null;
+	var has_platform = settings.platform !== null;
+	var has_target   = settings.target !== null;
+	var has_project  = settings.project !== null;
+	var has_library  = settings.library !== null;
 
 
-		lychee.init(function(sandbox) {
+	if (action === 'configure' && has_project && has_platform) {
 
-			if (sandbox !== null) {
+		_bootup(settings);
 
-				var lychee     = sandbox.lychee;
-				var breeder    = sandbox.breeder;
-				var fertilizer = sandbox.fertilizer;
+	} else if (action === 'inject' && has_project && has_platform && has_target && has_library) {
 
+		_bootup(settings);
 
-				// Show less debug messages
-				lychee.debug = true;
+	} else if (action === 'fertilize' && has_project && has_platform) {
 
-
-				// This allows using #MAIN in JSON files
-				sandbox.MAIN = new breeder.Main({
-					project:  project,
-					action:   action,
-					platform: platform
-				});
-
-				sandbox.MAIN.bind('destroy', function() {
-					process.exit(0);
-				});
-
-				sandbox.MAIN.init();
-
-
-				process.on('SIGHUP',  function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('SIGINT',  function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('SIGQUIT', function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('SIGABRT', function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('SIGTERM', function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('error',   function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('exit',    function() {});
-
-
-				new lychee.Input({
-					key:         true,
-					keymodifier: true
-				}).bind('escape', function() {
-
-					console.warn('breeder: [ESC] pressed, exiting ...');
-					sandbox.MAIN.destroy();
-
-				}, this);
-
-			} else {
-
-				process.exit(1);
-
-			}
-
-		});
+		_bootup(settings);
 
 	} else {
 
+		console.error('PARAMETERS FAILURE');
+
 		_print_help();
 
-		process.exit(0);
+		process.exit(1);
 
 	}
 
-})(_settings.project, _settings.action, _settings.platform);
+})(_settings);
 

@@ -62,7 +62,7 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.log('Available Fertilizers:                                ');
 	console.log('                                                      ');
-	console.log('   html, html-nwjs, html-webview, node                ');
+	console.log('   html, html-nwjs, html-webview, node, node-sdl      ');
 	console.log('                                                      ');
 	console.log('Available Projects:                                   ');
 	console.log('                                                      ');
@@ -131,6 +131,79 @@ var _settings = (function() {
 
 })();
 
+var _bootup = function(settings) {
+
+	console.info('BOOTUP (' + process.pid + ')');
+
+	lychee.setEnvironment(new lychee.Environment({
+		id:      'fertilizer',
+		debug:   false,
+		sandbox: false,
+		build:   'fertilizer.Main',
+		timeout: 1000,
+		packages: [
+			new lychee.Package('lychee', '/lib/lychee/lychee.pkg'),
+			new lychee.Package('fertilizer', '/lib/fertilizer/lychee.pkg')
+		],
+		tags:     {
+			platform: [ 'node' ]
+		}
+	}));
+
+
+	lychee.init(function(sandbox) {
+
+		if (sandbox !== null) {
+
+			var lychee     = sandbox.lychee;
+			var fertilizer = sandbox.fertilizer;
+
+
+			// Show less debug messages
+			lychee.debug = true;
+
+
+			// This allows using #MAIN in JSON files
+			sandbox.MAIN = new fertilizer.Main(settings);
+
+			sandbox.MAIN.bind('destroy', function() {
+				process.exit(0);
+			});
+
+			sandbox.MAIN.init();
+
+
+			process.on('SIGHUP',  function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('SIGINT',  function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('SIGQUIT', function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('SIGABRT', function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('SIGTERM', function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('error',   function() { sandbox.MAIN.destroy(); this.exit(1); });
+			process.on('exit',    function() {});
+
+
+			new lychee.Input({
+				key:         true,
+				keymodifier: true
+			}).bind('escape', function() {
+
+				console.warn('fertilizer: [ESC] pressed, exiting ...');
+				sandbox.MAIN.destroy();
+
+			}, this);
+
+		} else {
+
+			console.error('BOOTUP FAILURE');
+
+			process.exit(1);
+
+		}
+
+	});
+
+};
+
 
 
 (function(project, identifier, settings) {
@@ -139,84 +212,26 @@ var _settings = (function() {
 	 * IMPLEMENTATION
 	 */
 
-	if (project !== null && identifier !== null && settings !== null) {
-
-		console.info('Starting Instance (' + process.pid + ') ... ');
-
-		lychee.setEnvironment(new lychee.Environment({
-			id:      'fertilizer',
-			debug:   false,
-			sandbox: false,
-			build:   'fertilizer.Main',
-			timeout: 1000,
-			packages: [
-				new lychee.Package('lychee', '/lib/lychee/lychee.pkg'),
-				new lychee.Package('fertilizer', '/lib/fertilizer/lychee.pkg')
-			],
-			tags:     {
-				platform: [ 'node' ]
-			}
-		}));
+	var has_project    = project !== null;
+	var has_identifier = identifier !== null;
+	var has_settings   = settings !== null;
 
 
-		lychee.init(function(sandbox) {
+	if (has_project && has_identifier && has_settings) {
 
-			if (sandbox !== null) {
-
-				var lychee     = sandbox.lychee;
-				var fertilizer = sandbox.fertilizer;
-
-
-				// Show less debug messages
-				lychee.debug = true;
-
-
-				// This allows using #MAIN in JSON files
-				sandbox.MAIN = new fertilizer.Main({
-					project:    project,
-					identifier: identifier,
-					settings:   settings
-				});
-
-				sandbox.MAIN.bind('destroy', function() {
-					process.exit(0);
-				});
-
-				sandbox.MAIN.init();
-
-
-				process.on('SIGHUP',  function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('SIGINT',  function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('SIGQUIT', function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('SIGABRT', function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('SIGTERM', function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('error',   function() { sandbox.MAIN.destroy(); this.exit(1); });
-				process.on('exit',    function() {});
-
-
-				new lychee.Input({
-					key:         true,
-					keymodifier: true
-				}).bind('escape', function() {
-
-					console.warn('fertilizer: [ESC] pressed, exiting ...');
-					sandbox.MAIN.destroy();
-
-				}, this);
-
-			} else {
-
-				process.exit(1);
-
-			}
-
+		_bootup({
+			project:    project,
+			identifier: identifier,
+			settings:   settings
 		});
 
 	} else {
 
+		console.error('PARAMETERS FAILURE');
+
 		_print_help();
 
-		process.exit(0);
+		process.exit(1);
 
 	}
 

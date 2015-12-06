@@ -1,7 +1,58 @@
 {
 	"build": {
 		"environments": {
+			"node/dist": {
+				"build": "sorbet.Main",
+				"debug": false,
+				"sandbox": false,
+				"packages": [
+					[
+						"sorbet",
+						"./lychee.pkg"
+					]
+				],
+				"tags": {
+					"platform": [
+						"node"
+					]
+				},
+				"variant": "library"
+			},
+			"node-sdl/dist": {
+				"build": "sorbet.Main",
+				"debug": false,
+				"sandbox": false,
+				"packages": [
+					[
+						"sorbet",
+						"./lychee.pkg"
+					]
+				],
+				"tags": {
+					"platform": [
+						"node"
+					]
+				},
+				"variant": "library"
+			},
 			"node/main": {
+				"build": "sorbet.Main",
+				"debug": false,
+				"sandbox": false,
+				"packages": [
+					[
+						"sorbet",
+						"./lychee.pkg"
+					]
+				],
+				"tags": {
+					"platform": [
+						"node"
+					]
+				},
+				"variant": "application"
+			},
+			"node-sdl/main": {
 				"build": "sorbet.Main",
 				"debug": false,
 				"sandbox": false,

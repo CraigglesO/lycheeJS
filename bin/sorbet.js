@@ -81,32 +81,44 @@ var _print_help = function() {
 var _settings = (function() {
 
 	var settings = {
-		command: null,
+		action:  null,
 		profile: null
 	};
 
 
-	var args = [ process.argv[2] || '', process.argv[3] || '' ];
-	if (args[0].match(/start|stop/)) {
-
-		settings.command = args[0];
-		settings.profile = args[1] || null;
-
-	}
+	var raw_arg0 = process.argv[2] || '';
+	var raw_arg1 = process.argv[3] || '';
 
 
-	if (settings.profile !== null) {
+	if (raw_arg0 === 'start') {
+
+		settings.action = 'start';
+
 
 		try {
 
-			if (fs.existsSync(root + '/bin/sorbet/' + settings.profile + '.json')) {
-				settings.profile = JSON.parse(fs.readFileSync(root + '/bin/sorbet/' + settings.profile + '.json', 'utf8'));
-			} else {
-				settings.profile = null;
+			var stat1 = fs.lstatSync(root + '/bin/sorbet/' + raw_arg1 + '.json');
+			if (stat1.isFile()) {
+
+				var json = null;
+				try {
+					json = JSON.parse(fs.readFileSync(root + '/bin/sorbet/' + raw_arg1 + '.json', 'utf8'));
+				} catch(e) {
+				}
+
+				if (json !== null) {
+					settings.profile = json;
+				}
+
 			}
 
 		} catch(e) {
 		}
+
+
+	} else if (raw_arg0 === 'stop') {
+
+		settings.action = 'stop';
 
 	}
 
@@ -115,154 +127,155 @@ var _settings = (function() {
 
 })();
 
+var _clear_pid = function() {
+
+	try {
+
+		fs.unlinkSync(root + '/bin/sorbet.pid');
+		return true;
+
+	} catch(e) {
+
+		return false;
+
+	}
+
+};
+
+var _read_pid = function() {
+
+	var pid = null;
+
+	try {
+
+		pid = fs.readFileSync(root + '/bin/sorbet.pid', 'utf8');
+
+		if (!isNaN(parseInt(pid, 10))) {
+			pid = parseInt(pid, 10);
+		}
+
+	} catch(e) {
+		pid = null;
+	}
+
+	return pid;
+
+};
+
+var _write_pid = function() {
+
+	try {
+
+		fs.writeFileSync(root + '/bin/sorbet.pid', process.pid);
+		return true;
+
+	} catch(e) {
+
+		return false;
+
+	}
+
+};
+
+var _bootup = function(settings) {
+
+	console.info('BOOTUP (' + process.pid + ')');
+
+	lychee.setEnvironment(new lychee.Environment({
+		id:      'sorbet',
+		debug:   false,
+		sandbox: false,
+		build:   'sorbet.Main',
+		timeout: 10000, // for really slow hosts
+		packages: [
+			new lychee.Package('lychee', '/lib/lychee/lychee.pkg'),
+			new lychee.Package('sorbet', '/lib/sorbet/lychee.pkg')
+		],
+		tags:     {
+			platform: [ 'node' ]
+		}
+	}));
 
 
-(function(command, profile) {
+	lychee.init(function(sandbox) {
+
+		if (sandbox !== null) {
+
+			var lychee = sandbox.lychee;
+			var sorbet = sandbox.sorbet;
+
+
+			// Show more debug messages
+			lychee.debug = true;
+
+
+			// This allows using #MAIN in JSON files
+			sandbox.MAIN = new sorbet.Main(settings);
+			sandbox.MAIN.init();
+			sandbox.MAIN.bind('destroy', function() {
+				process.exit(0);
+			});
+			_write_pid();
+
+
+			process.on('SIGHUP',  function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
+			process.on('SIGINT',  function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
+			process.on('SIGQUIT', function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
+			process.on('SIGABRT', function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
+			process.on('SIGTERM', function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
+			process.on('error',   function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
+			process.on('exit',    function() {});
+
+
+			new lychee.Input({
+				key:         true,
+				keymodifier: true
+			}).bind('escape', function() {
+
+				console.warn('sorbet: [ESC] pressed, exiting ...');
+
+				sandbox.MAIN.destroy();
+				_clear_pid();
+
+			}, this);
+
+		} else {
+
+			console.error('BOOTUP FAILURE');
+
+			_clear_pid();
+
+			process.exit(1);
+
+		}
+
+	});
+
+};
+
+
+
+(function(settings) {
 
 	/*
 	 * HELPERS
 	 */
 
-	var _clear_pid = function() {
-
-		try {
-
-			fs.unlinkSync(root + '/bin/sorbet.pid');
-			return true;
-
-		} catch(e) {
-
-			return false;
-
-		}
-
-	};
-
-	var _read_pid = function() {
-
-		var pid = null;
-
-		try {
-
-			pid = fs.readFileSync(root + '/bin/sorbet.pid', 'utf8');
-
-			if (!isNaN(parseInt(pid, 10))) {
-				pid = parseInt(pid, 10);
-			}
-
-		} catch(e) {
-			pid = null;
-		}
-
-		return pid;
-
-	};
-
-	var _write_pid = function() {
-
-		try {
-
-			fs.writeFileSync(root + '/bin/sorbet.pid', process.pid);
-			return true;
-
-		} catch(e) {
-
-			return false;
-
-		}
-
-	};
+	var action      = settings.action;
+	var has_action  = settings.action !== null;
+	var has_profile = settings.profile !== null;
 
 
+	if (action === 'start' && has_profile) {
 
-	if (command === 'start') {
+		_bootup(settings.profile);
 
-		if (profile === null) {
-
-			console.error('Invalid Profile');
-			process.exit(1);
-
-			return false;
-
-		} else {
-
-			console.info('Starting Instance (' + process.pid + ') ... ');
-
-			lychee.setEnvironment(new lychee.Environment({
-				id:      'sorbet',
-				debug:   false,
-				sandbox: false,
-				build:   'sorbet.Main',
-				timeout: 10000, // 10 seconds bootup time, because we also ship lycheeOS
-				packages: [
-					new lychee.Package('lychee', '/lib/lychee/lychee.pkg'),
-					new lychee.Package('sorbet', '/lib/sorbet/lychee.pkg')
-				],
-				tags:     {
-					platform: [ 'node' ]
-				}
-			}));
-
-
-			lychee.init(function(sandbox) {
-
-				if (sandbox !== null) {
-
-					var lychee = sandbox.lychee;
-					var sorbet = sandbox.sorbet;
-
-
-					// Show more debug messages
-					lychee.debug = true;
-
-
-					// This allows using #MAIN in JSON files
-					sandbox.MAIN = new sorbet.Main(profile);
-					sandbox.MAIN.init();
-					sandbox.MAIN.bind('destroy', function() {
-						process.exit(0);
-					});
-					_write_pid();
-
-
-					process.on('SIGHUP',  function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
-					process.on('SIGINT',  function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
-					process.on('SIGQUIT', function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
-					process.on('SIGABRT', function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
-					process.on('SIGTERM', function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
-					process.on('error',   function() { sandbox.MAIN.destroy(); _clear_pid(); this.exit(1); });
-					process.on('exit',    function() {});
-
-
-					new lychee.Input({
-						key:         true,
-						keymodifier: true
-					}).bind('escape', function() {
-
-						console.warn('sorbet: [ESC] pressed, exiting ...');
-
-						sandbox.MAIN.destroy();
-						_clear_pid();
-
-					}, this);
-
-				} else {
-
-					_clear_pid();
-					process.exit(1);
-
-				}
-
-			});
-
-		}
-
-	} else if (command === 'stop') {
+	} else if (action === 'stop') {
 
 		var pid = _read_pid();
 		if (pid !== null) {
 
-			console.info('Stopping Instance (' + pid + ') ... ');
+			console.info('SHUTDOWN (' + pid + ')');
 
 			var killed = false;
 
@@ -275,19 +288,26 @@ var _settings = (function() {
 
 				if (err.code === 'ESRCH') {
 					killed = true;
-				} else {
-					console.error('Invalid process rights (try with sudo?)');
 				}
 
 			}
 
 			if (killed === true) {
+
 				_clear_pid();
+
+			} else {
+
+				console.info('RIGHTS FAILURE (OR PROCESS ' + pid + ' ALEADY DEAD?)');
+
 			}
+
 
 			process.exit(0);
 
 		} else {
+
+			console.info('PROCESS ALREADY DEAD!');
 
 			process.exit(1);
 
@@ -295,11 +315,13 @@ var _settings = (function() {
 
 	} else {
 
+		console.error('PARAMETERS FAILURE');
+
 		_print_help();
 
-		process.exit(0);
+		process.exit(1);
 
 	}
 
-})(_settings.command, _settings.profile);
+})(_settings);
 

@@ -48,12 +48,17 @@ case "$1" in
 
 	configure)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js configure "$2" "$PROJECT_ROOT";
+		$LYCHEEJS_NODE ./bin/breeder.js configure "$2" --project="$PROJECT_ROOT";
+	;;
+
+	inject)
+		cd $LYCHEEJS_ROOT;
+		$LYCHEEJS_NODE ./bin/breeder.js inject "$2" "$3" --project="$PROJECT_ROOT";
 	;;
 
 	fertilize)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js fertilize "$PROJECT_ROOT";
+		$LYCHEEJS_NODE ./bin/breeder.js fertilize "$2" --project="$PROJECT_ROOT";
 	;;
 
 	*)
