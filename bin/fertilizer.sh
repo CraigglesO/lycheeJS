@@ -43,7 +43,7 @@ fi;
 
 
 
-if [ -d "$LYCHEEJS_ROOT/projects/$1" ] || [ "$1" == "breeder" ] || [ "$1" == "lychee" ] || [ "$1" == "sorbet" ]; then
+if [ -d "$LYCHEEJS_ROOT/$1" ]; then
 
 	cd $LYCHEEJS_ROOT;
 	$LYCHEEJS_NODE ./bin/fertilizer.js "$1" "$2";

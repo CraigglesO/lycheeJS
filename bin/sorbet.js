@@ -19,55 +19,30 @@ var lychee = require(root + '/lib/lychee/build/node/core.js')(root);
  * USAGE
  */
 
-var _pretty_lines = function(str) {
-
-	var lines  = [];
-	var spacer = (function(v) {
-		for (var i = 0; i < 50; i++) { v+=' '; } return v;
-	})('');
-
-
-	if (str.length > 50) {
-
-		var i      = str.lastIndexOf(',', 50) + 1;
-		var chunk1 = str.substr(0, i).trim();
-		var chunk2 = str.substr(i).trim();
-
-		lines.push((chunk1 + spacer).substr(0, 50));
-		lines.push((chunk2 + spacer).substr(0, 50));
-
-	} else {
-
-		lines.push((str + spacer).substr(0, 50));
-
-	}
-
-
-	return lines;
-
-};
-
 var _print_help = function() {
 
-	var profiles = _pretty_lines(fs.readdirSync(root + '/bin/sorbet').map(function(value) {
-		return '"' + value.substr(0, value.indexOf('.json')) + '"';
-	}).join(', '));
+	var profiles = fs.readdirSync(root + '/bin/sorbet').map(function(value) {
+		return '' + value.substr(0, value.indexOf('.json')) + '';
+	});
 
 
 	console.log('                                                      ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Sorbet');
 	console.log('                                                      ');
-	console.log('Usage: sorbet [Command] [Profile]                     ');
+	console.log('Usage: sorbet [Action] [Profile]                      ');
 	console.log('                                                      ');
 	console.log('                                                      ');
-	console.log('Commands:                                             ');
+	console.log('Actions:                                              ');
 	console.log('                                                      ');
 	console.log('    start                  Starts a Sorbet Instance.  ');
 	console.log('    stop                   Stops a Sorbet Instance.   ');
 	console.log('                                                      ');
 	console.log('Available Profiles:                                   ');
 	console.log('                                                      ');
-	profiles.forEach(function(line) { console.log('    ' + line);      });
+	profiles.forEach(function(profile) {
+		var diff = ('                                                  ').substr(profile.length);
+		console.log('    ' + profile + diff);
+	});
 	console.log('                                                      ');
 	console.log('Examples:                                             ');
 	console.log('                                                      ');
@@ -258,7 +233,7 @@ var _bootup = function(settings) {
 (function(settings) {
 
 	/*
-	 * HELPERS
+	 * IMPLEMENTATION
 	 */
 
 	var action      = settings.action;

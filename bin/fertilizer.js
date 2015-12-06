@@ -19,59 +19,49 @@ var lychee = require(root + '/lib/lychee/build/node/core.js')(root);
  * USAGE
  */
 
-var _pretty_lines = function(str) {
-
-	var lines  = [];
-	var spacer = (function(v) {
-		for (var i = 0; i < 50; i++) { v+=' '; } return v;
-	})('');
-
-
-	if (str.length > 50) {
-
-		var i      = str.lastIndexOf(',', 50) + 1;
-		var chunk1 = str.substr(0, i).trim();
-		var chunk2 = str.substr(i).trim();
-
-		lines.push((chunk1 + spacer).substr(0, 50));
-		lines.push((chunk2 + spacer).substr(0, 50));
-
-	} else {
-
-		lines.push((str + spacer).substr(0, 50));
-
-	}
-
-
-	return lines;
-
-};
-
 var _print_help = function() {
 
-	var projects = _pretty_lines(fs.readdirSync(root + '/projects').filter(function(value) {
+	var libraries = fs.readdirSync(root + '/lib').sort().filter(function(value) {
+		return fs.existsSync(root + '/lib/' + value + '/lychee.pkg');
+	}).map(function(value) {
+		return '/lib/' + value;
+	});
+
+	var projects = fs.readdirSync(root + '/projects').sort().filter(function(value) {
 		return fs.existsSync(root + '/projects/' + value + '/lychee.pkg');
-	}).join(', '));
+	}).map(function(value) {
+		return '/projects/' + value;
+	});
 
 
 	console.log('                                                      ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Fertilizer');
 	console.log('                                                      ');
-	console.log('Usage: fertilizer [Project] [Environment]             ');
+	console.log('Usage: fertilizer [Library/Project] [Environment]     ');
 	console.log('                                                      ');
 	console.log('                                                      ');
 	console.log('Available Fertilizers:                                ');
 	console.log('                                                      ');
 	console.log('   html, html-nwjs, html-webview, node, node-sdl      ');
 	console.log('                                                      ');
+	console.log('Available Libraries:                                  ');
+	console.log('                                                      ');
+	libraries.forEach(function(library) {
+		var diff = ('                                                  ').substr(library.length);
+		console.log('    ' + library + diff);
+	});
+	console.log('                                                      ');
 	console.log('Available Projects:                                   ');
 	console.log('                                                      ');
-	projects.forEach(function(line) { console.log('    ' + line);      });
+	projects.forEach(function(project) {
+		var diff = ('                                                  ').substr(project.length);
+		console.log('    ' + project + diff);
+	});
 	console.log('                                                      ');
 	console.log('Examples:                                             ');
 	console.log('                                                      ');
-	console.log('    fertilizer boilerplate "html-nwjs/main"           ');
-	console.log('    fertilizer boilerplate "node/server"              ');
+	console.log('    fertilizer /projects/boilerplate "html-nwjs/main" ');
+	console.log('    fertilizer /projects/boilerplate "node/server"    ');
 	console.log('                                                      ');
 
 };
@@ -91,12 +81,7 @@ var _settings = (function() {
 	var raw_arg1 = process.argv[3] || '';
 
 
-	var pkg_path = root + '/projects/' + raw_arg0 + '/lychee.pkg';
-	if (raw_arg0.match(/breeder|fertilizer|lychee|sorbet/g)) {
-		pkg_path = root + '/lib/' + raw_arg0 + '/lychee.pkg';
-	}
-
-
+	var pkg_path = root + raw_arg0 + '/lychee.pkg';
 	if (fs.existsSync(pkg_path) === true) {
 
 		settings.project = raw_arg0;
