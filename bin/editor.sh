@@ -53,11 +53,11 @@ fi;
 if [ ! -d "./bin/editor" ]; then
 
 	if [ -d "./projects/cultivator/editor/build" ]; then
-		rm -rf ./projects/cultivator/editor/build;
+		rm -rf /projects/cultivator/editor/build;
 	fi;
 
 
-	./bin/fertilizer.sh cultivator/editor "html-nwjs/main";
+	./bin/fertilizer.sh /projects/cultivator/editor "html-nwjs/main";
 
 
 	if [ -d "./projects/cultivator/editor/build/html-nwjs" ]; then
