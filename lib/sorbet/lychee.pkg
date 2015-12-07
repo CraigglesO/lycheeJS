@@ -75,9 +75,21 @@
 		},
 		"files": {
 			"node": {
-				"main": {},
+				"dist": {
+					"index": [
+						"js"
+					]
+				},
+				"main": {
+					"index": [
+						"js"
+					]
+				},
 				"main-linux": {
 					"arm": {
+						"index": [
+							"js"
+						],
 						"node": [
 							""
 						],
@@ -86,6 +98,9 @@
 						]
 					},
 					"x86_64": {
+						"index": [
+							"js"
+						],
 						"node": [
 							""
 						],
@@ -96,6 +111,9 @@
 				},
 				"main-osx": {
 					"x86_64": {
+						"index": [
+							"js"
+						],
 						"node": [
 							""
 						],
@@ -106,9 +124,78 @@
 				},
 				"main-windows": {
 					"x86_64": {
+						"index": [
+							"js"
+						],
 						"node": [
 							"exe",
 							"lib"
+						],
+						"sorbet": [
+							"cmd"
+						]
+					}
+				}
+			},
+			"node-sdl": {
+				"dist": {
+					"index": [
+						"js"
+					]
+				},
+				"main": {
+					"index": [
+						"js"
+					]
+				},
+				"main-linux": {
+					"arm": {
+						"index": [
+							"js"
+						],
+						"node": [
+							""
+						],
+						"sorbet": [
+							""
+						]
+					},
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"node": [
+							""
+						],
+						"sorbet": [
+							""
+						]
+					}
+				},
+				"main-osx": {
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"node": [
+							""
+						],
+						"sorbet": [
+							""
+						]
+					}
+				},
+				"main-windows": {
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"node": [
+							"exe",
+							"lib"
+						],
+						"sorbet": [
+							"cmd"
 						]
 					}
 				}
