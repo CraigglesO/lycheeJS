@@ -40,7 +40,17 @@ on the *Boards* menu that the extension injects to the GitHub website.
 
 
 
-### 3. Work on an Issue
+### 3. Assign an Issue
+
+When you've found something you like to work on, you can assign an issue
+to yourself so that the other lycheeJS team members know what you're
+working on. This helps them to help you, they love to help you :)
+
+![How to assign an Issue](./contribution-assignissue.png)
+
+
+
+### 4. Work on an Issue
 
 This example shows how the feature branches work. Replace `YourName`
 accordingly with your GitHub username and `fancy-feature` accordingly with
@@ -71,7 +81,7 @@ git push origin fancy-feature;
 
 
 
-### 4. Contribute a Feature
+### 5. Contribute a Feature
 
 Now you can go on GitHub to your repository and switch to the
 `fancy-feature` branch. After you did that, there's a new green
