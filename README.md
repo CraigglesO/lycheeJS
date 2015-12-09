@@ -67,7 +67,7 @@ wget -q -O - http://lycheejs.org/download/lycheejs-latest.sh | bash;
 
 ## Contributor Installation
 
-We love your contributions of any kind. Pleas consider reading
+We love your contributions of any kind. Please consider reading
 the [Contribution Guide](./asset/guide/CONTRIBUTION.md) to get
 you started in a couple minutes.
 
