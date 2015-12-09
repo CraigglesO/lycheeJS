@@ -97,7 +97,7 @@ GitHub flavored syntax. We also have some features in to have full
 compatibility with our HTML DOM, so there are slightly more features in our
 format.
 
-The [API Tool](../projects/cultivator/api) helps you to generate API
+The [API Tool](../../projects/cultivator/api) helps you to generate API
 documentation automatically. If there's no API documentation existing for a
 Definition, it will show you a textarea with the initial content similar to
 this, including all required structural parts and as far auto-generated as

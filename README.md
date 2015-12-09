@@ -67,6 +67,10 @@ wget -q -O - http://lycheejs.org/download/lycheejs-latest.sh | bash;
 
 ## Contributor Installation
 
+We love your contributions of any kind. Pleas consider reading
+the [Contribution Guide](./asset/guide/CONTRIBUTION.md) to get
+you started in a couple minutes.
+
 ```bash
 sudo mkdir -m 0777 /opt/lycheejs-edge;
 cd /opt/lycheejs-edge;
