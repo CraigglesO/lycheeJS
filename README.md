@@ -1,6 +1,10 @@
 
 # lycheeJS (2015-Q4)
 
+## Support
+
+Do you want to support our projects and AIs?
+Send your BitCoins to: **1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2**
 
 
 ## Overview
