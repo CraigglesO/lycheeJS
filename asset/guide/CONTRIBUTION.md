@@ -94,13 +94,10 @@ After that, we can now automatically merge in your implemented features.
 
 
 
-### Notes on API Documentation
+### 6. Document a Feature
 
-
-If you want to contribute to the API documentation, please use the guide
-in the above described workflow and replace `fancy-feature` with
-`documentation-definition` where `definition` is the definition you are
-working on.
+If you want to contribute a feature or a definition, please document - so
+that others can understand it more easily.
 
 As a documentation format, we use [CommonMark](http://commonmark.org), with
 GitHub flavored syntax. We also have some features in to have full
@@ -115,11 +112,15 @@ possible:
 
 ![Screenshot of API Tool](./contribution-api-tool.png)
 
-The folder structure is setup like this:
+You can either choose to edit the documentation file inside the API Tool
+or the text editor of your choice (`VIM` is recommended, of course).
+If you are done, you can save the file to the `/api` folder of the relevant
+library or project while following this folder structure:
 
 ```javascript
 if (exists('/lib/lychee/source/ui/Entity.js') && !exists('/lib/lychee/api/ui/Entity.md')) {
-    contributor.writeAPIDocs('lychee.ui.Entity', '/lib/lychee/api/ui/Entity.md');
+    contributor.getAPIDocs('lychee.ui.Entity');
+	contributor.saveToFile('/lib/lychee/api/ui/Entity.md');
 }
 ```
 
