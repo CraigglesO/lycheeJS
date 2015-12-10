@@ -1,10 +1,19 @@
 
 lychee.define('app.Main').requires([
 	'app.net.Client',
+	'app.net.Server',
 	'app.state.Menu'
 ]).includes([
 	'lychee.app.Main'
 ]).exports(function(lychee, app, global, attachments) {
+
+	var _config = attachments["json"].buffer;
+
+
+
+	/*
+	 * IMPLEMENTATION
+	 */
 
 	var Class = function(data) {
 
@@ -53,15 +62,23 @@ lychee.define('app.Main').requires([
 			this.settings.appclient = this.settings.client;
 			this.settings.client    = null;
 
+			this.settings.appserver = this.settings.server;
+			this.settings.server    = null;
+
 			oncomplete(true);
 
 		}, this, true);
 
 		this.bind('init', function() {
 
-			var settings = this.settings.appclient || null;
-			if (settings !== null) {
-				this.client = new app.net.Client(settings, this);
+			var appclient = this.settings.appclient || null;
+			if (appclient !== null) {
+				this.client = new app.net.Client(appclient, this);
+			}
+
+			var appserver = this.settings.appserver || null;
+			if (appserver !== null) {
+				this.server = new app.net.Server(appserver, this);
 			}
 
 			this.setState('menu', new app.state.Menu(this));

@@ -57,7 +57,418 @@
 				"variant": "application"
 			}
 		},
-		"files": {}
+		"files": {
+			"html": {
+				"main": {
+					"core": [
+						"js"
+					],
+					"index": [
+						"html",
+						"js"
+					]
+				}
+			},
+			"html-nwjs": {
+				"main": {
+					"core": [
+						"js"
+					],
+					"icon": [
+						"png"
+					],
+					"index": [
+						"html",
+						"js"
+					],
+					"package": [
+						"json"
+					]
+				},
+				"main-linux": {
+					"x86_64": {
+						"icudtl": [
+							"dat"
+						],
+						"libffmpegsumo": [
+							"so"
+						],
+						"nw": [
+							"pak"
+						],
+						"over-there": [
+							"bin"
+						]
+					}
+				},
+				"main-osx": {
+					"x86_64": {
+						"over-there.app": {
+							"Contents": {
+								"Frameworks": {
+									"crash_inspector": [
+										""
+									],
+									"nwjs Framework.framework": {
+										"Libraries": {
+											"ffmpegsumo": [
+												"so"
+											]
+										},
+										"Resources": {
+											"AHEM____": [
+												"TTF"
+											],
+											"ChromiumAATTest": [
+												"ttf"
+											],
+											"English.lproj": {
+												"HttpAuth": [
+													"nib"
+												]
+											},
+											"am": [
+												"pak"
+											],
+											"ar": [
+												"pak"
+											],
+											"bg": [
+												"pak"
+											],
+											"bn": [
+												"pak"
+											],
+											"ca": [
+												"pak"
+											],
+											"cs": [
+												"pak"
+											],
+											"da": [
+												"pak"
+											],
+											"de": [
+												"pak"
+											],
+											"el": [
+												"pak"
+											],
+											"en-GB": [
+												"pak"
+											],
+											"en-US": [
+												"pak"
+											],
+											"es": [
+												"pak"
+											],
+											"es-419": [
+												"pak"
+											],
+											"et": [
+												"pak"
+											],
+											"fa": [
+												"pak"
+											],
+											"fi": [
+												"pak"
+											],
+											"fil": [
+												"pak"
+											],
+											"fr": [
+												"pak"
+											],
+											"gu": [
+												"pak"
+											],
+											"hi": [
+												"pak"
+											],
+											"hr": [
+												"pak"
+											],
+											"hu": [
+												"pak"
+											],
+											"icudtl": [
+												"dat"
+											],
+											"id": [
+												"pak"
+											],
+											"it": [
+												"pak"
+											],
+											"iw": [
+												"pak"
+											],
+											"ja": [
+												"pak"
+											],
+											"kn": [
+												"pak"
+											],
+											"ko": [
+												"pak"
+											],
+											"lt": [
+												"pak"
+											],
+											"lv": [
+												"pak"
+											],
+											"missingImage": [
+												"png"
+											],
+											"ml": [
+												"pak"
+											],
+											"mr": [
+												"pak"
+											],
+											"ms": [
+												"pak"
+											],
+											"nl": [
+												"pak"
+											],
+											"no": [
+												"pak"
+											],
+											"nw": [
+												"pak"
+											],
+											"pl": [
+												"pak"
+											],
+											"pt-BR": [
+												"pak"
+											],
+											"pt-PT": [
+												"pak"
+											],
+											"ro": [
+												"pak"
+											],
+											"ru": [
+												"pak"
+											],
+											"sk": [
+												"pak"
+											],
+											"sl": [
+												"pak"
+											],
+											"sr": [
+												"pak"
+											],
+											"sv": [
+												"pak"
+											],
+											"sw": [
+												"pak"
+											],
+											"ta": [
+												"pak"
+											],
+											"te": [
+												"pak"
+											],
+											"textAreaResizeCorner": [
+												"png"
+											],
+											"th": [
+												"pak"
+											],
+											"tr": [
+												"pak"
+											],
+											"uk": [
+												"pak"
+											],
+											"vi": [
+												"pak"
+											],
+											"zh-CN": [
+												"pak"
+											],
+											"zh-TW": [
+												"pak"
+											]
+										},
+										"nwjs Framework": [
+											""
+										]
+									},
+									"nwjs Helper EH.app": {
+										"Contents": {
+											"Info": [
+												"plist"
+											],
+											"MacOS": {
+												"nwjs Helper EH": [
+													""
+												]
+											},
+											"PkgInfo": [
+												""
+											]
+										}
+									},
+									"nwjs Helper NP.app": {
+										"Contents": {
+											"Info": [
+												"plist"
+											],
+											"MacOS": {
+												"nwjs Helper NP": [
+													""
+												]
+											},
+											"PkgInfo": [
+												""
+											]
+										}
+									},
+									"nwjs Helper.app": {
+										"Contents": {
+											"Info": [
+												"plist"
+											],
+											"MacOS": {
+												"nwjs Helper": [
+													""
+												]
+											},
+											"PkgInfo": [
+												""
+											]
+										}
+									}
+								},
+								"Info": [
+									"plist"
+								],
+								"MacOS": {
+									"nwjs": [
+										""
+									]
+								},
+								"PkgInfo": [
+									""
+								],
+								"Resources": {
+									"AHEM____": [
+										"TTF"
+									],
+									"ChromiumAATTest": [
+										"ttf"
+									],
+									"app": [
+										"nw"
+									],
+									"missingImage": [
+										"png"
+									],
+									"nw": [
+										"icns"
+									],
+									"textAreaResizeCorner": [
+										"png"
+									]
+								}
+							}
+						}
+					}
+				},
+				"main-windows": {
+					"x86_64": {
+						"d3dcompiler_47": [
+							"dll"
+						],
+						"ffmpegsumo": [
+							"dll"
+						],
+						"icudtl": [
+							"dat"
+						],
+						"libEGL": [
+							"dll"
+						],
+						"ligGLESv2": [
+							"dll"
+						],
+						"nw": [
+							"pak"
+						],
+						"over-there": [
+							"exe"
+						]
+					}
+				}
+			},
+			"node": {
+				"server": {
+					"index": [
+						"js"
+					]
+				},
+				"server-linux": {
+					"arm": {
+						"index": [
+							"js"
+						],
+						"node": [
+							""
+						],
+						"over-there": [
+							""
+						]
+					},
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"node": [
+							""
+						],
+						"over-there": [
+							""
+						]
+					}
+				},
+				"server-osx": {
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"node": [
+							""
+						],
+						"over-there": [
+							""
+						]
+					}
+				},
+				"server-windows": {
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"node": [
+							"exe",
+							"lib"
+						],
+						"over-there": [
+							"cmd"
+						]
+					}
+				}
+			}
+		}
 	},
 	"source": {
 		"environments": {},

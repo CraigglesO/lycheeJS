@@ -26,8 +26,18 @@
 		"files": {
 			"html-nwjs": {
 				"main": {
+					"core": [
+						"js"
+					],
+					"icon": [
+						"png"
+					],
 					"index": [
-						"html"
+						"html",
+						"js"
+					],
+					"package": [
+						"json"
 					]
 				},
 				"main-linux": {
@@ -165,6 +175,9 @@
 											"lv": [
 												"pak"
 											],
+											"missingImage": [
+												"png"
+											],
 											"ml": [
 												"pak"
 											],
@@ -218,6 +231,9 @@
 											],
 											"te": [
 												"pak"
+											],
+											"textAreaResizeCorner": [
+												"png"
 											],
 											"th": [
 												"pak"
@@ -309,12 +325,43 @@
 									"app": [
 										"nw"
 									],
+									"missingImage": [
+										"png"
+									],
 									"nw": [
 										"icns"
+									],
+									"textAreaResizeCorner": [
+										"png"
 									]
 								}
 							}
 						}
+					}
+				},
+				"main-windows": {
+					"x86_64": {
+						"d3dcompiler_47": [
+							"dll"
+						],
+						"ffmpegsumo": [
+							"dll"
+						],
+						"icudtl": [
+							"dat"
+						],
+						"libEGL": [
+							"dll"
+						],
+						"ligGLESv2": [
+							"dll"
+						],
+						"nw": [
+							"pak"
+						],
+						"ranger": [
+							"exe"
+						]
 					}
 				}
 			}
