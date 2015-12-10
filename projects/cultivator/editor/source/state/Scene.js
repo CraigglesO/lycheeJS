@@ -209,8 +209,23 @@ console.log(tool);
 
 		leave: function() {
 
-			lychee.setEnvironment(_environment);
 			_unbind_wrapper.call(this);
+
+			lychee.setEnvironment(_environment);
+
+
+			if (this.sandbox !== null) {
+
+				var main = this.sandbox.MAIN || null;
+				if (main !== null) {
+					main.destroy();
+				}
+
+				this.sandbox     = null;
+				this.environment = null;
+
+			}
+
 
 			lychee.app.State.prototype.leave.call(this);
 
