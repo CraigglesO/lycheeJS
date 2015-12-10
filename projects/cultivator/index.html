@@ -352,7 +352,7 @@
 						if (articles.length > 0) {
 
 							this.buffer.filter(function(project) {
-								return !project.identifier.match(/cultivator|lychee|sorbet/);
+								return !project.identifier.match(/cultivator/);
 							}).forEach(function(project) {
 
 								var article = articles.find(function(node) {
