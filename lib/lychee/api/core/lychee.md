@@ -18,6 +18,27 @@ necessary across the whole Stack. These functions are
 independent of platform-specific variants and
 therefore are identical across all platforms.
 
+As the [Definition](lychee.Definition) uses a mixin-based
+inheritance system, there is currently no practical use
+for ES6 modules and imports.
+
+There are several Polyfills implemented in the lychee
+core module that offer ES6 / ES7 functionality across
+all platforms.
+
+- `Array.prototype.find` returns a matching `(Array || Boolean || Date || Number || Object || String || null) value` to the `(Function) predicate` of the given `(Array) instance`.
+- `Array.prototype.unique` returns a matching `(Array) values` to the `(Function) predicate` of the given `(Array) instance` which has unique `values`.
+- `Boolean.prototype.toJSON` converts the `Boolean` data type to its raw `JSON value`.
+- `Date.prototype.toJSON` converts the `Date` data type to its raw `JSON value`, which is the `ISO-8601 Date String`.
+- `Number.prototype.toJSON` converts the `Number` data type to its raw `JSON value`.
+- `Object.filter` returns a matching `(Array) values` to the `(Function) predicate` of the given `(Object) instance`.
+- `Object.find` returns a matching `(Array || Boolean || Date || Number || Object || String || null) value` to the `(Function) predicate` of the given `(Object) instance`.
+- `Object.keys` returns the `(Array) keys` of the given `(Object) instance`.
+- `Object.sort` returns a sorted `Object` of the given `(Object) instance`.
+- `Object.values` returns a `(Array) values` of the given `(Object) instance`.
+- `String.prototype.toJSON` converts the `String` data type to its raw `JSON value`.
+- `String.prototype.trim` trims leading and trailing whitespaces and returns the modified `String`.
+
 
 
 = properties-debug
