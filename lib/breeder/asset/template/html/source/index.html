@@ -162,11 +162,11 @@ lycheejs-breeder migrate;
 (function(lychee, global) {
 
 	var environment = new lychee.Environment({
-		id:      'separated-boilerplate',
-		debug:   true,
-		sandbox: false,
-		build:   'app.Main',
-		type:    'source',
+		id:       'separated-boilerplate',
+		debug:    true,
+		sandbox:  false,
+		build:    'app.Main',
+		type:     'source',
 		packages: [
 			new lychee.Package('app', '../lychee.pkg')
 		],
@@ -175,9 +175,7 @@ lycheejs-breeder migrate;
 		}
 	});
 
-
 	lychee.setEnvironment(environment);
-
 	lychee.inject(lychee.ENVIRONMENTS['lychee']);
 
 	lychee.init(function(sandbox) {
