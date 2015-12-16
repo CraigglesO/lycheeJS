@@ -1,3 +1,4 @@
+```
   sudo mkdir -m 0777 /opt/lycheejs-edge;
   cd /opt/lycheejs-edge;
 
@@ -8,3 +9,5 @@
 
   sudo ./bin/configure.sh;           # use --no-integration if you want a sandboxed installation
   ./bin/sorbet.sh start development; # no sudo required
+  
+```
