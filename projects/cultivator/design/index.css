@@ -275,6 +275,41 @@ menu > aside > button {
 	margin: 16px auto;
 }
 
+menu > aside > a.button,
+menu > aside > button,
+menu > aside > a.button:not(.ico-only),
+menu > aside > button:not(.ico-only) {
+	min-width: 0px;
+	overflow: hidden;
+}
+
+menu > aside > a.button:before,
+menu > aside > button:before {
+	margin: 0;
+}
+
+menu > aside > a.button:after,
+menu > aside > button:after {
+	display: inline-block;
+	content: "";
+	transition: all 250ms ease-out;
+}
+
+menu.active > aside > a.button,
+menu.active > aside > button {
+	min-width: 112px;
+}
+
+menu.active > aside > a.button:before,
+menu.active > aside > button:before {
+	margin: 0px 8px 0px 0px;
+}
+
+menu.active > aside > a.button:after,
+menu.active > aside > button:after {
+	content: attr(title);
+}
+
 menu.active > li {
 	opacity: 1;
 	transition: 300ms 300ms all ease-out;
@@ -443,7 +478,8 @@ article > p {
 	margin: 32px;
 }
 
-article a {
+article a,
+footer a {
 	color: #32afe5;
 	font-weight: bold;
 	text-decoration: none;
