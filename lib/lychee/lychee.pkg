@@ -70,7 +70,11 @@
 						"js"
 					]
 				},
-				"main": {}
+				"main": {
+					"index": [
+						"js"
+					]
+				}
 			},
 			"html-nwjs": {
 				"core": [
