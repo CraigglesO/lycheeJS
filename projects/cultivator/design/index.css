@@ -140,7 +140,7 @@ menu {
 	background: #363f3e;
 	width: 32px;
 	overflow: hidden;
-	transition: 300ms 300ms all ease-out;
+	transition: 200ms 100ms all ease-out;
 }
 
 menu > b {
