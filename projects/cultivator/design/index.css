@@ -204,7 +204,7 @@ menu:before {
 
 menu.active {
 	display: block;
-	width: 112px;
+	width: 140px;
 	transition: 300ms all ease-out;
 }
 

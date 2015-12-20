@@ -34,7 +34,8 @@
 	<li class="active" onclick="ui.changeState('tool');">Tool</li>
 	<li onclick="ui.changeState('help');">Help</li>
 	<aside>
-		<button class="ico-refresh ico-only" onclick="window.location.href='./index.html'"></button>
+		<button class="ico-refresh ico-only" title="Refresh" onclick="window.location.href='./index.html'"></button>
+		<a class="button ico-exit ico-only" href="lycheejs://unboot=#" title="Quit" onclick="setTimeout(function() { location.href='./index.html'; }, 500);"></a>
 	</aside>
 </menu>
 

@@ -102,7 +102,8 @@
 	<b onclick="ui.toggle('menu');"><span></span></b>
 	<li class="active" onclick="ui.changeState('tool');">Tool</li>
 	<aside>
-		<button class="ico-refresh ico-only" onclick="window.location.href='./index.html';"></button>
+		<button class="ico-refresh ico-only" title="Refresh" onclick="window.location.href='./index.html';"></button>
+		<a class="button ico-exit ico-only" href="lycheejs://unboot=#" title="Quit" onclick="setTimeout(function() { location.href='./index.html'; }, 500);"></a>
 	</aside>
 </menu>
 
@@ -114,7 +115,7 @@
 			<h3>Definitions</h3>
 			<form id="settings" enctype="application/json" action="MAIN" method="javascript">
 				<p class="center">
-					<input type="text" name="custom" placeholder="lychee.Renderer">
+					<input type="text" title="name" Refresh="custom" placeholder="lychee.Renderer">
 					<button class="ico-create ico-only" onclick="location.hash='!' + this.parentNode.querySelector('input').value;return false;"></button>
 				</p>
 				<table class="vertical"></table>
