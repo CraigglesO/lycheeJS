@@ -38,6 +38,8 @@
 
 .ico-add:before      { content: "\e095"; }
 .ico-api:before      { content: "\e05b"; }
+.ico-arrow:before    { content: "\e071"; }
+.ico-back:before     { content: "\e07a"; }
 .ico-boot:before     { content: "\e05c"; }
 .ico-browser:before  { content: "\e037"; }
 .ico-code:before     { content: "\e04c"; }
@@ -49,6 +51,7 @@
 .ico-editor:before   { content: "\e00c"; }
 .ico-error:before    { content: "\e082"; }
 .ico-exit:before     { content: "\e097"; }
+.ico-eye:before      { content: "\e087"; }
 .ico-fail:before     { content: "\e082"; }
 .ico-folder:before   { content: "\e039"; }
 .ico-help:before     { content: "\e08b"; }
@@ -69,8 +72,9 @@
 .ico-tools:before    { content: "\e059"; }
 .ico-tutorial:before { content: "\e04c"; }
 .ico-upload:before   { content: "\e084"; }
-.ico-eye:before      { content: "\e087"; }
-.ico-arrow:before    { content: "\e071"; }
+
+
+
 
 
 
