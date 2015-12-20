@@ -75,9 +75,6 @@
 
 
 
-
-
-
 ::moz-placeholder {
 	color: #545454;
 }
@@ -130,6 +127,7 @@ body {
 	color: #ffffff;
 	background: #404844;
 	font-family: 'museo-sans-300';
+	overflow: hidden;
 }
 
 menu {
