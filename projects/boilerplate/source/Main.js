@@ -81,7 +81,9 @@ lychee.define('app.Main').requires([
 				this.server = new app.net.Server(appserver, this);
 			}
 
+
 			this.setState('menu', new app.state.Menu(this));
+
 			this.changeState('menu');
 
 		}, this, true);
@@ -107,6 +109,7 @@ lychee.define('app.Main').requires([
 
 
 			if (this.defaults.client !== null) { settings.client = this.defaults.client; }
+			if (this.defaults.server !== null) { settings.server = this.defaults.server; }
 
 
 			data['arguments'][0] = settings;
