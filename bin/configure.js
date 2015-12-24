@@ -56,49 +56,75 @@
 	 * HELPERS
 	 */
 
-	var _mkdir = function(path, mode) {
+	var _is_directory = function(path) {
 
-		path = _path.resolve(path);
+		try {
+			var stat = _fs.lstatSync(path);
+			return stat.isDirectory();
+		} catch(e) {
+			return false;
+		}
+
+	};
+
+	var _is_file = function(path) {
+
+		try {
+			var stat = _fs.lstatSync(path);
+			return stat.isFile();
+		} catch(e) {
+			return false;
+		}
+
+	};
+
+	var _create_directory = function(path, mode) {
 
 		if (mode === undefined) {
 			mode = 0777 & (~process.umask());
 		}
 
 
+		var is_directory = false;
+
 		try {
 
-			if (_fs.lstatSync(path).isDirectory()) {
-				return true;
-			} else {
-				return false;
-			}
+			is_directory = _fs.lstatSync(path).isDirectory();
 
 		} catch(err) {
 
 			if (err.code === 'ENOENT') {
 
-				_mkdir(_path.dirname(path), mode);
-				_fs.mkdirSync(path, mode);
+				if (_create_directory(_path.dirname(path), mode) === true) {
+					_fs.mkdirSync(path, mode);
+				}
 
-				return true;
+				try {
+					is_directory = _fs.lstatSync(path).isDirectory();
+				} catch(err) {
+				}
 
 			}
+
+		} finally {
+
+			return is_directory;
 
 		}
 
 	};
 
-	var _rmdir = function(path) {
+	var _remove_directory = function(path) {
 
 		path = _path.resolve(path);
 
 
-		if (_fs.existsSync(path)) {
+		if (_is_directory(path) === true) {
 
 			_fs.readdirSync(path).forEach(function(file) {
 
-				if (_fs.lstatSync(path + '/' + file).isDirectory()) {
-					_rmdir(path + '/' + file);
+				if (_is_directory(path + '/' + file) === true) {
+					_remove_directory(path + '/' + file);
 				} else {
 					_fs.unlinkSync(path + '/' + file);
 				}
@@ -108,6 +134,25 @@
 			_fs.rmdirSync(path);
 
 		}
+
+	};
+
+	var _get_projects = function(path) {
+
+		var projects      = [];
+		var projects_root = _path.resolve(_root, path);
+
+		if (_is_directory(projects_root) === true) {
+
+			projects = _fs.readdirSync(projects_root).filter(function(file) {
+				return _is_directory(projects_root + '/' + file) === true;
+			}).map(function(file) {
+				return path + '/' + file;
+			});
+
+		}
+
+		return projects;
 
 	};
 
@@ -185,14 +230,14 @@
 	 * 0: ENVIRONMENT CHECK
 	 */
 
-	(function(projects) {
+	(function(libraries, projects) {
 
 		var errors = 0;
 
 		console.log('> Checking Environment');
 
 
-		if (_fs.existsSync(_path.resolve(_root, './lib/lychee')) === true) {
+		if (_is_directory(_path.resolve(_root, './lib/lychee')) === true) {
 			console.log('\tprocess cwd: OKAY');
 		} else {
 			console.log('\tprocess cwd: FAIL (' + _root + ' is not the lycheeJS directory)');
@@ -202,7 +247,7 @@
 
 		var data = null;
 
-		if (_fs.existsSync(_path.resolve(_root, './lib/lychee/lychee.pkg')) === true) {
+		if (_is_file(_path.resolve(_root, './lib/lychee/lychee.pkg')) === true) {
 
 			try {
 				data = JSON.parse(_fs.readFileSync(_path.resolve(_root, './lib/lychee/lychee.pkg')));
@@ -231,51 +276,43 @@
 		}
 
 
-
 		console.log('> Cleaning lycheeJS builds');
 
-		if (projects instanceof Array) {
+		libraries.forEach(function(path) {
 
-			projects.forEach(function(path) {
+			if (_is_directory(_path.resolve(_root, path + '/build'))) {
 
-				if (_fs.existsSync(_path.resolve(_root, path + '/build')) === true) {
+				_remove_directory(_path.resolve(_root, path + '/build'));
 
-					_rmdir(_path.resolve(_root, path + '/build'));
+				console.log('\t' + path + '/build: OKAY');
 
-					console.log('\t' + path + '/build: OKAY');
+			} else {
 
-				} else {
+				console.log('~\t' + path + '/build: SKIP');
 
-					console.log('~\t' + path + '/build: SKIP');
+			}
 
-				}
+		});
 
-			});
+		projects.forEach(function(path) {
 
-		}
+			if (_is_directory(_path.resolve(_root, path + '/build'))) {
+
+				_remove_directory(_path.resolve(_root, path + '/build'));
+
+				console.log('\t' + path + '/build: OKAY');
+
+			} else {
+
+				console.log('~\t' + path + '/build: SKIP');
+
+			}
+
+		});
 
 		console.log('> OKAY\n');
 
-	})((function() {
-
-		var projects = [];
-
-		var project_root = _path.resolve(_root, './projects');
-		if (_fs.existsSync(project_root) === true) {
-
-			projects = _fs.readdirSync(project_root).filter(function(file) {
-				return _fs.lstatSync(project_root + '/' + file).isDirectory();
-			}).map(function(file) {
-				return './projects/' + file;
-			});
-
-			projects.push('./lib/lychee');
-
-		}
-
-		return projects;
-
-	})());
+	})(_get_projects('./lib'), _get_projects('./projects'));
 
 
 
@@ -305,7 +342,7 @@
 		files.forEach(function(file) {
 
 			var path = _path.resolve(_root, './lib/lychee/source/' + file);
-			if (_fs.existsSync(path) === true) {
+			if (_is_file(path) === true) {
 				_CORE += _fs.readFileSync(path, 'utf8');
 			} else {
 				errors++;
@@ -373,7 +410,7 @@
 			}).forEach(function(adapter) {
 
 				var path = _path.resolve(_root, './lib/lychee/source/' + prefix + adapter);
-				if (_fs.existsSync(path) === true) {
+				if (_is_file(path) === true) {
 
 					if (adapter === 'bootstrap.js' && typeof bootstrap[platform]['bootstrap.js'] === 'string') {
 						bootstrap[platform][adapter] += _fs.readFileSync(path, 'utf8');
@@ -405,12 +442,12 @@
 			var path   = _path.resolve(_root, './lib/lychee/build/' + platform + '/core.js');
 			var dir    = _path.dirname(path);
 
-			if (_fs.existsSync(dir) === false) {
-				_mkdir(dir);
+			if (_is_directory(dir) === false) {
+				_create_directory(dir);
 			}
 
 
-			if (_fs.existsSync(dir) === true) {
+			if (_is_directory(dir) === true) {
 
 				try {
 					_fs.writeFileSync(path, code, 'utf8');
@@ -481,12 +518,12 @@
 		var path   = _path.resolve(_root, './lib/lychee/source/DIST.js');
 		var dir    = _path.dirname(path);
 
-		if (_fs.existsSync(dir) === false) {
-			_mkdir(dir);
+		if (_is_directory(dir) === false) {
+			_create_directory(dir);
 		}
 
 
-		if (_fs.existsSync(dir) === true) {
+		if (_is_directory(dir) === true) {
 
 			try {
 				_fs.writeFileSync(path, code, 'utf8');
