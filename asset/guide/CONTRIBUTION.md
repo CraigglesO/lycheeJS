@@ -52,6 +52,11 @@ working on. This helps them to help you, they love to help you :)
 
 ### 4. Work on an Issue
 
+Before you start to work, please make your IDE or Editor functional with
+the `.editorconfig` file. We use this in order to prevent unnecessary
+merge conflicts. For further information on how to setup your IDE with
+it, please read the instructions at [http://editorconfig.org/#download](http://editorconfig.org/#download).
+
 This example shows how the feature branches work. Replace `YourName`
 accordingly with your GitHub username and `fancy-feature` accordingly with
 a better description for your feature that you are working on. The best
