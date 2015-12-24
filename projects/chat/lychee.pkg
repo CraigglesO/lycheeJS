@@ -58,6 +58,120 @@
 			}
 		},
 		"files": {
+			"html": {
+				"main": {
+					"core": [
+						"js"
+					],
+					"index": [
+						"js"
+					]
+				}
+			},
+			"html-nwjs": {
+				"main": {
+					"core": [
+						"js"
+					],
+					"icon": [
+						"png"
+					],
+					"index": [
+						"js"
+					],
+					"package": [
+						"json"
+					]
+				},
+				"main-linux": {
+					"x86_64": {}
+				},
+				"main-osx": {
+					"x86_64": {
+						"main.app": {
+							"Contents": {
+								"Frameworks": {
+									"nwjs Framework.framework": {
+										"Libraries": {},
+										"Resources": {
+											"English.lproj": {},
+											"missingImage": [
+												"png"
+											],
+											"textAreaResizeCorner": [
+												"png"
+											]
+										}
+									},
+									"nwjs Helper EH.app": {
+										"Contents": {
+											"MacOS": {}
+										}
+									},
+									"nwjs Helper NP.app": {
+										"Contents": {
+											"MacOS": {}
+										}
+									},
+									"nwjs Helper.app": {
+										"Contents": {
+											"MacOS": {}
+										}
+									}
+								},
+								"MacOS": {},
+								"Resources": {
+									"missingImage": [
+										"png"
+									],
+									"textAreaResizeCorner": [
+										"png"
+									]
+								}
+							}
+						}
+					}
+				},
+				"main-windows": {
+					"x86_64": {}
+				}
+			},
+			"node": {
+				"server": {
+					"index": [
+						"js"
+					]
+				},
+				"server-linux": {
+					"arm": {
+						"index": [
+							"js"
+						]
+					},
+					"x86_64": {
+						"index": [
+							"js"
+						]
+					}
+				},
+				"server-osx": {
+					"x86_64": {
+						"index": [
+							"js"
+						]
+					}
+				},
+				"server-windows": {
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"server": [
+							"cmd"
+						]
+					}
+				}
+			}
 		}
 	},
 	"source": {
@@ -67,7 +181,6 @@
 				"js"
 			],
 			"index": [
-				"html",
 				"js"
 			],
 			"net": {
@@ -76,9 +189,7 @@
 				],
 				"Server": [
 					"js"
-				],
-				"client": {},
-				"remote": {}
+				]
 			},
 			"state": {
 				"Chat": [

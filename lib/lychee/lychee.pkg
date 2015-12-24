@@ -1,4 +1,67 @@
 {
+	"api": {
+		"files": {
+			"core": {
+				"Asset": [
+					"md"
+				],
+				"Debugger": [
+					"md"
+				],
+				"Definition": [
+					"md"
+				],
+				"Environment": [
+					"md"
+				],
+				"Input": [
+					"md"
+				],
+				"Package": [
+					"md"
+				],
+				"Storage": [
+					"md"
+				],
+				"Viewport": [
+					"md"
+				],
+				"lychee": [
+					"md"
+				]
+			},
+			"data": {
+				"BENCODE": [
+					"md"
+				],
+				"BitON": [
+					"md"
+				],
+				"JSON": [
+					"md"
+				],
+				"MD": [
+					"md"
+				]
+			},
+			"event": {
+				"Emitter": [
+					"md"
+				],
+				"Flow": [
+					"md"
+				],
+				"Queue": [
+					"md"
+				]
+			},
+			"net": {
+				"Tunnel": [
+					"md"
+				]
+			}
+		}
+	},
 	"build": {
 		"environments": {
 			"html/dist": {
@@ -104,8 +167,7 @@
 			"node-sdl": {
 				"core": [
 					"js"
-				],
-				"dist": {}
+				]
 			}
 		}
 	},
@@ -447,69 +509,6 @@
 				],
 				"World": [
 					"js"
-				]
-			}
-		}
-	},
-	"api": {
-		"files": {
-			"core": {
-				"Asset": [
-					"md"
-				],
-				"Debugger": [
-					"md"
-				],
-				"Definition": [
-					"md"
-				],
-				"Environment": [
-					"md"
-				],
-				"Input": [
-					"md"
-				],
-				"Package": [
-					"md"
-				],
-				"Storage": [
-					"md"
-				],
-				"Viewport": [
-					"md"
-				],
-				"lychee": [
-					"md"
-				]
-			},
-			"data": {
-				"BENCODE": [
-					"md"
-				],
-				"BitON": [
-					"md"
-				],
-				"JSON": [
-					"md"
-				],
-				"MD": [
-					"md"
-				]
-			},
-			"event": {
-				"Emitter": [
-					"md"
-				],
-				"Flow": [
-					"md"
-				],
-				"Queue": [
-					"md"
-				]
-			},
-			"net": {
-				"Tunnel": [
-					"md"
 				]
 			}
 		}

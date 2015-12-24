@@ -76,6 +76,42 @@
 			}
 		},
 		"files": {
+			"node": {
+				"server": {
+					"index": [
+						"js"
+					]
+				},
+				"server-linux": {
+					"arm": {
+						"index": [
+							"js"
+						]
+					},
+					"x86_64": {
+						"index": [
+							"js"
+						]
+					}
+				},
+				"server-osx": {
+					"x86_64": {
+						"index": [
+							"js"
+						]
+					}
+				},
+				"server-windows": {
+					"x86_64": {
+						"index": [
+							"js"
+						],
+						"server": [
+							"cmd"
+						]
+					}
+				}
+			}
 		}
 	},
 	"source": {
@@ -85,7 +121,6 @@
 				"js"
 			],
 			"index": [
-				"html",
 				"js"
 			],
 			"net": {

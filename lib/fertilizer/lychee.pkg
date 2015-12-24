@@ -1,72 +1,95 @@
 {
-
-	"build": {
-
-		"environments": {
-
-			"node/main": {
-				"build":    "fertilizer.Main",
-				"debug":    false,
-				"sandbox":  false,
-				"packages": [ [ "fertilizer", "./lychee.pkg" ] ],
-				"tags":     { "platform": [ "node" ] },
-				"variant":  "application"
-			}
-
-		},
-
-		"files": {
-
-		}
-
+	"api": {
+		"files": {}
 	},
-
-	"source": {
-
+	"build": {
 		"environments": {
-
+			"node/main": {
+				"build": "fertilizer.Main",
+				"debug": false,
+				"sandbox": false,
+				"packages": [
+					[
+						"fertilizer",
+						"./lychee.pkg"
+					]
+				],
+				"tags": {
+					"platform": [
+						"node"
+					]
+				},
+				"variant": "application"
+			}
 		},
-
-		"tags": {
-
-		},
-
+		"files": {}
+	},
+	"source": {
+		"environments": {},
+		"tags": {},
 		"files": {
-
+			"Main": [
+				"js"
+			],
+			"Template": [
+				"js"
+			],
 			"data": {
-				"Filesystem": [ "js" ],
-				"Shell":      [ "js" ]
+				"Filesystem": [
+					"js"
+				],
+				"Shell": [
+					"js"
+				]
 			},
-
 			"template": {
-
 				"html": {
-					"Application": [ "js", "index.tpl", "main.tpl" ],
-					"Library":     [ "js", "tpl" ]
+					"Application": [
+						"index.tpl",
+						"js",
+						"main.tpl"
+					],
+					"Library": [
+						"js",
+						"tpl"
+					]
 				},
-
 				"html-nwjs": {
-					"Application": [ "js", "png", "config.tpl", "index.tpl", "main.tpl" ],
-					"Library":     [ "js", "tpl" ]
+					"Application": [
+						"config.tpl",
+						"index.tpl",
+						"js",
+						"main.tpl",
+						"png"
+					],
+					"Library": [
+						"js",
+						"tpl"
+					]
 				},
-
 				"html-webview": {
-					"Application": [ "js", "png", "index.tpl", "main.tpl" ],
-					"Library":     [ "js", "tpl" ]
+					"Application": [
+						"index.tpl",
+						"js",
+						"main.tpl",
+						"png"
+					],
+					"Library": [
+						"js",
+						"tpl"
+					]
 				},
-
 				"node": {
-					"Application": [ "js", "tpl" ],
-					"Library":     [ "js", "tpl" ]
+					"Application": [
+						"js",
+						"tpl"
+					],
+					"Library": [
+						"js",
+						"tpl"
+					]
 				}
-
-			},
-
-			"Main":     [ "js" ],
-			"Template": [ "js" ]
-
+			}
 		}
-
 	}
-
 }

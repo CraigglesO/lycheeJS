@@ -56,10 +56,8 @@
 				]
 			},
 			"index": [
-				"html",
 				"js"
 			],
-			"layer": {},
 			"net": {
 				"Client": [
 					"js"
@@ -92,8 +90,7 @@
 				"Game___OLD": [
 					"js"
 				]
-			},
-			"ui": {}
+			}
 		},
 		"tags": {}
 	}

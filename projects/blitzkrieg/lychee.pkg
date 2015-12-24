@@ -45,7 +45,6 @@
 				]
 			},
 			"index": [
-				"html",
 				"js"
 			],
 			"logic": {
@@ -83,10 +82,6 @@
 					"headline.fnt",
 					"js",
 					"json",
-					"normal.fnt"
-				],
-				"Menu": [
-					"headline.fnt",
 					"normal.fnt"
 				]
 			},

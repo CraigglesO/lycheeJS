@@ -45,62 +45,6 @@
 					"index": [
 						"js"
 					]
-				},
-				"main": {
-					"index": [
-						"js"
-					]
-				},
-				"main-linux": {
-					"arm": {
-						"index": [
-							"js"
-						],
-						"main": [
-							"sh"
-						],
-						"node": [
-							""
-						]
-					},
-					"x86_64": {
-						"index": [
-							"js"
-						],
-						"main": [
-							"sh"
-						],
-						"node": [
-							""
-						]
-					}
-				},
-				"main-osx": {
-					"x86_64": {
-						"index": [
-							"js"
-						],
-						"main": [
-							"sh"
-						],
-						"node": [
-							""
-						]
-					}
-				},
-				"main-windows": {
-					"x86_64": {
-						"index": [
-							"js"
-						],
-						"main": [
-							"cmd"
-						],
-						"node": [
-							"exe",
-							"lib"
-						]
-					}
 				}
 			},
 			"node-sdl": {
@@ -108,62 +52,6 @@
 					"index": [
 						"js"
 					]
-				},
-				"main": {
-					"index": [
-						"js"
-					]
-				},
-				"main-linux": {
-					"arm": {
-						"index": [
-							"js"
-						],
-						"main": [
-							"sh"
-						],
-						"node": [
-							""
-						]
-					},
-					"x86_64": {
-						"index": [
-							"js"
-						],
-						"main": [
-							"sh"
-						],
-						"node": [
-							""
-						]
-					}
-				},
-				"main-osx": {
-					"x86_64": {
-						"index": [
-							"js"
-						],
-						"main": [
-							"sh"
-						],
-						"node": [
-							""
-						]
-					}
-				},
-				"main-windows": {
-					"x86_64": {
-						"index": [
-							"js"
-						],
-						"main": [
-							"cmd"
-						],
-						"node": [
-							"exe",
-							"lib"
-						]
-					}
 				}
 			}
 		}
