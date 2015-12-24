@@ -21,23 +21,6 @@
 				},
 				"variant": "library"
 			},
-			"node-sdl/main": {
-				"build": "sorbet.Main",
-				"debug": false,
-				"packages": [
-					[
-						"sorbet",
-						"./lychee.pkg"
-					]
-				],
-				"sandbox": false,
-				"tags": {
-					"platform": [
-						"node"
-					]
-				},
-				"variant": "application"
-			},
 			"node/dist": {
 				"build": "sorbet.Main",
 				"debug": false,
@@ -54,23 +37,6 @@
 					]
 				},
 				"variant": "library"
-			},
-			"node/main": {
-				"build": "sorbet.Main",
-				"debug": false,
-				"packages": [
-					[
-						"sorbet",
-						"./lychee.pkg"
-					]
-				],
-				"sandbox": false,
-				"tags": {
-					"platform": [
-						"node"
-					]
-				},
-				"variant": "application"
 			}
 		},
 		"files": {
@@ -90,10 +56,10 @@
 						"index": [
 							"js"
 						],
-						"node": [
-							""
+						"main": [
+							"sh"
 						],
-						"sorbet": [
+						"node": [
 							""
 						]
 					},
@@ -101,10 +67,10 @@
 						"index": [
 							"js"
 						],
-						"node": [
-							""
+						"main": [
+							"sh"
 						],
-						"sorbet": [
+						"node": [
 							""
 						]
 					}
@@ -114,10 +80,10 @@
 						"index": [
 							"js"
 						],
-						"node": [
-							""
+						"main": [
+							"sh"
 						],
-						"sorbet": [
+						"node": [
 							""
 						]
 					}
@@ -127,12 +93,12 @@
 						"index": [
 							"js"
 						],
+						"main": [
+							"cmd"
+						],
 						"node": [
 							"exe",
 							"lib"
-						],
-						"sorbet": [
-							"cmd"
 						]
 					}
 				}
@@ -153,10 +119,10 @@
 						"index": [
 							"js"
 						],
-						"node": [
-							""
+						"main": [
+							"sh"
 						],
-						"sorbet": [
+						"node": [
 							""
 						]
 					},
@@ -164,10 +130,10 @@
 						"index": [
 							"js"
 						],
-						"node": [
-							""
+						"main": [
+							"sh"
 						],
-						"sorbet": [
+						"node": [
 							""
 						]
 					}
@@ -177,10 +143,10 @@
 						"index": [
 							"js"
 						],
-						"node": [
-							""
+						"main": [
+							"sh"
 						],
-						"sorbet": [
+						"node": [
 							""
 						]
 					}
@@ -190,12 +156,12 @@
 						"index": [
 							"js"
 						],
+						"main": [
+							"cmd"
+						],
 						"node": [
 							"exe",
 							"lib"
-						],
-						"sorbet": [
-							"cmd"
 						]
 					}
 				}
@@ -256,6 +222,9 @@
 				],
 				"api": {
 					"Asset": [
+						"js"
+					],
+					"Library": [
 						"js"
 					],
 					"Profile": [

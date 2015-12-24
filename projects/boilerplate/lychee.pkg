@@ -76,64 +76,6 @@
 			}
 		},
 		"files": {
-			"node": {
-				"server": {
-					"index": [
-						"js"
-					]
-				},
-				"server-linux": {
-					"arm": {
-						"boilerplate": [
-							""
-						],
-						"index": [
-							"js"
-						],
-						"node": [
-							""
-						]
-					},
-					"x86_64": {
-						"boilerplate": [
-							""
-						],
-						"index": [
-							"js"
-						],
-						"node": [
-							""
-						]
-					}
-				},
-				"server-osx": {
-					"x86_64": {
-						"boilerplate": [
-							""
-						],
-						"index": [
-							"js"
-						],
-						"node": [
-							""
-						]
-					}
-				},
-				"server-windows": {
-					"x86_64": {
-						"boilerplate": [
-							"cmd"
-						],
-						"index": [
-							"js"
-						],
-						"node": [
-							"exe",
-							"lib"
-						]
-					}
-				}
-			}
 		}
 	},
 	"source": {

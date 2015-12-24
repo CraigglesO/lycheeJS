@@ -230,7 +230,7 @@
 	 * 0: ENVIRONMENT CHECK
 	 */
 
-	(function(libraries, projects) {
+	(function(libraries, projects, cultivator) {
 
 		var errors = 0;
 
@@ -280,39 +280,43 @@
 
 		libraries.forEach(function(path) {
 
-			if (_is_directory(_path.resolve(_root, path + '/build'))) {
-
-				_remove_directory(_path.resolve(_root, path + '/build'));
-
+			var real = _path.resolve(_root, path);
+			if (_is_directory(real + '/build')) {
+				_remove_directory(real + '/build');
 				console.log('\t' + path + '/build: OKAY');
-
 			} else {
-
 				console.log('~\t' + path + '/build: SKIP');
-
 			}
 
 		});
 
 		projects.forEach(function(path) {
 
-			if (_is_directory(_path.resolve(_root, path + '/build'))) {
-
-				_remove_directory(_path.resolve(_root, path + '/build'));
-
+			var real = _path.resolve(_root, path);
+			if (_is_directory(real + '/build')) {
+				_remove_directory(real + '/build');
 				console.log('\t' + path + '/build: OKAY');
-
 			} else {
-
 				console.log('~\t' + path + '/build: SKIP');
+			}
 
+		});
+
+		cultivator.forEach(function(path) {
+
+			var real = _path.resolve(_root, path);
+			if (_is_directory(real + '/build')) {
+				_remove_directory(real + '/build');
+				console.log('\t' + path + '/build: OKAY');
+			} else {
+				console.log('~\t' + path + '/build: SKIP');
 			}
 
 		});
 
 		console.log('> OKAY\n');
 
-	})(_get_projects('./lib'), _get_projects('./projects'));
+	})(_get_projects('./lib'), _get_projects('./projects'), _get_projects('./projects/cultivator'));
 
 
 

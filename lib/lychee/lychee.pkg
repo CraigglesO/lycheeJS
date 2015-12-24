@@ -69,11 +69,6 @@
 					"index": [
 						"js"
 					]
-				},
-				"main": {
-					"index": [
-						"js"
-					]
 				}
 			},
 			"html-nwjs": {
