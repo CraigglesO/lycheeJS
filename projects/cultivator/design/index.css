@@ -332,7 +332,7 @@ main {
 }
 
 menu.active ~ main {
-	left: 144px;
+	left: 172px;
 	-moz-transition: 300ms left ease-out;
 	-ms-transition: 300ms left ease-out;
 	-webkit-transition: 300ms left ease-out;
