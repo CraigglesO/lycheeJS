@@ -69,8 +69,8 @@ else
 		./bin/fertilizer.sh /lib/lychee node/dist;
 		./bin/fertilizer.sh /lib/lychee node-sdl/dist;
 
-		./bin/fertilizer.sh /lib/sorbet node/dist;
-		./bin/fertilizer.sh /lib/sorbet node-sdl/dist;
+		./bin/fertilizer.sh /lib/harvester node/dist;
+		./bin/fertilizer.sh /lib/harvester node-sdl/dist;
 
 
 		echo "> DONE";
@@ -95,7 +95,7 @@ else
 
 		# Make command line tools explicitely executable
 
-		chmod +x ./projects/*/sorbet.js;
+		chmod +x ./projects/*/harvester.js;
 
 		chmod 0777 ./bin;
 		chmod +x ./bin/breeder.js;
@@ -106,8 +106,8 @@ else
 		chmod +x ./bin/fertilizer.sh;
 		chmod +x ./bin/helper.sh;
 		chmod +x ./bin/ranger.sh;
-		chmod +x ./bin/sorbet.js;
-		chmod +x ./bin/sorbet.sh;
+		chmod +x ./bin/harvester.js;
+		chmod +x ./bin/harvester.sh;
 
 		# Make runtimes explicitely executable
 

@@ -21,21 +21,20 @@ var lychee = require(root + '/lib/lychee/build/node/core.js')(root);
 
 var _print_help = function() {
 
-	var profiles = fs.readdirSync(root + '/bin/sorbet').map(function(value) {
+	var profiles = fs.readdirSync(root + '/bin/harvester').map(function(value) {
 		return '' + value.substr(0, value.indexOf('.json')) + '';
 	});
 
 
 	console.log('                                                      ');
-	console.info('lycheeJS ' + lychee.VERSION + ' Sorbet');
+	console.info('lycheeJS ' + lychee.VERSION + ' Harvester');
 	console.log('                                                      ');
-	console.log('Usage: sorbet [Action] [Profile]                      ');
+	console.log('Usage: harvester [Action] [Profile]                   ');
 	console.log('                                                      ');
 	console.log('                                                      ');
-	console.log('Actions:                                              ');
+	console.log('Available Actions:                                    ');
 	console.log('                                                      ');
-	console.log('    start                  Starts a Sorbet Instance.  ');
-	console.log('    stop                   Stops a Sorbet Instance.   ');
+	console.log('   start, stop                                        ');
 	console.log('                                                      ');
 	console.log('Available Profiles:                                   ');
 	console.log('                                                      ');
@@ -46,7 +45,7 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.log('Examples:                                             ');
 	console.log('                                                      ');
-	console.log('    sorbet start development                          ');
+	console.log('    harvester start development                       ');
 	console.log('                                                      ');
 
 };
@@ -72,12 +71,12 @@ var _settings = (function() {
 
 		try {
 
-			var stat1 = fs.lstatSync(root + '/bin/sorbet/' + raw_arg1 + '.json');
+			var stat1 = fs.lstatSync(root + '/bin/harvester/' + raw_arg1 + '.json');
 			if (stat1.isFile()) {
 
 				var json = null;
 				try {
-					json = JSON.parse(fs.readFileSync(root + '/bin/sorbet/' + raw_arg1 + '.json', 'utf8'));
+					json = JSON.parse(fs.readFileSync(root + '/bin/harvester/' + raw_arg1 + '.json', 'utf8'));
 				} catch(e) {
 				}
 
@@ -106,7 +105,7 @@ var _clear_pid = function() {
 
 	try {
 
-		fs.unlinkSync(root + '/bin/sorbet.pid');
+		fs.unlinkSync(root + '/bin/harvester.pid');
 		return true;
 
 	} catch(e) {
@@ -123,7 +122,7 @@ var _read_pid = function() {
 
 	try {
 
-		pid = fs.readFileSync(root + '/bin/sorbet.pid', 'utf8');
+		pid = fs.readFileSync(root + '/bin/harvester.pid', 'utf8');
 
 		if (!isNaN(parseInt(pid, 10))) {
 			pid = parseInt(pid, 10);
@@ -141,7 +140,7 @@ var _write_pid = function() {
 
 	try {
 
-		fs.writeFileSync(root + '/bin/sorbet.pid', process.pid);
+		fs.writeFileSync(root + '/bin/harvester.pid', process.pid);
 		return true;
 
 	} catch(e) {
@@ -157,14 +156,14 @@ var _bootup = function(settings) {
 	console.info('BOOTUP (' + process.pid + ')');
 
 	lychee.setEnvironment(new lychee.Environment({
-		id:      'sorbet',
+		id:      'harvester',
 		debug:   false,
 		sandbox: false,
-		build:   'sorbet.Main',
+		build:   'harvester.Main',
 		timeout: 10000, // for really slow hosts
 		packages: [
-			new lychee.Package('lychee', '/lib/lychee/lychee.pkg'),
-			new lychee.Package('sorbet', '/lib/sorbet/lychee.pkg')
+			new lychee.Package('lychee',    '/lib/lychee/lychee.pkg'),
+			new lychee.Package('harvester', '/lib/harvester/lychee.pkg')
 		],
 		tags:     {
 			platform: [ 'node' ]
@@ -176,8 +175,8 @@ var _bootup = function(settings) {
 
 		if (sandbox !== null) {
 
-			var lychee = sandbox.lychee;
-			var sorbet = sandbox.sorbet;
+			var lychee    = sandbox.lychee;
+			var harvester = sandbox.harvester;
 
 
 			// Show more debug messages
@@ -185,7 +184,7 @@ var _bootup = function(settings) {
 
 
 			// This allows using #MAIN in JSON files
-			sandbox.MAIN = new sorbet.Main(settings);
+			sandbox.MAIN = new harvester.Main(settings);
 			sandbox.MAIN.init();
 			sandbox.MAIN.bind('destroy', function() {
 				process.exit(0);
@@ -207,7 +206,7 @@ var _bootup = function(settings) {
 				keymodifier: true
 			}).bind('escape', function() {
 
-				console.warn('sorbet: [ESC] pressed, exiting ...');
+				console.warn('harvester: [ESC] pressed, exiting ...');
 
 				sandbox.MAIN.destroy();
 				_clear_pid();

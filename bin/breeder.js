@@ -39,7 +39,7 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.log('    cd myproject;                                     ');
 	console.log('    breeder configure node;                           ');
-	console.log('    breeder install node/dist /lib/sorbet;            ');
+	console.log('    breeder install node/dist /lib/harvester;         ');
 	console.log('    breeder fertilize node/main;                      ');
 	console.log('                                                      ');
 

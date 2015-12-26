@@ -94,8 +94,8 @@ if [ "$protocol" == "lycheejs" ]; then
 
 				cd $LYCHEEJS_ROOT;
 
-				./bin/sorbet.sh stop 2>&1;
-				./bin/sorbet.sh start "$resource" 2>&1;
+				./bin/harvester.sh stop 2>&1;
+				./bin/harvester.sh start "$resource" 2>&1;
 				exit 0;
 
 			;;
@@ -104,7 +104,7 @@ if [ "$protocol" == "lycheejs" ]; then
 
 				cd $LYCHEEJS_ROOT;
 
-				./bin/sorbet.sh stop 2>&1;
+				./bin/harvester.sh stop 2>&1;
 				exit 0;
 
 			;;

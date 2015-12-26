@@ -124,8 +124,14 @@ that contains all previously loaded isolated
 environments that were built for library usage.
 
 The key is the unique identifier of the environment,
-for example `boilerplate/html/main` or
-`sorbet/html/core`.
+consisting of a `\*project\*/\*target\*` structure
+to match the structure of the fertilizer (or build
+system); for example `boilerplate/main` or
+`harvester/dist`.
+
+The environments are fertilized automatically into
+the `/build/\*platform\*/\*target\*` folder of the
+project or library.
 
 
 

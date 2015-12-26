@@ -17,11 +17,6 @@ The Debugger offers an integration with a server-side
 [lychee.net.Service](lychee.net.Service) with
 the identifier `debugger`.
 
-For easier integration with the Sorbet Stack, you
-can simply include the `sorbet/build/<platform>/core.js`
-file and the Debugger will automatically report
-errors and bugs to the server.
-
 
 
 = methods-expose

@@ -9,10 +9,10 @@ ARCH=`lowercase \`uname -m\``;
 
 LYCHEEJS_NODE="";
 LYCHEEJS_ROOT=$(cd "$(dirname "$0")/../"; pwd);
-SORBET_PID="$LYCHEEJS_ROOT/bin/sorbet.pid";
-SORBET_LOG="/var/log/sorbet.log";
-SORBET_ERR="/var/log/sorbet.err";
-SORBET_USER=`whoami`;
+HARVESTER_PID="$LYCHEEJS_ROOT/bin/harvester.pid";
+HARVESTER_LOG="/var/log/harvester.log";
+HARVESTER_ERR="/var/log/harvester.err";
+HARVESTER_USER=`whoami`;
 
 
 if [ "$ARCH" == "x86_64" -o "$ARCH" == "amd64" ]; then
@@ -61,22 +61,22 @@ case "$1" in
 
 		cd $LYCHEEJS_ROOT;
 
-		if [ "$SORBET_USER" == "root" ] || [ "$SORBET_USER" == "lycheejs-sorbet" ]; then
-			$LYCHEEJS_NODE --expose-gc ./bin/sorbet.js start "$2" >> $SORBET_LOG 2>> $SORBET_ERR
+		if [ "$HARVESTER_USER" == "root" ] || [ "$HARVESTER_USER" == "lycheejs-harvester" ]; then
+			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
 		else
-			$LYCHEEJS_NODE --expose-gc ./bin/sorbet.js start "$2"
+			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2"
 		fi;
 
 	;;
 
 	status)
 
-		if [ -f "$SORBET_PID" ]; then
+		if [ -f "$HARVESTER_PID" ]; then
 
-			sorbet_pid=$(cat $SORBET_PID);
-			sorbet_status=$(ps -e | grep $sorbet_pid | grep -v grep);
+			harvester_pid=$(cat $HARVESTER_PID);
+			harvester_status=$(ps -e | grep $harvester_pid | grep -v grep);
 
-			if [ "$sorbet_status" != "" ]; then
+			if [ "$harvester_status" != "" ]; then
 				echo -e "Running";
 				exit 0;
 			else
@@ -97,7 +97,7 @@ case "$1" in
 
 		cd $LYCHEEJS_ROOT;
 
-		$LYCHEEJS_NODE ./bin/sorbet.js stop;
+		$LYCHEEJS_NODE ./bin/harvester.js stop;
 
 	;;
 
@@ -105,12 +105,12 @@ case "$1" in
 
 		cd $LYCHEEJS_ROOT;
 
-		$LYCHEEJS_NODE ./bin/sorbet.js stop;
+		$LYCHEEJS_NODE ./bin/harvester.js stop;
 
-		if [ "$SORBET_USER" == "root" ] || [ "$SORBET_USER" == "lycheejs-sorbet" ]; then
-			$LYCHEEJS_NODE --expose-gc ./bin/sorbet.js start "$2" >> $SORBET_LOG 2>> $SORBET_ERR
+		if [ "$HARVESTER_USER" == "root" ] || [ "$HARVESTER_USER" == "lycheejs-harvester" ]; then
+			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
 		else
-			$LYCHEEJS_NODE --expose-gc ./bin/sorbet.js start "$2"
+			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2"
 		fi;
 
 	;;
@@ -119,7 +119,7 @@ case "$1" in
 
 		cd $LYCHEEJS_ROOT;
 
-		$LYCHEEJS_NODE ./bin/sorbet.js help;
+		$LYCHEEJS_NODE ./bin/harvester.js help;
 
 	;;
 

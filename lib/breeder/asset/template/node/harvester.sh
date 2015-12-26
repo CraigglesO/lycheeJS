@@ -16,7 +16,7 @@ fi;
 NODE=`which node`;
 
 if [ "$NODE" != "" ]; then
-	$NODE ./sorbet.js $ENV_ROOT $ENV_PORT $ENV_HOST;	
+	$NODE ./harvester.js $ENV_ROOT $ENV_PORT $ENV_HOST;
 else
 	echo "Sorry, your computer is not supported. (Maybe forgot to install node?)";
 fi;

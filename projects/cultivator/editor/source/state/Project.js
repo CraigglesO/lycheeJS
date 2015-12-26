@@ -90,7 +90,7 @@ lychee.define('tool.state.Project').includes([
 			if (this.buffer instanceof Array) {
 
 				var buffer = this.buffer.filter(function(project) {
-					return !project.identifier.match(/cultivator|lychee|sorbet/);
+					return !project.identifier.match(/cultivator/);
 				});
 
 				if (buffer.length > 0) {
@@ -103,7 +103,7 @@ lychee.define('tool.state.Project').includes([
 
 							that.main.projects[id].identifier = project.identifier;
 							that.main.projects[id].filesystem = project.filesystem;
-							that.main.projects[id].sorbet     = project.sorbet;
+							that.main.projects[id].harvester  = project.harvester;
 							that.main.projects[id].package    = new Config('/projects/' + project.identifier + '/lychee.pkg?timestamp=' + Date.now());
 
 						} else {
@@ -111,7 +111,7 @@ lychee.define('tool.state.Project').includes([
 							that.main.projects[id] = {
 								identifier: project.identifier,
 								filesystem: project.filesystem,
-								sorbet:     project.sorbet === true,
+								harvester:  project.harvester === true,
 								package:    new Config('/projects/' + project.identifier + '/lychee.pkg?timestamp=' + Date.now())
 							};
 

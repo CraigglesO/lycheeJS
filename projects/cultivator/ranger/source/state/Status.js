@@ -34,10 +34,10 @@ lychee.define('tool.state.Status').includes([
 				var port        = 80;
 				var reverse_map = {};
 				var projects    = buffer.filter(function(project) {
-					return project.identifier !== 'sorbet';
+					return !project.identifier.match(/harvester/);
 				});
-				var sorbet      = buffer.filter(function(project) {
-					return project.identifier === 'sorbet';
+				var harvester   = buffer.filter(function(project) {
+					return project.identifier.match(/harvester/);
 				})[0] || null;
 
 
@@ -50,7 +50,7 @@ lychee.define('tool.state.Status').includes([
 
 				code += '<table>';
 
-				if (sorbet !== null) {
+				if (harvester !== null) {
 
 					code += '<tr>';
 					code += '<th>Host</th>';
@@ -60,18 +60,18 @@ lychee.define('tool.state.Status').includes([
 					code += '</tr>';
 
 
-					if (sorbet.server !== null) {
-						port = sorbet.server.port;
+					if (harvester.server !== null) {
+						port = harvester.server.port;
 					}
 
 
-					Object.keys(sorbet.details).forEach(function(identifier) {
+					Object.keys(harvester.details).forEach(function(identifier) {
 
 						var host_projects = [ '*' ];
 
-						if (sorbet.details[identifier] instanceof Array) {
+						if (harvester.details[identifier] instanceof Array) {
 
-							sorbet.details[identifier].forEach(function(id) {
+							harvester.details[identifier].forEach(function(id) {
 
 								var map = reverse_map[id];
 								if (map === undefined) {
@@ -82,7 +82,7 @@ lychee.define('tool.state.Status').includes([
 
 							});
 
-							host_projects = sorbet.details[identifier];
+							host_projects = harvester.details[identifier];
 
 						}
 
@@ -103,9 +103,9 @@ lychee.define('tool.state.Status').includes([
 					});
 
 
-					Object.keys(sorbet.details).forEach(function(identifier) {
+					Object.keys(harvester.details).forEach(function(identifier) {
 
-						if (sorbet.details[identifier] === null) {
+						if (harvester.details[identifier] === null) {
 
 							for (var id in reverse_map) {
 								reverse_map[id].push(identifier);
@@ -139,7 +139,7 @@ lychee.define('tool.state.Status').includes([
 
 						if (project.server === null) {
 
-							if (project.sorbet === true) {
+							if (project.harvester === true) {
 								project_actions.push('<a class="button ico-start ico-only" href="lycheejs://start=' + project.identifier + '"></a>');
 								project_status = '<label class="ico-offline">Offline</label>';
 							} else {
@@ -167,7 +167,7 @@ lychee.define('tool.state.Status').includes([
 									pretty_host = '[' + host + ']:' + port;
 								}
 
-								if (sorbet !== null && sorbet.details[host] === null) {
+								if (harvester !== null && harvester.details[host] === null) {
 									project_actions.push('<a class="button ico-browser ico-only" href="lycheejs://web=' + encodeURI('http://' + pretty_host + '/projects/' + project.identifier) + '"></a>');
 								} else {
 									project_actions.push('<a class="button ico-browser ico-only" href="lycheejs://web=' + encodeURI('http://' + pretty_host) + '"></a>');
