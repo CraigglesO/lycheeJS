@@ -5,11 +5,11 @@
 	"build": {
 		"environments": {
 			"node-sdl/dist": {
-				"build": "sorbet.Main",
+				"build": "harvester.Main",
 				"debug": false,
 				"packages": [
 					[
-						"sorbet",
+						"harvester",
 						"./lychee.pkg"
 					]
 				],
@@ -22,11 +22,11 @@
 				"variant": "library"
 			},
 			"node/dist": {
-				"build": "sorbet.Main",
+				"build": "harvester.Main",
 				"debug": false,
 				"packages": [
 					[
-						"sorbet",
+						"harvester",
 						"./lychee.pkg"
 					]
 				],
