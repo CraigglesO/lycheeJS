@@ -60,8 +60,8 @@ for a list of available bundles.
 ## Manual Installation
 
 The netinstall shell script allows to automatically install
-lycheeJS on any machine (arm, x86 or x86\_64). The only
-requirement for the script is `curl` and `unzip`.
+lycheeJS on any UNIX-compatible machine (arm, x86 or x86\_64).
+The only requirement for the script itself is `curl` and `unzip`.
 
 ```bash
 # This will create a lycheeJS Installation in ./lycheejs
