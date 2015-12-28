@@ -31,7 +31,11 @@ lychee.define('harvester.mod.Fertilizer').tags({
 
 	var _fertilize = function(project, identifier) {
 
-		_child_process.execFile(_root + '/bin/fertilizer.js', [
+		// NEVER CHANGE THIS TO A JAVASCRIPT FILE
+		// libuv has a serious bug and starts the js file with
+		// native node interpreter, NOT this execution binary
+
+		_child_process.execFile(_root + '/bin/fertilizer.sh', [
 			project,
 			identifier
 		], {
