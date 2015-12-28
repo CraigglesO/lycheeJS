@@ -49,7 +49,7 @@ fi;
 
 cd $LYCHEEJS_ROOT;
 
-if [ ! -f "./lib/lychee/build/node/core.js" ]; then
+if [ ! -f "./libraries/lychee/build/node/core.js" ]; then
 	$LYCHEEJS_NODE ./bin/configure.js;
 fi;
 

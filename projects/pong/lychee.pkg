@@ -43,6 +43,9 @@
 		"files": {
 			"html": {
 				"main": {
+					"core": [
+						"js"
+					],
 					"index": [
 						"js"
 					]

@@ -237,7 +237,7 @@
 		console.log('> Checking Environment');
 
 
-		if (_is_directory(_path.resolve(_root, './lib/lychee')) === true) {
+		if (libraries.indexOf('./libraries/lychee') !== -1) {
 			console.log('\tprocess cwd: OKAY');
 		} else {
 			console.log('\tprocess cwd: FAIL (' + _root + ' is not the lycheeJS directory)');
@@ -247,10 +247,10 @@
 
 		var data = null;
 
-		if (_is_file(_path.resolve(_root, './lib/lychee/lychee.pkg')) === true) {
+		if (_is_file(_path.resolve(_root, './libraries/lychee/lychee.pkg')) === true) {
 
 			try {
-				data = JSON.parse(_fs.readFileSync(_path.resolve(_root, './lib/lychee/lychee.pkg')));
+				data = JSON.parse(_fs.readFileSync(_path.resolve(_root, './libraries/lychee/lychee.pkg')));
 			} catch(e) {
 				data = null;
 			}
@@ -260,9 +260,9 @@
 
 		if (data !== null) {
 			_package = data;
-			console.log('\t./lib/lychee/lychee.pkg: OKAY');
+			console.log('\t./libraries/lychee/lychee.pkg: OKAY');
 		} else {
-			console.log('\t./lib/lychee/lychee.pkg: FAIL (Invalid JSON)');
+			console.log('\t./libraries/lychee/lychee.pkg: FAIL (Invalid JSON)');
 			errors++;
 		}
 
@@ -316,7 +316,7 @@
 
 		console.log('> OKAY\n');
 
-	})(_get_projects('./lib'), _get_projects('./projects'), _get_projects('./projects/cultivator'));
+	})(_get_projects('./libraries'), _get_projects('./projects'), _get_projects('./projects/cultivator'));
 
 
 
@@ -345,7 +345,7 @@
 
 		files.forEach(function(file) {
 
-			var path = _path.resolve(_root, './lib/lychee/source/' + file);
+			var path = _path.resolve(_root, './libraries/lychee/source/' + file);
 			if (_is_file(path) === true) {
 				_CORE += _fs.readFileSync(path, 'utf8');
 			} else {
@@ -413,7 +413,7 @@
 				return value.substr(prefix.length);
 			}).forEach(function(adapter) {
 
-				var path = _path.resolve(_root, './lib/lychee/source/' + prefix + adapter);
+				var path = _path.resolve(_root, './libraries/lychee/source/' + prefix + adapter);
 				if (_is_file(path) === true) {
 
 					if (adapter === 'bootstrap.js' && typeof bootstrap[platform]['bootstrap.js'] === 'string') {
@@ -443,7 +443,7 @@
 
 			var result = true;
 			var code   = _CORE + _BOOTSTRAP[platform];
-			var path   = _path.resolve(_root, './lib/lychee/build/' + platform + '/core.js');
+			var path   = _path.resolve(_root, './libraries/lychee/build/' + platform + '/core.js');
 			var dir    = _path.dirname(path);
 
 			if (_is_directory(dir) === false) {
@@ -519,7 +519,7 @@
 
 
 		var result = true;
-		var path   = _path.resolve(_root, './lib/lychee/source/DIST.js');
+		var path   = _path.resolve(_root, './libraries/lychee/source/DIST.js');
 		var dir    = _path.dirname(path);
 
 		if (_is_directory(dir) === false) {

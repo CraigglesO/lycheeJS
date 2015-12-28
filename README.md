@@ -73,7 +73,7 @@ wget -q -O - http://lycheejs.org/download/lycheejs-2015-Q4-netinstall.sh | bash;
 ## Contributor Installation
 
 We love your contributions of any kind. Please consider reading
-the [Contribution Guide](./asset/guide/CONTRIBUTION.md) to get
+the [Contribution Guide](./guides/CONTRIBUTION.md) to get
 you started in a couple minutes.
 
 ```bash

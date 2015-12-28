@@ -6,12 +6,12 @@ var fs     = require('fs');
 var path   = require('path');
 
 
-if (fs.existsSync(root + '/lib/lychee/build/node/core.js') === false) {
+if (fs.existsSync(root + '/libraries/lychee/build/node/core.js') === false) {
 	require(root + '/bin/configure.js');
 }
 
 
-var lychee = require(root + '/lib/lychee/build/node/core.js')(root);
+var lychee = require(root + '/libraries/lychee/build/node/core.js')(root);
 
 
 
@@ -21,10 +21,10 @@ var lychee = require(root + '/lib/lychee/build/node/core.js')(root);
 
 var _print_help = function() {
 
-	var libraries = fs.readdirSync(root + '/lib').sort().filter(function(value) {
-		return fs.existsSync(root + '/lib/' + value + '/lychee.pkg');
+	var libraries = fs.readdirSync(root + '/libraries').sort().filter(function(value) {
+		return fs.existsSync(root + '/libraries/' + value + '/lychee.pkg');
 	}).map(function(value) {
-		return '/lib/' + value;
+		return '/libraries/' + value;
 	});
 
 	var projects = fs.readdirSync(root + '/projects').sort().filter(function(value) {
@@ -127,8 +127,8 @@ var _bootup = function(settings) {
 		build:   'fertilizer.Main',
 		timeout: 1000,
 		packages: [
-			new lychee.Package('lychee', '/lib/lychee/lychee.pkg'),
-			new lychee.Package('fertilizer', '/lib/fertilizer/lychee.pkg')
+			new lychee.Package('lychee',     '/libraries/lychee/lychee.pkg'),
+			new lychee.Package('fertilizer', '/libraries/fertilizer/lychee.pkg')
 		],
 		tags:     {
 			platform: [ 'node' ]

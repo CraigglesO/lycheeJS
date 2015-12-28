@@ -63,14 +63,14 @@ else
 
 		$LYCHEEJS_NODE ./bin/configure.js;
 
-		./bin/fertilizer.sh /lib/lychee html/dist;
-		./bin/fertilizer.sh /lib/lychee html-nwjs/dist;
-		./bin/fertilizer.sh /lib/lychee html-webview/dist;
-		./bin/fertilizer.sh /lib/lychee node/dist;
-		./bin/fertilizer.sh /lib/lychee node-sdl/dist;
+		./bin/fertilizer.sh /libraries/lychee html/dist;
+		./bin/fertilizer.sh /libraries/lychee html-nwjs/dist;
+		./bin/fertilizer.sh /libraries/lychee html-webview/dist;
+		./bin/fertilizer.sh /libraries/lychee node/dist;
+		./bin/fertilizer.sh /libraries/lychee node-sdl/dist;
 
-		./bin/fertilizer.sh /lib/harvester node/dist;
-		./bin/fertilizer.sh /lib/harvester node-sdl/dist;
+		./bin/fertilizer.sh /libraries/harvester node/dist;
+		./bin/fertilizer.sh /libraries/harvester node-sdl/dist;
 
 
 		echo "> DONE";
@@ -87,8 +87,8 @@ else
 
 		# Default chmod rights for folders
 
-		find ./lib -type d -print0 | xargs -0 chmod 777;
-		find ./lib -type f -print0 | xargs -0 chmod 666;
+		find ./libraries -type d -print0 | xargs -0 chmod 777;
+		find ./libraries -type f -print0 | xargs -0 chmod 666;
 
 		find ./projects -type d -print0 | xargs -0 chmod 777;
 		find ./projects -type f -print0 | xargs -0 chmod 666;
@@ -133,10 +133,11 @@ else
 
 				echo "> Integrating Editor, Helper and Ranger";
 
+
 				cp ./bin/helper/linux/editor.desktop /usr/share/applications/lycheejs-editor.desktop;
 				cp ./bin/helper/linux/helper.desktop /usr/share/applications/lycheejs-helper.desktop;
 				cp ./bin/helper/linux/ranger.desktop /usr/share/applications/lycheejs-ranger.desktop;
-				cp ./asset/desktop.svg /usr/share/icons/lycheejs.svg;
+				cp ./bin/helper/linux/lycheejs.svg /usr/share/icons/lycheejs.svg;
 
 
 				sed -i 's|__ROOT__|'$LYCHEEJS_ROOT'|g' "/usr/share/applications/lycheejs-editor.desktop";
@@ -154,7 +155,11 @@ else
 		elif [ "$OS" == "osx" ]; then
 
 			echo "> Integrating Editor, Helper and Ranger";
+
+
 			open ./bin/helper/osx/helper.app;
+
+
 			echo "> DONE";
 
 		fi;

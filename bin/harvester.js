@@ -6,12 +6,12 @@ var fs     = require('fs');
 var path   = require('path');
 
 
-if (fs.existsSync(root + '/lib/lychee/build/node/core.js') === false) {
+if (fs.existsSync(root + '/libraries/lychee/build/node/core.js') === false) {
 	require(root + '/bin/configure.js');
 }
 
 
-var lychee = require(root + '/lib/lychee/build/node/core.js')(root);
+var lychee = require(root + '/libraries/lychee/build/node/core.js')(root);
 
 
 
@@ -162,8 +162,8 @@ var _bootup = function(settings) {
 		build:   'harvester.Main',
 		timeout: 10000, // for really slow hosts
 		packages: [
-			new lychee.Package('lychee',    '/lib/lychee/lychee.pkg'),
-			new lychee.Package('harvester', '/lib/harvester/lychee.pkg')
+			new lychee.Package('lychee',    '/libraries/lychee/lychee.pkg'),
+			new lychee.Package('harvester', '/libraries/harvester/lychee.pkg')
 		],
 		tags:     {
 			platform: [ 'node' ]

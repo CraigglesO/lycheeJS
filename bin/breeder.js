@@ -6,12 +6,12 @@ var fs     = require('fs');
 var path   = require('path');
 
 
-if (fs.existsSync(root + '/lib/lychee/build/node/core.js') === false) {
+if (fs.existsSync(root + '/libraries/lychee/build/node/core.js') === false) {
 	require(root + '/bin/configure.js');
 }
 
 
-var lychee = require(root + '/lib/lychee/build/node/core.js')(root);
+var lychee = require(root + '/libraries/lychee/build/node/core.js')(root);
 
 
 
@@ -39,7 +39,7 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.log('    cd myproject;                                     ');
 	console.log('    breeder configure node;                           ');
-	console.log('    breeder install node/dist /lib/harvester;         ');
+	console.log('    breeder install node/dist /libraries/harvester;   ');
 	console.log('    breeder fertilize node/main;                      ');
 	console.log('                                                      ');
 
@@ -141,9 +141,9 @@ var _bootup = function(settings) {
 		build:   'breeder.Main',
 		timeout: 1000,
 		packages: [
-			new lychee.Package('lychee', '/lib/lychee/lychee.pkg'),
-			new lychee.Package('breeder', '/lib/breeder/lychee.pkg'),
-			new lychee.Package('fertilizer', '/lib/fertilizer/lychee.pkg')
+			new lychee.Package('lychee',     '/libraries/lychee/lychee.pkg'),
+			new lychee.Package('breeder',    '/libraries/breeder/lychee.pkg'),
+			new lychee.Package('fertilizer', '/libraries/fertilizer/lychee.pkg')
 		],
 		tags:     {
 			platform: [ 'node' ]

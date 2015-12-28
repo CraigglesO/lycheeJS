@@ -5,11 +5,9 @@
 /bin/runtime
 /bin/harvester.pid
 
-/lib/breeder/build
-/lib/fertilizer/build
-/lib/harvester/build
-/lib/lychee/build
-/lib/lychee/source/DIST.js
+/libraries/lychee/source/DIST.js
+/libraries/*/build
+/projects/*/build
 
 
 /projects/*

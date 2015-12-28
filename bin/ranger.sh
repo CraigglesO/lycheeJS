@@ -45,9 +45,10 @@ fi;
 
 cd $LYCHEEJS_ROOT;
 
-if [ ! -f "./lib/lychee/build/html-nwjs/core.js" ]; then
+if [ ! -f "./libraries/lychee/build/html-nwjs/core.js" ]; then
 	$LYCHEEJS_NODE ./bin/configure.js;
 fi;
+
 
 
 if [ ! -d "./bin/ranger" ]; then
