@@ -58,17 +58,17 @@ merge conflicts. For further information on how to setup your IDE with
 it, please read the instructions at [http://editorconfig.org/#download](http://editorconfig.org/#download).
 
 If you are working on an Issue make sure you keep Tracking the progress of your Task on the "Boards" menue.
+
 ![How to assign an Issue](./asset/contribution-progressboard.png)
+
 After your selection from "Backlog" (and your assignment) you can easily switch the progress state of your Issue by using
 drag'n'drop for moving it to the next field "In Progress".
-![How to assign an Issue](./asset/contribution-task.png)
 
 This example shows how the feature branches work. Replace `YourName`
 accordingly with your GitHub username and `fancy-feature` accordingly with
 a better description for your feature that you are working on. The best
 name for a feature is the name of the equivalent issue title or its title
 shrinked down to the minimum quintessence.
-
 
 ```bash
 git clone git@github.com:YourName/lycheeJS.git;
