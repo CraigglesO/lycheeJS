@@ -57,12 +57,15 @@ the `.editorconfig` file. We use this in order to prevent unnecessary
 merge conflicts. For further information on how to setup your IDE with
 it, please read the instructions at [http://editorconfig.org/#download](http://editorconfig.org/#download).
 
-If you are working on an Issue make sure you keep Tracking the progress of your Task on the "Boards" menue.
+If you are working on an Issue make sure you keep track of the Task on the
+`Boards` Menu Entry (added by the ZenHub Extension). Select an Issue from
+`Backlog` and switch the progress state of your Issue by dragging and
+dropping it onto the `In Progress` column.
 
 ![How to assign an Issue](./asset/contribution-progressboard.png)
 
-After your selection from "Backlog" (and your assignment) you can easily switch the progress state of your Issue by using
-drag'n'drop for moving it to the next field "In Progress".
+
+
 
 This example shows how the feature branches work. Replace `YourName`
 accordingly with your GitHub username and `fancy-feature` accordingly with
@@ -87,45 +90,40 @@ git pull https://github.com/Artificial-Engineering/lycheeJS.git development;
 
 # The final push to your github repository before your pull request
 git push origin fancy-feature;
-
 ```
-We like to submit our concept of pulling and pushing from different remotes with following git config.
+
+We use a triangular git workflow to ensure your work is being merged in
+correctly and does not break existing tests and build toolchains.
+
+This workflow basically means that you work only actively on your own
+fork and not the upstream project itself. You always pull from the upstream
+project, work on your tasks locally and push to your own fork on github.
+
+After work being done you can use the Pull Request directly without any
+merge conflicts. In the following example we use `ae` as the upstream
+reference and `origin` as the reference to your fork, as it is the
+git-defaulted one.
+
+
+# TODO: Workflow Image
+
 
 ```bash
-#.git/config
-
-[core]
-	repositoryformatversion = 0
-	filemode = true
-	bare = false
-	...
-
-[remote "origin"]
-	url = git@github.com:codekittey/lycheeJS.git
-	fetch = +refs/heads/*:refs/remotes/origin/*
-
-[remote "ae"]
-	url = git@github.com:Artificial-Engineering/lycheeJS.git
-	fetch = +refs/heads/*:refs/remotes/origin/*	
-
-[branch "development"]
-	remote = origin
-	fetch = +refs/heads/development
+git remote add ae git@github.com:Artificial-Engineering/lycheeJS.git;
+git pull ae development;
 ```
-You always have to pull from the remote "ae"
 
-```bash
-git pull ae development
-```
-Your changes and commits have to been pushed to the origin (Your own fork). Since this is already defined as origin you can just type
+Your changes and commits have to been pushed to the origin (your own fork).
+Since this is already defined as origin you can just push to it directly.
 
 ```bash
 git push origin
 ```
 
-If you want us to get your changes in the ae remote, you have to create a pull request from your own fork.
-
-Try to avoid pulling from your own fork so you aren't getting out-of-date. And never try to push directly to the ae remote!
+If you want us to get your changes in the `ae` remote, you have to create
+a pull request from your own fork. Try to avoid pulling from your own fork
+so you aren't getting out-of-date. And never try to push directly to the
+`ae` remote as you don't want to break the pull-request workflow!
 
 
 ### 5. Contribute a Feature
@@ -153,7 +151,7 @@ GitHub flavored syntax. We also have some features in to have full
 compatibility with our HTML DOM, so there are slightly more features in our
 format.
 
-The [API Tool](../../projects/cultivator/api) helps you to generate API
+The [API Tool](../projects/cultivator/api) helps you to generate API
 documentation automatically. If there's no API documentation existing for a
 Definition, it will show you a textarea with the initial content similar to
 this, including all required structural parts and as far auto-generated as

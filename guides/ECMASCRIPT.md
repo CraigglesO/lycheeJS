@@ -24,16 +24,16 @@
 - Definition Closures (Generational GC example)
 
 
-# Code Guide for lycheeJS Developers
+# ECMAScript Guide for lycheeJS Developers
 
 ## Introduction
 
 In lycheeJS, we use ES5 (JavaScript or ECMAScript version 5) as
 the code language. This guide aims to be a shorthand lookup guide
-for developers worrying about how to solve problems in ES5.
+for developers worrying about how to solve problems in ES5 or ES6.
 
 It can also be seen as a sort of cheat sheet that tells you what
-different features are and affect inside the VM (Virtual Machine).
+different features are and how they affect the VM (Virtual Machine).
 
 There are several reasons (from isomorphic and feature-detection
 standpoint) that won't allow us to easily switch completely to ES6.
@@ -52,10 +52,6 @@ This allows us to replace and inject code for debugging at runtime
 and not initialization time and gives us a heavy advantage with
 advanced debugging (Editor) and simulation (AI integration) features
 that are not reproducible with ES6 features themselves.
-
-Disclaimer: I'm a human and not a robot (yet). So if you find msitakes,
-please do a pull request (that was intensional). Improvements of any
-kind are always welcomed here.
 
 This guide focusses on Google's V8, but the Monkey variants of Mozilla
 and Chakra from Microsoft share similar methodologies. There might be
@@ -782,4 +778,15 @@ for (var a = 0, al = array.length; a < al; a++) {
 
 }
 ```
+
+
+
+## Expressions and Statements
+
+In ES5, all expressions produce a value and can be written whereever
+a value is expected.
+
+
+
+### Expressions
 
