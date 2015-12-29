@@ -9,7 +9,7 @@ ARCH=`lowercase \`uname -m\``;
 USER=`whoami`;
 
 LYCHEEJS_NODE="";
-LYCHEEJS_ROOT=$(cd "$(dirname "$0")/../"; pwd);
+LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
 
 NO_INTEGRATION=false;
 if [ "$1" == "--no-integration" ]; then
@@ -106,6 +106,8 @@ else
 		chmod +x ./bin/fertilizer.sh;
 		chmod +x ./bin/helper.sh;
 		chmod +x ./bin/ranger.sh;
+		chmod +x ./bin/strainer.js;
+		chmod +x ./bin/strainer.sh;
 		chmod +x ./bin/harvester.js;
 		chmod +x ./bin/harvester.sh;
 
@@ -139,13 +141,32 @@ else
 				cp ./bin/helper/linux/ranger.desktop /usr/share/applications/lycheejs-ranger.desktop;
 				cp ./bin/helper/linux/lycheejs.svg /usr/share/icons/lycheejs.svg;
 
-
 				sed -i 's|__ROOT__|'$LYCHEEJS_ROOT'|g' "/usr/share/applications/lycheejs-editor.desktop";
 				sed -i 's|__ROOT__|'$LYCHEEJS_ROOT'|g' "/usr/share/applications/lycheejs-helper.desktop";
 				sed -i 's|__ROOT__|'$LYCHEEJS_ROOT'|g' "/usr/share/applications/lycheejs-ranger.desktop";
 
 
 				update-desktop-database;
+
+
+				echo "> DONE";
+
+			fi;
+
+			if [ -d /usr/bin ]; then
+
+				echo "> Integrating Breeder, Fertilizer, Harvester and Strainer";
+
+
+				rm /usr/bin/lycheejs-breeder 2> /dev/null;
+				rm /usr/bin/lycheejs-fertilizer 2> /dev/null;
+				rm /usr/bin/lycheejs-harvester 2> /dev/null;
+				rm /usr/bin/lycheejs-strainer 2> /dev/null;
+
+				ln -s "$LYCHEEJS_ROOT/bin/breeder.sh" /usr/bin/lycheejs-breeder;
+				ln -s "$LYCHEEJS_ROOT/bin/fertilizer.sh" /usr/bin/lycheejs-fertilizer;
+				ln -s "$LYCHEEJS_ROOT/bin/harvester.sh" /usr/bin/lycheejs-harvester;
+				ln -s "$LYCHEEJS_ROOT/bin/strainer.sh" /usr/bin/lycheejs-strainer;
 
 
 				echo "> DONE";

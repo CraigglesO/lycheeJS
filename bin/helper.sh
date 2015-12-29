@@ -6,7 +6,7 @@ lowercase() {
 
 OS=`lowercase \`uname\``;
 
-LYCHEEJS_ROOT=$(cd "$(dirname "$0")/../"; pwd);
+LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
 
 
 if [ "$OS" == "darwin" ]; then
