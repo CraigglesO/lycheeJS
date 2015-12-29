@@ -57,6 +57,12 @@ the `.editorconfig` file. We use this in order to prevent unnecessary
 merge conflicts. For further information on how to setup your IDE with
 it, please read the instructions at [http://editorconfig.org/#download](http://editorconfig.org/#download).
 
+If you are working on an Issue make sure you keep Tracking the progress of your Task on the "Boards" menue.
+![How to assign an Issue](./asset/contribution-progressboard.png)
+After your selection from "Backlog" (and your assignment) you can easily switch the progress state of your Issue by using
+drag'n'drop for moving it to the next field "In Progress".
+![How to assign an Issue](./asset/contribution-task.png)
+
 This example shows how the feature branches work. Replace `YourName`
 accordingly with your GitHub username and `fancy-feature` accordingly with
 a better description for your feature that you are working on. The best
@@ -83,7 +89,43 @@ git pull https://github.com/Artificial-Engineering/lycheeJS.git development;
 git push origin fancy-feature;
 
 ```
+We like to submit our concept of pulling and pushing from different remotes with following git config.
 
+```bash
+#.git/config
+
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	...
+
+[remote "origin"]
+	url = git@github.com:codekittey/lycheeJS.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+[remote "ae"]
+	url = git@github.com:Artificial-Engineering/lycheeJS.git
+	fetch = +refs/heads/*:refs/remotes/origin/*	
+
+[branch "development"]
+	remote = origin
+	fetch = +refs/heads/development
+```
+You always have to pull from the remote "ae"
+
+```bash
+git pull ae development
+```
+Your changes and commits have to been pushed to the origin (Your own fork). Since this is already defined as origin you can just type
+
+```bash
+git push origin
+```
+
+If you want us to get your changes in the ae remote, you have to create a pull request from your own fork.
+
+Try to avoid pulling from your own fork so you aren't getting out-of-date. And never try to push directly to the ae remote!
 
 
 ### 5. Contribute a Feature
@@ -95,7 +137,9 @@ button appearing with the label `Compare & pull request`.
 ![How to create a Pull Request](./asset/contribution-pullrequest.png)
 
 Click on it, now you have to fill out the form with the description.
-After that, we can now automatically merge in your implemented features.
+When you've finished your Issue and have created your pull request you have to drag the Issue on the "Board" to Done.
+
+After that, we can now automatically merge in your implemented features and close the Issue.
 
 
 
