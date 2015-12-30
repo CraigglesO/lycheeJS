@@ -64,9 +64,6 @@ dropping it onto the `In Progress` column.
 
 ![How to assign an Issue](./asset/contribution-progressboard.png)
 
-
-
-
 This example shows how the feature branches work. Replace `YourName`
 accordingly with your GitHub username and `fancy-feature` accordingly with
 a better description for your feature that you are working on. The best
@@ -100,17 +97,15 @@ fork and not the upstream project itself. You always pull from the upstream
 project, work on your tasks locally and push to your own fork on github.
 
 After work being done you can use the Pull Request directly without any
-merge conflicts. In the following example we use `ae` as the upstream
+merge conflicts. In the following example we use `upstream` as the upstream
 reference and `origin` as the reference to your fork, as it is the
 git-defaulted one.
 
-
-# TODO: Workflow Image
-
+![How to use Triangular git Workflow](./asset/contribution-workflow.png)
 
 ```bash
-git remote add ae git@github.com:Artificial-Engineering/lycheeJS.git;
-git pull ae development;
+git remote add upstream git@github.com:Artificial-Engineering/lycheeJS.git;
+git pull upstream development;
 ```
 
 Your changes and commits have to been pushed to the origin (your own fork).
@@ -120,10 +115,11 @@ Since this is already defined as origin you can just push to it directly.
 git push origin
 ```
 
-If you want us to get your changes in the `ae` remote, you have to create
-a pull request from your own fork. Try to avoid pulling from your own fork
-so you aren't getting out-of-date. And never try to push directly to the
-`ae` remote as you don't want to break the pull-request workflow!
+If you want us to get your changes in the `upstream` remote, you have to
+create a `pull request` from your own fork.
+Try to avoid pulling from your own fork so you aren't getting out-of-date.
+And never try to push directly to the `upstream` remote as you don't want
+to break the `pull request` workflow!
 
 
 ### 5. Contribute a Feature
