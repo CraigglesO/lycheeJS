@@ -28,7 +28,7 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.log('                                                      ');
 	console.log('Available Actions:                                    ');
-	console.log('   setup, install, fertilize                      ');
+	console.log('   setup, install, fertilize                      	   ');
 	console.log('                                                      ');
 	console.log('Available Fertilizers:                                ');
 	console.log('                                                      ');
@@ -38,7 +38,7 @@ var _print_help = function() {
 	console.log('Examples:                                             ');
 	console.log('                                                      ');
 	console.log('    cd myproject;                                     ');
-	console.log('    breeder setup node;                           ');
+	console.log('    breeder setup node;                               ');
 	console.log('    breeder install node/dist /libraries/harvester;   ');
 	console.log('    breeder fertilize node/main;                      ');
 	console.log('                                                      ');
