@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 lowercase() {
@@ -46,9 +47,9 @@ fi;
 
 case "$1" in
 
-	configure)
+	setup)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js configure "$2" --project="$PROJECT_ROOT";
+		$LYCHEEJS_NODE ./bin/breeder.js setup "$2" --project="$PROJECT_ROOT";
 	;;
 
 	inject)

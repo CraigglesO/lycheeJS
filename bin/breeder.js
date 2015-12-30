@@ -28,7 +28,7 @@ var _print_help = function() {
 	console.log('                                                      ');
 	console.log('                                                      ');
 	console.log('Available Actions:                                    ');
-	console.log('   configure, install, fertilize                      ');
+	console.log('   setup, install, fertilize                      	   ');
 	console.log('                                                      ');
 	console.log('Available Fertilizers:                                ');
 	console.log('                                                      ');
@@ -38,7 +38,7 @@ var _print_help = function() {
 	console.log('Examples:                                             ');
 	console.log('                                                      ');
 	console.log('    cd myproject;                                     ');
-	console.log('    breeder configure node;                           ');
+	console.log('    breeder setup node;                               ');
 	console.log('    breeder install node/dist /libraries/harvester;   ');
 	console.log('    breeder fertilize node/main;                      ');
 	console.log('                                                      ');
@@ -90,9 +90,9 @@ var _settings = (function() {
 	}
 
 
-	if (raw_arg0 === 'configure') {
+	if (raw_arg0 === 'setup') {
 
-		settings.action   = 'configure';
+		settings.action   = 'setup';
 		settings.platform = raw_arg1.split('/')[0] || null;
 		settings.target   = raw_arg1.split('/')[1] || null;
 
@@ -221,7 +221,7 @@ var _bootup = function(settings) {
 	var has_library  = settings.library !== null;
 
 
-	if (action === 'configure' && has_project && has_platform) {
+	if (action === 'setup' && has_project && has_platform) {
 
 		_bootup(settings);
 
