@@ -96,7 +96,7 @@ lychee.define('breeder.template.html.Application').requires([
 		 * INITIALIZATION
 		 */
 
-		this.bind('configure', function(oncomplete) {
+		this.bind('setup', function(oncomplete) {
 
 			var fs = this.filesystem;
 			if (fs !== null) {
