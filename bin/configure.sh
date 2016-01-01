@@ -104,12 +104,12 @@ else
 		chmod +x ./bin/editor.sh;
 		chmod +x ./bin/fertilizer.js;
 		chmod +x ./bin/fertilizer.sh;
+		chmod +x ./bin/harvester.js;
+		chmod +x ./bin/harvester.sh;
 		chmod +x ./bin/helper.sh;
 		chmod +x ./bin/ranger.sh;
 		chmod +x ./bin/strainer.js;
 		chmod +x ./bin/strainer.sh;
-		chmod +x ./bin/harvester.js;
-		chmod +x ./bin/harvester.sh;
 
 		# Make runtimes explicitely executable
 
