@@ -47,14 +47,14 @@ fi;
 
 case "$1" in
 
-	setup)
+	init)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js setup "$2" --project="$PROJECT_ROOT";
+		$LYCHEEJS_NODE ./bin/breeder.js init "$2" --project="$PROJECT_ROOT";
 	;;
 
-	inject)
+	pull)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js inject "$2" "$3" --project="$PROJECT_ROOT";
+		$LYCHEEJS_NODE ./bin/breeder.js pull "$2" "$3" --project="$PROJECT_ROOT";
 	;;
 
 	fertilize)
