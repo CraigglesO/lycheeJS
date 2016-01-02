@@ -96,7 +96,7 @@ lychee.define('breeder.template.node.Application').requires([
 		 * INITIALIZATION
 		 */
 
-		this.bind('setup', function(oncomplete) {
+		this.bind('init', function(oncomplete) {
 
 			var fs = this.filesystem;
 			if (fs !== null) {
@@ -126,7 +126,7 @@ lychee.define('breeder.template.node.Application').requires([
 
 		}, this);
 
-		this.bind('install', function(oncomplete) {
+		this.bind('pull', function(oncomplete) {
 
 			var build      = this.settings.platform + '/' + this.settings.target;
 			var identifier = this.settings.library.split('/').pop();
