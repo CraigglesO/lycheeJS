@@ -3,9 +3,7 @@
 
 ## Support
 
-Do you want to support our projects and AIs?
-
-Send your BitCoins to: **1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2**
+Support our libre Bot Cloud via BTC [1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2](bitcoin:1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2?amount=0.5&label=lycheeJS%20Support).
 
 
 ## Overview
@@ -20,8 +18,10 @@ and shipment to further platforms. The development process is
 optimized for Blink-based browsers (Chromium, Google Chrome,
 Opera) and their developer tools.
 
-
-**Target Platforms / Fertilizers**
+The target platforms are described as so-called Fertilizers.
+Those Fertilizers cross-compile everything automagically using
+a serialized `lychee.Environment` that is configured in each
+`lychee.pkg` file.
 
 | Target       | Fertilizer                   | Package  | arm | x64 |
 |:-------------|:-----------------------------|:---------|:---:|:---:|
@@ -86,7 +86,7 @@ git checkout development;
 git clone https://github.com/Artificial-Engineering/lycheeJS-runtime.git ./bin/runtime;
 
 sudo ./bin/configure.sh;              # use --no-integration if you want a sandboxed installation
-./bin/harvester.sh start development; # no sudo required
+lycheejs-harvester start development; # no sudo required
 ```
 
 

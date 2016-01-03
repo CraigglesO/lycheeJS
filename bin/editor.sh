@@ -57,7 +57,7 @@ if [ ! -d "./bin/editor" ]; then
 	fi;
 
 
-	./bin/fertilizer.sh /projects/cultivator/editor "html-nwjs/main";
+	./bin/fertilizer.sh html-nwjs/main /projects/cultivator/editor;
 
 
 	if [ -d "./projects/cultivator/editor/build/html-nwjs" ]; then

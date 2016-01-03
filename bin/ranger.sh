@@ -58,7 +58,7 @@ if [ ! -d "./bin/ranger" ]; then
 	fi;
 
 
-	./bin/fertilizer.sh /projects/cultivator/ranger "html-nwjs/main";
+	./bin/fertilizer.sh html-nwjs/main /projects/cultivator/ranger;
 
 
 	if [ -d "./projects/cultivator/ranger/build/html-nwjs" ]; then
