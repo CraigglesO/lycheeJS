@@ -115,10 +115,7 @@ lychee.define('fertilizer.Main').requires([
 
 						} else {
 
-							if (lychee.debug === true) {
-								console.error('fertilizer: FAILURE ("' + project + ' | ' + identifier + '") at "load" event');
-							}
-
+							console.error('fertilizer: FAILURE ("' + project + ' | ' + identifier + '") at "load" event');
 							that.destroy();
 
 						}
@@ -134,7 +131,6 @@ lychee.define('fertilizer.Main').requires([
 
 
 			console.error('fertilizer: FAILURE ("' + project + ' | ' + identifier + '") at "load" event');
-
 			this.destroy();
 
 
@@ -161,20 +157,14 @@ lychee.define('fertilizer.Main').requires([
 
 					template.bind('complete', function() {
 
-						if (lychee.debug === true) {
-							console.info('fertilizer: SUCCESS ("' + project + ' | ' + identifier + '")');
-						}
-
+						console.info('fertilizer: SUCCESS ("' + project + ' | ' + identifier + '")');
 						this.destroy();
 
 					}, this);
 
 					template.bind('error', function(event) {
 
-						if (lychee.debug === true) {
-							console.error('fertilizer: FAILURE ("' + project + ' | ' + identifier + '") at "' + event + '" event');
-						}
-
+						console.error('fertilizer: FAILURE ("' + project + ' | ' + identifier + '") at "' + event + '" event');
 						this.destroy();
 
 					}, this);
@@ -184,18 +174,14 @@ lychee.define('fertilizer.Main').requires([
 
 					return true;
 
-				} else {
-
-					if (lychee.debug === true) {
-						console.error('fertilizer: FAILURE ("' + project + ' | ' + identifier + '") at "init" event');
-					}
-
 				}
 
 			}
 
 
+			console.error('fertilizer: FAILURE ("' + project + ' | ' + identifier + '") at "init" event');
 			this.destroy();
+
 
 			return false;
 

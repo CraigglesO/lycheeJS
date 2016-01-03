@@ -42,7 +42,7 @@ lychee.define('harvester.mod.Fertilizer').tags({
 			cwd: _root
 		}, function(error, stdout, stderr) {
 
-			if (error) {
+			if (error || stdout.indexOf('SUCCESS') === -1) {
 				console.error('harvester.mod.Fertilizer: FAILURE ("' + project + ' | ' + target + '")');
 			} else {
 				console.info('harvester.mod.Fertilizer: SUCCESS ("' + project + ' | ' + target + '")');
