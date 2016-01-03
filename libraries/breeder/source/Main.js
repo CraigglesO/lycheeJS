@@ -2,8 +2,7 @@
 lychee.define('breeder.Main').requires([
 	'lychee.Input',
 	'lychee.data.JSON',
-	'breeder.template.html.Application',
-	'breeder.template.node.Application'
+	'breeder.Template'
 ]).includes([
 	'lychee.event.Emitter'
 ]).exports(function(lychee, breeder, global, attachments) {
@@ -22,7 +21,52 @@ lychee.define('breeder.Main').requires([
 
 		action:   null,
 		platform: null,
-		project:  null
+		project:  null,
+		library:  null
+
+	};
+
+
+
+	/*
+	 * HELPERS
+	 */
+
+	var _breed = function(settings) {
+
+		var platform   = typeof settings.platform === 'string' ? settings.platform : 'default';
+		var project    = settings.project;
+		var identifier = settings.platform;
+
+
+		var template   = new breeder.Template({
+			filesystem: new fertilizer.data.Filesystem(settings.project),
+			shell:      new fertilizer.data.Filesystem(settings.project),
+			settings:   settings
+		});
+
+		template.bind('complete', function() {
+
+			if (lychee.debug === true) {
+				console.info('breeder: SUCCESS ("' + project + ' | ' + identifier + '")');
+			}
+
+			this.destroy();
+
+		}, this);
+
+		template.bind('error', function(event) {
+
+			if (lychee.debug === true) {
+				console.error('breeder: FAILURE ("' + project + ' | ' + identifier + '") at "' + event + '" template event');
+			}
+
+			this.destroy();
+
+		}, this);
+
+
+		return template;
 
 	};
 
@@ -50,64 +94,20 @@ lychee.define('breeder.Main').requires([
 
 		this.bind('init', function() {
 
-			var action   = this.settings.action   || null;
-			var platform = this.settings.platform || null;
-			var project  = this.settings.project  || null;
-			var target   = this.settings.target   || null;
+			var settings = this.settings;
+			var template = _breed.call(this, settings);
+			if (template !== null) {
 
+				template.then(settings.action);
+				template.init();
 
-			var identifier = this.settings.platform;
-			if (target !== null) {
-				identifier += '/' + target;
+				return true;
+
 			}
 
 
-			if (typeof breeder.template[platform] === 'object') {
-
-				var construct = breeder.template[platform]['Application'] || null;
-				if (construct !== null) {
-
-					var template = new construct({
-						filesystem: new fertilizer.data.Filesystem(project),
-						shell:      new fertilizer.data.Shell(project),
-						settings:   this.settings
-					});
-
-					template.then(action);
-
-					template.bind('complete', function() {
-
-						if (lychee.debug === true) {
-							console.info('breeder: SUCCESS ("' + project + ' | ' + identifier + '")');
-						}
-
-						this.destroy();
-
-					}, this);
-
-					template.bind('error', function(event) {
-
-						if (lychee.debug === true) {
-							console.error('breeder: FAILURE ("' + project + ' | ' + identifier + '") at "' + event + '" event');
-						}
-
-						this.destroy();
-
-					}, this);
-
-
-					template.init();
-
-					return true;
-
-				} else {
-
-					if (lychee.debug === true) {
-						console.error('breeder: FAILURE ("' + project + ' | ' + identifier + '") at "init" event');
-					}
-
-				}
-
+			if (lychee.debug === true) {
+				console.error('breeder: FAILURE ("' + settings.project + '") at "init" event');
 			}
 
 

@@ -26,27 +26,27 @@ var _print_help = function() {
 	});
 
 
-	console.log('                                                      ');
+	console.log('                                             ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Harvester');
-	console.log('                                                      ');
-	console.log('Usage: harvester [Action] [Profile]                   ');
-	console.log('                                                      ');
-	console.log('                                                      ');
-	console.log('Available Actions:                                    ');
-	console.log('                                                      ');
-	console.log('   start, stop                                        ');
-	console.log('                                                      ');
-	console.log('Available Profiles:                                   ');
-	console.log('                                                      ');
+	console.log('                                             ');
+	console.log('Usage: lycheejs-harvester [Action] [Profile] ');
+	console.log('                                             ');
+	console.log('                                             ');
+	console.log('Available Actions:                           ');
+	console.log('                                             ');
+	console.log('   start, stop                               ');
+	console.log('                                             ');
+	console.log('Available Profiles:                          ');
+	console.log('                                             ');
 	profiles.forEach(function(profile) {
-		var diff = ('                                                  ').substr(profile.length);
+		var diff = ('                                         ').substr(profile.length);
 		console.log('    ' + profile + diff);
 	});
-	console.log('                                                      ');
-	console.log('Examples:                                             ');
-	console.log('                                                      ');
-	console.log('    harvester start development                       ');
-	console.log('                                                      ');
+	console.log('                                             ');
+	console.log('Examples:                                    ');
+	console.log('                                             ');
+	console.log('    lycheejs-harvester start development;    ');
+	console.log('                                             ');
 
 };
 

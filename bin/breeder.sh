@@ -10,7 +10,7 @@ ARCH=`lowercase \`uname -m\``;
 
 LYCHEEJS_NODE="";
 LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
-PROJECT_ROOT="$PWD";
+PROJECT_ROOT=$(realpath --relative-to=$LYCHEEJS_ROOT $PWD);
 
 
 if [ "$ARCH" == "x86_64" -o "$ARCH" == "amd64" ]; then
@@ -49,17 +49,17 @@ case "$1" in
 
 	init)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js init "$2" --project="$PROJECT_ROOT";
+		$LYCHEEJS_NODE ./bin/breeder.js init "$2" "" --project=/$PROJECT_ROOT;
 	;;
 
 	pull)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js pull "$2" "$3" --project="$PROJECT_ROOT";
+		$LYCHEEJS_NODE ./bin/breeder.js pull "$2" "$3" --project=/$PROJECT_ROOT;
 	;;
 
-	fertilize)
+	push)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js fertilize "$2" --project="$PROJECT_ROOT";
+		$LYCHEEJS_NODE ./bin/breeder.js push "$2" "" --project=/$PROJECT_ROOT;
 	;;
 
 	*)

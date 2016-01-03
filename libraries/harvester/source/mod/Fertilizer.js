@@ -29,23 +29,23 @@ lychee.define('harvester.mod.Fertilizer').tags({
 	 * HELPERS
 	 */
 
-	var _fertilize = function(project, identifier) {
+	var _fertilize = function(project, target) {
 
 		// NEVER CHANGE THIS TO A JAVASCRIPT FILE
 		// libuv has a serious bug and starts the js file with
 		// native node interpreter, NOT this execution binary
 
 		_child_process.execFile(_root + '/bin/fertilizer.sh', [
-			project,
-			identifier
+			target,
+			project
 		], {
 			cwd: _root
 		}, function(error, stdout, stderr) {
 
 			if (error) {
-				console.error('harvester.mod.Fertilizer: FAILURE ("' + project + ' | ' + identifier + '")');
+				console.error('harvester.mod.Fertilizer: FAILURE ("' + project + ' | ' + target + '")');
 			} else {
-				console.info('harvester.mod.Fertilizer: SUCCESS ("' + project + ' | ' + identifier + '")');
+				console.info('harvester.mod.Fertilizer: SUCCESS ("' + project + ' | ' + target + '")');
 			}
 
 		});
@@ -91,8 +91,8 @@ lychee.define('harvester.mod.Fertilizer').tags({
 					var environments = build.environments || null;
 					if (environments !== null) {
 
-						var identifiers = Object.keys(environments);
-						if (identifiers.length > 0) {
+						var targets = Object.keys(environments);
+						if (targets.length > 0) {
 							return true;
 						}
 
@@ -117,13 +117,13 @@ lychee.define('harvester.mod.Fertilizer').tags({
 					var environments = build.environments || null;
 					if (environments !== null) {
 
-						var identifiers = Object.keys(environments);
-						if (identifiers.length > 0) {
+						var targets = Object.keys(environments);
+						if (targets.length > 0) {
 
 							var root = project.filesystem.root.substr(_root.length);
 
-							identifiers.forEach(function(identifier) {
-								_fertilize(root, identifier);
+							targets.forEach(function(target) {
+								_fertilize(root, target);
 							});
 
 						}

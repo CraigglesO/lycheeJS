@@ -34,35 +34,35 @@ var _print_help = function() {
 	});
 
 
-	console.log('                                                      ');
+	console.log('                                                              ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Fertilizer');
-	console.log('                                                      ');
-	console.log('Usage: fertilizer [Library/Project] [Environment]     ');
-	console.log('                                                      ');
-	console.log('                                                      ');
-	console.log('Available Fertilizers:                                ');
-	console.log('                                                      ');
-	console.log('   html, html-nwjs, html-webview, node, node-sdl      ');
-	console.log('                                                      ');
-	console.log('Available Libraries:                                  ');
-	console.log('                                                      ');
+	console.log('                                                              ');
+	console.log('Usage: lycheejs-fertilizer [Target] [Library/Project]         ');
+	console.log('                                                              ');
+	console.log('                                                              ');
+	console.log('Available Fertilizers:                                        ');
+	console.log('                                                              ');
+	console.log('   html, html-nwjs, html-webview, node, node-sdl              ');
+	console.log('                                                              ');
+	console.log('Available Libraries:                                          ');
+	console.log('                                                              ');
 	libraries.forEach(function(library) {
-		var diff = ('                                                  ').substr(library.length);
+		var diff = ('                                                          ').substr(library.length);
 		console.log('    ' + library + diff);
 	});
-	console.log('                                                      ');
-	console.log('Available Projects:                                   ');
-	console.log('                                                      ');
+	console.log('                                                              ');
+	console.log('Available Projects:                                           ');
+	console.log('                                                              ');
 	projects.forEach(function(project) {
-		var diff = ('                                                  ').substr(project.length);
+		var diff = ('                                                          ').substr(project.length);
 		console.log('    ' + project + diff);
 	});
-	console.log('                                                      ');
-	console.log('Examples:                                             ');
-	console.log('                                                      ');
-	console.log('    fertilizer /projects/boilerplate "html-nwjs/main" ');
-	console.log('    fertilizer /projects/boilerplate "node/server"    ');
-	console.log('                                                      ');
+	console.log('                                                              ');
+	console.log('Examples:                                                     ');
+	console.log('                                                              ');
+	console.log('    lycheejs-fertilizer html-nwjs/main /projects/boilerplate; ');
+	console.log('    lycheejs-fertilizer node/server /projects/boilerplate;    ');
+	console.log('                                                              ');
 
 };
 
@@ -81,10 +81,10 @@ var _settings = (function() {
 	var raw_arg1 = process.argv[3] || '';
 
 
-	var pkg_path = root + raw_arg0 + '/lychee.pkg';
+	var pkg_path = root + raw_arg1 + '/lychee.pkg';
 	if (fs.existsSync(pkg_path) === true) {
 
-		settings.project = raw_arg0;
+		settings.project = raw_arg1;
 
 
 		var json = null;
@@ -100,9 +100,9 @@ var _settings = (function() {
 
 			if (json.build instanceof Object && json.build.environments instanceof Object) {
 
-				if (json.build.environments[raw_arg1] instanceof Object) {
-					settings.identifier  = raw_arg1;
-					settings.environment = json.build.environments[raw_arg1];
+				if (json.build.environments[raw_arg0] instanceof Object) {
+					settings.identifier  = raw_arg0;
+					settings.environment = json.build.environments[raw_arg0];
 				}
 
 			}

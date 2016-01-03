@@ -16,7 +16,15 @@
 						"js"
 					]
 				},
+				"remote": {
+					"Ping": [
+						"js"
+					]
+				},
 				"Client": [
+					"js"
+				],
+				"Server": [
 					"js"
 				]
 			},

@@ -13,18 +13,9 @@
 			"Main": [
 				"js"
 			],
-			"template": {
-				"html": {
-					"Application": [
-						"js"
-					]
-				},
-				"node": {
-					"Application": [
-						"js"
-					]
-				}
-			}
+			"Template": [
+				"js"
+			]
 		}
 	}
 }

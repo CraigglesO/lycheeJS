@@ -1,6 +1,7 @@
 
 lychee.define('app.Main').requires([
 	'lychee.data.JSON',
+	'app.net.Client',
 	'app.state.Welcome',
 	'app.state.Settings'
 ]).includes([

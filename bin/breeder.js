@@ -21,27 +21,24 @@ var lychee = require(root + '/libraries/lychee/build/node/core.js')(root);
 
 var _print_help = function() {
 
-	console.log('                                                           ');
-	console.info('lycheeJS ' + lychee.VERSION + ' Breeder                   ');
-	console.log('                                                           ');
-	console.log('Usage: lycheejs-breeder [Action] [Platform] [Library]      ');
-	console.log('                                                           ');
-	console.log('                                                           ');
-	console.log('Available Actions:                                         ');
-	console.log('   init, pull, fertilize                      	            ');
-	console.log('                                                           ');
-	console.log('Available Fertilizers:                                     ');
-	console.log('                                                           ');
-	console.log('   html, html-nwjs, html-webview, node, node-sdl           ');
-	console.log('                                                           ');
-	console.log('                                                           ');
-	console.log('Examples:                                                  ');
-	console.log('                                                           ');
-	console.log('    cd myproject;                                          ');
-	console.log('    lycheejs-breeder init node;                            ');
-	console.log('    lycheejs-breeder pull node/dist /libraries/harvester;  ');
-	console.log('    lycheejs-breeder fertilize node/main;                  ');
-	console.log('                                                           ');
+	console.log('                                                            ');
+	console.info('lycheeJS ' + lychee.VERSION + ' Breeder');
+	console.log('                                                            ');
+	console.log('Usage: lycheejs-breeder [Action] [Target] [Library/Project] ');
+	console.log('                                                            ');
+	console.log('                                                            ');
+	console.log('Available Actions:                                          ');
+	console.log('                                                            ');
+	console.log('   init, pull, push                                         ');
+	console.log('                                                            ');
+	console.log('Examples:                                                   ');
+	console.log('                                                            ');
+	console.log('    cd /projects/my-project;                                ');
+	console.log('                                                            ');
+	console.log('    lycheejs-breeder init node;                             ');
+	console.log('    lycheejs-breeder pull node/dist /libraries/harvester;   ');
+	console.log('    lycheejs-breeder push node;                             ');
+	console.log('                                                            ');
 
 };
 
@@ -50,10 +47,9 @@ var _print_help = function() {
 var _settings = (function() {
 
 	var settings = {
-		action:   null,
-		platform: null,
-		target:   null,
 		project:  null,
+		action:   null,
+		target:   null,
 		library:  null
 	};
 
@@ -64,48 +60,46 @@ var _settings = (function() {
 	var raw_arg3 = process.argv[5] || '';
 
 
-	var tmp = null;
-	if (raw_arg2.substr(0, 10) === '--project=') {
-		tmp = raw_arg2.substr(10);
-	} else if (raw_arg3.substr(0, 10) === '--project=') {
-		tmp = raw_arg3.substr(10);
-	}
+	if (raw_arg3.substr(0, 10) === '--project=') {
 
+		var tmp = raw_arg3.substr(10);
+		if (tmp.indexOf('.') === -1) {
 
-	if (tmp !== null) {
+			try {
 
-		try {
+				var stat1 = fs.lstatSync(root + tmp);
+				if (stat1.isDirectory()) {
+					settings.project = tmp;
+				}
 
-			var stat1 = fs.lstatSync(tmp);
-			if (stat1.isDirectory()) {
-				settings.project = tmp;
+			} catch(e) {
+
+				settings.project = null;
+
 			}
-
-		} catch(e) {
-
-			settings.project = null;
 
 		}
 
 	}
 
 
+	// init node --project="/projects/my-project"
 	if (raw_arg0 === 'init') {
 
-		settings.action   = 'init';
-		settings.platform = raw_arg1.split('/')[0] || null;
-		settings.target   = raw_arg1.split('/')[1] || null;
+		settings.action = 'init';
+		settings.target = raw_arg1 || null;
 
+
+	// pull node/dist /libraries/harvester --project="/projects/my-project"
 	} else if (raw_arg0 === 'pull') {
 
-		settings.action   = 'pull';
-		settings.platform = raw_arg1.split('/')[0] || null;
-		settings.target   = raw_arg1.split('/')[1] || null;
+		settings.action = 'pull';
+		settings.target = raw_arg1 || null;
 
 		try {
 
-			var stat1 = fs.lstatSync(root + '/' + raw_arg2);
-			var stat2 = fs.lstatSync(root + '/' + raw_arg2 + '/lychee.pkg');
+			var stat1 = fs.lstatSync(root + raw_arg2);
+			var stat2 = fs.lstatSync(root + raw_arg2 + '/lychee.pkg');
 			if (stat1.isDirectory() && stat2.isFile()) {
 				settings.library = raw_arg2;
 			}
@@ -116,12 +110,11 @@ var _settings = (function() {
 
 		}
 
+	// push --project="/projects/my-project"
+	} else if (raw_arg0 === 'push') {
 
-	} else if (raw_arg0 === 'fertilize') {
-
-		settings.action = 'fertilize';
-		settings.platform = raw_arg1.split('/')[0] || null;
-		settings.target   = raw_arg1.split('/')[1] || null;
+		settings.action = 'push';
+		settings.target = raw_arg1 || null;
 
 	}
 
@@ -213,25 +206,44 @@ var _bootup = function(settings) {
 	 * IMPLEMENTATION
 	 */
 
-	var action       = settings.action;
-	var has_action   = settings.action !== null;
-	var has_platform = settings.platform !== null;
-	var has_target   = settings.target !== null;
-	var has_project  = settings.project !== null;
-	var has_library  = settings.library !== null;
+	var action      = settings.action;
+	var has_project = settings.project !== null;
+	var has_library = settings.library !== null;
+	var has_target  = settings.target !== null;
 
 
-	if (action === 'init' && has_project && has_platform) {
+	var platform = null;
+	var target   = null;
+	if (has_target) {
+		platform = settings.target.split('/')[0] || null;
+		target   = settings.target.split('/')[1] || null;
+	}
 
-		_bootup(settings);
 
-	} else if (action === 'pull' && has_project && has_platform && has_target && has_library) {
+	if (action === 'init' && has_project) {
 
-		_bootup(settings);
+		_bootup({
+			action:  'init',
+			project:  settings.project,
+			platform: platform
+		});
 
-	} else if (action === 'fertilize' && has_project && has_platform) {
+	} else if (action === 'pull' && has_project && has_library) {
 
-		_bootup(settings);
+		_bootup({
+			action:   'pull',
+			project:  settings.project,
+			library:  settings.library,
+			platform: platform,
+			target:   target
+		});
+
+	} else if (action === 'push' && has_project) {
+
+		_bootup({
+			action:  'push',
+			project: settings.project
+		});
 
 	} else {
 

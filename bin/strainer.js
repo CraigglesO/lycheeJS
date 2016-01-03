@@ -34,31 +34,31 @@ var _print_help = function() {
 	});
 
 
-	console.log('                                                      ');
+	console.log('                                             ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Strainer');
-	console.log('                                                      ');
-	console.log('Usage: strainer [Library/Project]                     ');
-	console.log('                                                      ');
-	console.log('                                                      ');
-	console.log('Available Libraries:                                  ');
-	console.log('                                                      ');
+	console.log('                                             ');
+	console.log('Usage: lycheejs-strainer [Library/Project]   ');
+	console.log('                                             ');
+	console.log('                                             ');
+	console.log('Available Libraries:                         ');
+	console.log('                                             ');
 	libraries.forEach(function(library) {
-		var diff = ('                                                  ').substr(library.length);
+		var diff = ('                                         ').substr(library.length);
 		console.log('    ' + library + diff);
 	});
-	console.log('                                                      ');
-	console.log('Available Projects:                                   ');
-	console.log('                                                      ');
+	console.log('                                             ');
+	console.log('Available Projects:                          ');
+	console.log('                                             ');
 	projects.forEach(function(project) {
-		var diff = ('                                                  ').substr(project.length);
+		var diff = ('                                         ').substr(project.length);
 		console.log('    ' + project + diff);
 	});
-	console.log('                                                      ');
-	console.log('Examples:                                             ');
-	console.log('                                                      ');
-	console.log('    strainer /libraries/lychee                        ');
-	console.log('    strainer /projects/boilerplate                    ');
-	console.log('                                                      ');
+	console.log('                                             ');
+	console.log('Examples:                                    ');
+	console.log('                                             ');
+	console.log('    lycheejs-strainer /libraries/lychee;     ');
+	console.log('    lycheejs-strainer /projects/boilerplate; ');
+	console.log('                                             ');
 
 };
 
