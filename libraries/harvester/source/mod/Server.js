@@ -78,33 +78,43 @@ lychee.define('harvester.mod.Server').requires([
 
 		console.info('harvester.mod.Server: BOOTUP ("' + project + ' | ' + host + ':' + port + '")');
 
-		var server = _child_process.execFile(_root + project + '/harvester.js', [
-			_root,
-			port,
-			host
-		], {
-			cwd: _root + project
-		}, function(error, stdout, stderr) {
 
-			if (error) {
-				console.error('harvester.mod.Server: FAILURE ("' + project + ' | ' + host + ':' + port + '")');
-			}
+		var server = null;
 
-		});
+		try {
+
+			server = _child_process.execFile(_root + project + '/harvester.js', [
+				_root,
+				port,
+				host
+			], {
+				cwd: _root + project
+			}, function(error, stdout, stderr) {
+
+				if (error) {
+					console.error('harvester.mod.Server: FAILURE ("' + project + ' | ' + host + ':' + port + '")');
+				}
+
+			});
 
 
-		server.on('SIGTERM', function() { this.exit(0); });
-		server.on('error',   function() { this.exit(1); });
-		server.on('exit',    function() {});
+			server.on('SIGTERM', function() { this.exit(0); });
+			server.on('error',   function() { this.exit(1); });
+			server.on('exit',    function() {});
 
-		server.destroy = function() {
+			server.destroy = function() {
 
-			console.warn('harvester.mod.Server: SHUTDOWN ("' + project + ' | ' + host + ':' + port + '")');
+				console.warn('harvester.mod.Server: SHUTDOWN ("' + project + ' | ' + host + ':' + port + '")');
 
-			this.kill('SIGTERM');
+				this.kill('SIGTERM');
 
-		};
+			};
 
+		} catch(e) {
+
+			server = null;
+
+		}
 
 		return server;
 
@@ -168,13 +178,19 @@ lychee.define('harvester.mod.Server').requires([
 
 							var root   = project.filesystem.root.substr(_root.length);
 							var server = _serve(root, null, port);
+							if (server !== null) {
 
+								project.setServer(new harvester.data.Server({
+									process: server,
+									host:    null,
+									port:    port
+								}));
 
-							project.setServer(new harvester.data.Server({
-								process: server,
-								host:    null,
-								port:    port
-							}));
+							} else {
+
+								console.error('harvester.mod.Server: FAILURE ("' + root + ' | null:' + port + '") (chmod +x missing?)');
+
+							}
 
 						}
 
