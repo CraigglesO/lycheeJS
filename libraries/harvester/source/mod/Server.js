@@ -91,7 +91,7 @@ lychee.define('harvester.mod.Server').requires([
 				cwd: _root + project
 			}, function(error, stdout, stderr) {
 
-				if (error) {
+				if (error.signal !== 'SIGTERM') {
 					console.error('harvester.mod.Server: FAILURE ("' + project + ' | ' + host + ':' + port + '")');
 				}
 

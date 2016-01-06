@@ -357,7 +357,7 @@ lychee.define('lychee.net.protocol.WS').exports(function(lychee, global) {
 		this.onclose = function(err) {};
 
 
-		this.__fragment = { operator: 0x00, payload:  new Buffer(0) };
+		this.__fragment = { operator: 0x00, payload: new Buffer(0) };
 		this.__lastping = 0;
 		this.__lastpong = 0;
 		this.__interval = null;
