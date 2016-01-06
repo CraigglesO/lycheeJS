@@ -97,7 +97,7 @@ lychee.define('tool.state.Status').includes([
 						code += '<td>' + identifier + '</td>';
 						code += '<td><label class="ico-online">Online</label></td>';
 						code += '<td>' + host_projects.join(', ') + '</td>';
-						code += '<td><a class="button ico-browser ico-only" href="lycheejs://web=' + encodeURI('http://' + pretty_host) + '"></a></td>';
+						code += '<td><a class="button ico-browser ico-only" title="Open in Browser" href="lycheejs://web=' + encodeURI('http://' + pretty_host) + '"></a></td>';
 						code += '</tr>';
 
 					});
@@ -140,7 +140,7 @@ lychee.define('tool.state.Status').includes([
 						if (project.server === null) {
 
 							if (project.harvester === true) {
-								project_actions.push('<a class="button ico-start ico-only" href="lycheejs://start=' + project.identifier + '"></a>');
+								project_actions.push('<a class="button ico-start ico-only" title="Start Project Server" href="lycheejs://start=' + project.identifier + '"></a>');
 								project_status = '<label class="ico-offline">Offline</label>';
 							} else {
 								project_actions.push('<button class="ico-start ico-only" disabled></button>');
@@ -148,13 +148,13 @@ lychee.define('tool.state.Status').includes([
 							}
 
 						} else {
-							project_actions.push('<a class="button ico-stop ico-only" href="lycheejs://stop=' + project.identifier + '"></a>');
+							project_actions.push('<a class="button ico-stop ico-only" title="Stop Project Server" href="lycheejs://stop=' + project.identifier + '"></a>');
 							project_status = '<label class="ico-online">Online</label>';
 						}
 
 
 						if (project.filesystem !== null) {
-							project_actions.push('<a class="button ico-folder ico-only" href="lycheejs://file=' + project.identifier + '"></a>');
+							project_actions.push('<a class="button ico-folder ico-only" title="Open Project Folder" href="lycheejs://file=' + project.identifier + '"></a>');
 						}
 
 
@@ -168,9 +168,9 @@ lychee.define('tool.state.Status').includes([
 								}
 
 								if (harvester !== null && harvester.details[host] === null) {
-									project_actions.push('<a class="button ico-browser ico-only" href="lycheejs://web=' + encodeURI('http://' + pretty_host + '/projects/' + project.identifier) + '"></a>');
+									project_actions.push('<a class="button ico-browser ico-only" title="Open in Browser" href="lycheejs://web=' + encodeURI('http://' + pretty_host + '/projects/' + project.identifier) + '"></a>');
 								} else {
-									project_actions.push('<a class="button ico-browser ico-only" href="lycheejs://web=' + encodeURI('http://' + pretty_host) + '"></a>');
+									project_actions.push('<a class="button ico-browser ico-only" title="Open in Browser" href="lycheejs://web=' + encodeURI('http://' + pretty_host) + '"></a>');
 								}
 
 							});
