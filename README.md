@@ -8,6 +8,15 @@ Support our libre Bot Cloud via BTC [1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2](bitcoin
 
 ## Overview
 
+The following repositories are related to the lycheeJS project:
+
+- [lycheeJS-bundle](https://github.com/Artificial-Engineering/lycheeJS-bundle.git) generates all OS-ready bundles.
+- [lycheeJS-future](https://github.com/Artificial-Engineering/lycheeJS-future.git) contains concepts and ideas not yet finished.
+- [lycheeJS-runtime](https://github.com/Artificial-Engineering/lycheeJS-runtime.git) contains all pre-compiled runtimes used by the Fertilizers.
+- [lycheeJS-tutorial](https://github.com/Artificial-Engineering/lycheeJS-tutorial.git) generates all OS-ready tutorials.
+- [lycheeJS-website](https://github.com/Artificial-Engineering/lycheeJS-website.git) contains the lycheeJS website.
+
+
 lycheeJS is a Next-Gen Isomorphic Application Engine that
 offers a complete solution for prototyping and deployment
 of HTML5, native OpenGL, native OpenGLES and libSDL2 based
@@ -18,24 +27,10 @@ and shipment to further platforms. The development process is
 optimized for Blink-based browsers (Chromium, Google Chrome,
 Opera) and their developer tools.
 
-The [lycheeJS-runtime](https://github.com/Artificial-Engineering/lycheeJS-runtime.git)
-repository contains all binary pre-compiled runtimes included
-inside the bundles.
-
-The [lycheeJS-bundle](https://github.com/Artificial-Engineering/lycheeJS-bundle.git)
-repository contains all logic required to generate OS-ready
-bundles.
-
-
 The target platforms are described as so-called Fertilizers.
 Those Fertilizers cross-compile everything automagically using
 a serialized `lychee.Environment` that is configured in each
 `lychee.pkg` file.
-
-We took the decision to drop 32-Bit platforms in order to save
-hard disk space. If you still have a 32-Bit Computer and want
-to use lycheeJS, you have to fix at least the [node/update.sh](https://github.com/Artificial-Engineering/lycheeJS-runtime/blob/master/node/update.sh)
-script in the lycheeJS-runtime repository (`./bin/runtime` folder).
 
 
 | Target       | Fertilizer                   | Package  | arm | amd64 |
@@ -54,6 +49,13 @@ The iOS Fertilizer has currently no support for cross-compilation
 due to XCode limitations. You can still create an own WebView iOS
 app and use the `html` platform adapter.
 
+lycheeJS does not ship 32-Bit runtimes in order to save hard disk
+space. If you still have a 32-Bit Computer and want to use lycheeJS,
+you have to fix (uncomment) at least the
+[node/update.sh](https://github.com/Artificial-Engineering/lycheeJS-runtime/blob/master/node/update.sh)
+script in the `./bin/runtime` folder and execute it once before
+starting the `lycheejs-harvester`.
+
 
 ## Bundle Installation
 
@@ -71,7 +73,10 @@ lycheeJS on any UNIX-compatible machine (arm or amd64).
 The only requirement for the script itself is `curl` and `unzip`.
 
 ```bash
-# This will create a lycheeJS Installation in ./lycheejs
+sudo mkdir -m 0777 /opt/lycheejs;
+cd /opt;
+
+# Install lycheeJS into ./lycheejs
 wget -q -O - http://lycheejs.org/download/lycheejs-2015-Q4-netinstall.sh | bash;
 ```
 
@@ -86,11 +91,12 @@ you started in a couple minutes.
 sudo mkdir -m 0777 /opt/lycheejs-edge;
 cd /opt/lycheejs-edge;
 
+# Install lycheeJS
 git clone https://github.com/Artificial-Engineering/lycheeJS.git ./;
 git checkout development;
-
 git clone https://github.com/Artificial-Engineering/lycheeJS-runtime.git ./bin/runtime;
 
+# Run lycheeJS
 sudo ./bin/configure.sh;              # use --no-integration if you want a sandboxed installation
 lycheejs-harvester start development; # no sudo required
 ```
