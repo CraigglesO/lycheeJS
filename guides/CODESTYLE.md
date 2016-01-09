@@ -1,8 +1,23 @@
 
 # Codestyle Guide for lycheeJS
 
+- [Project Layout](#project-layout)
+-- [Packages](#packages)
+-- [Namespaces](#namespaces)
+-- [Definitions](#definitions)
+- [Definition Layout](#definition-layout)
+-- [Modules](#modules)
+-- [Classes](#classes)
+-- [Callbacks](#callbacks)
+- [Code Layout](#code-layout)
+-- [Editorconfig](#editorconfig)
+-- [Indentation and Whitespaces](#indentation-and-whitespaces)
+-- [Naming of Variables](#naming-variables)
+-- [Naming of Properties and Methods](#naming-properties-and-methods)
+-- [Data Type Validation](#data-type-validation)
 
-## Library / Project Structure
+
+## Project Layout
 
 ### Packages
 
@@ -49,11 +64,11 @@ Examples:
 The lycheeJS Definition system always uses so-called Definition closures in order to have advanced memory functionality among different instances. A basic layout of a Definition has (if functionality required) these sections:
 
 - Headers (lychee.define(), tags(), requires(), includes(), supports())
-- FEATURE DETECTION section
-- HELPERS section
-- IMPLEMENTATION section
-- ENTITY API section
-- CUSTOM API section
+- `FEATURE DETECTION` section
+- `HELPERS` section
+- `IMPLEMENTATION` section
+- `ENTITY API` section
+- `CUSTOM API` section
 
 An important mention here is that three Definition types supported:
 
@@ -63,7 +78,7 @@ An important mention here is that three Definition types supported:
 
 
 
-### Module Definition Layout
+### Modules
 
 A basic layout of a `Module` looks like this:
 
@@ -152,7 +167,7 @@ lychee.define('my.ENCODER').requires([
 
 
 
-### Class Definition Layout
+### Classes
 
 ```javascript
 lychee.define('my.Definition').tags({
@@ -260,7 +275,10 @@ lychee.define('my.Definition').tags({
 });
 ```
 
-### Callback Definition Layout
+
+
+### Callbacks
+
 ```javascript
 lychee.define('my.Definition').exports(function(lychee, my, global, attachments) {
 
