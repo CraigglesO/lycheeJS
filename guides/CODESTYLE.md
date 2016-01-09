@@ -275,7 +275,7 @@ lychee.define('my.Definition').exports(function(lychee, my, global, attachments)
 	(function(global) {
 
 		if (global.device.match(/Android/)) {
-        		_device = 'Android';
+			_device = 'Android';
 		} else if (global.device.match(/Ubuntu/)) {
 			_device = 'Ubuntu';
 		}
