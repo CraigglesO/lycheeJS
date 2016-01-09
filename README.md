@@ -91,6 +91,14 @@ lycheejs-harvester start development; # no sudo required
 
 
 
+## Guides
+
+- [Contribution Guide](./guides/CONTRIBUTION.md)
+- [Codestyle Guide](./guides/CODESTYLE.md)
+- [Release Guide](./guides/RELEASE.md)
+
+
+
 ## License
 
 lycheeJS is (c) 2012-2016 Artificial-Engineering and released under MIT license.

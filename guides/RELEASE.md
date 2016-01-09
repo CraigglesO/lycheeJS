@@ -1,11 +1,8 @@
 
-# How to do a lycheeJS Release
-
+# Release Guide for lycheeJS
 
 
 ## 1. Update the runtimes
-
-
 
 All runtimes have to be updated. The `update.sh` inside
 the `./bin/runtime` folder updates all runtimes and
@@ -21,10 +18,7 @@ cd /opt/lycheejs-edge/bin/runtime;
 ```
 
 
-
 ## 2. Fix the Info.plist files for OSX
-
-
 
 All OSX Info.plist files contain a `<string>...</string>` tag.
 This tag currently is not fixed by the `update.sh` script,
@@ -43,10 +37,7 @@ are listed below:
 ```
 
 
-
 ## 3. Release the runtimes
-
-
 
 The runtimes are hosted at github, so that a `Contributor Installation`
 can still use only github for installing lycheeJS.
@@ -62,10 +53,7 @@ git push origin master -f;
 ```
 
 
-
-## 4. Release lycheeJS to github
-
-
+## 4. Release lycheeJS to GitHub
 
 The lycheeJS version flags are used among all bundle-generation algorithms.
 That means we have to fix both the `README.md` and the `lychee.js` core.
@@ -103,31 +91,23 @@ git push origin master;
 ```
 
 
-
 ## 5. Release the lycheeJS bundles
-
-
 
 The bundles have to be created on an up-to-date Ubuntu machine.
 The `package.sh` inside the root folder creates all bundles. In between
 different bundle iterations, the `clean.sh` script has to be executed.
 
 ```bash
-VERSION="2016-Q1";
-
 sudo apt-get install curl git hfsprogs advancecomp mktorrent;
 
 cd /opt/lycheejs-bundle;
 
 sudo ./clean.sh;
-sudo ./package.sh --release $VERSION;
-
-# Alternatively, you can also create a preview release
-# sudo ./package.sh --preview $VERSION;
-
+sudo ./package.sh --release "2016-Q1";
+sudo ./package.sh --preview "2016-Q2";
 ```
 
-Now everything needs to be uploaded to the `lycheeJS-website`, which for
+Now everything needs to be uploaded to the [lycheeJS-website](https://github.com/Artificial-Engineering/lycheeJS-website), which for
 itself has a build bot available and running that does all of the above
 steps if commanded to do so.
 

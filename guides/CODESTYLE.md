@@ -1,18 +1,20 @@
 
-# lycheeJS Style Guide
+# Codestyle Guide for lycheeJS
 
 
-## 0. Project Structure
+## Library / Project Structure
 
-### 0.1. Packages
+### Packages
 
 The `lychee.pkg` file is divided in three sub-hierarchies that are tracked by the build system.
 
-- `source` is the source variant that every developer can live-edit without any build tasks in between.
-- `build` is the build variant that is produced by the fertilizer. The equivalent `build/environments` section in the package sets up automatically generated build variants of the library or application.
 - `api` is the documentation folder that contains all documentation files of the package.
+- `asset` is the asset folder that contains all raw assets that are automatically integrated by the Editor.
+- `build` is the build variants folder that is produced by the fertilizer. The equivalent `build/environments` section in the package sets up automatically generated build variants of the library or application.
+- `source` is the source variants folder that every developer can live-edit without any build tasks in between.
 
-### 0.2. Namespaces
+
+### Namespaces
 
 Each subfolder located in `source` or `build` or `api` has to be written lowercase and is automatically mapped into its equivalent namespace. It may contain either Entities or other namespace folders.
 
@@ -23,10 +25,10 @@ An important mention here is that tags can inherit from other tags. Those inheri
 Examples:
 - `lychee/source/platform/html/Renderer` is equivalent to `lychee.Renderer`
 - `lychee/source/platform/html-nwjs/Renderer` is equivalent to `lychee.Renderer`
-- `lychee/source/platform/iojs/Renderer` is equivalent to `lychee.Renderer`
+- `lychee/source/platform/node/Renderer` is equivalent to `lychee.Renderer`
 
 
-### 0.3. Entities
+### Definitions
 
 Each file located in `source` or `build` or `api` has to be written Uppercase and non-camelized and is automatically mapped into its equivalent namespace hierarchy and identifier. A Definition has the file suffix `.js`. An Entity may contain further file suffixes (`json` for Config, `fnt` for Font, `msc` for Music, `snd` for Sound, `png` for Texture) of each will automatically be mapped into attachments of the same Definition with their corresponding subidentifier.
 
@@ -42,17 +44,16 @@ Examples:
 - `lychee/source/Foo.js` and `lychee/source/Foo.default.png` and `lychee/source/Foo.fancy.png` is equivalent to `lychee.Foo` with `attachments = { "default.png": (Texture), "fancy.png": (Texture)}`.
 
 
-## 1. Definition Layout
+## Definition Layout
 
 The lycheeJS Definition system always uses so-called Definition closures in order to have advanced memory functionality among different instances. A basic layout of a Definition has (if functionality required) these sections:
 
 - Headers (lychee.define(), tags(), requires(), includes(), supports())
-- Shared memory and pointers to requirements or attachments
-- Event listeners and feature detection
-- Shared methods among multiple instances
-- Implementation constructor (that sets all dynamic properties directly)
-- Implementation prototype (that sets all dynamic methods directly)
-- Return of Implementation
+- FEATURE DETECTION section
+- HELPERS section
+- IMPLEMENTATION section
+- ENTITY API section
+- CUSTOM API section
 
 An important mention here is that three Definition types supported:
 
@@ -62,72 +63,86 @@ An important mention here is that three Definition types supported:
 
 
 
-### 1.1. Module Definition Layout
+### Module Definition Layout
 
 A basic layout of a `Module` looks like this:
 
 ```javascript
 lychee.define('my.ENCODER').requires([
 	// optional requirements
-    'my.Other'
+	'my.Other'
 ]).exports(function(lychee, my, global, attachments) {
-
-	/*
-     * SHARED MEMORY
-     */
 
 	var _Other = my.Other;
 
 
 
 	/*
-     * SHARED METHODS
-     */
+	 * HELPERS
+	 */
 
 	var _encode = function(data) {
-    	return null;
-    };
+		return null;
+	};
 
 	var _decode = function(data) {
-    	return null;
-    };
+		return null;
+	};
 
 
 
 	/*
-     * IMPLEMENTATION
-     */
+	 * IMPLEMENTATION
+	 */
 
 	var Module = {
 
 		/*
-         * ENTITY API
-         */
+		 * ENTITY API
+		 */
 
 		serialize: function() {
 
 			return {
-            	'reference': 'my.ENCODER',
-                'arguments': []
-            };
+				'reference': 'my.ENCODER',
+				'arguments': []
+			};
 
-        },
+		},
 
 
 
 		/*
-         * CUSTOM API
-         */
+		 * CUSTOM API
+		 */
 
-    	encode: function(data) {
-        	return _encode(data);
-        },
+		encode: function(data) {
 
-		decode: function() {
-        	return _decode(data);
-        }
+			data = data instanceof Object ? data : null;
 
-    };
+
+			if (data !== null) {
+				return _encode(data);
+			}
+
+			return null;
+
+		},
+
+		decode: function(blob) {
+
+			blob = typeof blob === 'string' ? blob : null;
+
+
+			if (blob !== null) {
+				return _decode(blob);
+			}
+
+			return null;
+
+		}
+
+	};
 
 
 	return Module;
@@ -137,32 +152,29 @@ lychee.define('my.ENCODER').requires([
 
 
 
-### 1.2. Class Definition Layout
+### Class Definition Layout
 
 ```javascript
 lychee.define('my.Definition').tags({
 	// optional tags
-    platform: 'html'
+	platform: 'html'
 }).requires([
 	// optional requirements
-    'my.Other'
+	'my.Other'
 ]).includes([
 	// optional includes
 	'lychee.game.Entity',
 	'lychee.event.Emitter'
 ]).supports(function(lychee, global) {
+
 	// optional feature detection
 	if (typeof global.addEventListener === 'function') {
-    	return true;
-    }
+		return true;
+	}
 
 	return false;
 
 }).exports(function(lychee, my, global, attachments) {
-
-	/*
-     * SHARED MEMORY
-     */
 
 	var _Other         = my.Other;
 	var _shared_memory = [];
@@ -170,22 +182,22 @@ lychee.define('my.Definition').tags({
 
 
 	/*
-     * SHARED METHODS
-     */
+	 * HELPERS
+	 */
 
 	var _do_fancy_stuff = function() {
 
 		for (var s = 0, sl = _shared_memory.length; s++) {
 			_shared_memory[s].update(); // stub API for demo usage
-        }
+		}
 
-    };
+	};
 
 
 
 	/*
-     * IMPLEMENTATION
-     */
+	 * IMPLEMENTATION
+	 */
 
 	var Class = function(data) {
 
@@ -207,19 +219,19 @@ lychee.define('my.Definition').tags({
 
 		settings = null;
 
-    };
+	};
 
 
 	Class.prototype = {
 
 		/*
-         * CUSTOM API
-         */
+		 * CUSTOM API
+		 */
 
 		// 1. imperative methods
 		update: function() {
-        	// stub API for demo usage
-        },
+			// stub API for demo usage
+		},
 
 		// 2. setters and getters
 		setCustom: function(custom) {
@@ -229,18 +241,18 @@ lychee.define('my.Definition').tags({
 
 			if (custom !== null) {
 
-            	this.custom = custom;
+				this.custom = custom;
 
-                return true;
+				return true;
 
-            }
+			}
 
 
 			return false;
 
-        }
+		}
 
-    };
+	};
 
 
 	return Class;
@@ -248,21 +260,17 @@ lychee.define('my.Definition').tags({
 });
 ```
 
-### 1.3. Callback Definition Layout
+### Callback Definition Layout
 ```javascript
 lychee.define('my.Definition').exports(function(lychee, my, global, attachments) {
-
-	/*
-     * SHARED MEMORY
-     */
 
 	var _device = null;
 
 
 
 	/*
-     * FEATURE DETECTION
-     */
+	 * FEATURE DETECTION
+	 */
 
 	(function(global) {
 
@@ -293,24 +301,11 @@ lychee.define('my.Definition').exports(function(lychee, my, global, attachments)
 ```
 
 
-## 2. Memory Management
-### 2.1. Static Memory
-### 2.2. Dynamic Memory
-### 2.3. Shared Memory
 
-## 3. Property Management
-### 3.1. Static Properties
-### 3.2. Dynamic Properties
-### 3.3. Shared Properties
-
-### 4. Method Management
-### 4.1. Static Methods
-### 4.2. Dynamic Methods
-### 4.3. Shared Methods
-
-
-# RANDOM STUFF WOOT WOOT
+## Code Layout
 
 ### Indentation
-### Variables
-### Branches and Spaces
+### Naming (Properties)
+### Naming (Methods)
+### Data Type Validation
+
