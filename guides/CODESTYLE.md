@@ -304,8 +304,206 @@ lychee.define('my.Definition').exports(function(lychee, my, global, attachments)
 
 ## Code Layout
 
-### Indentation
-### Naming (Properties)
-### Naming (Methods)
+### Editorconfig
+
+There's an `.editorconfig` file in the lycheeJS root and you have to use it.
+Use `Tab` and NOT whitespaces. Our `Tab` is equivalent to `4 Whitespaces`.
+
+```javascript
+// GOOD
+var data = _CACHE[id];
+if (data !== null) {
+    data.load(); // data is all in the same column.
+}
+
+// BAD
+var data = _CACHE[id];
+if (data !== null) {
+  data.load(); // This is not easy to rasterize.
+}
+```
+
+
+### Indentation and Whitespaces
+
+Code with whitespaces is easier to read than without them.
+Use whitespaces wherever semantically required and necessary.
+
+Whitespaces are necessary between operators.
+
+```javascript
+// GOOD
+var y = 15;
+var x = 3 * 4 + (y / 3);
+
+// BAD
+var y=15;
+var x=3*4+(y/3);
+```
+
+
+1 empty line is necessary when there's either a new condition
+(if/else/switch) or a block of statements with more than 2 lines
+of code.
+
+```javascript
+var data = _CACHE[id] || null;
+if (data !== null) {
+
+    data.onload = function() {
+
+        var buffer = this.buffer;
+        if (buffer instanceof Object) {
+
+            buffer.blub = 'test';
+            buffer.flag = true;
+            buffer.woop = 123.37;
+
+        }
+
+    };
+
+    data.load();
+
+}
+```
+
+2 empty lines are necessary when there's a new leave-branch
+condition or logical difference in the algorithm behaviour.
+
+```javascript
+var _my_method = function(data) {
+
+    if (data !== null) {
+
+        var filtered = [];
+
+        data.forEach(function(entry) {
+
+            if (entry.id > 100) {
+                filtered.push(entry);
+            }
+
+        });
+
+        return filtered;
+
+    }
+
+
+    // new leave-branch condition
+    return null;
+
+};
+```
+
+
+### Naming (Variables)
+
+As in ES5 / ES6 all variables are basically references in terms of
+classical programming languages, there's a necessity of using
+uppercase / lowercase names for variables to easily figure out
+the memory layout and behaviour of those.
+
+- Static variables and Enums are completely written uppercase.
+- Shared variables between multiple instances have a prefixed underscore.
+- Constructors are written uppercase-first.
+- Instances are written lowercase.
+- Namespaces are written lowercase (as they are Object instances in ES5 / ES6).
+
+
+```javascript
+var _Entity = lychee.app.Entity;
+var _CACHE  = {};
+
+var Constructor = function(settings) {
+
+    this.entity = new _Entity(settings);
+
+    _CACHE.push(this);
+
+};
+
+
+var foo = new Constructor({ woop: true });
+var bar = new Constructor({ woop: true });
+```
+
+As `lychee.define` or `new lychee.Definition()` uses a Definition
+closure, you have full advantages of using shared and static variables
+within the Definition closure. Shared variables all have to be assigned
+at the top (See above section Class Definition Layout).
+
+
+### Naming (Properties and Methods)
+
+Properties of Classes and Modules are named accordingly to their visibility.
+
+- Public properties are written lowercase.
+- Protected properties are written lowercase and have a prefixed underscore.
+- Private properties are written lowercase and have two prefixed underscores.
+- If there's a public property with `name`, there has to exist a `setName` method on the prototype.
+- The return value of a `setName` method always has to be `true` or `false`.
+- The `setName` method is always called in the `Constructor`, so that it accepts a `settings[name]` value.
+
+```javascript
+var Class = function(data) {
+
+    var settings = lychee.extend({}, data);
+
+
+    this.blob = null;
+
+    this._protected = false;
+
+    this.__private  = {};
+
+
+    this.setBlob(settings.blob);
+    this.setFlag(settings.flag);
+
+};
+
+Class.prototype = {
+
+    setBlob: function(blob) {
+
+        blob = blob instanceof Object ? blob : null;
+
+        if (blob !== null) {
+
+            this.blob = blob;
+
+            return true;
+
+        }
+
+
+        return false;
+
+    },
+
+    setFlag: function(flag) {
+
+        if (flag === true || flag === false) {
+
+            this.flag = flag;
+
+            return true;
+
+        }
+
+
+        return false;
+
+    }
+
+};
+```
+
+Events are an exception, they have three prefixed underscores internally
+to be available across all `lychee.Definition` instances without any conflicts.
+
+
 ### Data Type Validation
 
