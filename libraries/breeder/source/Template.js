@@ -110,7 +110,7 @@ lychee.define('breeder.Template').requires([
 					_LIB.copy(fs, '/libraries/lychee/build/node/dist/index.js');
 
 					_TPL.copy(fs, '/harvester.js');
-					_TPL.copy(fs, '/server.sh');
+					fs.chmod('/harvester.js', '775');
 
 					_TPL.copy(fs, '/source/net/remote/Ping.js');
 					_TPL.copy(fs, '/source/net/Server.js');

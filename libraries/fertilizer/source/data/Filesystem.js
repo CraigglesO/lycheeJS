@@ -129,6 +129,36 @@ lychee.define('fertilizer.data.Filesystem').exports(function(lychee, fertilizer,
 
 		},
 
+		chmod: function(path, mode) {
+
+			mode = typeof mode === 'string' ? mode : '777';
+
+
+			var resolved = _path.normalize(this.root + path);
+			if (this.mode === Class.MODE.sandbox) {
+				resolved = _root + resolved;
+			}
+
+
+			if (resolved !== null) {
+
+				var result = false;
+				try {
+					_fs.chmodSync(resolved, mode);
+					result = true;
+				} catch(e) {
+					result = false;
+				}
+
+				return result;
+
+			}
+
+
+			return false;
+
+		},
+
 		copy: function(filesystem, path) {
 
 			filesystem = filesystem instanceof fertilizer.data.Filesystem ? filesystem : null;
