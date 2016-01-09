@@ -1,7 +1,6 @@
 
 # Contribution Guide for lycheeJS
 
-- [Reserved Branches](#reserved-branches)
 - [Fork Management](#fork-management)
 
 1. [Find an Issue](#find-an-issue)
@@ -11,13 +10,15 @@
 5. [Document a Feature](#document-a-feature)
 
 
-## Reserved Branches
+## Fork Management
+
+The main repository is hooked up with build bots. In order to not
+conflict with any script, these branches are reserved and therefore
+not accepted as branches of pull requests.
 
 - the `development` branch is reserved for the master repository.
-- the `2XXX-QX` branch scheme is reserved for build bots.
+- the `2XXX-QX` branch scheme is reserved for the master repository.
 
-
-## Fork Management
 
 Upcoming feature requests are better stored in their own branch, so
 we can make usage of pull requests on GitHub.
