@@ -45,11 +45,18 @@ Examples:
 
 ### Definitions
 
-Each file located in `source` or `build` or `api` has to be written Uppercase and non-camelized and is automatically mapped into its equivalent namespace hierarchy and identifier. A Definition has the file suffix `.js`. An Entity may contain further file suffixes (`json` for Config, `fnt` for Font, `msc` for Music, `snd` for Sound, `png` for Texture) of each will automatically be mapped into attachments of the same Definition with their corresponding subidentifier.
+Each file located in `source` or `build` or `api` has to be written Uppercase and non-camelized and is automatically mapped into its equivalent namespace hierarchy and identifier. A Definition has the file suffix `.js`.
 
-An important mention here is that every lychee.Definition can have attachments. The identifier for each Definition has to be uppercase and not camelized. If there's an additional `.` in the filename it is automatically mapped as an Attachment to the Definition.
+A Definition may have attachments. Those attachments are mapped by their file extension.
 
-These attachments are often necessary for reusable Entities that require Configs, Textures, Musics, Sounds or even raw Buffers as an attachment in order to be Plug & Play ready inside other Projects.
+- `Buffer` for a generic binary buffer.
+- `Config` for files with the `json`, `pkg` or `store` extension.
+- `Font` for files with the `fnt` extension.
+- `Music` for files with the `msc` extension.
+- `Sound` for files with the `snd` extension.
+- `Texture` for files with the `png` extension.
+
+The identifier for each Definition has to be uppercase and not camelized. If there's an additional `.` in the filename it is automatically mapped as an Attachment to the Definition.
 
 
 Examples:
@@ -63,12 +70,20 @@ Examples:
 
 The lycheeJS Definition system always uses so-called Definition closures in order to have advanced memory functionality among different instances. A basic layout of a Definition has (if functionality required) these sections:
 
-- Headers (lychee.define(), tags(), requires(), includes(), supports())
-- `FEATURE DETECTION` section
-- `HELPERS` section
-- `IMPLEMENTATION` section
-- `ENTITY API` section
-- `CUSTOM API` section
+- HEADER
+  - `lychee.define(identifier)`
+  - `.tags()`
+  - `.requires()`
+  - `.includes()`
+  - `.supports()`
+  - `.exports()`
+- BODY (within `.exports(function() { /* BODY */ })`)
+  - `FEATURE DETECTION` section
+  - `HELPERS` section
+  - `IMPLEMENTATION` section
+  - `ENTITY API` section
+  - `CUSTOM API` section
+  - return of `Class`, `Module` or `Callback`;
 
 An important mention here is that three Definition types supported:
 
