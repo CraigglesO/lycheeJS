@@ -68,13 +68,14 @@ Examples:
 
 ## Definition Layout
 
-The lycheeJS Definition system always uses so-called Definition closures in order to have advanced memory functionality among different instances. A basic layout of a Definition has (if functionality required) these sections:
+The lycheeJS Definition system always uses so-called Definition closures in order to have advanced memory functionality among different instances. A basic layout of a Definition has (if the functionality is required) these sections:
 
 - HEADER
   - `lychee.define(identifier)`
   - `.tags()`
   - `.requires()`
   - `.includes()`
+  - `.attaches()`
   - `.supports()`
   - `.exports()`
 - BODY (within `.exports(function() { /* BODY */ })`)
@@ -87,9 +88,9 @@ The lycheeJS Definition system always uses so-called Definition closures in orde
 
 An important mention here is that three Definition types supported:
 
-- `Module` is a singleton that has only properties and methods, but no prototype. Its deserialize() call returns a `reference`.
-- `Class` is a dynamic class implementation with public methods on its prototype. It is called using the `new <Definition>()` keyword. Its deserialize() call returns a `constructor`.
-- `Callback` is a simple function that can not be called with the `new` keyword. Its deserialize() call returns a `reference`.
+- `Module` is a singleton that has only properties and methods, but no prototype. Its `deserialize()` call returns a `reference`.
+- `Class` is a dynamic class implementation with public methods on its prototype. It is called using the `new <Definition>()` keyword. Its `deserialize()` call returns a `constructor`.
+- `Callback` is a simple function that can not be called with the `new` keyword. Its `deserialize()` call returns a `reference`.
 
 
 
