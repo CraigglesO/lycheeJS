@@ -1,6 +1,15 @@
 
 # Contribution Guide for lycheeJS
 
+- [Reserved Branches](#reserved-branches)
+- [Fork Management](#fork-management)
+
+1. [Find an Issue](#find-an-issue)
+2. [Assign an Issue](#assign-an-issue)
+3. [Work on an Issue](#work-on-an-issue)
+4. [Contribute a Feature](#contribute-a-feature)
+5. [Document a Feature](#document-a-feature)
+
 
 ## Reserved Branches
 
@@ -8,7 +17,7 @@
 - the `2XXX-QX` branch scheme is reserved for build bots.
 
 
-### 1. Create a Fork
+## Fork Management
 
 Upcoming feature requests are better stored in their own branch, so
 we can make usage of pull requests on GitHub.
@@ -21,8 +30,7 @@ already.
 ![How to create a Fork](./asset/contribution-fork.png)
 
 
-
-### 2. Find an Issue
+## Find an Issue
 
 After you have forked the project you can start picking some issues you
 want to help us on. Our management tool is [ZenHub](https://www.zenhub.io/)
@@ -40,7 +48,7 @@ on the *Boards* menu that the extension injects to the GitHub website.
 
 
 
-### 3. Assign an Issue
+## Assign an Issue
 
 When you've found something you like to work on, you can assign an issue
 to yourself so that the other lycheeJS team members know what you're
@@ -49,8 +57,7 @@ working on. This helps them to help you, they love to help you :)
 ![How to assign an Issue](./asset/contribution-assignissue.png)
 
 
-
-### 4. Work on an Issue
+## Work on an Issue
 
 Before you start to work, please make your IDE or Editor functional with
 the `.editorconfig` file. We use this in order to prevent unnecessary
@@ -122,7 +129,7 @@ And never try to push directly to the `upstream` remote as you don't want
 to break the `pull request` workflow!
 
 
-### 5. Contribute a Feature
+## Contribute a Feature
 
 Now you can go on GitHub to your repository and switch to the
 `fancy-feature` branch. After you did that, there's a new green
@@ -136,8 +143,7 @@ When you've finished your Issue and have created your pull request you have to d
 After that, we can now automatically merge in your implemented features and close the Issue.
 
 
-
-### 6. Document a Feature
+## Document a Feature
 
 If you want to contribute a feature or a definition, please document - so
 that others can understand it more easily.

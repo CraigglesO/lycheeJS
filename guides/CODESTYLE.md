@@ -21,7 +21,7 @@
 
 ### Packages
 
-The `lychee.pkg` file is divided in three sub-hierarchies that are tracked by the build system.
+The `lychee.pkg` file is divided in four sub-hierarchies that are tracked by the build system.
 
 - `api` is the documentation folder that contains all documentation files of the package.
 - `asset` is the asset folder that contains all raw assets that are automatically integrated by the Editor.

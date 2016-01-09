@@ -1,8 +1,14 @@
 
 # Release Guide for lycheeJS
 
+1. [Update Runtimes](#update-runtimes)
+  - [Fix Info.plist files](#fix-infoplist-files)
+2. [Release Runtimes](#release-runtimes)
+3. [Release lycheeJS](#release-lycheejs)
+4. [Release lycheeJS Bundles](#release-lycheejs-bundles)
 
-## 1. Update the runtimes
+
+## Update Runtimes
 
 All runtimes have to be updated. The `update.sh` inside
 the `./bin/runtime` folder updates all runtimes and
@@ -18,7 +24,7 @@ cd /opt/lycheejs-edge/bin/runtime;
 ```
 
 
-## 2. Fix the Info.plist files for OSX
+### Fix Info.plist files
 
 All OSX Info.plist files contain a `<string>...</string>` tag.
 This tag currently is not fixed by the `update.sh` script,
@@ -37,7 +43,7 @@ are listed below:
 ```
 
 
-## 3. Release the runtimes
+## Release Runtimes
 
 The runtimes are hosted at github, so that a `Contributor Installation`
 can still use only github for installing lycheeJS.
@@ -53,7 +59,7 @@ git push origin master -f;
 ```
 
 
-## 4. Release lycheeJS to GitHub
+## Release lycheeJS
 
 The lycheeJS version flags are used among all bundle-generation algorithms.
 That means we have to fix both the `README.md` and the `lychee.js` core.
@@ -91,7 +97,7 @@ git push origin master;
 ```
 
 
-## 5. Release the lycheeJS bundles
+## Release lycheeJS bundles
 
 The bundles have to be created on an up-to-date Ubuntu machine.
 The `package.sh` inside the root folder creates all bundles. In between
