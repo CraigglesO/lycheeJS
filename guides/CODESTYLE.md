@@ -78,13 +78,13 @@ The lycheeJS Definition system always uses so-called Definition closures in orde
   - `.attaches()`
   - `.supports()`
   - `.exports()`
-- BODY (within `.exports(function() { /* BODY */ })`)
+- BODY (inside `.exports(function() { /* BODY */ })`)
   - `FEATURE DETECTION` section
   - `HELPERS` section
   - `IMPLEMENTATION` section
   - `ENTITY API` section
   - `CUSTOM API` section
-  - return of `Class`, `Module` or `Callback`;
+  - return of `Class`, `Module` or `Callback`
 
 An important mention here is that three Definition types supported:
 
