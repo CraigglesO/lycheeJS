@@ -507,3 +507,71 @@ to be available across all `lychee.Definition` instances without any conflicts.
 
 ### Data Type Validation
 
+All methods accepting only specific data types have to use Ternaries in
+order to validate the data type.
+
+- `===` (deep equals) is used for `Boolean`.
+- `instanceof` is used for `Array`, `Function`, `Object`.
+- typeof` is used for `String`.
+- `!== undefined` is used for `Scope Object` (used to call a `Function` or `callback`).
+
+```javascript
+var _my_method = function(flag, data, blob, str, callback, scope) {
+
+    flag = flag === true;
+    data     = data instanceof Array        ? data     : null;
+    blob     = blob instanceof Object       ? blob     : null;
+    str      = typeof str === 'string'      ? str      : null;
+    callback = callback instanceof Function ? callback : null;
+    scope    = scope !== undefined          ? scope    : this;
+
+
+    if (data !== null && blob !== null) {
+
+        // ...
+
+        return true;
+
+    }
+
+
+    return false;
+
+};
+```
+
+
+All Data Types injected by the `bootstrap.js` file (and being used in the `lychee.Asset`
+implementation) are compatible with the `instanceof` operator.
+
+- `instanceof` is used for `Config`, `Font`, `Music`, `Sound`, `Texture` and `Stuff`.
+- `lychee.enumof()` is used for `Enum`.
+- `lychee.interfaceof()` is used for `Interface` or `Class`.
+
+```javascript
+var _MODE = {
+    'default': 0,
+    'woop':    1
+};
+
+var _my_method = function(config, service, mode) {
+
+    config  = config instanceof Config                        ? config  : null;
+    service = lychee.interfaceof(lychee.net.Service, service) ? service : null;
+    mode    = lychee.enumof(_MODE, mode)                      ? mode    : _MODE['default'];
+
+
+    if (config !== null && service !== null) {
+
+        // ...
+
+        return true;
+
+    }
+
+
+    return false;
+
+};
+```
+
