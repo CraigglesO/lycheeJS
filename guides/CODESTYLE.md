@@ -1,20 +1,20 @@
 
 # Codestyle Guide for lycheeJS
 
-- [Project Layout](#project-layout)
--- [Packages](#packages)
--- [Namespaces](#namespaces)
--- [Definitions](#definitions)
-- [Definition Layout](#definition-layout)
--- [Modules](#modules)
--- [Classes](#classes)
--- [Callbacks](#callbacks)
-- [Code Layout](#code-layout)
--- [Editorconfig](#editorconfig)
--- [Indentation and Whitespaces](#indentation-and-whitespaces)
--- [Naming of Variables](#naming-variables)
--- [Naming of Properties and Methods](#naming-properties-and-methods)
--- [Data Type Validation](#data-type-validation)
+1. [Project Layout](#project-layout)
+  - [Packages](#packages)
+  - [Namespaces](#namespaces)
+  - [Definitions](#definitions)
+2. [Definition Layout](#definition-layout)
+  - [Modules](#modules)
+  - [Classes](#classes)
+  - [Callbacks](#callbacks)
+3. [Code Layout](#code-layout)
+  - [Editorconfig](#editorconfig)
+  - [Indentation and Whitespaces](#indentation-and-whitespaces)
+  - [Naming of Variables](#naming-variables)
+  - [Naming of Properties and Methods](#naming-properties-and-methods)
+  - [Data Type Validation](#data-type-validation)
 
 
 ## Project Layout
