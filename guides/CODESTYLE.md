@@ -376,7 +376,7 @@ var x=3*4+(y/3);
 ```
 
 
-1 empty line is necessary when there's either a new condition
+one empty line is necessary when there's either a new condition
 (if/else/switch) or a block of statements with more than 2 lines
 of code.
 
@@ -402,7 +402,7 @@ if (data !== null) {
 }
 ```
 
-2 empty lines are necessary when there's a new leave-branch
+two empty lines are necessary when there's a new leave-branch
 condition or logical difference in the algorithm behaviour.
 
 ```javascript
