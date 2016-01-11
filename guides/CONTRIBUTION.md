@@ -186,7 +186,7 @@ if (exists('/lib/lychee/source/ui/Entity.js') && !exists('/lib/lychee/api/ui/Ent
 	* :apple: `:apple:` Mac OS stuff
 	* :penguin: `:penguin:` Linux stuff
 	* :book: `:book:` writing docs
-	* :rocket `:rocket:` performance improvements
+	* :rocket: `:rocket:` performance improvements
 	* :art: `:art:` Design improvements
 	* :recycle: `:recycle:` Refactoring
 	* :shit: `:shit:` when something went wrong with previous commit
@@ -198,4 +198,3 @@ if (exists('/lib/lychee/source/ui/Entity.js') && !exists('/lib/lychee/api/ui/Ent
 	* :x: `:x:` when removing code or files
 	* :hammer: `:hammer:` security stuff
 
-	
