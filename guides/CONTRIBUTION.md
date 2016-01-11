@@ -190,10 +190,10 @@ Start each Commit Message with an Emoji:
 * :lipstick: `:lipstick:` CSS-related Stuff
 
 
-* :bomb: `:bomb:` Windows-related Stuff
-* :apple: `:apple:` Mac OSX-related Stuff
-* :penguin: `:penguin:` Linux-related Stuff
-* :hammer: `:hammer:` Security-related Stuff
+- :bomb: `:bomb:` Windows-related Stuff
+- :apple: `:apple:` Mac OSX-related Stuff
+- :penguin: `:penguin:` Linux-related Stuff
+- :hammer: `:hammer:` Security-related Stuff
 
 
 * :book: `:book:` Documentation Improvements
