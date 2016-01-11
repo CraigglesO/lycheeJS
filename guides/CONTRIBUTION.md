@@ -8,6 +8,7 @@
 3. [Work on an Issue](#work-on-an-issue)
 4. [Contribute a Feature](#contribute-a-feature)
 5. [Document a Feature](#document-a-feature)
+6. [Git Commit Messaeges](#git-commit-messages)
 
 
 ## Fork Management
@@ -174,3 +175,27 @@ if (exists('/lib/lychee/source/ui/Entity.js') && !exists('/lib/lychee/api/ui/Ent
 }
 ```
 
+## Git Commit Messages
+
+* Present tense ("Fix CSS" not "Fixed CSS")
+* Imperative mood ("Read the book" not "Reads the book")
+* Always reference the issues and pull requests
+* Start the commit Message with an emoji:
+	* :bug: `:bug:` when fixing a bug
+	* :bomb: `:bomb:` when fixing something on Windows
+	* :apple: `:apple:` Mac OS stuff
+	* :penguin: `:penguin:` Linux stuff
+	* :book: `:book:` writing docs
+	* :rocket `:rocket:` performance improvements
+	* :art: `:art:` Design improvements
+	* :recycle: `:recycle:` Refactoring
+	* :shit: `:shit:` when something went wrong with previous commit
+	* :snowflake: `:snowflake:` for unstable prototypes 
+	* :sparkles: `:sparkles:` magical improvements of the format/structure of the code
+	* :gun: `:gun:` tests
+	* :facepunch: `:facepunch:` refactoring crapy shit because of stupid APIs
+	* :lipstick: `:lipstick:` fixing CSS stuff
+	* :x: `:x:` when removing code or files
+	* :hammer: `:hammer:` security stuff
+
+	
