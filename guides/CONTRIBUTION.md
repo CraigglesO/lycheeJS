@@ -189,10 +189,12 @@ Start each Commit Message with an Emoji:
 * :gun: `:gun:` Test-related Stuff
 * :lipstick: `:lipstick:` CSS-related Stuff
 
+
 * :bomb: `:bomb:` Windows-related Stuff
 * :apple: `:apple:` Mac OSX-related Stuff
 * :penguin: `:penguin:` Linux-related Stuff
 * :hammer: `:hammer:` Security-related Stuff
+
 
 * :book: `:book:` Documentation Improvements
 * :rocket: `:rocket:` Performance Improvements
