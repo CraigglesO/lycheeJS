@@ -177,24 +177,23 @@ if (exists('/lib/lychee/source/ui/Entity.js') && !exists('/lib/lychee/api/ui/Ent
 
 ## Git Commit Messages
 
-Here are the rules for our commits:
+Here are the rules for our commits, start each commit message with an emoji.
 
 * Use Present tense (`Fix CSS` not `Fixed CSS`)
 * Use imperative verbs (`Read the book` not `Reads the book`)
 * Always reference the issues and pull requests (`More work on #123`)
 
-Start each Commit Message with an Emoji:
+General Emojis:
 
 * :bug: `:bug:` Bug-related Stuff
 * :gun: `:gun:` Test-related Stuff
 * :lipstick: `:lipstick:` CSS-related Stuff
+* :bomb: `:bomb:` Windows-related Stuff
+* :apple: `:apple:` Mac OSX-related Stuff
+* :penguin: `:penguin:` Linux-related Stuff
+* :hammer: `:hammer:` Security-related Stuff
 
-
-- :bomb: `:bomb:` Windows-related Stuff
-- :apple: `:apple:` Mac OSX-related Stuff
-- :penguin: `:penguin:` Linux-related Stuff
-- :hammer: `:hammer:` Security-related Stuff
-
+Improvement Emojis:
 
 * :book: `:book:` Documentation Improvements
 * :rocket: `:rocket:` Performance Improvements
