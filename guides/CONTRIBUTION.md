@@ -140,9 +140,11 @@ button appearing with the label `Compare & pull request`.
 ![How to create a Pull Request](./asset/contribution-pullrequest.png)
 
 Click on it, now you have to fill out the form with the description.
-When you've finished your Issue and have created your pull request you have to drag the Issue on the "Board" to Done.
+When you've finished your Issue and have created your pull request you have
+to drag the Issue on the ZenHub Board to `Done`.
 
-After that, we can now automatically merge in your implemented features and close the Issue.
+After that we can now automatically merge in your implemented features.
+If the merge was successful, the Issue is `Closed`.
 
 
 ## Document a Feature
