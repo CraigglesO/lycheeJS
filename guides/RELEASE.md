@@ -62,7 +62,8 @@ git push origin master -f;
 ## Release lycheeJS
 
 The lycheeJS version flags are used among all bundle-generation algorithms.
-That means we have to fix both the `README.md` and the `lychee.js` core.
+That means we have to fix both the `README.md` and the `lychee.js` file
+in `/libraries/lychee/source/core`.
 
 ```bash
 VERSION="2016-Q1";
@@ -82,7 +83,7 @@ git pull origin development;
 
 
 sed -i 's|2[0-9][0-9][0-9]-Q[1-4]|'$VERSION'|g' ./README.md;
-sed -i 's|2[0-9][0-9][0-9]-Q[1-4]|'$VERSION'|g' ./lib/lychee/source/core/lychee.js;
+sed -i 's|2[0-9][0-9][0-9]-Q[1-4]|'$VERSION'|g' ./libraries/lychee/source/core/lychee.js;
 
 git add ./;
 git commit -m "lycheeJS $VERSION release";
@@ -113,7 +114,9 @@ sudo ./package.sh --release "2016-Q1";
 sudo ./package.sh --preview "2016-Q2";
 ```
 
-Now everything needs to be uploaded to the [lycheeJS-website](https://github.com/Artificial-Engineering/lycheeJS-website), which for
-itself has a build bot available and running that does all of the above
-steps if commanded to do so.
+Now everything needs to be uploaded to the [lycheeJS-website](https://github.com/Artificial-Engineering/lycheeJS-website)'s
+`/download/bundle` folder, including the `release.json` and the optional
+`preview.json`. After that everything is integrated with the website.
 
+Note that the files are too large to be hosted on github, that's why the
+server for the `lycheeJS-website` still exists and is served via `nginx`.
