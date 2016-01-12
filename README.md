@@ -1,6 +1,8 @@
 
 # lycheeJS (2015-Q4)
 
+brought to you as libre software with joy and pride by [Artificial Engineering](http://artificial.engineering).
+
 ## Support
 
 Support our libre Bot Cloud via BTC [1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2](bitcoin:1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2?amount=0.5&label=lycheeJS%20Support).
@@ -19,18 +21,22 @@ The following repositories are related to the lycheeJS project:
 
 lycheeJS is a Next-Gen Isomorphic Application Engine that
 offers a complete solution for prototyping and deployment
-of HTML5, native OpenGL, native OpenGLES and libSDL2 based
-applications.
+of applications. The underlying technology stack does not
+matter (HTML5, WebGL, OpenGL, OpenGLES, libSDL) and is
+completely automated behind the scenes.
 
-The project has the goal to ease up development of applications
-and shipment to further platforms. The development process is
-optimized for Blink-based browsers (Chromium, Google Chrome,
-Opera) and their developer tools.
+The project aims to ease up and automate the design and
+development process of applications through intelligent
+software bots that learn from your application code.
+
+The development process is optimized for Blink-based
+browsers (Chromium, Google Chrome, Opera) and their
+developer tools.
 
 The target platforms are described as so-called Fertilizers.
-Those Fertilizers cross-compile everything automagically using
-a serialized `lychee.Environment` that is configured in each
-`lychee.pkg` file.
+Those Fertilizers cross-compile everything automagically
+using a serialized `lychee.Environment` that is setup in
+each project's or library's `lychee.pkg` file.
 
 
 | Target       | Fertilizer                   | Package  | arm | amd64 |
@@ -42,7 +48,7 @@ a serialized `lychee.Environment` that is configured in each
 | Android      | html-webview, node, node-sdl | apk, bin |  ✓  |   ✓   |
 | BlackberryOS | html-webview, node, node-sdl | apk, bin |  ✓  |   ✓   |
 | FirefoxOS    | html-webview                 | zip      |  ✓  |   ✓   |
-| iOS          |                              |          |     |       |
+| iOS          | html                         |          |     |       |
 | Ubuntu Touch | html-webview, node, node-sdl | deb, bin |  ✓  |   ✓   |
 
 The iOS Fertilizer has currently no support for cross-compilation
