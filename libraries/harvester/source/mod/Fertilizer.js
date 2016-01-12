@@ -20,8 +20,35 @@ lychee.define('harvester.mod.Fertilizer').tags({
 
 }).exports(function(lychee, harvester, global, attachments) {
 
+	var _CACHE         = { active: false, queue: [] };
 	var _child_process = require('child_process');
 	var _root          = new harvester.data.Filesystem().root;
+
+
+
+	/*
+	 * FEATURE DETECTION
+	 */
+
+	(function(cache) {
+
+		setInterval(function() {
+
+			if (cache.active === false) {
+
+				var tmp = cache.queue.splice(0, 1);
+				if (tmp.length === 1) {
+
+					cache.active = true;
+					_fertilize(tmp[0].project, tmp[0].target);
+
+				}
+
+			}
+
+		}, 1000);
+
+	})(_CACHE);
 
 
 
@@ -29,18 +56,34 @@ lychee.define('harvester.mod.Fertilizer').tags({
 	 * HELPERS
 	 */
 
+	var _is_queue = function(project, target) {
+
+		var found = false;
+
+		_CACHE.queue.forEach(function(entry) {
+
+			if (entry.project === project && entry.target === target) {
+				found = true;
+			}
+
+		});
+
+		return found;
+
+	};
+
 	var _fertilize = function(project, target) {
 
-		// NEVER CHANGE THIS TO A JAVASCRIPT FILE
-		// libuv has a serious bug and starts the js file with
-		// native node interpreter, NOT this execution binary
-
+		// XXX: (libUV Bug) Don't change this to a .js file.
+		// It will use native node binary, not the lycheeJS-shipped one.
 		_child_process.execFile(_root + '/bin/fertilizer.sh', [
 			target,
 			project
 		], {
 			cwd: _root
 		}, function(error, stdout, stderr) {
+
+			_CACHE.active = false;
 
 			if (error || stdout.indexOf('SUCCESS') === -1) {
 				console.error('harvester.mod.Fertilizer: FAILURE ("' + project + ' | ' + target + '")');
@@ -93,7 +136,17 @@ lychee.define('harvester.mod.Fertilizer').tags({
 
 						var targets = Object.keys(environments);
 						if (targets.length > 0) {
-							return true;
+
+							var root = project.filesystem.root.substr(_root.length);
+
+							targets = targets.filter(function(target) {
+								return _is_queue(root, target) === false;
+							});
+
+							if (targets.length > 0) {
+								return true;
+							}
+
 						}
 
 					}
@@ -122,9 +175,22 @@ lychee.define('harvester.mod.Fertilizer').tags({
 
 							var root = project.filesystem.root.substr(_root.length);
 
-							targets.forEach(function(target) {
-								_fertilize(root, target);
+							targets = targets.filter(function(target) {
+								return _is_queue(root, target) === false;
 							});
+
+							if (targets.length > 0) {
+
+								targets.forEach(function(target) {
+
+									_CACHE.queue.push({
+										project: root,
+										target:  target
+									});
+
+								});
+
+							}
 
 						}
 
