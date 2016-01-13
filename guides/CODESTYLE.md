@@ -14,6 +14,7 @@
   - [Indentation and Whitespaces](#indentation-and-whitespaces)
   - [Naming of Variables](#naming-variables)
   - [Naming of Properties and Methods](#naming-properties-and-methods)
+  - [Data Type Comparison](#data-type-comparison)
   - [Data Type Validation](#data-type-validation)
 
 
@@ -539,25 +540,30 @@ Events are an exception, they have three prefixed underscores internally
 to be available across all `lychee.Definition` instances without any conflicts.
 
 
-### Data Type Validation
+### Data Type Comparison
 
 All methods accepting only specific data types have to use Ternaries in
 order to validate the data type.
 
-- `===` (deep equals) is used for `Boolean`.
+Always use literal data types for `Boolean`, `Number`, `String`, `RegExp`.
+Always use a `===` (strict comparison) in the whole codebase.
+Never use a `==` (abstract comparison).
+
+- `===` (strict comparison) is used for `Boolean` and literal data types.
 - `instanceof` is used for `Array`, `Function`, `Object`.
-- typeof` is used for `String`.
+- `typeof` is used for `Number`, `String`.
 - `!== undefined` is used for `Scope Object` (used to call a `Function` or `callback`).
 
 ```javascript
-var _my_method = function(flag, data, blob, str, callback, scope) {
+var _my_method = function(flag, data, blob, num, str, callback, scope) {
 
-    flag = flag === true;
-    data     = data instanceof Array        ? data     : null;
-    blob     = blob instanceof Object       ? blob     : null;
-    str      = typeof str === 'string'      ? str      : null;
-    callback = callback instanceof Function ? callback : null;
-    scope    = scope !== undefined          ? scope    : this;
+    flag     = flag === true;
+    data     = data instanceof Array        ? data      : null;
+    blob     = blob instanceof Object       ? blob      : null;
+    num      = typeof num === 'number'      ? (num | 0) : null;
+    str      = typeof str === 'string'      ? str       : null;
+    callback = callback instanceof Function ? callback  : null;
+    scope    = scope !== undefined          ? scope     : this;
 
 
     if (data !== null && blob !== null) {
@@ -575,8 +581,9 @@ var _my_method = function(flag, data, blob, str, callback, scope) {
 ```
 
 
-All Data Types injected by the `bootstrap.js` file (and being used in the `lychee.Asset`
-implementation) are compatible with the `instanceof` operator.
+All Data Types injected by the `bootstrap.js` file (and being used
+in the `lychee.Asset` implementation) are compatible with the
+`instanceof` operator.
 
 - `instanceof` is used for `Config`, `Font`, `Music`, `Sound`, `Texture` and `Stuff`.
 - `lychee.enumof()` is used for `Enum`.
@@ -605,6 +612,74 @@ var _my_method = function(config, service, mode) {
 
 
     return false;
+
+};
+```
+
+
+### Data Type Validation
+
+All Data Types are validated in positive-style branches. That means
+each and every `Function` returns either always the same data type
+or two opposite data types.
+
+There are basically these variants on what a `Function` might return:
+
+- `Object` or `null` is returned by a `Function` that gets data.
+- `Array` is returned by a `Function` that filters data.
+- `undefined` (nothing) is returned by a `Function` that updates or processes data.
+- `true` or `false` is returned by a `Function` that validates data or a sets a state.
+
+```javascript
+var _CACHE    = [];
+var _get_data = function() {
+
+	if (_CACHE.length > 0) {
+		return _CACHE.splice(0, 1);
+	}
+
+
+	return null;
+
+};
+
+
+var _filter_data = function(data) {
+
+	var filtered = data.map(function(entry) {
+		return entry.id.substr(0, 6) === 'lychee';
+	});
+
+
+	return filtered;
+
+};
+
+
+var _update_data = function(data) {
+
+	data.forEach(function(entry) {
+		entry.count++;
+	});
+
+};
+
+
+lychee.Foo.prototype.setState = function(state) {
+
+	state = typeof state === 'string' ? state : null;
+
+
+	if (state !== null) {
+
+		this.state = state;
+
+		return true;
+
+	}
+
+
+	return false;
 
 };
 ```

@@ -1,27 +1,18 @@
 
 # TODO
 
-- Why Arguments are hard to trace (and probably leak with [].slice.call(arguments))
-- Fake Operator Overloading (Stream Builder example)
-- Polyfilled methods (Array, Object, String)
-
-- Branches (if/else/switch-case)
-- Loops (for/while/do-while/for in/for of)
-- Why do-while is bad for code quality
 - Expressions and Statements
-
-- Runtime Memory
-- Heap Memory
-- Garbage Creation and Deletion
-- Fragmentation
-- Garbage Collector (Mark and Sweep, Copying, Generational)
-
-- Constructor Conventions
-- Prototype Conventions
-- Inheritance Conventions
-- Branch Prediction (why to use positive-only branches in methods)
-- Type Conventions (ternaries for easier parsing and lexing)
-- Definition Closures (Generational GC example)
+- Branches
+  - if / else
+  - switch / case
+- Loops
+  - for / while
+  - for in / for of
+- Garbage Collection
+  - Runtime Memory
+  - Heap Memory
+  - Garbage Creation and Deletion
+  - Fragmentation
 
 
 # ECMAScript Guide for lycheeJS Developers
