@@ -18,6 +18,11 @@
 	<script src="/libraries/lychee/build/html/core.js"></script>
 
 	<style>
+	.ico-browse:before  { content: "\e037"; }
+	.ico-exit:before    { content: "\e097"; }
+	.ico-file:before    { content: "\e039"; }
+	.ico-open:before    { content: "\e00c"; }
+	.ico-refresh:before { content: "\e098"; }
 	#intro {
 		display: block;
 	}
@@ -84,6 +89,9 @@
 	<li class="active" onclick="ui.changeState('intro');">Intro</li>
 	<li onclick="ui.changeState('projects');">Projects</li>
 	<li onclick="ui.changeState('tools');">Tools</li>
+	<aside>
+		<button class="ico-exit ico-only" title="Shutdown" onclick="window.close();"></button>
+	</aside>
 </menu>
 
 <main>
@@ -112,7 +120,7 @@
 					</ul>
 				</div>
 				<p class="center">
-					<button tabindex="5" class="ico-browser" onclick="var id = ui.value('#intro-play input'); if (id !== null) window.open('../../projects/' + id);">Open in Browser</button>
+					<button tabindex="5" class="ico-browse" onclick="var id = ui.value('#intro-play input'); if (id !== null) window.open('../../projects/' + id);">Open in Browser</button>
 				</p>
 			</article>
 	
@@ -131,7 +139,7 @@
 					</ul>
 				</div>
 				<p class="center">
-					<button tabindex="10" class="ico-editor" onclick="var id = ui.value('#intro-learn input'); if (id !== null) window.open('lycheejs://edit=' + id);">Open in Editor</button>
+					<button tabindex="10" class="ico-open" onclick="var id = ui.value('#intro-learn input'); if (id !== null) window.open('lycheejs://edit=' + id);">Open in Editor</button>
 				</p>
 			</article>
 	
@@ -148,7 +156,7 @@
 					<div style="height:96px"></div>
 				</div>
 				<p class="center">
-					<button disabled class="ico-editor" onclick="var id = ui.value('#intro-plant input'); if (id !== null) window.open('lycheejs://create=' + id);">Create Project</button>
+					<button disabled class="ico-open" onclick="var id = ui.value('#intro-plant input'); if (id !== null) window.open('lycheejs://create=' + id);">Create Project</button>
 				</p>
 			</article>
 	
@@ -165,9 +173,9 @@
 					<img src="/projects/boilerplate/icon.png">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('/projects/boilerplate');" title="Open in Browser"></button>
-					<button class="ico-editor ico-only" onclick="window.open('lycheejs://edit=boilerplate');" title="Open in Editor"></button>
-					<button class="ico-folder ico-only" onclick="window.open('lycheejs://file=boilerplate');" title="Open in File Manager"></button>
+					<button class="ico-browse ico-only" onclick="window.open('/projects/boilerplate');" title="Open in Browser"></button>
+					<button class="ico-open ico-only" onclick="window.open('lycheejs://edit=boilerplate');" title="Open in Editor"></button>
+					<button class="ico-file ico-only" onclick="window.open('lycheejs://file=boilerplate');" title="Open in File Manager"></button>
 				</div>
 			</div>
 		</article>
@@ -179,9 +187,9 @@
 					<img src="/projects/chat/icon.png">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('/projects/chat');" title="Open in Browser"></button>
-					<button class="ico-editor ico-only" onclick="window.open('lycheejs://edit=chat');" title="Open in Editor"></button>
-					<button class="ico-folder ico-only" onclick="window.open('lycheejs://file=chat');" title="Open in File Manager"></button>
+					<button class="ico-browse ico-only" onclick="window.open('/projects/chat');" title="Open in Browser"></button>
+					<button class="ico-open ico-only" onclick="window.open('lycheejs://edit=chat');" title="Open in Editor"></button>
+					<button class="ico-file ico-only" onclick="window.open('lycheejs://file=chat');" title="Open in File Manager"></button>
 				</div>
 			</div>
 		</article>
@@ -193,9 +201,9 @@
 					<img src="/projects/lethalmaze/icon.png">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('../../projects/lethalmaze');" title="Open in Browser"></button>
-					<button class="ico-editor ico-only" onclick="window.open('lycheejs://edit=lethalmaze');" title="Open in Editor"></button>
-					<button class="ico-folder ico-only" onclick="window.open('lycheejs://file=lethalmaze');" title="Open in File Manager"></button>
+					<button class="ico-browse ico-only" onclick="window.open('../../projects/lethalmaze');" title="Open in Browser"></button>
+					<button class="ico-open ico-only" onclick="window.open('lycheejs://edit=lethalmaze');" title="Open in Editor"></button>
+					<button class="ico-file ico-only" onclick="window.open('lycheejs://file=lethalmaze');" title="Open in File Manager"></button>
 				</div>
 			</div>
 		</article>
@@ -207,9 +215,9 @@
 					<img src="/projects/mode7/icon.png">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('../../projects/mode7');" title="Open in Browser"></button>
-					<button class="ico-editor ico-only" onclick="window.open('lycheejs://edit=mode7');" title="Open in Editor"></button>
-					<button class="ico-folder ico-only" onclick="window.open('lycheejs://file=mode7');" title="Open in File Manager"></button>
+					<button class="ico-browse ico-only" onclick="window.open('../../projects/mode7');" title="Open in Browser"></button>
+					<button class="ico-open ico-only" onclick="window.open('lycheejs://edit=mode7');" title="Open in Editor"></button>
+					<button class="ico-file ico-only" onclick="window.open('lycheejs://file=mode7');" title="Open in File Manager"></button>
 				</div>
 			</div>
 		</article>
@@ -221,9 +229,9 @@
 					<img src="/projects/pong/icon.png">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('../../projects/pong');" title="Open in Browser"></button>
-					<button class="ico-editor ico-only" onclick="window.open('lycheejs://edit=pong');" title="Open in Editor"></button>
-					<button class="ico-folder ico-only" onclick="window.open('lycheejs://file=pong');" title="Open in File Manager"></button>
+					<button class="ico-browse ico-only" onclick="window.open('../../projects/pong');" title="Open in Browser"></button>
+					<button class="ico-open ico-only" onclick="window.open('lycheejs://edit=pong');" title="Open in Editor"></button>
+					<button class="ico-file ico-only" onclick="window.open('lycheejs://file=pong');" title="Open in File Manager"></button>
 				</div>
 			</div>
 		</article>
@@ -235,9 +243,9 @@
 					<img src="/projects/tictactoe/icon.png">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('../../projects/tictactoe');" title="Open in Browser"></button>
-					<button class="ico-editor ico-only" onclick="window.open('lycheejs://edit=tictactoe');" title="Open in Editor"></button>
-					<button class="ico-folder ico-only" onclick="window.open('lycheejs://file=tictactoe');" title="Open in File Manager"></button>
+					<button class="ico-browse ico-only" onclick="window.open('../../projects/tictactoe');" title="Open in Browser"></button>
+					<button class="ico-open ico-only" onclick="window.open('lycheejs://edit=tictactoe');" title="Open in Editor"></button>
+					<button class="ico-file ico-only" onclick="window.open('lycheejs://file=tictactoe');" title="Open in File Manager"></button>
 				</div>
 			</div>
 		</article>
@@ -256,7 +264,7 @@
 					<img src="/projects/cultivator/editor/icon.png">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('./editor/source/index.html');" title="Open in Browser"></button>
+					<button class="ico-browse ico-only" onclick="window.open('./editor/source/index.html');" title="Open in Browser"></button>
 				</div>
 			</div>
 		</article>
@@ -271,7 +279,7 @@
 					<img src="/projects/cultivator/ranger/icon.png">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('./ranger/source/index.html');" title="Open in Browser"></button>
+					<button class="ico-browse ico-only" onclick="window.open('./ranger/source/index.html');" title="Open in Browser"></button>
 				</div>
 			</div>
 		</article>
@@ -286,7 +294,7 @@
 					<img src="/projects/cultivator/api/icon.png" onclick="window.open('./api/index.html');">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('./api/index.html');" title="Open in Browser"></button>
+					<button class="ico-browse ico-only" onclick="window.open('./api/index.html');" title="Open in Browser"></button>
 				</div>
 			</div>
 		</article>
@@ -301,7 +309,7 @@
 					<img src="/projects/cultivator/font/icon.png" onclick="window.open('./font/index.html');">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('./font/index.html');" title="Open in Browser"></button>
+					<button class="ico-browse ico-only" onclick="window.open('./font/index.html');" title="Open in Browser"></button>
 				</div>
 			</div>
 		</article>
@@ -316,7 +324,7 @@
 					<img src="/projects/cultivator/sprite/icon.png">
 				</p>
 				<div class="center">
-					<button class="ico-browser ico-only" onclick="window.open('./sprite/index.html');" title="Open in Browser"></button>
+					<button class="ico-browse ico-only" onclick="window.open('./sprite/index.html');" title="Open in Browser"></button>
 				</div>
 			</div>
 		</article>
