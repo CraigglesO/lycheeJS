@@ -49,7 +49,13 @@ lychee.Asset = typeof lychee.Asset !== 'undefined' ? lychee.Asset : (function(gl
 		if (url !== null) {
 
 			if (type === null) {
-				type = url.split('/').pop().split('.').pop();
+
+				if (url.substr(0, 5) === 'data:') {
+					type = url.split(';')[0].split('/').pop();
+				} else {
+					type = url.split('/').pop().split('.').pop();
+				}
+
 			}
 
 
