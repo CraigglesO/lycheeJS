@@ -16,6 +16,18 @@
 	<script src="/libraries/lychee/build/html/core.js"></script>
 
 	<style>
+	.ico-add:before      { content: "\e095"; }
+	.ico-api:before      { content: "\e05b"; }
+	.ico-browser:before  { content: "\e037"; }
+	.ico-exit:before     { content: "\e097"; }
+	.ico-folder:before   { content: "\e039"; }
+	.ico-offline:before  { content: "\e082"; }
+	.ico-online:before   { content: "\e071"; }
+	.ico-refresh:before  { content: "\e098"; }
+	.ico-remove:before   { content: "\e07c"; }
+	.ico-start:before    { content: "\e071"; }
+	.ico-stop:before     { content: "\e072"; }
+	.ico-upload:before   { content: "\e084"; }
 	#bootup ul.select {
 		width: auto;
 		margin: 0px 16px;
@@ -58,7 +70,7 @@
 	<aside>
 		<a class="button ico-exit ico-only" href="lycheejs://unboot=#" title="Shutdown" onclick="setTimeout(function() { location.href='./index.html'; }, 500);"></a>
 		<button class="ico-refresh ico-only" title="Refresh" onclick="location.href='./index.html';"></button>
-		<button class="ico-back ico-only" title="Quit" onclick="location.href='../../index.html';"></button>
+		<button class="ico-quit ico-only" title="Quit" onclick="location.href='../../index.html';"></button>
 	</aside>
 </menu>
 
