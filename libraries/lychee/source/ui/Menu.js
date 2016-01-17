@@ -15,27 +15,6 @@ lychee.define('lychee.ui.Menu').requires([
 
 
 	/*
-	 * HELPERS
-	 */
-
-	var _is_color = function(color) {
-
-		if (typeof color === 'string') {
-
-			if (color.match(/(#[AaBbCcDdEeFf0-9]{6})/) || color.match(/(#[AaBbCcDdEeFf0-9]{8})/)) {
-				return true;
-			}
-
-		}
-
-
-		return false;
-
-	};
-
-
-
-	/*
 	 * IMPLEMENTATION
 	 */
 
@@ -44,25 +23,19 @@ lychee.define('lychee.ui.Menu').requires([
 		var settings = lychee.extend({}, data);
 
 
-		this.color      = '#363f3e';
-		this.font       = _font;
-		this.options    = [ 'welcome', 'network', 'settings', 'about' ];
-		this.state      = 'default';
-		this.value      = 'welcome';
+		this.font    = _font;
+		this.label   = 'MENU';
+		this.options = [ 'welcome', 'network', 'settings', 'about' ];
+		this.state   = 'default';
+		this.value   = 'welcome';
 
 		this.__boundary = 0;
 		this.__states   = { 'default': null, 'active': null };
 
 
-		this.setColor(settings.color);
-		this.setFont(settings.font);
-		this.setOptions(settings.options);
 		this.setState(settings.state);
 		this.setValue(settings.value);
 
-		delete settings.color;
-		delete settings.font;
-		delete settings.options;
 		delete settings.state;
 		delete settings.value;
 
@@ -139,7 +112,7 @@ lychee.define('lychee.ui.Menu').requires([
 
 
 		this.setEntity('label', new lychee.ui.Label({
-			label: 'MENU',
+			label: this.label,
 			font:  this.font
 		}));
 
@@ -157,6 +130,14 @@ lychee.define('lychee.ui.Menu').requires([
 
 		}, this);
 
+
+		this.setFont(settings.font);
+		this.setLabel(settings.label);
+		this.setOptions(settings.options);
+
+		delete settings.font;
+		delete settings.label;
+		delete settings.options;
 
 		settings = null;
 
@@ -187,7 +168,14 @@ lychee.define('lychee.ui.Menu').requires([
 			var blob     = (data['blob'] || {});
 
 
-			if (this.color !== null) settings.color = this.color;
+			if (this.label !== 'MENU')    settings.label = this.label;
+			if (this.state !== 'default') settings.state = this.state;
+			if (this.value !== 'welcome') settings.value = this.value;
+
+			var tmp = this.options.join(',');
+			if (tmp !== 'welcome,network,settings,about') {
+				settings.options = this.options.slice(0, this.options.length);
+			}
 
 
 			if (this.font !== null) blob.font = lychee.serialize(this.font);
@@ -202,8 +190,10 @@ lychee.define('lychee.ui.Menu').requires([
 
 		render: function(renderer, offsetX, offsetY) {
 
+			if (this.visible === false) return;
+
+
 			var alpha    = this.alpha;
-			var color    = this.color;
 			var position = this.position;
 
 
@@ -213,45 +203,41 @@ lychee.define('lychee.ui.Menu').requires([
 			var y2 = y1 + this.height;
 
 
-			if (color !== null) {
+			renderer.drawBox(
+				x1,
+				y1,
+				x2,
+				y2,
+				'#363f3e',
+				true
+			);
 
-				renderer.drawBox(
-					x1,
-					y1,
-					x2,
-					y2,
-					color,
-					true
-				);
+			renderer.drawBox(
+				x2 - 48,
+				y1 + 20,
+				x2 - 16,
+				y1 + 22,
+				'#ffffff',
+				true
+			);
 
-				renderer.drawBox(
-					x2 - 48,
-					y1 + 20,
-					x2 - 16,
-					y1 + 22,
-					'#ffffff',
-					true
-				);
+			renderer.drawBox(
+				x2 - 48,
+				y1 + 31,
+				x2 - 16,
+				y1 + 33,
+				'#ffffff',
+				true
+			);
 
-				renderer.drawBox(
-					x2 - 48,
-					y1 + 31,
-					x2 - 16,
-					y1 + 33,
-					'#ffffff',
-					true
-				);
-
-				renderer.drawBox(
-					x2 - 48,
-					y1 + 42,
-					x2 - 16,
-					y1 + 44,
-					'#ffffff',
-					true
-				);
-
-			}
+			renderer.drawBox(
+				x2 - 48,
+				y1 + 42,
+				x2 - 16,
+				y1 + 44,
+				'#ffffff',
+				true
+			);
 
 
 			if (alpha !== 1) {
@@ -274,14 +260,16 @@ lychee.define('lychee.ui.Menu').requires([
 		 * CUSTOM API
 		 */
 
-		setColor: function(color) {
+		setFont: function(font) {
 
-			color = _is_color(color) ? color : null;
+			font = font instanceof Font ? font : null;
 
 
-			if (color !== null) {
+			if (font !== null) {
 
-				this.color = color;
+				this.getEntity('label').setFont(font);
+				this.font = font;
+
 
 				return true;
 
@@ -292,14 +280,16 @@ lychee.define('lychee.ui.Menu').requires([
 
 		},
 
-		setFont: function(font) {
+		setLabel: function(label) {
 
-			font = font instanceof Font ? font : null;
+			label = typeof label === 'string' ? label : null;
 
 
-			if (font !== null) {
+			if (label !== null) {
 
-				this.font = font;
+				this.getEntity('label').setLabel(label);
+				this.label = label;
+
 
 				return true;
 
@@ -320,6 +310,9 @@ lychee.define('lychee.ui.Menu').requires([
 				this.options = options.map(function(option) {
 					return '' + option;
 				});
+
+				this.getEntity('select').setOptions(this.options);
+
 
 				return true;
 
