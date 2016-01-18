@@ -442,6 +442,7 @@
 
 			if (typeof blob.buffer === 'string') {
 				this.buffer = JSON.parse(new Buffer(blob.buffer.substr(29), 'base64').toString('utf8'));
+				this.__load = false;
 			}
 
 		},
@@ -650,6 +651,7 @@
 
 			if (typeof blob.buffer === 'string') {
 				this.__buffer = JSON.parse(new Buffer(blob.buffer.substr(29), 'base64').toString('utf8'));
+				this.__load   = false;
 				_parse_font.call(this);
 			}
 
@@ -835,6 +837,9 @@
 					this.__buffer.mp3 = new Buffer(blob.buffer.substr(22), 'base64');
 				}
 
+
+				this.__load = false;
+
 			}
 
 		},
@@ -1008,6 +1013,9 @@
 				if (typeof blob.buffer.mp3 === 'string') {
 					this.__buffer.mp3 = new Buffer(blob.buffer.substr(22), 'base64');
 				}
+
+
+				this.__load = false;
 
 			}
 
@@ -1357,6 +1365,8 @@
 
 
 	Stuff.prototype = {
+
+		// deserialize: function(blob) {}
 
 		serialize: function() {
 

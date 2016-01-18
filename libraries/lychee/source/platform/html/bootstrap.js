@@ -860,6 +860,7 @@
 
 			if (typeof blob.buffer === 'string') {
 				this.buffer = JSON.parse(new Buffer(blob.buffer.substr(29), 'base64').toString('utf8'));
+				this.__load = false;
 			}
 
 		},
@@ -1070,6 +1071,7 @@
 
 			if (typeof blob.buffer === 'string') {
 				this.__buffer = JSON.parse(new Buffer(blob.buffer.substr(29), 'base64').toString('utf8'));
+				this.__load   = false;
 				_parse_font.call(this);
 			}
 
@@ -2060,6 +2062,8 @@
 
 
 	Stuff.prototype = {
+
+		// deserialize: function(blob) {},
 
 		serialize: function() {
 

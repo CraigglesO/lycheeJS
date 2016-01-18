@@ -46,6 +46,8 @@ lychee.Asset = typeof lychee.Asset !== 'undefined' ? lychee.Asset : (function(gl
 		ignore = ignore === true;
 
 
+		var asset = null;
+
 		if (url !== null) {
 
 			if (type === null) {
@@ -61,13 +63,26 @@ lychee.Asset = typeof lychee.Asset !== 'undefined' ? lychee.Asset : (function(gl
 
 			var construct = _resolve_constructor(type);
 			if (construct !== null) {
-				return new construct(url, ignore);
+
+				if (url.substr(0, 5) === 'data:') {
+
+					asset = new construct('/tmp/Entity.' + type, ignore);
+					asset.deserialize({
+						buffer: url
+					});
+
+				} else {
+
+					asset = new construct(url, ignore);
+
+				}
+
 			}
 
 		}
 
 
-		return null;
+		return asset;
 
 	};
 
