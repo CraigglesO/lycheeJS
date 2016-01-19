@@ -2063,22 +2063,36 @@
 
 	Stuff.prototype = {
 
-		// deserialize: function(blob) {},
+		deserialize: function(blob) {
+
+			if (typeof blob.buffer === 'string') {
+				this.buffer = new Buffer(blob.buffer.substr(blob.buffer.indexOf(',') + 1), 'base64').toString('utf8');
+				this.__load = false;
+			}
+
+		},
 
 		serialize: function() {
 
-			// var buffer = null;
-			// if (this.buffer !== null) {
-			// 	buffer = lychee.serialize(new Buffer(this.buffer, 'utf8'));
-			// }
+			var blob = {};
+			var type = this.url.split('/').pop().split('.').pop();
+			var mime = 'application/octet-stream';
+
+
+			if (type === 'js') {
+				mime = 'application/javascript';
+			}
+
+
+			if (this.buffer !== null) {
+				blob.buffer = 'data:' + mime + ';base64,' + new Buffer(this.buffer, 'utf8').toString('base64');
+			}
 
 
 			return {
-				'constructor': 'Object',
-				'arguments':   [{
-					'url':    this.url,
-					'buffer': this.buffer
-				}]
+				'constructor': 'Stuff',
+				'arguments':   [ this.url ],
+				'blob':        Object.keys(blob).length > 0 ? blob : null
 			};
 
 		},

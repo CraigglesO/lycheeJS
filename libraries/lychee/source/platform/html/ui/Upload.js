@@ -22,22 +22,33 @@ lychee.define('lychee.ui.Upload').tags({
 	var _wrappers  = [];
 
 
+
+	/*
+	 * HELPERS
+	 */
+
 	var _MIME = {
-		'fnt':   'application/json',
-		'json':  'application/javascript',
-		'pkg':   'application/json',
-		'png':   'image/png',
-		'store': 'application/json'
+		'Config':  { name: 'Entity', ext: 'json',    mime: 'application/json'         },
+		'Font':    { name: 'Entity', ext: 'fnt',     mime: 'application/json'         },
+//		'Music':   {
+//			'mp3': { name: 'Entity', ext: 'msc.mp3', mime: 'audio/mp3'                },
+//			'ogg': { name: 'Entity', ext: 'msc.ogg', mime: 'application/ogg'          },
+//		},
+//		'Sound':   {
+//			'mp3': { name: 'Entity', ext: 'snd.mp3', mime: 'audio/mp3'                },
+//			'ogg': { name: 'Entity', ext: 'snd.ogg', mime: 'application/ogg'          },
+//		},
+		'Texture': { name: 'Entity', ext: 'png',     mime: 'image/png'                },
+		'Stuff':   { name: 'Entity', ext: 'stuff',   mime: 'application/octet-stream' }
 	};
 
 
 	var _wrap = function(instance) {
 
-		var allowed = Object.values(_MIME);
+		var allowed = [ 'fnt', 'json', 'fnt', 'png', 'js' ];
 		var element = global.document.createElement('input');
 
-
-		element.setAttribute('accept',   '.fnt,.json,.pkg,.png,.store');
+		element.setAttribute('accept',   allowed.map(function(v) { return '.' + v; }).join(','));
 		element.setAttribute('type',     'file');
 		element.setAttribute('multiple', '');
 
@@ -49,22 +60,24 @@ lychee.define('lychee.ui.Upload').tags({
 
 			[].slice.call(this.files).forEach(function(file) {
 
-				if (allowed.indexOf(file.type) !== -1) {
+				var reader = new global.FileReader();
 
-					var reader = new global.FileReader();
+				reader.onload = function() {
 
-					reader.onload = function() {
+					var asset = new lychee.Asset('/tmp/' + file.name, null, true);
+					if (asset !== null) {
 
-						var asset = new lychee.Asset(reader.result, null, true);
-						if (asset !== null) {
-							val.push(asset);
-						}
+						asset.deserialize({
+							buffer: reader.result
+						});
 
-					};
+						val.push(asset);
 
-					reader.readAsDataURL(file);
+					}
 
-				}
+				};
+
+				reader.readAsDataURL(file);
 
 			});
 
