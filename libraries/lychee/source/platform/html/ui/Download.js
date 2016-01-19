@@ -50,12 +50,12 @@ lychee.define('lychee.ui.Download').tags({
 
 			if (data.constructor.match(/Music|Sound/)) {
 
-				for (var type in mime) {
+				for (var ext in mime) {
 
 					var element = document.createElement('a');
 
-					element.download = name + '.' + type;
-					element.href     = data.blob.buffer[type];
+					element.download = name + '.' + ext;
+					element.href     = data.blob.buffer[ext];
 
 					element.click();
 
@@ -64,7 +64,7 @@ lychee.define('lychee.ui.Download').tags({
 			} else {
 
 				if (url.substr(0, 5) === 'data:') {
-					name = mime.name;
+					name = mime.name + '.' + mime.ext;
 				}
 
 				var element = document.createElement('a');
