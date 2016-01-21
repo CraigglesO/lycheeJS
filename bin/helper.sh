@@ -5,8 +5,22 @@ lowercase() {
 }
 
 OS=`lowercase \`uname\``;
+ARCH=`lowercase \`uname -m\``;
 
 LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
+
+
+if [ "$ARCH" == "x86_64" -o "$ARCH" == "amd64" ]; then
+	ARCH="x86_64";
+fi;
+
+if [ "$ARCH" == "i386" -o "$ARCH" == "i686" -o "$ARCH" == "i686-64" ]; then
+	ARCH="x86";
+fi;
+
+if [ "$ARCH" == "armv7l" -o "$ARCH" == "armv8" ]; then
+	ARCH="arm";
+fi;
 
 
 if [ "$OS" == "darwin" ]; then
@@ -176,7 +190,31 @@ if [ "$protocol" == "lycheejs" ]; then
 
 elif [ "$protocol" == "env" ]; then
 
-	platform=$(echo $url | cut -d":" -f 2);
+	platform=$(echo $content | cut -d":" -f 2);
+
+
+	if [ "$platform" == "html" ]; then
+# TODO: echo browser binary
+echo "/dev/null";
+
+	elif [ "$platform" == "html-nwjs" ]; then
+
+		if [ "$OS" == "linux" ]; then
+			echo "$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/nw";
+		elif [ "$OS" == "osx" ]; then
+			echo "$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/nw";
+		fi;
+
+	elif [ "$platform" == "node" ]; then
+
+		if [ "$OS" == "linux" ]; then
+			echo "$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node";
+		elif [ "$OS" == "osx" ]; then
+			echo "$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node";
+		fi;
+
+	fi;
+
 
 	exit 0;
 
