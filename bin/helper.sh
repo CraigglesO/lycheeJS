@@ -33,52 +33,43 @@ _put_API_Projects () {
 
 
 
-url=$1;
-protocol=${url:0:8};
+#
+# USE CASES (ARGUMENTS LIST)
+#
+# lycheejs://boot=development
+# lycheejs://unboot
+# lycheejs://start=boilerplate
+# lycheejs://stop=boilerplate
+# lycheejs://edit=boilerplate
+# lycheejs://file=boilerplate
+# lycheejs://web=boilerplate
+#
+# env:node
+# env:html-nwjs
+#
+
+
+
+
+protocol=$(echo $1 | cut -d":" -f 1);
+content=$(echo $1 | cut -d":" -f 2);
+
+
 
 if [ "$protocol" == "lycheejs" ]; then
 
-	action="";
-	resource="";
+	action=$(echo $content | cut -c 3- | cut -d"=" -f 1);
 
-	if [ "${url:11:4}" == "boot" ]; then
-		action="boot";
-		resource=${url#*=};
+
+	if [[ $content =~ .*=.* ]]; then
+		resource=$(echo $content | cut -d"=" -f 2);
+	else
+		resource="";
 	fi;
 
-	if [ "${url:11:6}" == "unboot" ]; then
-		action="unboot";
-		resource="...";
-	fi;
 
-	if [ "${url:11:5}" == "start" ]; then
-		action="start";
-		resource=${url#*=};
-	fi;
-
-	if [ "${url:11:4}" == "stop" ]; then
-		action="stop";
-		resource=${url#*=};
-	fi;
-
-	if [ "${url:11:4}" == "edit" ]; then
-		action="edit";
-		resource=${url#*=};
-	fi;
-
-	if [ "${url:11:5}" == "create" ]; then
-		action="create";
-		resource=${url#*=};
-	fi;
-
-	if [ "${url:11:4}" == "file" ]; then
-		action="file";
-		resource=${url#*=};
-	fi;
-
-	if [ "${url:11:3}" == "web" ]; then
-		action="web";
-		resource=${url#*=};
+	if [ "$action" == "web" ]; then
+		resource=$(echo $1 | cut -c 16-);
 	fi;
 
 
@@ -180,6 +171,12 @@ if [ "$protocol" == "lycheejs" ]; then
 
 	fi;
 
+
+	exit 0;
+
+elif [ "$protocol" == "env" ]; then
+
+	platform=$(echo $url | cut -d":" -f 2);
 
 	exit 0;
 

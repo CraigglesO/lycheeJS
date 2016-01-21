@@ -164,6 +164,7 @@ else
 				rm /usr/bin/lycheejs-editor 2> /dev/null;
 				rm /usr/bin/lycheejs-fertilizer 2> /dev/null;
 				rm /usr/bin/lycheejs-harvester 2> /dev/null;
+				rm /usr/bin/lycheejs-helper 2> /dev/null;
 				rm /usr/bin/lycheejs-ranger 2> /dev/null;
 				rm /usr/bin/lycheejs-strainer 2> /dev/null;
 
@@ -171,6 +172,7 @@ else
 				ln -s "$LYCHEEJS_ROOT/bin/editor.sh" /usr/bin/lycheejs-editor;
 				ln -s "$LYCHEEJS_ROOT/bin/fertilizer.sh" /usr/bin/lycheejs-fertilizer;
 				ln -s "$LYCHEEJS_ROOT/bin/harvester.sh" /usr/bin/lycheejs-harvester;
+				ln -s "$LYCHEEJS_ROOT/bin/helper.sh" /usr/bin/lycheejs-helper;
 				ln -s "$LYCHEEJS_ROOT/bin/ranger.sh" /usr/bin/lycheejs-ranger;
 				ln -s "$LYCHEEJS_ROOT/bin/strainer.sh" /usr/bin/lycheejs-strainer;
 
@@ -199,6 +201,7 @@ else
 				rm /usr/local/bin/lycheejs-editor 2> /dev/null;
 				rm /usr/local/bin/lycheejs-fertilizer 2> /dev/null;
 				rm /usr/local/bin/lycheejs-harvester 2> /dev/null;
+				rm /usr/local/bin/lycheejs-helper 2> /dev/null;
 				rm /usr/local/bin/lycheejs-ranger 2> /dev/null;
 				rm /usr/local/bin/lycheejs-strainer 2> /dev/null;
 
@@ -206,6 +209,7 @@ else
 				ln -s "$LYCHEEJS_ROOT/bin/editor.sh" /usr/local/bin/lycheejs-editor;
 				ln -s "$LYCHEEJS_ROOT/bin/fertilizer.sh" /usr/local/bin/lycheejs-fertilizer;
 				ln -s "$LYCHEEJS_ROOT/bin/harvester.sh" /usr/local/bin/lycheejs-harvester;
+				ln -s "$LYCHEEJS_ROOT/bin/helper.sh" /usr/local/bin/lycheejs-helper;
 				ln -s "$LYCHEEJS_ROOT/bin/ranger.sh" /usr/local/bin/lycheejs-ranger;
 				ln -s "$LYCHEEJS_ROOT/bin/strainer.sh" /usr/local/bin/lycheejs-strainer;
 
