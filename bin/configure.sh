@@ -34,13 +34,13 @@ if [ "$OS" == "darwin" ]; then
 
 	OS="osx";
 	LYCHEEJS_NODE="$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node";
-	LYCHEEJS_NWJS="$LYCHEEJS_ROOT/bin/runtime/html-nwjs/osx/nwjs.app";
+	LYCHEEJS_NWJS="$LYCHEEJS_ROOT/bin/runtime/html-nwjs/osx/$ARCH/nwjs.app";
 
 elif [ "$OS" == "linux" ]; then
 
 	OS="linux";
 	LYCHEEJS_NODE="$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node";
-	LYCHEEJS_NWJS="$LYCHEEJS_ROOT/bin/runtime/html-nwjs/linux/nwjs";
+	LYCHEEJS_NWJS="$LYCHEEJS_ROOT/bin/runtime/html-nwjs/linux/$ARCH/nw";
 
 fi;
 
@@ -195,6 +195,17 @@ else
 			if [ -d /usr/local/bin ]; then
 
 				echo "> Integrating CLI Applications";
+
+
+				if [ -d /usr/bin ]; then
+
+					# The lycheejs-helper binary has to be available in /usr/bin
+					# to allow usage of shebangs (used in harvester.js files)
+
+					rm /usr/bin/lycheejs-helper 2> /dev/null;
+					ln -s "$LYCHEEJS_ROOT/bin/helper.sh" /usr/bin/lycheejs-helper;
+
+				fi;
 
 
 				rm /usr/local/bin/lycheejs-breeder 2> /dev/null;

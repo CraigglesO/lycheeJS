@@ -404,6 +404,14 @@
 						"Server": [
 							"js"
 						]
+					},
+					"ui": {
+						"Download": [
+							"js"
+						],
+						"Upload": [
+							"js"
+						]
 					}
 				},
 				"node": {
@@ -445,6 +453,11 @@
 				"Button": [
 					"fnt",
 					"js"
+				],
+				"Element": [
+					"js",
+					"label.fnt",
+					"step.fnt"
 				],
 				"Emblem": [
 					"js",

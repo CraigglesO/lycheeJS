@@ -58,8 +58,10 @@ _put_API_Projects () {
 # lycheejs://file=boilerplate
 # lycheejs://web=boilerplate
 #
-# env:node
-# env:html-nwjs
+# env:html /path/to/program.js
+# env:html-nwjs /path/to/program.js
+# env:node /path/to/program.js
+# env:node-sdl /path/to/program.js
 #
 
 
@@ -191,26 +193,50 @@ if [ "$protocol" == "lycheejs" ]; then
 elif [ "$protocol" == "env" ]; then
 
 	platform=$(echo $content | cut -d":" -f 2);
+	program=$2;
 
 
-	if [ "$platform" == "html" ]; then
-# TODO: echo browser binary
-echo "/dev/null";
+	if [ -f "$program" ]; then
 
-	elif [ "$platform" == "html-nwjs" ]; then
+		if [ "$platform" == "html" ]; then
 
-		if [ "$OS" == "linux" ]; then
-			echo "$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/nw";
-		elif [ "$OS" == "osx" ]; then
-			echo "$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/nw";
-		fi;
+			if [ "$OS" == "linux" ]; then
 
-	elif [ "$platform" == "node" ]; then
+				chrome1=`which google-chrome`;
+				chrome2=`which chromium-browser`;
 
-		if [ "$OS" == "linux" ]; then
-			echo "$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node";
-		elif [ "$OS" == "osx" ]; then
-			echo "$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node";
+				if [ -x "$chrome1" ]; then
+					$chrome1 $program;
+				elif [ -x "$chrome2" ]; then
+					$chrome2 $program;
+				fi;
+
+			elif [ "$OS" == "osx" ]; then
+
+				chrome1="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+
+				if [ -x "$chrome1" ]; then
+					$chrome1 $program;
+				fi;
+
+			fi;
+
+		elif [ "$platform" == "html-nwjs" ]; then
+
+			if [ "$OS" == "linux" ]; then
+				$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/nw $program;
+			elif [ "$OS" == "osx" ]; then
+				$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/nw $program;
+			fi;
+
+		elif [ "$platform" == "node" ]; then
+
+			if [ "$OS" == "linux" ]; then
+				$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node $program;
+			elif [ "$OS" == "osx" ]; then
+				$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node $program;
+			fi;
+
 		fi;
 
 	fi;
