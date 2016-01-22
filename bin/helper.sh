@@ -216,7 +216,7 @@ elif [ "$protocol" == "env" ]; then
 				chrome1="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 				if [ -x "$chrome1" ]; then
-					$chrome1 $program;
+					"$chrome1" "$program";
 				fi;
 
 			fi;
