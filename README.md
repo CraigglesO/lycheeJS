@@ -55,8 +55,8 @@ The iOS Fertilizer has currently no support for cross-compilation
 due to XCode limitations. You can still create an own WebView iOS
 app and use the `html` platform adapter.
 
-lycheeJS does not ship 32-Bit runtimes in order to save hard disk
-space. If you still have a 32-Bit Computer and want to use lycheeJS,
+lycheeJS does not ship x86 (32 bit) runtimes in order to save hard disk
+space. If you still have a x86 computer and want to use lycheeJS,
 you have to fix (uncomment) at least the
 [node/update.sh](https://github.com/Artificial-Engineering/lycheeJS-runtime/blob/master/node/update.sh)
 script in the `./bin/runtime` folder and execute it once before
