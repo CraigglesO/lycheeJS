@@ -16,6 +16,7 @@ lychee.define('harvester.serve.api.Project').requires([
 	 * HELPERS
 	 */
 
+	var _CACHE  = {};
 	var _HEADER = {
 		'status':                      200,
 		'access-control-allow-origin': '*',
@@ -23,53 +24,44 @@ lychee.define('harvester.serve.api.Project').requires([
 		'content-type':                'application/json'
 	};
 
+	var _get_web = function(project) {
 
-	var _dispatch_harvester = function(project) {
+		var cache = _CACHE[project.identifier] || null;
+		if (cache === null) {
 
-		var details = {};
-		var host    = null;
-		var port    = null;
-
-
-		var main = global.MAIN;
-		if (main.server !== null) {
-			port = main.server.port;
-		}
+			cache = _CACHE[project.identifier] = [];
 
 
-		if (Object.keys(main.hosts).length === 1) {
-			host = Object.keys(main.hosts)[0];
-		}
+			var main = global.MAIN || null;
+			if (main !== null) {
+
+				var port = main.settings.server.port;
+
+				for (var host in main.hosts) {
+
+					if (host === 'admin') continue;
+
+					var entry = {
+						host:       host.match(/:/) ? ('[' + host + ']:' + port) : (host + ':' + port),
+						cultivator: false
+					};
+
+					var instance = main.hosts[host];
+					if (instance.cultivator === true) {
+						entry.cultivator = true;
+					}
 
 
-		if (Object.keys(main.hosts).length > 0) {
-
-			Object.keys(main.hosts).forEach(function(identifier) {
-
-				if (identifier === 'admin') return;
-
-				var projects = main.hosts[identifier].projects;
-				if (projects.length === 2) {
-
-					details[identifier] = projects.map(function(project) {
-						return project.identifier;
-					});
-
-				} else {
-
-					details[identifier] = null;
+					cache.push(entry);
 
 				}
 
-			});
+			}
 
 		}
 
 
-		project.details    = details;
-		project.filesystem = null;
-		project.server     = { host: host, port: port };
-		project.harvester  = false;
+		return cache;
 
 	};
 
@@ -101,7 +93,8 @@ lychee.define('harvester.serve.api.Project').requires([
 			details:    project.details || null,
 			filesystem: filesystem,
 			server:     server,
-			harvester:     project.harvester
+			web:        _get_web(project),
+			harvester:  project.harvester
 		};
 
 	};
@@ -161,11 +154,6 @@ lychee.define('harvester.serve.api.Project').requires([
 
 					if (project !== null) {
 
-						if (project.identifier === 'harvester') {
-							_dispatch_harvester(project);
-						}
-
-
 						ready({
 							headers: _HEADER,
 							payload: _JSON.encode(_serialize(project))
@@ -187,14 +175,6 @@ lychee.define('harvester.serve.api.Project').requires([
 					var projects = host.projects.filter(function(project) {
 						return !project.identifier.match(/cultivator/);
 					}).map(_serialize);
-					var harvester   = projects.find(function(project) {
-						return project.identifier === 'harvester';
-					}) || null;
-
-					if (harvester !== null) {
-						_dispatch_harvester(harvester);
-					}
-
 
 					ready({
 						headers: _HEADER,

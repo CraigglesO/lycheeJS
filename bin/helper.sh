@@ -135,7 +135,7 @@ if [ "$protocol" == "lycheejs" ]; then
 				if [ -f ./bin/editor.sh ]; then
 
 					if [ "$OS" == "linux" -o "$OS" == "osx" ]; then
-						./bin/editor.sh "file://$LYCHEEJS_ROOT/projects/$resource/lychee.pkg" 2>&1;
+						./bin/editor.sh "$resource" 2>&1;
 						exit 0;
 					fi;
 
@@ -171,12 +171,29 @@ if [ "$protocol" == "lycheejs" ]; then
 
 				if [ "$OS" == "linux" ]; then
 
-					xdg-open "$clean_resource" 2>&1;
+					chrome1=`which google-chrome`;
+					chrome2=`which chromium-browser`;
+
+					if [ -x "$chrome1" ]; then
+						"$chrome1" "$clean_resource";
+					elif [ -x "$chrome2" ]; then
+						"$chrome2" "$clean_resource";
+					else
+						xdg-open "$clean_resource" 2>&1;
+					fi;
+
 					exit 0;
 
 				elif [ "$OS" == "osx" ]; then
 
-					open "$clean_resource" 2>&1;
+					chrome1="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+
+					if [ -x "$chrome1" ]; then
+						"$chrome1" "$clean_resource";
+					else
+						open "$clean_resource" 2>&1;
+					fi;
+
 					exit 0;
 
 				fi;
@@ -206,9 +223,11 @@ elif [ "$protocol" == "env" ]; then
 				chrome2=`which chromium-browser`;
 
 				if [ -x "$chrome1" ]; then
-					$chrome1 $program;
+					"$chrome1" "$program";
 				elif [ -x "$chrome2" ]; then
-					$chrome2 $program;
+					"$chrome2" "$program";
+				else
+					xdg-open "$program" 2>&1;
 				fi;
 
 			elif [ "$OS" == "osx" ]; then
@@ -217,6 +236,8 @@ elif [ "$protocol" == "env" ]; then
 
 				if [ -x "$chrome1" ]; then
 					"$chrome1" "$program";
+				else
+					open "$program" 2>&1;
 				fi;
 
 			fi;
