@@ -114,7 +114,7 @@ lycheejs-harvester start development; # no sudo required
 - [Codestyle Guide](./guides/CODESTYLE.md)
 - [Release Guide](./guides/RELEASE.md)
 
-Please let us know if we can improve anything in these documents [by opening issues directly on Github](https://github.com/Artificial-Engineering/lycheeJS/issues/new.)  
+Please let us know if we can improve anything in these documents [by opening an Issue directly on GitHub](https://github.com/Artificial-Engineering/lycheeJS/issues/new).  
 
 ## License
 
