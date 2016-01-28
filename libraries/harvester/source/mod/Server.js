@@ -18,6 +18,43 @@ lychee.define('harvester.mod.Server').requires([
 	 * HELPERS
 	 */
 
+	var _report = function(text) {
+
+		var lines   = text.split('\n');
+		var line    = null;
+		var file    = null;
+		var message = null;
+
+
+		if (lines.length > 0) {
+
+			if (lines[0].indexOf(':') !== -1) {
+
+				file = lines[0].split(':')[0];
+				line = lines[0].split(':')[1];
+
+			}
+
+
+			lines.forEach(function(line) {
+
+				var err = line.substr(0, line.indexOf(':'));
+				if (err.match(/Error/g)) {
+					message = line.trim();
+				}
+
+			});
+
+		}
+
+
+		if (file !== null && line !== null) {
+			console.error('harvester.mod.Server: Report from ' + file + '#L' + line + ':');
+			console.error('                      "' + message + '"');
+		}
+
+	};
+
 	var _scan_port = function(callback, scope) {
 
 		callback = callback instanceof Function ? callback : null;
@@ -91,9 +128,19 @@ lychee.define('harvester.mod.Server').requires([
 				cwd: _root + project
 			}, function(error, stdout, stderr) {
 
+				stderr = (stderr.trim() || '').toString();
+
+
 				if (error !== null && error.signal !== 'SIGTERM') {
+
 					console.error('harvester.mod.Server: FAILURE ("' + project + ' | ' + host + ':' + port + '")');
-					console.error(stderr.trim());
+					console.error(stderr);
+
+				} else if (stderr !== '') {
+
+					console.error('harvester.mod.Server: FAILURE ("' + project + ' | ' + host + ':' + port + '")');
+					_report(stderr);
+
 				}
 
 			});

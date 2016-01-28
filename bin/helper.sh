@@ -245,17 +245,17 @@ elif [ "$protocol" == "env" ]; then
 		elif [ "$platform" == "html-nwjs" ]; then
 
 			if [ "$OS" == "linux" ]; then
-				$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/nw $program;
+				$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/nw $program $3 $4 $5 $6;
 			elif [ "$OS" == "osx" ]; then
-				$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/nw $program;
+				$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/nw $program $3 $4 $5 $6;
 			fi;
 
 		elif [ "$platform" == "node" ]; then
 
 			if [ "$OS" == "linux" ]; then
-				$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node $program;
+				$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node $program $3 $4 $5 $6;
 			elif [ "$OS" == "osx" ]; then
-				$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node $program;
+				$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node $program $3 $4 $5 $6;
 			fi;
 
 		fi;
