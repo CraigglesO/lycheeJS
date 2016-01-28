@@ -9,6 +9,7 @@
 4. [Contribute a Feature](#contribute-a-feature)
 5. [Document a Feature](#document-a-feature)
 6. [Git Commit Messages](#git-commit-messages)
+7. [Get in Touch](#get-in-touch)
 
 
 ## Fork Management
@@ -205,3 +206,12 @@ Improvement Emojis:
 * :sparkles: `:sparkles:` Code Improvements (new magical structures of code)
 * :snowflake: `:snowflake:` Code Improvements (creative little Prototypes) 
 * :facepunch: `:facepunch:` Code Improvements (because of crappy confusing APIs)
+
+## Get in Touch
+
+Need help or just want to think out loud? The are several ways to get in touch with our robots.
+We look forward to hearing from you!
+
+* Twitter: https://twitter.com/lycheejs
+* Email:   robot@artificial.engineering
+* YouTube: https://www.youtube.com/user/lycheeJS
