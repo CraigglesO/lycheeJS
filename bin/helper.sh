@@ -8,6 +8,7 @@ OS=`lowercase \`uname\``;
 ARCH=`lowercase \`uname -m\``;
 
 LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
+CHILD_PID="";
 
 
 if [ "$ARCH" == "x86_64" -o "$ARCH" == "amd64" ]; then
@@ -34,6 +35,30 @@ elif [ "$OS" == "linux" ]; then
 fi;
 
 
+
+_handle_signal() {
+	kill -s "$1" "$CHILD_PID" 2>/dev/null;
+}
+
+_trap() {
+
+	handler="$1"; shift;
+	for signal; do
+		trap "$handler $signal" "$signal";
+	done;
+
+}
+
+_start_env () {
+
+	_trap _handle_signal INT HUP TERM EXIT;
+
+	$1 $2 $3 $4 $5 &
+
+	CHILD_PID=$!;
+	wait "$CHILD_PID";
+
+}
 
 _put_API_Projects () {
 
@@ -245,17 +270,17 @@ elif [ "$protocol" == "env" ]; then
 		elif [ "$platform" == "html-nwjs" ]; then
 
 			if [ "$OS" == "linux" ]; then
-				$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/nw $program $3 $4 $5 $6;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/nw $program $3 $4 $5;
 			elif [ "$OS" == "osx" ]; then
-				$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/nw $program $3 $4 $5 $6;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/nw $program $3 $4 $5;
 			fi;
 
 		elif [ "$platform" == "node" ]; then
 
 			if [ "$OS" == "linux" ]; then
-				$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node $program $3 $4 $5 $6;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node $program $3 $4 $5;
 			elif [ "$OS" == "osx" ]; then
-				$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node $program $3 $4 $5 $6;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node $program $3 $4 $5;
 			fi;
 
 		fi;

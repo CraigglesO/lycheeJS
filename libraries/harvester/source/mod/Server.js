@@ -146,9 +146,8 @@ lychee.define('harvester.mod.Server').requires([
 			});
 
 
-			server.on('SIGTERM', function() { this.exit(0); });
-			server.on('error',   function() { this.exit(1); });
-			server.on('exit',    function() {});
+			server.on('error', function() { this.exit(1); });
+			server.on('exit',  function() {});
 
 			server.destroy = function() {
 
