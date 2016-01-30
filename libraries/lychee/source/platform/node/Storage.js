@@ -14,12 +14,12 @@ lychee.define('Storage').tags({
 
 }).exports(function(lychee, global) {
 
-	/*
-	 * EVENTS
-	 */
-
-	var _persistent = {};
-	var _temporary  = {};
+	var _JSON       = {
+		encode: JSON.stringify,
+		decode: JSON.parse
+	};
+	var _PERSISTENT = {};
+	var _TEMPORARY  = {};
 
 
 
@@ -62,10 +62,8 @@ lychee.define('Storage').tags({
 
 				if (buffer !== null) {
 
-					// TODO: Evaluate if asynchronous update of deep hierarchies makes sense
-
 					for (var id in buffer) {
-						_persistent[id] = buffer[id];
+						_PERSISTENT[id] = buffer[id];
 					}
 
 
@@ -86,7 +84,7 @@ lychee.define('Storage').tags({
 
 			_write_persistent = function() {
 
-				var buffer = JSON.stringify(_persistent, null, '\t');
+				var buffer = _JSON.encode(_PERSISTENT);
 				var url    = _path.normalize(process.cwd() + '/lychee.store');
 
 
@@ -110,7 +108,7 @@ lychee.define('Storage').tags({
 			var methods = [];
 
 			if (read && write) methods.push('Persistent');
-			if (_temporary)    methods.push('Temporary');
+			if (_TEMPORARY)    methods.push('Temporary');
 
 			if (methods.length === 0) {
 				console.error('lychee.Storage: Supported methods are NONE');
@@ -139,9 +137,9 @@ lychee.define('Storage').tags({
 
 		var type = this.type;
 		if (type === Class.TYPE.persistent) {
-			blob = _persistent[id] || null;
+			blob = _PERSISTENT[id] || null;
 		} else if (type === Class.TYPE.temporary) {
-			blob = _temporary[id]  || null;
+			blob = _TEMPORARY[id]  || null;
 		}
 
 
@@ -156,27 +154,16 @@ lychee.define('Storage').tags({
 			}
 
 
-			var document = this.__document;
-			if (document.index === 0) {
+			if (Object.keys(this.__objects).length !== Object.keys(blob['@objects']).length) {
 
-				if (blob['@document'] instanceof Object) {
-					this.__document = blob['@document'];
-				}
+				if (blob['@objects'] instanceof Object) {
 
-			}
+					this.__objects = {};
 
-
-			var objects = this.__objects;
-			if (objects.length === 0 || objects.length !== blob['@objects'].length) {
-
-				if (blob['@objects'] instanceof Array) {
-
-					objects = blob['@objects'];
-					this.__objects = [];
-
-					for (var o = 0, ol = objects.length; o < ol; o++) {
-						this.__objects.push(objects[o]);
+					for (var o in blob['@objects']) {
+						this.__objects[o] = blob['@objects'][o];
 					}
+
 
 					this.trigger('sync', [ this.__objects ]);
 
@@ -197,62 +184,57 @@ lychee.define('Storage').tags({
 	var _write_storage = function() {
 
 		var operations = this.__operations;
-		if (operations.length !== 0) {
+		if (operations.length > 0) {
 
 			while (operations.length > 0) {
 
 				var operation = operations.shift();
-				if (operation.type === 'insert') {
+				if (operation.type === 'update') {
 
-					this.__document.index++;
-					this.__objects.push(operation.object);
-					this.trigger('insert', [ operation.index, operation.object ]);
-
-				} else if (operation.type === 'update') {
-
-					if (this.__objects[operation.index] !== operation.object) {
-						this.__objects[operation.index] = operation.object;
-						this.trigger('update', [ operation.index, operation.object ]);
+					if (this.__objects[operation.id] !== operation.object) {
+						this.__objects[operation.id] = operation.object;
 					}
 
 				} else if (operation.type === 'remove') {
 
-					this.__document.index--;
-					this.__objects.splice(operation.index, 1);
-					this.trigger('remove', [ operation.index, operation.object ]);
+					if (this.__objects[operation.id] !== undefined) {
+						delete this.__objects[operation.id];
+					}
 
 				}
 
 			}
 
 
-			this.__document.time = Date.now();
-
-
 			var id   = this.id;
 			var blob = {
-				'@document': this.__document,
-				'@model':    this.model,
-				'@objects':  this.__objects
+				'@model':   this.model,
+				'@objects': this.__objects
 			};
 
 
 			var type = this.type;
 			if (type === Class.TYPE.persistent) {
 
-				_persistent[id] = blob;
+				_PERSISTENT[id] = blob;
 				_write_persistent();
 
 			} else if (type === Class.TYPE.temporary) {
 
-				_temporary[id] = blob;
+				_TEMPORARY[id] = blob;
 
 			}
 
 
 			this.trigger('sync', [ this.__objects ]);
 
+
+			return true;
+
 		}
+
+
+		return false;
 
 	};
 
@@ -273,8 +255,8 @@ lychee.define('Storage').tags({
 		this.model = {};
 		this.type  = Class.TYPE.persistent;
 
-		this.__document   = { index: 0, time: Date.now() };
-		this.__objects    = [];
+
+		this.__objects    = {};
 		this.__operations = [];
 
 
@@ -339,20 +321,16 @@ lychee.define('Storage').tags({
 
 		deserialize: function(blob) {
 
-			if (blob.document instanceof Object) {
-				this.__document.index = blob.document.index;
-				this.__document.time  = blob.document.time;
-			}
+			if (blob.objects instanceof Object) {
 
-			if (blob.objects instanceof Array) {
+				this.__objects = {};
 
-				this.__objects = [];
-
-				for (var o = 0, ol = blob.objects.length; o < ol; o++) {
+				for (var o in blob.objects) {
 
 					var object = blob.objects[o];
-					if (lychee.interfaceof(this.model, object)) {
-						this.__objects.push(object);
+
+					if (lychee.interfaceof(this.model, object) === true) {
+						this.__objects[o] = object;
 					}
 
 				}
@@ -375,23 +353,15 @@ lychee.define('Storage').tags({
 			if (this.type !== Class.TYPE.persistent)         settings.type  = this.type;
 
 
-			if (this.__document.index > 0) {
-
-				blob.document = {};
-				blob.document.index = this.__document.index;
-				blob.document.time  = this.__document.time;
-
-			}
-
-			if (this.__objects.length > 0) {
+			if (Object.keys(this.__objects).length > 0) {
 
 				blob.objects = {};
 
-				for (var o = 0, ol = this.__objects.length; o < ol; o++) {
+				for (var o in this.__objects) {
 
 					var object = this.__objects[o];
 					if (object instanceof Object) {
-						blob.objects.push(JSON.parse(JSON.stringify(object)));
+						blob.objects[o] = _JSON.decode(_JSON.encode(object));
 					}
 
 				}
@@ -423,89 +393,37 @@ lychee.define('Storage').tags({
 			scope    = scope !== undefined          ? scope    : this;
 
 
+			var filtered = [];
+
+
 			if (callback !== null) {
 
-				return this.__objects.filter(function(object, o) {
-					return callback.call(scope, object, o) === true;
-				});
+				for (var o in this.__objects) {
 
-			}
+					var object = this.__objects[o];
 
-
-			return this.__objects.slice();
-
-		},
-
-		insert: function(object) {
-
-			// This uses the diff method, because properties can be null
-			object = lychee.diff(this.model, object) === false ? object : null;
-
-
-			if (object !== null) {
-
-				var index = this.__objects.indexOf(object);
-				if (index === -1) {
-
-					this.__operations.push({
-						type:   'insert',
-						index:  this.__objects.length,
-						object: object
-					});
-
-
-					_write_storage.call(this);
-
-					return true;
+					if (callback.call(scope, object, o) === true) {
+						filtered.push(object);
+					}
 
 				}
 
-			}
-
-
-			return false;
-
-		},
-
-		update: function(object) {
-
-			// This uses the diff method, because properties can be null
-			object = lychee.diff(this.model, object) === false ? object : null;
-
-
-			if (object !== null) {
-
-				var index = this.__objects.indexOf(object);
-				if (index !== -1) {
-
-					this.__operations.push({
-						type:   'update',
-						index:  index,
-						object: object
-					});
-
-
-					_write_storage.call(this);
-
-					return true;
-
-				}
 
 			}
 
 
-			return false;
+			return filtered;
 
 		},
 
-		get: function(index) {
+		read: function(id) {
 
-			index = typeof index === 'number' ? (index | 0) : null;
+			id = typeof id === 'string' ? id : null;
 
 
-			if (index !== null) {
+			if (id !== null) {
 
-				var object = this.__objects[index] || null;
+				var object = this.__objects[id] || null;
 				if (object !== null) {
 					return object;
 				}
@@ -517,17 +435,48 @@ lychee.define('Storage').tags({
 
 		},
 
-		remove: function(index, object) {
+		remove: function(id) {
 
-			index = typeof index === 'number' ? (index | 0) : this.__objects.indexOf(object);
+			id = typeof id === 'string' ? id : null;
 
 
-			if (index >= 0 && index < this.__objects.length) {
+			if (id !== null) {
+
+				var object = this.__objects[id] || null;
+				if (object !== null) {
+
+					this.__operations.push({
+						type:   'remove',
+						id:     id,
+						object: object
+					});
+
+
+					_write_storage.call(this);
+
+					return true;
+
+				}
+
+			}
+
+
+			return false;
+
+		},
+
+		write: function(id, object) {
+
+			id     = typeof id === 'string'                    ? id     : null;
+			object = lychee.diff(this.model, object) === false ? object : null;
+
+
+			if (id !== null && object !== null) {
 
 				this.__operations.push({
-					type:   'remove',
-					index:  index,
-					object: this.__objects[index]
+					type:   'write',
+					id:     id,
+					object: object
 				});
 
 
@@ -567,7 +516,7 @@ lychee.define('Storage').tags({
 
 			if (model !== null) {
 
-				this.model = JSON.parse(JSON.stringify(model));
+				this.model = _JSON.decode(_JSON.encode(model));
 
 				return true;
 

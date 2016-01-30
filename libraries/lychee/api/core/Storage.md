@@ -56,108 +56,14 @@ current session ends.
 
 
 
-= events-insert
-
-```javascript
-new lychee.Storage().bind('insert', function(index, object) {}, scope);
-```
-
-The `insert` event is triggered on storage [insert](#methods-insert) method calls.
-
-- `(Number) index` is the index of the inserted object.
-- `(Model instance) object` is the inserted object.
-
-```javascript
-var storage = new lychee.Storage({ model: { foo: 0 }});
-
-var obj1 = storage.create();
-var obj2 = storage.create();
-
-storage.bind('insert', function(index, object) {
-	console.log(index, object);
-});
-
-obj1.foo = 1;
-obj2.foo = 2;
-
-storage.insert(obj1); // triggers event
-storage.insert(obj2); // triggers event
-```
-
-
-
-= events-update
-
-```javascript
-new lychee.Storage().bind('update', function(index, object) {}, scope);
-```
-The `update` event is triggered on storage [update](#methods-update) method calls.
-
-- `(Number) index` is the index of the updated object.
-- `(Model instance) object` is the updated object.
-
-```javascript
-var storage = new lychee.Storage({ model: { foo: 0 }});
-
-var obj1 = storage.create();
-var obj2 = storage.create();
-
-storage.bind('update', function(index, object) {
-	console.log(index, object);
-});
-
-obj1.foo = 1;
-obj2.foo = 2;
-
-storage.insert(obj1);
-storage.insert(obj2);
-storage.update(obj1); // triggers event
-storage.update(obj2); // triggers event
-```
-
-
-
-= events-remove
-
-```javascript
-new lychee.Storage().bind('remove', function(index, object) {}, scope);
-```
-
-The `remove` event is triggered on storage [remove](#methods-remove) method calls.
-
-- `(Number) index` is the index of the removed object.
-- `(Model instance) object` is the removed object.
-
-```javascript
-var storage = new lychee.Storage({ model: { foo: 0 }});
-
-var obj1 = storage.create();
-var obj2 = storage.create();
-
-storage.bind('remove', function(index, object) {
-	console.log(index, object);
-});
-
-obj1.foo = 1;
-obj2.foo = 2;
-
-storage.insert(obj1);
-storage.insert(obj2);
-
-storage.remove(obj1); // triggers event
-storage.remove(obj2); // triggers event
-```
-
-
-
 = events-sync
 
 ```javascript
 new lychee.Storage().bind('sync', function(objects) {}, scope);
 ```
 
-The `sync` event is triggered on storage [insert](#methods-insert),
-[update](#methods-update) and [remove](#methods-remove) method calls.
+The `sync` event is triggered on storage [write](#methods-write)
+and [remove](#methods-remove) method calls.
 
 - `(Array) objects` is an array of modified objects.
 
@@ -171,17 +77,14 @@ storage.bind('sync', function(objects) {
 	console.log(objects.length, objects);
 });
 
-storage.insert(obj1); // triggers event
-storage.insert(obj2); // triggers event
+storage.write('id1', obj1); // triggers event
+storage.write('id2', obj2); // triggers event
 
 obj1.foo = 1;
 obj2.foo = 2;
 
-storage.update(obj1); // triggers event
-storage.update(obj2); // triggers event
-
-storage.remove(obj1); // triggers event
-storage.remove(obj2); // triggers event
+storage.remove('id1'); // triggers event
+storage.remove('id2'); // triggers event
 ```
 
 
@@ -221,9 +124,8 @@ storage.id;                    // 'more-awesome'
 The `(Object) model` property is the object model
 of the storage instance.
 
-It influences how the [create](#methods-create),
-[insert](#methods-insert) and [update](#methods-update)
-methods validate objects of the storage instance.
+It influences how the [write](#methods-write)
+method validates objects of the storage instance.
 
 It is set via `settings.model` in the [constructor](#constructor)
 or via [setModel](#methods-setModel).
@@ -329,7 +231,7 @@ It creates a unique `Object instance` that is created from
 the `Model` template previously set via [setModel](#methods-setModel).
 
 The `Model instance` can be integrated with the instance
-by using [insert](#methods-insert).
+by using [write](#methods-write).
 
 ```javascript
 var storage = new lychee.Storage();
@@ -342,8 +244,8 @@ var object = storage.create();    // { foo: 'bar' }
 storage.model;                    // { foo: 'bar' }
 storage.model === object;         // false
 
-storage.insert(object);           // true
-storage.insert(object);           // false, already in storage
+storage.write('id1', object);     // true
+storage.write('id1', object);     // false, already in storage
 ```
 
 
@@ -372,93 +274,35 @@ obj1.foo = 'foo';
 obj2.foo = 'baz';
 obj3.foo = 'qux';
 
-storage.insert(obj1); // true
-storage.insert(obj2); // true
-storage.insert(obj3); // true
+storage.write('foo', obj1); // true
+storage.write('baz', obj2); // true
+storage.write('qux', obj3); // true
 
 var filtered = storage.filter(function(object, index) {
 
 	if (object.foo !== 'foo') {
-	   return true;
+		return true;
 	} else {
 		return false;
 	}
 
 }, this);
 
-filtered.length;        // 2
-filtered.indexOf(obj1); // false
-filtered.indexOf(obj2); // true
-filtered.indexOf(obj3); // true
+filtered.length;        //  2
+filtered.indexOf(obj1); // -1
+filtered.indexOf(obj2); //  0
+filtered.indexOf(obj3); //  1
 ```
 
 
 
-= methods-insert
+= methods-read
 
 ```javascript
-(Boolean) lychee.Storage.prototype.insert(object);
+(null || Model instance) lychee.Storage.prototype.read(id);
 ```
 
-- `(Model instance) object` is the object that was previously created via [create](#methods-create) method call.
-
-This method returns `true` on success and `false` on failure.
-It inserts the `object` into the storage.
-It will trigger an [insert](#events-insert) event on success.
-
-```javascript
-var storage = new lychee.Storage();
-
-storage.filter().length; // 0
-
-var obj = storage.create();
-storage.insert(obj);     // true
-storage.insert(obj);     // false, already in storage
-
-storage.filter().length; // 1
-```
-
-
-
-= methods-update
-
-```javascript
-(Boolean) lychee.Storage.prototype.update(object);
-```
-
-- `(Model instance) object` is the object that was previously created via [create](#methods-create) method call.
-
-This method returns `true` on success and `false` on failure.
-It updates the `object` into the storage.
-It will trigger an [update](#events-update) event on success.
-
-Note that a storage instance can get out of sync if you prevent
-the `update` or `sync` event chain that is integrated with the
-network stack.
-
-```javascript
-var storage = new lychee.Storage({
-	model: { foo: 0 }
-});
-
-
-var obj = storage.create();
-
-storage.insert(obj); // true
-obj.foo++;           // 1
-
-storage.update(obj); // true
-```
- 
-
-
-= methods-get
-
-```javascript
-(null || Model instance) lychee.Storage.prototype.get(index);
-```
-
-- `(Number) index` is the index of the object that was previously stored via [insert](#methods-insert) method call.
+- `(String) id` is the unique identifier of the object that was previously stored via [write](#methods-write) method call.
 
 This method returns a `Model instance` on success and `null` on failure.
 It returns the `Model instance` that matches the specified criteria.
@@ -472,12 +316,12 @@ var storage = new lychee.Storage({
 var obj1 = storage.create();
 var obj2 = storage.create();
 
-storage.insert(obj1);
-storage.insert(obj2);
+storage.write('foo', obj1);
+storage.write('bar', obj2);
 
-storage.get(0) === obj1; // true
-storage.get(1) === obj2; // true
-storage.get(2) === null; // true
+storage.read('foo') === obj1; // true
+storage.read('bar') === obj2; // true
+storage.read('qux') === null; // true
 ```
 
 
@@ -485,19 +329,16 @@ storage.get(2) === null; // true
 = methods-remove
 
 ```javascript
-(Boolean) lychee.Storage.prototype.remove(index [, object ]);
+(Boolean) lychee.Storage.prototype.remove(id);
 ```
 
-- `(Number) index` is the index of the object that was previously stored via [insert](#methods-insert) method call.
-- `(Model instance) object` is the object that was previously stored via [insert](#methods-insert) method call.
+- `(String) id` is the unique identifier of the object that was previously stored via [write](#methods-write) method call.
 
 This method returns `true` on success and `false` on failure.
 It removes the `object` from the storage.
-It will trigger a [remove](#events-remove) event on success.
 
 Note that a storage instance can get out of sync if you prevent
-the `remove` or `sync` event chain that is integrated with the
-network stack.
+the `sync` event chain that is integrated with the network stack.
 
 ```javascript
 var storage = new lychee.Storage({
@@ -508,14 +349,44 @@ var storage = new lychee.Storage({
 var obj1 = storage.create();
 var obj2 = storage.create();
 
-storage.insert(obj1);
-storage.insert(obj2);
+storage.write('foo', obj1);
+storage.write('bar', obj2);
 
-storage.remove(0);          // true
-storage.remove(null, obj1); // false, already removed
-storage.remove(null, obj2); // true
+storage.remove('foo'); // true
+storage.remove('foo'); // false, already removed
+storage.remove('bar'); // true
 ```
- 
+
+
+
+= methods-write
+
+```javascript
+(Boolean) lychee.Storage.prototype.write(object);
+```
+
+- `(Model instance) object` is the object that was previously created via [create](#methods-create) method call.
+
+This method returns `true` on success and `false` on failure.
+It writes the `object` into the storage.
+
+Note that a storage instance can get out of sync if you prevent
+the `sync` event chain that is integrated with the network stack.
+
+```javascript
+var storage = new lychee.Storage({
+	model: { foo: 0 }
+});
+
+
+var obj = storage.create();
+
+storage.write('foo', obj); // true
+obj.foo++;                 // 1
+
+storage.write('foo', obj); // true
+```
+
 
 
 = methods-setId
