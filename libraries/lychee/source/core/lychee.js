@@ -343,7 +343,7 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 	};
 
-	var _resolve_constructor = function(identifier) {
+	var _resolve_reference = function(identifier) {
 
 		var pointer = this;
 
@@ -360,7 +360,6 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 			}
 
 		}
-
 
 		return pointer;
 
@@ -636,14 +635,14 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 				if (typeof data.reference === 'string') {
 
-					var resolved_module = _resolve_constructor.call(scope, data.reference);
+					var resolved_module = _resolve_reference.call(scope, data.reference);
 					if (typeof resolved_module === 'object') {
 						instance = resolved_module;
 					}
 
 				} else if (typeof data.constructor === 'string' && data.arguments instanceof Array) {
 
-					var resolved_class = _resolve_constructor.call(scope, data.constructor);
+					var resolved_class = _resolve_reference.call(scope, data.constructor);
 					if (typeof resolved_class === 'function') {
 
 						var bindargs = [].splice.call(data.arguments, 0).map(function(value) {
@@ -654,7 +653,7 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 									console.log('lychee.deserialize: Injecting "' + value + '" from global');
 								}
 
-								var resolved = _resolve_constructor.call(scope, value.substr(1));
+								var resolved = _resolve_reference.call(scope, value.substr(1));
 								if (resolved !== null) {
 									value = resolved;
 								}
