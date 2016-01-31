@@ -1,13 +1,15 @@
 
 (function(lychee, global) {
 
-	/*
-	 * HELPERS
-	 */
-
 	var _fs        = require('fs');
 	var __root     = process.cwd();
 	var __filename = null;
+
+
+
+	/*
+	 * HELPERS
+	 */
 
 	var _resolve_url = function(path) {
 
@@ -42,17 +44,17 @@
 		var encoding = settings.encoding === 'binary' ? 'binary': 'utf8';
 
 
-		_fs.readFile(path, encoding, function(err, buffer) {
+		_fs.readFile(path, encoding, function(error, buffer) {
 
 			var raw = null;
-			if (!err) {
+			if (!error) {
 				raw = buffer;
 			}
 
 			try {
 				callback.call(scope, raw);
-			} catch(error) {
-				lychee.Debugger.report(lychee.environment, error, null);
+			} catch(err) {
+				lychee.Debugger.report(lychee.environment, err, null);
 			}
 
 		});
@@ -1415,86 +1417,56 @@
 
 
 			var that = this;
-			var file = _resolve_url(this.url);
-
-			if (_fs.existsSync(file) === false) {
-
-				this.buffer = null;
-
-				if (this.onload instanceof Function) {
-					this.onload(false);
-					this.onload = null;
-				}
-
-				return;
-
-			}
-
-
 			var type = this.url.split('/').pop().split('.').pop();
-			if (type === 'js') {
+			if (type === 'js' && this.__ignore === false) {
 
-				_fs.readFile(file, 'utf8', function(err, raw) {
+				_load_asset({
+					url:      this.url,
+					encoding: 'utf8'
+				}, function(raw) {
 
-					if (err) {
-
-						that.buffer = null;
-
-						if (that.onload instanceof Function) {
-							that.onload(false);
-							that.onload = null;
-						}
-
+					if (raw !== null) {
+						that.buffer = raw.toString('utf8');
 					} else {
-
-						if (that.__ignore === false) {
-
-							__filename = that.url;
-
-							if (require.cache[file] !== undefined) {
-								delete require.cache[file];
-							}
-
-							require(file);
-
-							__filename = null;
-
-						}
+						that.buffer = '';
+					}
 
 
-						that.buffer = raw.toString();
+					__filename = that.url;
 
-						if (that.onload instanceof Function) {
-							that.onload(true);
-							that.onload = null;
-						}
+					var cid = _resolve_url(that.url);
+					if (require.cache[cid] !== undefined) {
+						delete require.cache[cid];
+					}
 
+					require(cid);
+					__filename = null;
+
+
+					if (that.onload instanceof Function) {
+						that.onload(raw !== null);
+						that.onload = null;
 					}
 
 				});
 
 			} else {
 
-				_fs.readFile(file, 'utf8', function(err, raw) {
+				_load_asset({
+					url:      this.url,
+					encoding: 'utf8'
+				}, function(raw) {
 
-					if (err) {
-
-						that.buffer = null;
-
-						if (that.onload instanceof Function) {
-							that.onload(false);
-							that.onload = null;
-						}
-
+					if (raw !== null) {
+						that.buffer = raw.toString('utf8');
 					} else {
+						that.buffer = '';
+					}
 
-						that.buffer = raw.toString();
 
-						if (that.onload instanceof Function) {
-							that.onload(true);
-							that.onload = null;
-						}
-
+					if (that.onload instanceof Function) {
+						that.onload(raw !== null);
+						that.onload = null;
 					}
 
 				});

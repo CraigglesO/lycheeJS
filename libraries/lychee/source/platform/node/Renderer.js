@@ -152,7 +152,6 @@ lychee.define('Renderer').tags({
 
 	var _id = 0;
 
-
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, data);

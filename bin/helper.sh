@@ -270,9 +270,9 @@ elif [ "$protocol" == "env" ]; then
 		elif [ "$platform" == "html-nwjs" ]; then
 
 			if [ "$OS" == "linux" ]; then
-				_start_env $LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/nw $program $3 $4 $5;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/html-nwjs/linux/$ARCH/nw $program $3 $4 $5;
 			elif [ "$OS" == "osx" ]; then
-				_start_env $LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/nw $program $3 $4 $5;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/html-nwjs/osx/$ARCH/nw $program $3 $4 $5;
 			fi;
 
 		elif [ "$platform" == "node" ]; then

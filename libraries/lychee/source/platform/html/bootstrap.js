@@ -1,15 +1,86 @@
 
 (function(lychee, global) {
 
+	var __root = '/';
+
+
+
+	/*
+	 * FEATURE DETECTION
+	 */
+
+	(function(location, __filename) {
+
+		var origin  = location.origin || '';
+		var dirname = (location.pathname || '').split('/').slice(0, -1).join('/');
+		var proto   = origin.split(':')[0];
+
+		if (proto.match(/app|file/g)) {
+
+			var tmp1 = __filename.indexOf('/libraries/lychee');
+			var tmp2 = __filename.indexOf('://');
+
+			if (tmp1 !== -1) {
+				__root = __filename.substr(0, tmp1);
+			}
+
+			if (tmp2 !== -1) {
+				__root = __root.substr(tmp2 + 3);
+			}
+
+		} else if (proto.match(/http|https/g)) {
+
+			// The harvester (HTTP webserver) is able to understand
+			// /projects/* and /libraries/* requests, that's why there
+			// is no root prefix in use for those protocols.
+
+			__root = dirname;
+
+		}
+
+	})(global.location || {}, document.currentScript.src || '');
+
+
+
 	/*
 	 * HELPERS
 	 */
 
+	var _resolve_url = function(path) {
+
+		var proto = path.split(':')[0] || '';
+
+		if (__root !== '' && !proto.match(/http|https/g) && path.charAt(0) !== '/') {
+			path = __root + '/' + path;
+		}
+
+
+		var tmp = path.split('/');
+
+		for (var t = 0, tl = tmp.length; t < tl; t++) {
+
+			if (tmp[t] === '.') {
+				tmp.splice(t, 1);
+				tl--;
+				t--;
+			} else if (tmp[t] === '..') {
+				tmp.splice(t - 1, 2);
+				tl -= 2;
+				t  -= 2;
+			}
+
+		}
+
+		return tmp.join('/');
+
+	};
+
 	var _load_asset = function(settings, callback, scope) {
 
-		var xhr = new XMLHttpRequest();
+		var path = _resolve_url(settings.url);
+		var xhr  = new XMLHttpRequest();
 
-		xhr.open('GET', settings.url, true);
+		xhr.open('GET', path, true);
 
 
 		if (settings.headers instanceof Object) {
@@ -2207,7 +2278,7 @@
 	Object.defineProperty(lychee.Environment, '__ROOT', {
 
 		get: function() {
-			return '/';
+			return __root;
 		},
 
 		set: function() {
