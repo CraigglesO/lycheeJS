@@ -106,13 +106,13 @@ lychee.Debugger = typeof lychee.Debugger !== 'undefined' ? lychee.Debugger : (fu
 
 		expose: function(environment) {
 
-			environment = environment instanceof lychee.Environment ? environment : null;
+			environment = environment instanceof lychee.Environment ? environment : lychee.environment;
 
 
 			_bootstrap_environment();
 
 
-			if (environment !== null) {
+			if (environment !== null && environment !== _environment) {
 
 				var project = environment.id;
 				if (project !== null) {

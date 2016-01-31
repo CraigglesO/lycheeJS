@@ -3,11 +3,39 @@ lychee.define('lychee.net.client.Debugger').includes([
 	'lychee.net.Service'
 ]).exports(function(lychee, global, attachments) {
 
+	/*
+	 * HELPERS
+	 */
+
+	var _resolve_reference = function(identifier) {
+
+		var pointer = this;
+
+		var ns = identifier.split('.');
+		for (var n = 0, l = ns.length; n < l; n++) {
+
+			var name = ns[n];
+
+			if (pointer[name] !== undefined) {
+				pointer = pointer[name];
+			} else {
+				pointer = null;
+				break;
+			}
+
+		}
+
+		return pointer;
+
+	};
+
+
+
+	/*
+	 * IMPLEMENTATION
+	 */
+
 	var Class = function(client) {
-
-
-		this.mode = 'debugger';
-
 
 		lychee.net.Service.call(this, 'debugger', client, lychee.net.Service.TYPE.client);
 
@@ -19,14 +47,84 @@ lychee.define('lychee.net.client.Debugger').includes([
 
 		this.bind('execute', function(data) {
 
-			// TODO: data.reference, data.arguments
-			// if reference is Function, call with arguments
-			// if reference is Object
-			//     if key of properties is available as setKey(), use method
-			//     else if Object has property key, set key directly
+			if (typeof data.reference === 'string') {
 
-console.info('EXECUTING DEBUGGER COMMAND NAO ');
-console.log(data);
+				var scope    = (lychee.environment !== null ? lychee.environment.global : global);
+				var value    = null;
+				var instance = _resolve_reference.call(scope, data.reference);
+				var bindargs = [].slice.call(data.arguments, 0).map(function(value) {
+
+					if (typeof value === 'string' && value.charAt(0) === '#') {
+
+						if (lychee.debug === true) {
+							console.log('lychee.net.client.Debugger: Injecting "' + value + '" from global');
+						}
+
+						var resolved_injection = _resolve_reference.call(scope, value.substr(1));
+						if (resolved_injection !== null) {
+							value = null;
+						}
+
+					}
+
+					return value;
+
+				});
+
+
+				if (typeof instance === 'object') {
+
+					value = lychee.serialize(instance);
+
+				} else if (typeof resolved === 'function') {
+
+					value = instance(bindargs);
+
+				}
+
+
+				if (value === undefined) {
+					value = null;
+				}
+
+
+				if (this.tunnel !== null) {
+
+					this.tunnel.send({
+						tid:   data.receiver,
+						value: value
+					}, {
+						id:    'debugger',
+						event: 'execute-value'
+					});
+
+				}
+
+			}
+
+		}, this);
+
+		this.bind('expose', function(data) {
+
+			if (typeof data.reference === 'string') {
+
+				var scope       = (lychee.environment !== null ? lychee.environment.global : global);
+				var environment = _resolve_reference.call(scope, data.reference);
+				var value       = lychee.Debugger.expose(environment);
+
+				if (this.tunnel !== null) {
+
+					this.tunnel.send({
+						tid:   data.receiver,
+						value: value
+					}, {
+						id:    'debugger',
+						event: 'expose-value'
+					});
+
+				}
+
+			}
 
 		}, this);
 
@@ -39,40 +137,16 @@ console.log(data);
 		 * CUSTOM API
 		 */
 
-		connect: function(id) {
+		execute: function(tid, data) {
 
-			id = typeof id === 'string' ? id : null;
+			tid  = typeof tid === 'string' ? tid  : null;
+			data = data instanceof Object  ? data : null;
 
-
-			if (id !== null && this.tunnel !== null) {
-
-				this.tunnel.send({
-					id:    id,
-					mode:  this.mode
-				}, {
-					id:    'debugger',
-					event: 'connect'
-				});
-
-
-				return true;
-
-			}
-
-
-			return false;
-
-		},
-
-		execute: function(data) {
-
-			data = data instanceof Object ? data : null;
-
-			// TODO: execute command only on single remote
 
 			if (data !== null && this.tunnel !== null) {
 
 				this.tunnel.send({
+					tid:       tid,
 					reference: data.reference || null,
 					arguments: data.arguments || null
 				}, {
@@ -90,46 +164,21 @@ console.log(data);
 
 		},
 
-		disconnect: function(id) {
+		expose: function(tid) {
 
-			id = typeof id === 'string' ? id : null;
+			tid  = typeof tid === 'string' ? tid : null;
 
 
-			if (id !== null && this.tunnel !== null) {
+			if (this.tunnel !== null) {
 
 				this.tunnel.send({
-					id:    id,
-					mode:  this.mode
+					tid:   tid
 				}, {
 					id:    'debugger',
-					event: 'disconnect'
+					event: 'expose'
 				});
 
-
-				return true;
-
 			}
-
-
-			return false;
-
-		},
-
-		setMode: function(mode) {
-
-			mode = typeof mode === 'string' ? mode : null;
-
-
-			if (mode !== null) {
-
-				this.mode = mode;
-
-				return true;
-
-			}
-
-
-			return false;
 
 		}
 
