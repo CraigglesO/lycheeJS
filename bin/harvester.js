@@ -1,9 +1,9 @@
-#!/usr/bin/env node
+#!/usr/bin/lycheejs-helper env:node
 
 
-var root   = require('path').resolve(__dirname, '../');
-var fs     = require('fs');
-var path   = require('path');
+var root = require('path').resolve(__dirname, '../');
+var fs   = require('fs');
+var path = require('path');
 
 
 if (fs.existsSync(root + '/libraries/lychee/build/node/core.js') === false) {
@@ -26,27 +26,32 @@ var _print_help = function() {
 	});
 
 
-	console.log('                                             ');
+	console.log('                                                            ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Harvester');
-	console.log('                                             ');
-	console.log('Usage: lycheejs-harvester [Action] [Profile] ');
-	console.log('                                             ');
-	console.log('                                             ');
-	console.log('Available Actions:                           ');
-	console.log('                                             ');
-	console.log('   start, stop                               ');
-	console.log('                                             ');
-	console.log('Available Profiles:                          ');
-	console.log('                                             ');
+	console.log('                                                            ');
+	console.log('Usage: lycheejs-harvester [Action] [Profile] [Flag]         ');
+	console.log('                                                            ');
+	console.log('                                                            ');
+	console.log('Available Actions:                                          ');
+	console.log('                                                            ');
+	console.log('   start, status, restart, stop                             ');
+	console.log('                                                            ');
+	console.log('Available Profiles:                                         ');
+	console.log('                                                            ');
 	profiles.forEach(function(profile) {
-		var diff = ('                                         ').substr(profile.length);
+		var diff = ('                                                        ').substr(profile.length);
 		console.log('    ' + profile + diff);
 	});
-	console.log('                                             ');
-	console.log('Examples:                                    ');
-	console.log('                                             ');
-	console.log('    lycheejs-harvester start development;    ');
-	console.log('                                             ');
+	console.log('                                                            ');
+	console.log('Available Flags:                                            ');
+	console.log('                                                            ');
+	console.log('   --no-integration                                         ');
+	console.log('                                                            ');
+	console.log('Examples:                                                   ');
+	console.log('                                                            ');
+	console.log('    lycheejs-harvester start development;                   ');
+	console.log('    lycheejs-harvester restart development --no-integration;');
+	console.log('                                                            ');
 
 };
 
@@ -55,13 +60,15 @@ var _print_help = function() {
 var _settings = (function() {
 
 	var settings = {
-		action:  null,
-		profile: null
+		action:      null,
+		profile:     null,
+		integration: true
 	};
 
 
 	var raw_arg0 = process.argv[2] || '';
 	var raw_arg1 = process.argv[3] || '';
+	var raw_arg2 = process.argv[4] || '';
 
 
 	if (raw_arg0 === 'start') {
@@ -94,6 +101,11 @@ var _settings = (function() {
 
 		settings.action = 'stop';
 
+	}
+
+
+	if (raw_arg2 === '--no-integration') {
+		settings.integration = false;
 	}
 
 
@@ -241,6 +253,8 @@ var _bootup = function(settings) {
 
 
 	if (action === 'start' && has_profile) {
+
+		settings.profile.integration = settings.integration === true;
 
 		_bootup(settings.profile);
 

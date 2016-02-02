@@ -1,9 +1,9 @@
-#!/usr/bin/env node
+#!/usr/bin/lycheejs-helper env:node
 
 
-var root   = require('path').resolve(__dirname, '../');
-var fs     = require('fs');
-var path   = require('path');
+var root = require('path').resolve(__dirname, '../');
+var fs   = require('fs');
+var path = require('path');
 
 
 if (fs.existsSync(root + '/libraries/lychee/build/node/core.js') === false) {

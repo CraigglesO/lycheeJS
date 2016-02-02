@@ -372,46 +372,80 @@ lychee.define('harvester.Main').requires([
 		}, this, true);
 
 
-		(function(libraries, projects) {
+		if (settings.integration === true) {
 
-			libraries.forEach(function(library, l) {
+			(function(libraries, projects) {
 
-				if (harvester.mod.Package.can(library) === true) {
-					harvester.mod.Package.process(library);
-				}
+				libraries.forEach(function(library, l) {
 
-				if (harvester.mod.Fertilizer.can(library) === true) {
-					harvester.mod.Fertilizer.process(library);
-				}
-
-			});
-
-			setTimeout(function() {
-
-				projects.forEach(function(project, p) {
-
-					if (harvester.mod.Package.can(project) === true) {
-						harvester.mod.Package.process(project);
+					if (harvester.mod.Package.can(library) === true) {
+						harvester.mod.Package.process(library);
 					}
 
-					if (harvester.mod.Server.can(project) === true) {
-						harvester.mod.Server.process(project);
-					}
-
-
-					if (harvester.mod.Fertilizer.can(project) === true) {
-
-						setTimeout(function() {
-							harvester.mod.Fertilizer.process(project);
-						}, p * 2000);
-
+					if (harvester.mod.Fertilizer.can(library) === true) {
+						harvester.mod.Fertilizer.process(library);
 					}
 
 				});
 
-			}, libraries.length * 1000);
+				setTimeout(function() {
 
-		})(Object.values(_LIBRARIES), Object.values(_PROJECTS));
+					projects.forEach(function(project, p) {
+
+						if (harvester.mod.Package.can(project) === true) {
+							harvester.mod.Package.process(project);
+						}
+
+						if (harvester.mod.Server.can(project) === true) {
+							harvester.mod.Server.process(project);
+						}
+
+
+						if (harvester.mod.Fertilizer.can(project) === true) {
+
+							setTimeout(function() {
+								harvester.mod.Fertilizer.process(project);
+							}, p * 2000);
+
+						}
+
+					});
+
+				}, libraries.length * 1000);
+
+			})(Object.values(_LIBRARIES), Object.values(_PROJECTS));
+
+		} else {
+
+			(function(libraries, projects) {
+
+				libraries.forEach(function(library, l) {
+
+					if (harvester.mod.Package.can(library) === true) {
+						harvester.mod.Package.process(library);
+					}
+
+				});
+
+				setTimeout(function() {
+
+					projects.forEach(function(project, p) {
+
+						if (harvester.mod.Package.can(project) === true) {
+							harvester.mod.Package.process(project);
+						}
+
+						if (harvester.mod.Server.can(project) === true) {
+							harvester.mod.Server.process(project);
+						}
+
+					});
+
+				}, libraries.length * 1000);
+
+			})(Object.values(_LIBRARIES), Object.values(_PROJECTS));
+
+		}
 
 
 
