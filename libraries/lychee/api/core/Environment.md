@@ -550,6 +550,35 @@ environment.init(function(sandbox) {
 
 
 
+= methods-resolve
+
+```javascript
+(void) lychee.Environment.prototype.resolve(path);
+```
+
+- `(String) path` is the relative path to an Asset.
+
+This method returns the correctly rooted `Asset url`.
+
+The method supports both relative and absolute paths
+and roots them accordingly to the current environment.
+
+As this is heavily integrated with the `bootstrap` process,
+all Asset types supported by [lychee.Asset](lychee.Asset)
+are relying on this method.
+
+```javascript
+var environment = new lychee.Environment({});
+
+var rel_path = environment.resolve('./lychee.pkg');
+var abs_path = environment.resolve('/libraries/lychee/lychee.pkg');
+
+rel_path; // '/opt/lycheejs/projects/example/lychee.pkg';
+abs_path; // '/opt/lycheejs/libraries/lychee/lychee.pkg';
+```
+
+
+
 = methods-setBuild
 
 ```javascript
