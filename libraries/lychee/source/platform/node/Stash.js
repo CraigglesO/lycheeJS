@@ -6,7 +6,7 @@ lychee.define('Stash').tags({
 ]).supports(function(lychee, global) {
 
 	var fs = require('fs');
-	if (typeof fs.readFileSync === 'function' && typeof fs.writeFileSync === 'function') {
+	if (typeof fs.unlinkSync === 'function' && typeof fs.writeFileSync === 'function') {
 		return true;
 	}
 
@@ -15,7 +15,7 @@ lychee.define('Stash').tags({
 }).exports(function(lychee, global, attachments) {
 
 	var __root       = lychee.Environment.__ROOT;
-	var _ASSET_CACHE = {};
+	var _TEMPORARY   = {};
 	var _ASSET_TYPES = [
 		global.Config,
 		global.Font,
@@ -31,21 +31,98 @@ lychee.define('Stash').tags({
 	 * FEATURE DETECTION
 	 */
 
-	var _write_persistent  = null;
-	var _remove_persistent = null;
+	var _write_persistent  = function(path, asset) { return false; };
+	var _remove_persistent = function(path) {        return false; };
 
-	var _write_persistent = function(url, asset) {
-		return false;
-	};
+	(function() {
 
-	var _remove_persistent = function(url) {
-		return false;
-	};
+		var _fs = require('fs');
+
+		var unlink = 'unlinkSync' in _fs;
+		if (unlink === true) {
+
+			_remove_persistent = function(path) {
+
+				var result = false;
+				try {
+					_fs.unlinkSync(path);
+					result = true;
+				} catch(e) {
+					result = false;
+				}
 
 
+				return result;
 
-// TODO: FEATURE DETECTION of _write_persistent
-// TODO: FEATURE DETECTION of _remove_persistent
+			};
+
+		}
+
+
+		var write = 'writeFileSync' in _fs;
+		if (write === true) {
+
+			_write_persistent = function(path, asset) {
+
+				var binary   = [ global.Music,  global.Sound, global.Texture ];
+				var utf8     = [ global.Config, global.Font,  global.Stuff   ];
+				var encoding = 'utf8';
+				var result   = false;
+
+
+				if (binary.indexOf(asset.constructor) !== -1) {
+					encoding = 'binary';
+				} else if (utf8.indexOf(asset.constructor) !== -1) {
+					encoding = 'utf8';
+				}
+
+
+				var data = lychee.serialize(asset);
+				if (data !== null && data.blob !== null && typeof data.blob.buffer === 'string') {
+
+					var index = data.blob.buffer.indexOf('base64,') + 7;
+					if (index > 7) {
+
+						var buffer = new Buffer(data.blob.buffer.substr(index, data.blob.buffer.length - index), 'base64');
+
+						try {
+							_fs.writeFileSync(path, encoding, buffer);
+						} catch(e) {
+							result = false;
+						}
+
+					}
+
+				}
+
+
+				return result;
+
+			};
+
+		}
+
+
+		if (lychee.debug === true) {
+
+			var methods = [];
+
+			if (unlink && write) methods.push('Persistent');
+			if (_TEMPORARY)      methods.push('Temporary');
+
+
+			if (methods.length === 0) {
+				console.error('lychee.Stash: Supported methods are NONE');
+			} else {
+				console.info('lychee.Stash: Supported methods are ' + methods.join(', '));
+			}
+
+		}
+
+
+console.info(lychee.Environment.__ROOT);
+
+	})();
 
 
 
@@ -97,7 +174,7 @@ lychee.define('Stash').tags({
 
 		for (var id in this.__operations) {
 
-			var asset      = _ASSET_CACHE[id] || null;
+			var asset      = _TEMPORARY[id] || null;
 			var operations = [].slice.call(this.__operations[id]);
 			if (operations.length > 0) {
 
@@ -107,7 +184,7 @@ lychee.define('Stash').tags({
 					if (operation.type === 'update') {
 
 						if (asset === null) {
-							asset = _ASSET_CACHE[id] = new lychee.Asset(id, true);
+							asset = _TEMPORARY[id] = new lychee.Asset(id, true);
 						}
 
 						if (asset !== null) {
@@ -117,7 +194,7 @@ lychee.define('Stash').tags({
 					} else if (operation.type === 'remove') {
 
 						if (asset !== null) {
-							_ASSET_CACHE[id] = null;
+							_TEMPORARY[id] = null;
 							asset = null;
 						}
 
@@ -140,7 +217,7 @@ lychee.define('Stash').tags({
 
 		for (var id in this.__operations) {
 
-			var asset      = _ASSET_CACHE[id] || null;
+			var asset      = _TEMPORARY[id] || null;
 			var operations = [].slice.call(this.__operations[id]);
 			if (operations.length > 0) {
 
@@ -156,7 +233,7 @@ lychee.define('Stash').tags({
 					} else if (operation.type === 'remove') {
 
 						if (asset !== null) {
-							_ASSET_CACHE[id] = null;
+							_TEMPORARY[id] = null;
 							asset = null;
 						}
 
@@ -165,30 +242,26 @@ lychee.define('Stash').tags({
 				}
 
 
-				var url = _resolve_url(id);
-				if (url.substr(0, __root.length) === __root) {
+				var resolved = _resolve_url(id);
+				if (resolved.substr(0, __root.length) === __root) {
 
 					var type = this.type;
 					if (type === Class.TYPE.persistent) {
 
-						if (_is_asset(_ASSET_CACHE[id]) === true) {
+						if (_is_asset(_TEMPORARY[id]) === true) {
 
-							if (_write_persistent !== null) {
-								_write_persistent(url, _ASSET_CACHE[id]);
-							}
+							_write_persistent(resolved, _TEMPORARY[id]);
 
-						} else if (_ASSET_CACHE[id] === null) {
+						} else if (_TEMPORARY[id] === null) {
 
-							if (_remove_persistent !== null) {
-								_remove_persistent(url);
-								delete _ASSET_CACHE[id];
-							}
+							_remove_persistent(resolved);
+							delete _TEMPORARY[id];
 
 						}
 
 					} else if (type === Class.TYPE.temporary) {
 
-						// Do nothing, because _ASSET_CACHE takes over
+						// Do nothing, because _TEMPORARY takes over
 
 					}
 
@@ -219,11 +292,9 @@ lychee.define('Stash').tags({
 
 
 		this.id   = 'lychee-Stash-' + _id++;
-		this.root = '';
 		this.type = Class.TYPE.persistent;
 
 
-		this.__objects    = {};
 		this.__operations = {};
 
 
@@ -375,7 +446,7 @@ lychee.define('Stash').tags({
 			if (id !== null) {
 
 				var asset = null;
-				var cache = _ASSET_CACHE[id] || null;
+				var cache = _TEMPORARY[id] || null;
 				if (cache !== null) {
 					asset = lychee.deserialize(lychee.serialize(cache));
 				} else {
