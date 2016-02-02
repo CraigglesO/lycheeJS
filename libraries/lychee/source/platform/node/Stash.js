@@ -14,7 +14,7 @@ lychee.define('Stash').tags({
 
 }).exports(function(lychee, global, attachments) {
 
-	var __root       = lychee.Environment.__ROOT;
+	var _ROOT        = lychee.ROOT.project;
 	var _TEMPORARY   = {};
 	var _ASSET_TYPES = [
 		global.Config,
@@ -119,9 +119,6 @@ lychee.define('Stash').tags({
 
 		}
 
-
-console.info(lychee.Environment.__ROOT);
-
 	})();
 
 
@@ -129,35 +126,6 @@ console.info(lychee.Environment.__ROOT);
 	/*
 	 * HELPERS
 	 */
-
-	var _resolve_url = function(path) {
-
-		var proto = path.split(':')[0] || '';
-
-		if (__root !== '') {
-			path = __root + (path.charAt(0) === '/' ? '' : '/') + path;
-		}
-
-
-		var tmp = path.split('/');
-
-		for (var t = 0, tl = tmp.length; t < tl; t++) {
-
-			if (tmp[t] === '.') {
-				tmp.splice(t, 1);
-				tl--;
-				t--;
-			} else if (tmp[t] === '..') {
-				tmp.splice(t - 1, 2);
-				tl -= 2;
-				t -= 2;
-			}
-
-		}
-
-		return tmp.join('/');
-
-	};
 
 	var _is_asset = function(asset) {
 
@@ -242,8 +210,8 @@ console.info(lychee.Environment.__ROOT);
 				}
 
 
-				var resolved = _resolve_url(id);
-				if (resolved.substr(0, __root.length) === __root) {
+				var resolved = lychee.environment.resolve(id);
+				if (resolved.substr(0, _ROOT.length) === _ROOT) {
 
 					var type = this.type;
 					if (type === Class.TYPE.persistent) {
@@ -514,7 +482,7 @@ console.info(lychee.Environment.__ROOT);
 
 
 				operations.push({
-					type:   'write',
+					type:   'update',
 					id:     id,
 					buffer: asset.buffer
 				});

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>LycheeJS Mode7</title>
+	<title>LycheeJS App Boilerplate</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 		body {
 			margin: 0;
 			padding: 0;
-			color: #fff;
-			background: #444;
+			color: #ffffff;
+			background: #444444;
 		}
 		
 		.lychee-Renderer {
@@ -30,6 +30,37 @@
 
 </head>
 <body>
-	<script src="./index.js"></script>
+	<script>
+	(function(lychee, global) {
+
+		var environment = new lychee.Environment({
+			id:       'boilerplate',
+			debug:    false,
+			sandbox:  true,
+			build:    'app.Main',
+			packages: [
+				new lychee.Package('app', './lychee.pkg')
+			],
+			tags:     {
+				platform: [ 'html' ]
+			}
+		});
+
+
+		lychee.setEnvironment(environment);
+
+		lychee.init(function(sandbox) {
+
+			var lychee = sandbox.lychee;
+			var app    = sandbox.app;
+
+			// This allows using #MAIN in JSON files
+			sandbox.MAIN = new app.Main();
+			sandbox.MAIN.init();
+
+		});
+
+	})(lychee, typeof global !== 'undefined' ? global : this);
+	</script>
 </body>
 </html>    

@@ -94,6 +94,8 @@ lychee.define('fertilizer.Main').requires([
 
 
 					_lychee.setEnvironment(environment);
+					environment.debug = true;
+
 
 					_lychee.init(function(sandbox) {
 
@@ -116,6 +118,23 @@ lychee.define('fertilizer.Main').requires([
 						} else {
 
 							console.error('fertilizer: FAILURE ("' + project + ' | ' + identifier + '") at "load" event');
+
+							if (typeof environment.global.console.serialize === 'function') {
+
+								var debug = environment.global.console.serialize();
+								if (debug.blob !== null) {
+
+									(debug.blob.stderr || '').trim().split('\n').map(function(line) {
+										return (line.indexOf(':') !== -1 ? line.split(':')[1].trim() : '');
+									}).forEach(function(line) {
+										console.error('fertilizer: ' + line);
+									});
+
+								}
+
+							}
+
+
 							that.destroy();
 
 						}

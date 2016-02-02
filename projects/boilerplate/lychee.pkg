@@ -75,52 +75,12 @@
 				"variant": "application"
 			}
 		},
-		"files": {
-			"node": {
-				"server": {
-					"index": [
-						"js"
-					]
-				},
-				"server-linux": {
-					"arm": {
-						"index": [
-							"js"
-						]
-					},
-					"x86_64": {
-						"index": [
-							"js"
-						]
-					}
-				},
-				"server-osx": {
-					"x86_64": {
-						"index": [
-							"js"
-						]
-					}
-				},
-				"server-windows": {
-					"x86_64": {
-						"index": [
-							"js"
-						],
-						"server": [
-							"cmd"
-						]
-					}
-				}
-			}
-		}
+		"files": {}
 	},
 	"source": {
 		"environments": {},
 		"files": {
 			"Main": [
-				"js"
-			],
-			"index": [
 				"js"
 			],
 			"net": {

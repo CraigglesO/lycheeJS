@@ -385,6 +385,9 @@
 					"Renderer": [
 						"js"
 					],
+					"Stash": [
+						"js"
+					],
 					"Storage": [
 						"js"
 					],
@@ -419,6 +422,9 @@
 						"js"
 					],
 					"Renderer": [
+						"js"
+					],
+					"Stash": [
 						"js"
 					],
 					"Storage": [

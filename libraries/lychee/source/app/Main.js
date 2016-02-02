@@ -2,6 +2,7 @@
 lychee.define('lychee.app.Main').requires([
 	'lychee.Input',
 	'lychee.Renderer',
+	'lychee.Stash',
 	'lychee.Storage',
 	'lychee.Viewport',
 	'lychee.event.Flow',
@@ -85,6 +86,10 @@ lychee.define('lychee.app.Main').requires([
 
 		if (settings.renderer !== null) {
 			this.renderer = new lychee.Renderer(settings.renderer);
+		}
+
+		if (settings.stash !== null) {
+			this.stash = new lychee.Stash(settings.stash);
 		}
 
 		if (settings.storage !== null) {
@@ -191,6 +196,11 @@ lychee.define('lychee.app.Main').requires([
 			background: '#404844'
 		},
 
+		stash: {
+			id:   'app',
+			type: lychee.Stash.TYPE.persistent
+		},
+
 		storage: {
 			id:    'app',
 			model: {},
@@ -221,6 +231,7 @@ lychee.define('lychee.app.Main').requires([
 		this.jukebox  = null;
 		this.loop     = null;
 		this.renderer = null;
+		this.stash    = null;
 		this.storage  = null;
 		this.viewport = null;
 
@@ -248,6 +259,7 @@ lychee.define('lychee.app.Main').requires([
 			if (blob.jukebox instanceof Object)  this.jukebox  = lychee.deserialize(blob.jukebox);
 			if (blob.loop instanceof Object)     this.loop     = lychee.deserialize(blob.loop);
 			if (blob.renderer instanceof Object) this.renderer = lychee.deserialize(blob.renderer);
+			if (blob.stash instanceof Object)    this.stash    = lychee.deserialize(blob.stash);
 			if (blob.storage instanceof Object)  this.storage  = lychee.deserialize(blob.storage);
 			if (blob.viewport instanceof Object) this.viewport = lychee.deserialize(blob.viewport);
 
@@ -288,6 +300,7 @@ lychee.define('lychee.app.Main').requires([
 			if (this.jukebox !== null)  blob.jukebox  = lychee.serialize(this.jukebox);
 			if (this.loop !== null)     blob.loop     = lychee.serialize(this.loop);
 			if (this.renderer !== null) blob.renderer = lychee.serialize(this.renderer);
+			if (this.stash !== null)    blob.stash    = lychee.serialize(this.stash);
 			if (this.storage !== null)  blob.storage  = lychee.serialize(this.storage);
 			if (this.viewport !== null) blob.viewport = lychee.serialize(this.viewport);
 
@@ -427,6 +440,10 @@ lychee.define('lychee.app.Main').requires([
 			if (this.renderer !== null) {
 				this.renderer.destroy();
 				this.renderer = null;
+			}
+
+			if (this.stash !== null) {
+				this.stash = null;
 			}
 
 			if (this.storage !== null) {

@@ -458,7 +458,7 @@ lychee.define('Storage').tags({
 			if (id !== null && object !== null) {
 
 				this.__operations.push({
-					type:   'write',
+					type:   'update',
 					id:     id,
 					object: object
 				});

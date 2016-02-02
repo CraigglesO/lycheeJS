@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>LycheeJS LethalMaze</title>
+	<title>LycheeJS Mode7</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,7 +15,7 @@
 			margin: 0;
 			padding: 0;
 			color: #fff;
-			background: #67b843;
+			background: #444;
 		}
 		
 		.lychee-Renderer {
@@ -30,6 +30,37 @@
 
 </head>
 <body>
-	<script src="./index.js"></script>
+	<script>
+	(function(lychee, global) {
+
+		var environment = new lychee.Environment({
+			id:       'mode7',
+			debug:    true,
+			sandbox:  true,
+			build:    'game.Main',
+			packages: [
+				new lychee.Package('game', './lychee.pkg')
+			],
+			tags:     {
+				platform: [ 'html' ]
+			}
+		});
+
+
+		lychee.setEnvironment(environment);
+
+		lychee.init(function(sandbox) {
+
+			var lychee = sandbox.lychee;
+			var game   = sandbox.game;
+
+			// This allows using #MAIN in JSON files
+			sandbox.MAIN = new game.Main();
+			sandbox.MAIN.init();
+
+		});
+
+	})(lychee, typeof global !== 'undefined' ? global : this);
+	</script>
 </body>
 </html>    

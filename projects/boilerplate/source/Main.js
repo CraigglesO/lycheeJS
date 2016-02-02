@@ -7,10 +7,6 @@ lychee.define('app.Main').requires([
 	'lychee.app.Main'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _config = attachments["json"].buffer;
-
-
-
 	/*
 	 * IMPLEMENTATION
 	 */

@@ -377,6 +377,10 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 		environment:  _environment,
 
 		ENVIRONMENTS: {},
+		ROOT:         {
+			lychee:  null,
+			project: null
+		},
 		VERSION:      "2015-Q4",
 
 

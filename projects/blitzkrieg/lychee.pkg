@@ -44,9 +44,6 @@
 					"png"
 				]
 			},
-			"index": [
-				"js"
-			],
 			"logic": {
 				"Blitz": [
 					"js"

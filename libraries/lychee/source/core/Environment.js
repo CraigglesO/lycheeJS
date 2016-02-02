@@ -493,7 +493,7 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 			}
 
 
-			if (str.substr(0, 3) === '(E)') {
+			if (str.substr(0, 5) === '\n(E)\t') {
 				_std_err += str;
 			} else {
 				_std_out += str;
@@ -577,6 +577,7 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 		this.lychee              = {};
 		this.lychee.ENVIRONMENTS = global.lychee.ENVIRONMENTS;
 		this.lychee.VERSION      = global.lychee.VERSION;
+		this.lychee.ROOT         = global.lychee.ROOT;
 
 		[
 			'debug',
@@ -658,6 +659,12 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 			}).forEach(function(key) {
 				settings[key] = lychee.serialize(this[key]);
 			}.bind(this));
+
+
+			blob.lychee         = {};
+			blob.lychee.debug   = this.lychee.debug;
+			blob.lychee.VERSION = this.lychee.VERSION;
+			blob.lychee.ROOT    = this.lychee.ROOT;
 
 
 			var data = this.console.serialize();
@@ -1147,6 +1154,37 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 				}
 
 			}
+
+		},
+
+		resolve: function(path) {
+
+			path = typeof path === 'string' ? path : '';
+
+
+			var proto = path.split(':')[0] || '';
+			if (proto.match(/http|https/g) === null) {
+				path = (path.charAt(0) === '/' ? (lychee.ROOT.lychee + path) : (lychee.ROOT.project + '/' + path));
+			}
+
+
+			var tmp = path.split('/');
+
+			for (var t = 0, tl = tmp.length; t < tl; t++) {
+
+				if (tmp[t] === '.') {
+					tmp.splice(t, 1);
+					tl--;
+					t--;
+				} else if (tmp[t] === '..') {
+					tmp.splice(t - 1, 2);
+					tl -= 2;
+					t  -= 2;
+				}
+
+			}
+
+			return tmp.join('/');
 
 		},
 

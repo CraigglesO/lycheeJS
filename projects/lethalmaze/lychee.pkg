@@ -55,9 +55,6 @@
 					"png"
 				]
 			},
-			"index": [
-				"js"
-			],
 			"net": {
 				"Client": [
 					"js"

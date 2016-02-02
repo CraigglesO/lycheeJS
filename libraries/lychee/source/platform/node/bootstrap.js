@@ -1,9 +1,29 @@
 
 (function(lychee, global) {
 
-	var _fs        = require('fs');
-	var __root     = process.cwd();
-	var __filename = null;
+	var _fs       = require('fs');
+	var _filename = null;
+
+
+
+	/*
+	 * FEATURE DETECTION
+	 */
+
+	(function(process, selfpath) {
+
+		var cwd  = typeof process.cwd === 'function' ? process.cwd() : '';
+		var tmp1 = selfpath.indexOf('/libraries/lychee');
+
+		if (tmp1 !== -1) {
+			lychee.ROOT.lychee = selfpath.substr(0, tmp1);
+		}
+
+		if (cwd !== '') {
+			lychee.ROOT.project = cwd;
+		}
+
+	})(global.process || {}, typeof __filename === 'string' ? __filename : '');
 
 
 
@@ -11,36 +31,9 @@
 	 * HELPERS
 	 */
 
-	var _resolve_url = function(path) {
-
-		if (__root !== '') {
-			path = __root + (path.charAt(0) === '/' ? '' : '/') + path;
-		}
-
-
-		var tmp = path.split('/');
-
-		for (var t = 0, tl = tmp.length; t < tl; t++) {
-
-			if (tmp[t] === '.') {
-				tmp.splice(t, 1);
-				tl--;
-				t--;
-			} else if (tmp[t] === '..') {
-				tmp.splice(t - 1, 2);
-				tl -= 2;
-				t  -= 2;
-			}
-
-		}
-
-		return tmp.join('/');
-
-	};
-
 	var _load_asset = function(settings, callback, scope) {
 
-		var path     = _resolve_url(settings.url);
+		var path     = lychee.environment.resolve(settings.url);
 		var encoding = settings.encoding === 'binary' ? 'binary': 'utf8';
 
 
@@ -1432,15 +1425,15 @@
 					}
 
 
-					__filename = that.url;
+					_filename = that.url;
 
-					var cid = _resolve_url(that.url);
+					var cid = lychee.environment.resolve(that.url);
 					if (require.cache[cid] !== undefined) {
 						delete require.cache[cid];
 					}
 
 					require(cid);
-					__filename = null;
+					_filename = null;
 
 
 					if (that.onload instanceof Function) {
@@ -1498,24 +1491,12 @@
 
 		get: function() {
 
-			if (__filename !== null) {
-				return __filename;
+			if (_filename !== null) {
+				return _filename;
 			}
 
 			return null;
 
-		},
-
-		set: function() {
-			return false;
-		}
-
-	});
-
-	Object.defineProperty(lychee.Environment, '__ROOT', {
-
-		get: function() {
-			return __root;
 		},
 
 		set: function() {
@@ -1560,7 +1541,7 @@
 
 
 		if (typeof root === 'string') {
-			__root = root;
+			lychee.ROOT.project = root;
 		}
 
 

@@ -19,9 +19,9 @@ lychee.define('harvester.data.Filesystem').tags({
 
 }).exports(function(lychee, harvester, global, attachments) {
 
+	var _ROOT = lychee.ROOT.lychee;
 	var _fs   = require('fs');
 	var _path = require('path');
-	var _root = lychee.Environment.__ROOT;
 
 
 
@@ -76,9 +76,9 @@ lychee.define('harvester.data.Filesystem').tags({
 		root = typeof root === 'string' ? root : null;
 
 		if (root !== null) {
-			this.root = _path.normalize(_root + _path.normalize(root));
+			this.root = _path.normalize(_ROOT + _path.normalize(root));
 		} else {
-			this.root = _root;
+			this.root = _ROOT;
 		}
 
 	};
@@ -96,7 +96,7 @@ lychee.define('harvester.data.Filesystem').tags({
 
 			return {
 				'constructor': 'harvester.data.Filesystem',
-				'arguments':   [ this.root.substr(_root.length) ]
+				'arguments':   [ this.root.substr(_ROOT.length) ]
 			};
 
 		},

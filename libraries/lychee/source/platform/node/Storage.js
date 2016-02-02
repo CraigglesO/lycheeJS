@@ -32,8 +32,7 @@ lychee.define('Storage').tags({
 
 	(function() {
 
-		var _fs   = require('fs');
-		var _path = require('path');
+		var _fs = require('fs');
 
 
 		var read = 'readFileSync' in _fs;
@@ -41,7 +40,7 @@ lychee.define('Storage').tags({
 
 			_read_persistent = function() {
 
-				var url = _path.normalize(process.cwd() + '/lychee.store');
+				var url = lychee.environment.resolve('./lychee.store');
 
 
 				var raw = null;
@@ -85,7 +84,7 @@ lychee.define('Storage').tags({
 			_write_persistent = function() {
 
 				var buffer = _JSON.encode(_PERSISTENT);
-				var url    = _path.normalize(process.cwd() + '/lychee.store');
+				var url    = lychee.environment.resolve('./lychee.store');
 
 
 				var result = false;
@@ -474,7 +473,7 @@ lychee.define('Storage').tags({
 			if (id !== null && object !== null) {
 
 				this.__operations.push({
-					type:   'write',
+					type:   'update',
 					id:     id,
 					object: object
 				});

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>LycheeJS App Boilerplate</title>
+	<title>LycheeJS Tic Tac Toe</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 		body {
 			margin: 0;
 			padding: 0;
-			color: #ffffff;
-			background: #444444;
+			color: #fff;
+			background: #444;
 		}
 		
 		.lychee-Renderer {
@@ -30,6 +30,37 @@
 
 </head>
 <body>
-	<script src="./index.js"></script>
+	<script>
+	(function(lychee, global) {
+
+		var environment = new lychee.Environment({
+			id:       'tictactoe',
+			debug:    true,
+			sandbox:  true,
+			build:    'game.Main',
+			packages: [
+				new lychee.Package('game', './lychee.pkg')
+			],
+			tags:     {
+				platform: [ 'html' ]
+			}
+		});
+
+
+		lychee.setEnvironment(environment);
+
+		lychee.init(function(sandbox) {
+
+			var lychee = sandbox.lychee;
+			var game   = sandbox.game;
+
+			// This allows using #MAIN in JSON files
+			sandbox.MAIN = new game.Main();
+			sandbox.MAIN.init();
+
+		});
+
+	})(lychee, typeof global !== 'undefined' ? global : this);
+	</script>
 </body>
 </html>    

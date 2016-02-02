@@ -1,40 +1,43 @@
 
 (function(lychee, global) {
 
-	var __root = '/';
-
-
-
 	/*
 	 * FEATURE DETECTION
 	 */
 
-	(function(location, __filename) {
+	(function(location, selfpath) {
 
-		var origin  = location.origin || '';
-		var dirname = (location.pathname || '').split('/').slice(0, -1).join('/');
-		var proto   = origin.split(':')[0];
+		var origin = location.origin || '';
+		var cwd    = (location.pathname || '');
+		var proto  = origin.split(':')[0];
 
-		if (proto.match(/app|file/g)) {
+		if (proto.match(/http|https/g) !== null) {
 
-			var tmp1 = __filename.indexOf('/libraries/lychee');
-			var tmp2 = __filename.indexOf('://');
+			// Hint: The harvester (HTTP server) understands
+			// /projects/* and /libraries/* requests.
 
-			if (tmp1 !== -1) {
-				__root = __filename.substr(0, tmp1);
+			lychee.ROOT.lychee = '';
+
+
+			// Hint: CDNs might have no proper redirect to index.html
+			if (cwd.split('/').pop() === 'index.html') {
+				cwd = cwd.split('/').slice(0, -1).join('/');
 			}
 
-			if (tmp2 !== -1) {
-				__root = __root.substr(tmp2 + 3);
+			if (cwd !== '') {
+				lychee.ROOT.project = cwd;
 			}
 
-		} else if (proto.match(/http|https/g)) {
+		} else if (proto.match(/app|file/g) !== null) {
 
-			// The harvester (HTTP webserver) is able to understand
-			// /projects/* and /libraries/* requests, that's why there
-			// is no root prefix in use for those protocols.
+			var tmp1 = selfpath.indexOf('/libraries/lychee');
+			var tmp2 = selfpath.indexOf('://');
 
-			__root = dirname;
+			if (tmp1 !== -1 && tmp2 !== -1) {
+				lychee.ROOT.lychee = selfpath.substr(0, tmp1).substr(tmp2 + 3);
+			} else if (tmp1 !== -1) {
+				lychee.ROOT.lychee = selfpath.substr(0, tmp1);
+			}
 
 		}
 
@@ -46,38 +49,9 @@
 	 * HELPERS
 	 */
 
-	var _resolve_url = function(path) {
-
-		var proto = path.split(':')[0] || '';
-
-		if (__root !== '' && !proto.match(/http|https/g) && path.charAt(0) !== '/') {
-			path = __root + '/' + path;
-		}
-
-
-		var tmp = path.split('/');
-
-		for (var t = 0, tl = tmp.length; t < tl; t++) {
-
-			if (tmp[t] === '.') {
-				tmp.splice(t, 1);
-				tl--;
-				t--;
-			} else if (tmp[t] === '..') {
-				tmp.splice(t - 1, 2);
-				tl -= 2;
-				t  -= 2;
-			}
-
-		}
-
-		return tmp.join('/');
-
-	};
-
 	var _load_asset = function(settings, callback, scope) {
 
-		var path = _resolve_url(settings.url);
+		var path = lychee.environment.resolve(settings.url);
 		var xhr  = new XMLHttpRequest();
 
 		xhr.open('GET', path, true);
@@ -2201,9 +2175,9 @@
 			var type = this.url.split('/').pop().split('.').pop();
 			if (type === 'js' && this.__ignore === false) {
 
-				this.buffer            = document.createElement('script');
-				this.buffer.__filename = this.url;
-				this.buffer.async      = true;
+				this.buffer           = document.createElement('script');
+				this.buffer._filename = this.url;
+				this.buffer.async     = true;
 
 				this.buffer.onload = function() {
 
@@ -2277,23 +2251,11 @@
 		get: function() {
 
 			if (document.currentScript) {
-				return document.currentScript.__filename;
+				return document.currentScript._filename;
 			}
 
 			return null;
 
-		},
-
-		set: function() {
-			return false;
-		}
-
-	});
-
-	Object.defineProperty(lychee.Environment, '__ROOT', {
-
-		get: function() {
-			return __root;
 		},
 
 		set: function() {
