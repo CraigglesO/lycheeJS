@@ -99,7 +99,6 @@ if [ ! -d "./bin/editor" ]; then
 			mv ./projects/cultivator/editor/build/html-nwjs/main-osx ./bin/editor;
 		fi;
 
-		cp ./asset/desktop.png ./bin/editor/icon.png;
 		rm -rf ./projects/cultivator/editor/build;
 
 	fi;

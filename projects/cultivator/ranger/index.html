@@ -213,6 +213,39 @@
 <footer>
 	lycheeJS is (c) 2012-2016 by Artificial-Engineering and released under MIT license.
 </footer>
-<script src="./index.js"></script>
+<script>
+(function(lychee, global) {
+
+	var environment = new lychee.Environment({
+		id:      'ranger',
+		debug:   false,
+		sandbox: false,
+		build:   'tool.Main',
+		packages: [
+			new lychee.Package('tool', './lychee.pkg')
+		],
+		tags:     {
+			platform: [ 'html' ]
+		}
+	});
+
+
+	lychee.setEnvironment(environment);
+
+
+	lychee.init(function(sandbox) {
+
+		var lychee = sandbox.lychee;
+		var tool   = sandbox.tool;
+
+
+		// This allows using #MAIN in JSON files
+		sandbox.MAIN = new tool.Main();
+		sandbox.MAIN.init();
+
+	});
+
+})(lychee, typeof global !== 'undefined' ? global : this);
+</script>
 </body>
 </html>    

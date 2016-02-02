@@ -42,7 +42,7 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 				console.log('fertilizer: CONFIGURE');
 
 
-				var tmp        = new fertilizer.data.Filesystem(fs.root + '/../../../source');
+				var tmp        = new fertilizer.data.Filesystem(fs.root + '/../../..');
 				var has_config = tmp.info('/package.json');
 				var has_main   = tmp.info('/index.html');
 
@@ -56,6 +56,13 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 
 					this.__main = tmp.read('/index.html').toString();
 					this.__main = this.__main.replace('/libraries/lychee/build/html/core.js', './core.js');
+
+					var tmp1 = this.__main.indexOf('<script>');
+					var tmp2 = this.__main.indexOf('</script>', tmp1);
+
+					if (tmp1 !== -1 && tmp2 !== -1) {
+						this.__main = this.__main.substr(0, tmp1) + '<script src="./index.js">' + this.__main.substr(tmp2);
+					}
 
 				}
 

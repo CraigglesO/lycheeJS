@@ -23,76 +23,7 @@
 				"variant": "application"
 			}
 		},
-		"files": {
-			"html-nwjs": {
-				"main": {
-					"core": [
-						"js"
-					],
-					"icon": [
-						"png"
-					],
-					"index": [
-						"js"
-					],
-					"package": [
-						"json"
-					]
-				},
-				"main-linux": {
-					"x86_64": {}
-				},
-				"main-osx": {
-					"x86_64": {
-						"main.app": {
-							"Contents": {
-								"Frameworks": {
-									"nwjs Framework.framework": {
-										"Libraries": {},
-										"Resources": {
-											"English.lproj": {},
-											"missingImage": [
-												"png"
-											],
-											"textAreaResizeCorner": [
-												"png"
-											]
-										}
-									},
-									"nwjs Helper EH.app": {
-										"Contents": {
-											"MacOS": {}
-										}
-									},
-									"nwjs Helper NP.app": {
-										"Contents": {
-											"MacOS": {}
-										}
-									},
-									"nwjs Helper.app": {
-										"Contents": {
-											"MacOS": {}
-										}
-									}
-								},
-								"MacOS": {},
-								"Resources": {
-									"missingImage": [
-										"png"
-									],
-									"textAreaResizeCorner": [
-										"png"
-									]
-								}
-							}
-						}
-					}
-				},
-				"main-windows": {
-					"x86_64": {}
-				}
-			}
-		}
+		"files": {}
 	},
 	"source": {
 		"environments": {},
@@ -101,9 +32,6 @@
 				"js"
 			],
 			"Main__OLD": [
-				"js"
-			],
-			"index": [
 				"js"
 			],
 			"state": {

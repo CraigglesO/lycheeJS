@@ -100,7 +100,6 @@ if [ ! -d "./bin/ranger" ]; then
 			mv ./projects/cultivator/ranger/build/html-nwjs/main-osx ./bin/ranger;
 		fi;
 
-		cp ./asset/desktop.png ./bin/ranger/icon.png;
 		rm -rf ./projects/cultivator/ranger/build;
 
 	fi;
