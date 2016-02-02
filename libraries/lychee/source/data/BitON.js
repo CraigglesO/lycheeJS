@@ -176,8 +176,8 @@ lychee.define('lychee.data.BitON').exports(function(lychee, global) {
 
 			if (this.__remaining === 0) {
 
-				this.__value      = this.__buffer.charCodeAt(++this.__index);
-				this.__remaining  = 8;
+				this.__value     = this.__buffer.charCodeAt(++this.__index);
+				this.__remaining = 8;
 
 				if (overflow > 0) {
 					buffer = buffer << overflow | ((this.__value & MASK_TABLE[this.__remaining]) >> (8 - overflow));
@@ -206,9 +206,9 @@ lychee.define('lychee.data.BitON').exports(function(lychee, global) {
 
 			if (this.__remaining === 8) {
 
-				buffer        += this.__buffer.substr(this.__index, bytes);
-				this.__index  += bytes;
-				this.__value   = this.__buffer.charCodeAt(this.__index);
+				buffer       += this.__buffer.substr(this.__index, bytes);
+				this.__index += bytes;
+				this.__value  = this.__buffer.charCodeAt(this.__index);
 
 			}
 
@@ -254,9 +254,9 @@ lychee.define('lychee.data.BitON').exports(function(lychee, global) {
 
 			if (this.__remaining !== 8) {
 
-				this.__buffer   += CHAR_TABLE[this.__value];
-				this.__value     = 0;
-				this.__remaining = 8;
+				this.__buffer    += CHAR_TABLE[this.__value];
+				this.__value      = 0;
+				this.__remaining  = 8;
 
 			}
 
