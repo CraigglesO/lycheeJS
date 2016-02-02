@@ -135,6 +135,23 @@ project or library.
 
 
 
+= properties-ROOT
+
+```javascript
+(Object) lychee.ROOT;
+```
+
+The `(Object) ROOT` property is a cache that contains
+the `root paths` of both the `project` and the `lychee`
+library.
+
+```javascript
+lychee.ROOT.project; // '/opt/lycheejs/projects/boilerplate'
+lychee.ROOT.lychee;  // '/opt/lycheejs'
+```
+
+
+
 = properties-VERSION
 
 ```javascript
