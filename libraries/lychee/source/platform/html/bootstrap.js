@@ -226,6 +226,9 @@
 					cache = _buffer_cache[url] = buffer;
 
 				};
+				xhr.onerror = xhr.ontimeout = function() {
+					cache = _buffer_cache[url] = new Buffer(0);
+				};
 				xhr.send(null);
 
 			}
@@ -315,30 +318,36 @@
 
 		Audio.prototype.toString = function(encoding) {
 
-			if (encoding === 'base64') {
+			if (encoding === 'base64' || encoding === 'binary') {
 
 				var url = this.src;
 				if (url !== '' && url.substr(0, 5) !== 'data:') {
 
 					var buffer = _load_buffer(url);
 					if (buffer !== null) {
-						return buffer.toString('base64');
+						return buffer.toString(encoding);
 					}
 
 				}
 
+
 				var index = url.indexOf('base64,') + 7;
 				if (index > 7) {
-					url = url.substr(index, url.length - index);
+
+					var tmp = new Buffer(url.substr(index, url.length - index), 'base64');
+					if (tmp.length > 0) {
+						return tmp.toString(encoding);
+					}
+
 				}
 
-				return url;
 
-			} else {
-
-				return Object.prototype.toString.call(this);
+				return '';
 
 			}
+
+
+			return Object.prototype.toString.call(this);
 
 		};
 
@@ -376,30 +385,36 @@
 
 		Image.prototype.toString = function(encoding) {
 
-			if (encoding === 'base64') {
+			if (encoding === 'base64' || encoding === 'binary') {
 
 				var url = this.src;
 				if (url !== '' && url.substr(0, 5) !== 'data:') {
 
 					var buffer = _load_buffer(url);
 					if (buffer !== null) {
-						return buffer.toString('base64');
+						return buffer.toString(encoding);
 					}
 
 				}
 
+
 				var index = url.indexOf('base64,') + 7;
 				if (index > 7) {
-					url = url.substr(index, url.length - index);
+
+					var tmp = new Buffer(url.substr(index, url.length - index), 'base64');
+					if (tmp.length > 0) {
+						return tmp.toString(encoding);
+					}
+
 				}
 
-				return url;
 
-			} else {
-
-				return Object.prototype.toString.call(this);
+				return '';
 
 			}
+
+
+			return Object.prototype.toString.call(this);
 
 		};
 

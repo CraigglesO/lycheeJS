@@ -27,7 +27,7 @@ lychee.define('lychee.app.Main').requires([
 
 		if (proto.match(/app|file/g)) {
 
-			_api_origin = 'http://cultivator.lycheejs.org';
+			_api_origin = 'http://harvester.lycheejs.org:8080';
 
 		} else if (proto.match(/http|https/g)) {
 

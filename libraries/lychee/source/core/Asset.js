@@ -15,13 +15,13 @@ lychee.Asset = typeof lychee.Asset !== 'undefined' ? lychee.Asset : (function(gl
 		var construct = null;
 
 
-		if (type === 'json')  construct = global.Config  || null;
-		if (type === 'fnt')   construct = global.Font    || null;
-		if (type === 'msc')   construct = global.Music   || null;
-		if (type === 'pkg')   construct = global.Config  || null;
-		if (type === 'png')   construct = global.Texture || null;
-		if (type === 'snd')   construct = global.Sound   || null;
-		if (type === 'store') construct = global.Config  || null;
+		if (type === 'json')  construct = global.Config;
+		if (type === 'fnt')   construct = global.Font;
+		if (type === 'msc')   construct = global.Music;
+		if (type === 'pkg')   construct = global.Config;
+		if (type === 'png')   construct = global.Texture;
+		if (type === 'snd')   construct = global.Sound;
+		if (type === 'store') construct = global.Config;
 
 
 		if (construct === null) {
