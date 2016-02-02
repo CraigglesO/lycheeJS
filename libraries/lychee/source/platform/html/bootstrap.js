@@ -1452,7 +1452,7 @@
 
 				buffer.autobuffer = true;
 				buffer.preload    = true;
-				buffer.src        = url + '.' + type;
+				buffer.src        = lychee.environment.resolve(url + '.' + type);
 				buffer.load();
 
 
@@ -1747,7 +1747,7 @@
 
 				buffer.autobuffer = true;
 				buffer.preload    = true;
-				buffer.src        = url + '.' + type;
+				buffer.src        = lychee.environment.resolve(url + '.' + type);
 				buffer.load();
 
 
@@ -2050,7 +2050,7 @@
 
 					};
 
-					buffer.src = url;
+					buffer.src = lychee.environment.resolve(url);
 
 				} else {
 
@@ -2172,7 +2172,8 @@
 
 
 			var that = this;
-			var type = this.url.split('/').pop().split('.').pop();
+			var url  = this.url;
+			var type = url.split('/').pop().split('.').pop();
 			if (type === 'js' && this.__ignore === false) {
 
 				this.buffer           = document.createElement('script');
@@ -2205,7 +2206,7 @@
 					document.body.removeChild(this);
 
 				};
-				this.buffer.src = this.url;
+				this.buffer.src = lychee.environment.resolve(url);
 
 				document.body.appendChild(this.buffer);
 
