@@ -156,7 +156,11 @@ lychee.define('Stash').tags({
 						}
 
 						if (asset !== null) {
-							asset.buffer = operation.buffer;
+
+							asset.deserialize({
+								buffer: operation.buffer
+							});
+
 						}
 
 					} else if (operation.type === 'remove') {
@@ -195,7 +199,11 @@ lychee.define('Stash').tags({
 					if (operation.type === 'update') {
 
 						if (asset !== null) {
-							asset.buffer = operation.buffer;
+
+							asset.deserialize({
+								buffer: operation.buffer
+							});
+
 						}
 
 					} else if (operation.type === 'remove') {
@@ -336,18 +344,15 @@ lychee.define('Stash').tags({
 					if (operations instanceof Array) {
 
 						this.__operations[id] = operations.map(function(operation) {
-
-							return {
-								type:   operation.type,
-								id:     operation.id,
-								buffer: lychee.deserialize(operation.buffer)
-							};
-
+							return operation;
 						});
 
 					}
 
 				}
+
+
+				_read_stash.call(this);
 
 			}
 
@@ -376,13 +381,7 @@ lychee.define('Stash').tags({
 					if (operations instanceof Array) {
 
 						blob.operations[id] = operations.map(function(operation) {
-
-							return {
-								type:   operation.type,
-								id:     operation.id,
-								buffer: lychee.serialize(operation.buffer)
-							};
-
+							return operation;
 						});
 
 					}
@@ -481,14 +480,22 @@ lychee.define('Stash').tags({
 				}
 
 
+				var buffer = null;
+				var blob   = asset.serialize().blob;
+				if (blob !== null && blob.buffer !== null) {
+					buffer = blob.buffer;
+				}
+
+
 				operations.push({
 					type:   'update',
 					id:     id,
-					buffer: asset.buffer
+					buffer: buffer
 				});
 
 
 				_write_stash.call(this);
+
 
 				return true;
 
