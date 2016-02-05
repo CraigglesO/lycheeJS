@@ -63,14 +63,7 @@ lychee.define('harvester.serve.Redirect').exports(function(lychee, harvester, gl
 					var dir = '/projects/' + identifier;
 					if (path === dir || path === (dir + '/') || path === (dir + '/index.html')) {
 
-						if (project.filesystem.info('/source/index.html') !== null) {
-
-							ready({
-								headers: { 'status': 301, 'location': dir + '/source/index.html' },
-								payload: ''
-							});
-
-						} else if (project.filesystem.info('/index.html') !== null) {
+						if (project.filesystem.info('/index.html') !== null) {
 
 							ready({
 								headers: { 'status': 301, 'location': dir + '/index.html' },
