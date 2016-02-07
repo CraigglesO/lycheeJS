@@ -20,6 +20,9 @@
 				"Package": [
 					"md"
 				],
+				"Stash": [
+					"md"
+				],
 				"Storage": [
 					"md"
 				],
@@ -355,6 +358,12 @@
 					],
 					"Session": [
 						"js"
+					],
+					"Stash": [
+						"js"
+					],
+					"Storage": [
+						"js"
 					]
 				},
 				"protocol": {
@@ -373,6 +382,12 @@
 						"js"
 					],
 					"Session": [
+						"js"
+					],
+					"Stash": [
+						"js"
+					],
+					"Storage": [
 						"js"
 					]
 				}

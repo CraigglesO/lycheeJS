@@ -12,16 +12,19 @@ This constructor returns an instance on success and `null` on failure.
 It integrates the Assets of the [bootstrap](bootstrap) file with the core stack.
 
 ```javascript
-var foo = new lychee.Asset('/path/to/config.json');
-var bar = new lychee.Asset('/api/Server?identifier=boilerplate');
-var qux = new lychee.Asset('/api/Server?identifier=boilerplate', 'json');
+var foo = new lychee.Asset('/libraries/lychee/lychee.pkg'); // absolute path
+var bar = new lychee.Asset('./lychee.pkg');                 // relative path
+
+var qux = new lychee.Asset('http://localhost:8080/api/Server?identifier=boilerplate');
+var doo = new lychee.Asset('http://localhost:8080/api/Server?identifier=boilerplate', 'json');
 
 foo instanceof Config; // true
-bar instanceof Config; // false, no type in URL
-qux instanceof Config; // true,  enforced type
+bar instanceof Config; // true
+qux instanceof Config; // false, no type in URL
+doo instanceof Config; // true,  enforced type
 ```
 
-**Implementation Notes**
+#### Implementation Notes
 
 The defaulted Asset type is [Stuff](bootstrap#constructor-Stuff).
 

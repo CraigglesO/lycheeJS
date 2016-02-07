@@ -4,7 +4,9 @@ lychee.define('lychee.net.Client').tags({
 }).requires([
 	'lychee.net.protocol.HTTP',
 	'lychee.net.protocol.WS',
-	'lychee.net.client.Debugger'
+	'lychee.net.client.Debugger',
+	'lychee.net.client.Stash',
+	'lychee.net.client.Storage'
 ]).includes([
 	'lychee.net.Tunnel'
 ]).supports(function(lychee, global) {
@@ -119,7 +121,12 @@ lychee.define('lychee.net.Client').tags({
 
 
 		this.bind('connect', function() {
+
 			this.__isConnected = true;
+
+			this.addService(new lychee.net.client.Stash(this));
+			this.addService(new lychee.net.client.Storage(this));
+
 		}, this);
 
 		this.bind('disconnect', function() {

@@ -89,11 +89,61 @@ lychee.define('lychee.app.Main').requires([
 		}
 
 		if (settings.stash !== null) {
+
 			this.stash = new lychee.Stash(settings.stash);
+			this.stash.bind('sync', function(data) {
+
+				var client = this.client;
+				if (client !== null) {
+
+					var service = client.getService('stash');
+					if (service !== null) {
+						service.sync(data);
+					}
+
+				}
+
+				var server = this.server;
+				if (server !== null) {
+
+					var service = server.getService('stash');
+					if (service !== null) {
+						service.sync(data);
+					}
+
+				}
+
+			}, this);
+
 		}
 
 		if (settings.storage !== null) {
+
 			this.storage = new lychee.Storage(settings.storage);
+			this.storage.bind('sync', function(data) {
+
+				var client = this.client;
+				if (client !== null) {
+
+					var service = client.getService('storage');
+					if (service !== null) {
+						service.sync(data);
+					}
+
+				}
+
+				var server = this.server;
+				if (server !== null) {
+
+					var service = server.getService('storage');
+					if (service !== null) {
+						service.sync(data);
+					}
+
+				}
+
+			}, this);
+
 		}
 
 		if (settings.viewport !== null) {

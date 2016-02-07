@@ -74,7 +74,7 @@ var obj1 = storage.create();
 var obj2 = storage.create();
 
 storage.bind('sync', function(objects) {
-	console.log(objects.length, objects);
+	console.log(objects);
 });
 
 storage.write('id1', obj1); // triggers event
@@ -173,6 +173,18 @@ storage.setType(lychee.Storage.TYPE.temporary);  // true
 storage.type;                                    // 1
 storage.type === lychee.Storage.TYPE.temporary;  // true
 ```
+
+
+
+= methods-sync
+
+```javascript
+(Boolean) lychee.Storage.prototype.sync(silent);
+```
+
+- `(Boolean) silent` is a flag. If set to `true`, the instance will not fire a `sync` event.
+
+This method returns `true` on success and `false` on failure.
 
 
 
@@ -362,9 +374,10 @@ storage.remove('bar'); // true
 = methods-write
 
 ```javascript
-(Boolean) lychee.Storage.prototype.write(object);
+(Boolean) lychee.Storage.prototype.write(id, object);
 ```
 
+- `(String) id` is the unique identifier of the object.
 - `(Model instance) object` is the object that was previously created via [create](#methods-create) method call.
 
 This method returns `true` on success and `false` on failure.

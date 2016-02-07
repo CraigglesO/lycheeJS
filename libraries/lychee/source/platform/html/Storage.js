@@ -103,7 +103,10 @@ lychee.define('Storage').tags({
 	 * HELPERS
 	 */
 
-	var _read_storage = function() {
+	var _read_storage = function(silent) {
+
+		silent = silent === true;
+
 
 		var id   = this.id;
 		var blob = null;
@@ -147,7 +150,9 @@ lychee.define('Storage').tags({
 					}
 
 
-					this.trigger('sync', [ this.__objects ]);
+					if (silent === false) {
+						this.trigger('sync', [ this.__objects ]);
+					}
 
 
 					return true;
@@ -163,7 +168,10 @@ lychee.define('Storage').tags({
 
 	};
 
-	var _write_storage = function() {
+	var _write_storage = function(silent) {
+
+		silent = silent === true;
+
 
 		var operations = this.__operations;
 		if (operations.length !== 0) {
@@ -211,7 +219,9 @@ lychee.define('Storage').tags({
 			}
 
 
-			this.trigger('sync', [ this.__objects ]);
+			if (silent === false) {
+				this.trigger('sync', [ this.__objects ]);
+			}
 
 
 			return true;
@@ -276,30 +286,22 @@ lychee.define('Storage').tags({
 		 * ENTITY API
 		 */
 
-		sync: function(force) {
+		sync: function(silent) {
 
-			force = force === true;
+			silent = silent === true;
 
 
-			var result = _read_storage.call(this);
-			if (result === true) {
+			var result = false;
 
-				return true;
 
+			if (this.__operations.length > 0) {
+				result = _write_storage.call(this, silent);
 			} else {
-
-				if (force === true) {
-
-					this.trigger('sync', [ this.__objects ]);
-
-					return true;
-
-				}
-
+				result = _read_storage.call(this, silent);
 			}
 
 
-			return false;
+			return result;
 
 		},
 

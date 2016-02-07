@@ -4,7 +4,9 @@ lychee.define('lychee.net.Remote').tags({
 }).requires([
 	'lychee.net.protocol.HTTP',
 	'lychee.net.protocol.WS',
-	'lychee.net.remote.Debugger'
+	'lychee.net.remote.Debugger',
+	'lychee.net.remote.Stash',
+	'lychee.net.remote.Storage'
 ]).includes([
 	'lychee.net.Tunnel'
 ]).exports(function(lychee, global, attachments) {
@@ -38,8 +40,13 @@ lychee.define('lychee.net.Remote').tags({
 		 */
 
 		this.bind('connect', function() {
+
 			this.__isConnected = true;
+
 			this.addService(new lychee.net.remote.Debugger(this));
+			this.addService(new lychee.net.remote.Stash(this));
+			this.addService(new lychee.net.remote.Storage(this));
+
 		}, this);
 
 		this.bind('disconnect', function() {
