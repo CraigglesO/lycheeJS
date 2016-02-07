@@ -96,7 +96,7 @@ lychee.define('Stash').tags({
 
 			(function _read_persistent() {
 
-				var data = storage.getItem('lychee-Stash-PERSISTENT');
+				var data = _JSON.decode(storage.getItem('lychee-Stash-PERSISTENT'));
 				if (data !== null) {
 
 					for (var id in data) {
