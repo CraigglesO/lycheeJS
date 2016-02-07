@@ -5,21 +5,31 @@ lychee.define('Stash').tags({
 	'lychee.event.Emitter'
 ]).supports(function(lychee, global) {
 
-// TODO: Temporary Filesystem requirements
+	if (typeof Storage !== 'undefined') {
+
+		try {
+
+			if (typeof global.localStorage === 'object') {
+				return true;
+			}
+
+		} catch(e) {
+			return false;
+		}
+
+	}
+
+
 	return true;
 
 }).exports(function(lychee, global, attachments) {
 
-	var _ROOT        = lychee.ROOT.project;
-	var _TEMPORARY   = {};
-	var _ASSET_TYPES = [
-		global.Config,
-		global.Font,
-		global.Music,
-		global.Sound,
-		global.Texture,
-		global.Stuff
-	];
+	var _JSON      = {
+		encode: JSON.stringify,
+		decode: JSON.parse
+	};
+	var _ROOT      = lychee.ROOT.project;
+	var _TEMPORARY = {};
 
 
 
@@ -27,14 +37,112 @@ lychee.define('Stash').tags({
 	 * FEATURE DETECTION
 	 */
 
-	var _read_persistent   = function(path) {        return null;  };
-	var _write_persistent  = function(path, asset) { return false; };
-	var _remove_persistent = function(path) {        return false; };
+	var _write_persistent  = function(id, asset) { return false; };
+	var _remove_persistent = function(id) {        return false; };
 
 
-// TODO: _read_persistent()   detection
-// TODO: _write_persistent()  detection
-// TODO: _remove_persistent() detection
+
+	(function() {
+
+		var local      = false;
+		var storage    = null;
+		var PERSISTENT = {};
+
+
+		try {
+			local   = 'localStorage' in global;
+			storage = global.localStorage;
+		} catch(e) {
+			local   = false;
+			storage = null;
+		}
+
+
+		if (local === true) {
+
+			_write_persistent = function(id, asset) {
+
+				var result = false;
+				var path   = lychee.environment.resolve(id);
+				if (path.substr(0, _ROOT.length) === _ROOT) {
+
+					var data = lychee.serialize(asset);
+					if (data !== null && data.blob !== null && typeof data.blob.buffer === 'string') {
+
+						var index = data.blob.buffer.indexOf('base64,') + 7;
+						if (index > 7) {
+							PERSISTENT[id] = data.blob.buffer;
+						}
+
+					}
+
+				}
+
+
+				storage.setItem('lychee-Stash-PERSISTENT', _JSON.encode(PERSISTENT));
+
+			};
+
+			_remove_persistent = function(id) {
+
+				if (PERSISTENT[id] !== undefined) {
+					delete PERSISTENT[id];
+				}
+
+				storage.setItem('lychee-Stash-PERSISTENT', _JSON.encode(PERSISTENT));
+
+			};
+
+
+			(function _read_persistent() {
+
+				var data = storage.getItem('lychee-Stash-PERSISTENT');
+				if (data !== null) {
+
+					for (var id in data) {
+
+						PERSISTENT[id] = data[id];
+
+
+						var buffer = data[id];
+						var asset  = new lychee.Asset(id, true);
+						if (asset !== null) {
+
+							asset.deserialize({
+								buffer: buffer
+							});
+
+							_TEMPORARY[id] = asset;
+
+						}
+
+					}
+
+				}
+
+			})();
+
+		}
+
+
+		if (lychee.debug === true) {
+
+			var methods = [];
+
+			if (local)      methods.push('Persistent');
+			if (_TEMPORARY) methods.push('Temporary');
+
+
+			if (methods.length === 0) {
+				console.error('lychee.Stash: Supported methods are NONE');
+			} else {
+				console.info('lychee.Stash: Supported methods are ' + methods.join(', '));
+			}
+
+		}
+
+	})();
+
 
 
 	/*
@@ -43,10 +151,9 @@ lychee.define('Stash').tags({
 
 	var _is_asset = function(asset) {
 
-		if (asset instanceof Object) {
-			return _ASSET_TYPES.indexOf(asset.constructor) !== -1;
+		if (asset instanceof Object && typeof asset.serialize === 'function') {
+			return true;
 		}
-
 
 		return false;
 
@@ -54,11 +161,9 @@ lychee.define('Stash').tags({
 
 	var _read_stash = function() {
 
-// TODO: Implement _read_persistent somehow
-
 		for (var id in this.__operations) {
 
-			var asset      = _TEMPORARY[id] || null;
+			var asset      = _TEMPORARY[id];
 			var operations = [].slice.call(this.__operations[id]);
 			if (operations.length > 0) {
 
@@ -67,10 +172,7 @@ lychee.define('Stash').tags({
 					var operation = operations.shift();
 					if (operation.type === 'update') {
 
-// TODO: Implement _read_persistent somehow
-// maybe fill _TEMPORARY initially one time?
-
-						if (asset === null) {
+						if (asset === undefined) {
 							asset = _TEMPORARY[id] = new lychee.Asset(id, true);
 						}
 
@@ -84,9 +186,11 @@ lychee.define('Stash').tags({
 
 					} else if (operation.type === 'remove') {
 
-						if (asset !== null) {
-							_TEMPORARY[id] = null;
-							asset = null;
+						if (asset !== undefined) {
+
+							delete _TEMPORARY[id];
+							asset = undefined;
+
 						}
 
 					}
@@ -108,7 +212,7 @@ lychee.define('Stash').tags({
 
 		for (var id in this.__operations) {
 
-			var asset      = _TEMPORARY[id] || null;
+			var asset      = _TEMPORARY[id];
 			var operations = [].slice.call(this.__operations[id]);
 			if (operations.length > 0) {
 
@@ -116,6 +220,10 @@ lychee.define('Stash').tags({
 
 					var operation = operations.shift();
 					if (operation.type === 'update') {
+
+						if (asset === undefined) {
+							asset = _TEMPORARY[id] = new lychee.Asset(id, true);
+						}
 
 						if (asset !== null) {
 
@@ -127,9 +235,11 @@ lychee.define('Stash').tags({
 
 					} else if (operation.type === 'remove') {
 
-						if (asset !== null) {
-							_TEMPORARY[id] = null;
-							asset = null;
+						if (asset !== undefined) {
+
+							delete _TEMPORARY[id];
+							asset = undefined;
+
 						}
 
 					}
@@ -137,27 +247,13 @@ lychee.define('Stash').tags({
 				}
 
 
-				var resolved = lychee.environment.resolve(id);
-				if (resolved.substr(0, _ROOT.length) === _ROOT) {
+				var type = this.type;
+				if (type === Class.TYPE.persistent) {
 
-					var type = this.type;
-					if (type === Class.TYPE.persistent) {
-
-						if (_is_asset(_TEMPORARY[id]) === true) {
-
-							_write_persistent(resolved, _TEMPORARY[id]);
-
-						} else if (_TEMPORARY[id] === null) {
-
-							_remove_persistent(resolved);
-							delete _TEMPORARY[id];
-
-						}
-
-					} else if (type === Class.TYPE.temporary) {
-
-						// Do nothing, because _TEMPORARY takes over
-
+					if (_TEMPORARY[id] !== undefined) {
+						_write_persistent(id, asset);
+					} else {
+						_remove_persistent(id);
 					}
 
 				}
@@ -332,8 +428,8 @@ lychee.define('Stash').tags({
 			if (id !== null) {
 
 				var asset = null;
-				var cache = _TEMPORARY[id] || null;
-				if (cache !== null) {
+				var cache = _TEMPORARY[id];
+				if (cache !== undefined) {
 					asset = lychee.deserialize(lychee.serialize(cache));
 				} else {
 					asset = new lychee.Asset(id, true);
@@ -403,6 +499,11 @@ lychee.define('Stash').tags({
 				var blob   = asset.serialize().blob;
 				if (blob !== null && blob.buffer !== null) {
 					buffer = blob.buffer;
+				}
+
+				var cache = _TEMPORARY[id];
+				if (cache === undefined) {
+					cache = _TEMPORARY[id] = asset;
 				}
 
 

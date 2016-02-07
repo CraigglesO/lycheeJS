@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/lycheejs-helper env:node
 
 var _root   = process.argv[2];
 var _folder = __dirname.substr(_root.length);

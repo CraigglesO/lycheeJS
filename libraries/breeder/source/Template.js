@@ -122,6 +122,7 @@ lychee.define('breeder.Template').requires([
 					_LIB.copy(fs, '/libraries/lychee/build/html/core.js');
 					_LIB.copy(fs, '/libraries/lychee/build/html/dist/index.js');
 
+					_TPL.copy(fs, '/index.html');
 					_TPL.copy(fs, '/favicon.ico');
 
 					_TPL.copy(fs, '/design/highlight.css');
@@ -145,7 +146,6 @@ lychee.define('breeder.Template').requires([
 
 					_TPL.copy(fs, '/source/Main.js');
 					_TPL.copy(fs, '/source/Main.json');
-					_TPL.copy(fs, '/source/index.html');
 					_TPL.copy(fs, '/source/net/Client.js');
 					_TPL.copy(fs, '/source/net/client/Ping.js');
 					_TPL.copy(fs, '/source/state/Welcome.js');
