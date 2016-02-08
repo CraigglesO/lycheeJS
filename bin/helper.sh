@@ -283,6 +283,18 @@ elif [ "$protocol" == "env" ]; then
 				_start_env $LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node $program $3 $4 $5;
 			fi;
 
+		elif [ "$platform" == "jerry" ]; then
+
+
+# TODO: Use correct jerry binary paths when we have it available in lycheeJS-runtime repository.
+
+
+			if [ "$OS" == "linux" ]; then
+				_start_env /opt/jerryscript/build/jerry.bin $program $3 $4 $5;
+			elif [ "$OS" == "osx" ]; then
+
+			fi;
+
 		fi;
 
 	fi;

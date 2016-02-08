@@ -68,6 +68,7 @@ else
 		./bin/fertilizer.sh html-webview/dist /libraries/lychee;
 		./bin/fertilizer.sh node/dist /libraries/lychee;
 		./bin/fertilizer.sh node-sdl/dist /libraries/lychee;
+		./bin/fertilizer.sh jerry/dist /libraries/lychee;
 
 		./bin/fertilizer.sh node/dist /libraries/harvester;
 		./bin/fertilizer.sh node-sdl/dist /libraries/harvester;

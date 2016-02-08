@@ -124,6 +124,17 @@
 					]
 				},
 				"variant": "library"
+			},
+			"jerry/dist": {
+				"build": "lychee.DIST",
+				"debug": false,
+				"sandbox": false,
+				"tags": {
+					"platform": [
+						"jerry"
+					]
+				},
+				"variant": "library"
 			}
 		},
 		"files": {
@@ -182,7 +193,8 @@
 				"html-nwjs": "platform/html-nwjs",
 				"html-webview": "platform/html-webview",
 				"node": "platform/node",
-				"node-sdl": "platform/node-sdl"
+				"node-sdl": "platform/node-sdl",
+				"jerry": "platform/jerry"
 			}
 		},
 		"files": {
