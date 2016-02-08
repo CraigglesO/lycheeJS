@@ -3,8 +3,6 @@
 
 brought to you as libre software with joy and pride by [Artificial Engineering](http://artificial.engineering).
 
-## Support
-
 Support our libre Bot Cloud via BTC [1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2](bitcoin:1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2?amount=0.5&label=lycheeJS%20Support).
 
 
