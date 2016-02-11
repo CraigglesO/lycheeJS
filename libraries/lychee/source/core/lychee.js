@@ -784,18 +784,95 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 			}
 
+
+			return null;
+
 		},
 
-		init: function(callback) {
+		envinit: function(environment, profile) {
 
-			callback = callback instanceof Function ? callback : null;
+			environment = environment instanceof lychee.Environment ? environment : null;
+			profile     = profile instanceof Object                 ? profile     : {};
 
 
-			if (callback !== null) {
+			if (environment !== null) {
 
-				_bootstrap_environment.call(this);
+				var code        = '\n';
+				var env_profile = lychee.extend({}, environment.profile, profile);
 
-				this.environment.init(callback);
+
+				code += [ 'lychee' ].concat(environment.packages.map(function(pkg) {
+					return pkg.id;
+				})).map(function(lib) {
+					return 'var ' + lib + ' = sandbox.' + lib + ';';
+				}).join('\n');
+
+				code += '\n\n';
+				code += 'sandbox.MAIN = new ' + environment.build + '(' + JSON.stringify(env_profile) + ');\n';
+				code += 'if (typeof sandbox.MAIN.init === \'function\') {\n';
+				code += '\tsandbox.MAIN.init();\n';
+				code += '}\n';
+
+
+				lychee.setEnvironment(environment);
+				environment.init(new Function('sandbox', code));
+
+			}
+
+		},
+
+		pkginit: function(identifier, settings, profile) {
+
+			identifier = typeof identifier === 'string' ? identifier : null;
+			settings   = settings instanceof Object     ? settings   : {};
+			profile    = profile instanceof Object      ? profile    : {};
+
+
+			if (identifier !== null) {
+
+				var config = new Config('./lychee.pkg');
+
+				config.onload = function() {
+
+					var buffer = this.buffer || null;
+					if (buffer instanceof Object) {
+
+						if (buffer.build instanceof Object && buffer.build.environments instanceof Object) {
+
+							var data = buffer.build.environments[identifier] || null;
+							if (data instanceof Object) {
+
+								var code         = '\n';
+								var env_settings = lychee.extend({}, data,         settings);
+								var env_profile  = lychee.extend({}, data.profile, profile);
+								var environment  = new lychee.Environment(env_settings);
+
+
+								code += [ 'lychee' ].concat(env_settings.packages.map(function(pkg) {
+									return pkg.id;
+								})).map(function(lib) {
+									return 'var ' + lib + ' = sandbox.' + lib + ';';
+								}).join('\n');
+
+								code += '\n\n';
+								code += 'sandbox.MAIN = new ' + env_settings.build + '(' + JSON.stringify(env_profile) + ');\n';
+								code += 'if (typeof sandbox.MAIN.init === \'function\') {\n';
+								code += '\tsandbox.MAIN.init();\n';
+								code += '}\n';
+
+
+								lychee.setEnvironment(environment);
+								environment.init(new Function('sandbox', code));
+
+							}
+
+						}
+
+					}
+
+				};
+
+				config.load();
 
 			}
 

@@ -5,11 +5,8 @@ lychee.define('fertilizer.template.html.Application').requires([
 	'fertilizer.Template'
 ]).exports(function(lychee, fertilizer, global, attachments) {
 
-	var _JSON      = lychee.data.JSON;
-	var _templates = {
-		main:  attachments["main.tpl"].buffer,
-		index: attachments["index.tpl"].buffer
-	};
+	var _JSON     = lychee.data.JSON;
+	var _template = attachments["tpl"].buffer;
 
 
 
@@ -40,30 +37,28 @@ lychee.define('fertilizer.template.html.Application').requires([
 
 				console.log('fertilizer: BUILD ' + env.id);
 
-				var blob  = _JSON.encode(env.serialize());
-				var core  = this.getCore('html');
-				var info  = this.getInfo(true);
-				var init  = this.getInit(env.packages.map(function(pkg) { return pkg.id; }));
-				var index = _templates['index'].toString();
-				var main  = _templates['main'].toString();
+				var id      = env.id;
+				var version = ('' + lychee.VERSION);
+
+				var profile = _JSON.encode(this.profile);
+				var blob    = _JSON.encode(env.serialize());
+				var core    = this.getCore('html');
+				var info    = this.getInfo(true);
+
+				var index   = _template.toString();
 
 
 				core  = this.getInfo(false) + '\n\n' + core;
 				index = this.replace(index, {
-					blob:  blob,
-					build: env.build,
-					id:    env.id,
-					info:  info,
-					init:  init
-				});
-				main  = this.replace(main, {
-					id: env.id
+					blob:    blob,
+					id:      id,
+					info:    info,
+					profile: profile
 				});
 
 
 				fs.write('/core.js',    core);
-				fs.write('/index.js',   index);
-				fs.write('/index.html', main);
+				fs.write('/index.html', index);
 
 				oncomplete(true);
 

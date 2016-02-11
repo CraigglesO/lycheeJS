@@ -110,7 +110,7 @@ var _bootup = function(settings) {
 
 	console.info('BOOTUP (' + process.pid + ')');
 
-	lychee.setEnvironment(new lychee.Environment({
+	var environment = new lychee.Environment({
 		id:      'strainer',
 		debug:   false,
 		sandbox: false,
@@ -123,10 +123,13 @@ var _bootup = function(settings) {
 		tags:     {
 			platform: [ 'node' ]
 		}
-	}));
+	});
 
 
-	lychee.init(function(sandbox) {
+	lychee.setEnvironment(environment);
+
+
+	environment.init(function(sandbox) {
 
 		if (sandbox !== null) {
 

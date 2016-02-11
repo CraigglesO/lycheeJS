@@ -45,9 +45,8 @@
 			"template": {
 				"html": {
 					"Application": [
-						"index.tpl",
 						"js",
-						"main.tpl"
+						"tpl"
 					],
 					"Library": [
 						"js",
@@ -57,10 +56,9 @@
 				"html-nwjs": {
 					"Application": [
 						"config.tpl",
+						"icon.png",
 						"index.tpl",
-						"js",
-						"main.tpl",
-						"png"
+						"js"
 					],
 					"Library": [
 						"js",
@@ -69,10 +67,9 @@
 				},
 				"html-webview": {
 					"Application": [
+						"icon.png",
 						"index.tpl",
-						"js",
-						"main.tpl",
-						"png"
+						"js"
 					],
 					"Library": [
 						"js",

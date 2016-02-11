@@ -24,11 +24,13 @@ lychee.define('fertilizer.Template').requires([
 		this.environment = null;
 		this.filesystem  = null;
 		this.settings    = {};
+		this.profile     = null;
 		this.shell       = null;
 
 
 		this.setEnvironment(settings.environment);
 		this.setFilesystem(settings.filesystem);
+		this.setProfile(settings.profile);
 		this.setSettings(settings.settings);
 		this.setShell(settings.shell);
 
@@ -199,6 +201,24 @@ lychee.define('fertilizer.Template').requires([
 			if (filesystem !== null) {
 
 				this.filesystem = filesystem;
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
+		setProfile: function(profile) {
+
+			profile = profile instanceof Object ? profile : null;
+
+
+			if (profile !== null) {
+
+				this.profile = profile;
 
 				return true;
 

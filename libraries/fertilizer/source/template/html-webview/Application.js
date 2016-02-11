@@ -7,10 +7,9 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 ]).exports(function(lychee, fertilizer, global, attachments) {
 
 	var _JSON      = lychee.data.JSON;
-	var _icon      = attachments["png"];
 	var _templates = {
-		index:  attachments["index.tpl"].buffer,
-		main:   attachments["main.tpl"].buffer
+		icon:  attachments["icon.png"].buffer,
+		index: attachments["index.tpl"].buffer
 	};
 
 
@@ -23,8 +22,8 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 
 		fertilizer.Template.call(this, data);
 
+		this.__icon  = _templates['icon'];
 		this.__index = _templates['index'].toString();
-		this.__main  = _templates['main'].toString();
 
 
 
@@ -43,13 +42,28 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 
 				env.setPackages([]);
 
-				var tmp      = new fertilizer.data.Filesystem(fs.root + '/../../../source');
-				var has_main = tmp.info('/index.html');
+				var tmp       = new fertilizer.data.Filesystem(fs.root + '/../../../source');
+				var has_icon  = tmp.info('/icon.png');
+				var has_index = tmp.info('/index.html');
 
-				if (has_main !== null) {
+				if (has_icon !== null) {
+					this.__icon = tmp.read('/icon.png');
+				}
 
-					this.__main = tmp.read('/index.html').toString();
-					this.__main = this.__main.replace('/libraries/lychee/build/html/core.js', './core.js');
+				if (has_index !== null) {
+
+					this.__index = tmp.read('/index.html').toString();
+					this.__index = this.__index.replace('/libraries/lychee/build/html/core.js', './core.js');
+
+					var tmp1 = this.__index.indexOf('<script>');
+					var tmp2 = this.__index.indexOf('</script>', tmp1);
+					var tmp3 = _templates['index'].indexOf('<script>');
+					var tmp4 = _templates['index'].indexOf('</script>', tmp3);
+
+					if (tmp1 !== -1 && tmp2 !== -1 && tmp3 !== -1 && tmp4 !== -1) {
+						var inject   = _templates['index'].substr(tmp3, tmp4 - tmp3 + 9);
+						this.__index = this.__index.substr(0, tmp1) + inject + this.__index.substr(tmp2 + 9);
+					}
 
 				}
 
@@ -68,34 +82,30 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 
 				console.log('fertilizer: BUILD ' + env.id);
 
-				var id      = env.id.split('/').pop(); id = id.charAt(0).toUpperCase() + id.substr(1);
+				var id      = env.id;
+				var version = ('' + lychee.VERSION);
+
+				var profile = _JSON.encode(this.profile);
 				var blob    = _JSON.encode(env.serialize());
-				var core    = this.getCore('html-webview');
+				var core    = this.getCore('html-nwjs');
 				var info    = this.getInfo(true);
-				var init    = this.getInit(env.packages.map(function(pkg) { return pkg.id; }));
-				var version = ('' + lychee.VERSION).replace(/\./g, '').split('').join('.');
-				var icon    = _icon.buffer;
+
+				var icon    = this.__icon;
 				var index   = this.__index;
-				var main    = this.__main;
 
 
 				core  = this.getInfo(false) + '\n\n' + core;
 				index = this.replace(index, {
-					blob:  blob,
-					build: env.build,
-					id:    env.id,
-					info:  info,
-					init:  init
-				});
-				main  = this.replace(main, {
-					id: env.id
+					blob:    blob,
+					id:      id,
+					init:    init,
+					profile: profile
 				});
 
 
 				fs.write('/icon.png',   icon);
 				fs.write('/core.js',    core);
-				fs.write('/index.js',   index);
-				fs.write('/index.html', main);
+				fs.write('/index.html', index);
 
 				oncomplete(true);
 

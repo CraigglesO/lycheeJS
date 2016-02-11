@@ -29,6 +29,18 @@
 
 </head>
 <body>
-	<script src="./index.js"></script>
+<script>
+${info}
+
+
+(function(lychee, global) {
+
+	var environment = lychee.deserialize(${blob});
+	if (environment !== null) {
+		lychee.envinit(environment, ${profile});
+	}
+
+})(lychee, typeof global !== 'undefined' ? global : this);
+</script>
 </body>
 </html>

@@ -37,6 +37,9 @@ lychee.define('fertilizer.template.html.Library').requires([
 
 				console.log('fertilizer: BUILD ' + env.id);
 
+				var id      = env.id;
+				var version = ('' + lychee.VERSION);
+
 				var blob  = _JSON.encode(env.serialize());
 				var info  = this.getInfo(true);
 				var index = _template.toString();
@@ -44,7 +47,7 @@ lychee.define('fertilizer.template.html.Library').requires([
 
 				index = this.replace(index, {
 					blob: blob,
-					id:   env.id,
+					id:   id,
 					info: info
 				});
 

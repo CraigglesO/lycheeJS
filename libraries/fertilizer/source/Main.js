@@ -73,6 +73,12 @@ lychee.define('fertilizer.Main').requires([
 				})));
 
 
+				var profile = {};
+				if (settings.profile instanceof Object) {
+					profile = settings.profile;
+				}
+
+
 				if (platform !== null && variant.match(/application|library/)) {
 
 					if (settings.packages instanceof Array) {
@@ -94,10 +100,10 @@ lychee.define('fertilizer.Main').requires([
 
 
 					_lychee.setEnvironment(environment);
+
+
 					environment.debug = true;
-
-
-					_lychee.init(function(sandbox) {
+					environment.init(function(sandbox) {
 
 						if (sandbox !== null) {
 
@@ -113,7 +119,7 @@ lychee.define('fertilizer.Main').requires([
 							_lychee.setEnvironment(null);
 
 
-							that.trigger('init', [ project, identifier, platform, variant, environment ]);
+							that.trigger('init', [ project, identifier, platform, variant, environment, profile ]);
 
 						} else {
 
@@ -157,7 +163,7 @@ lychee.define('fertilizer.Main').requires([
 
 		}, this, true);
 
-		this.bind('init', function(project, identifier, platform, variant, environment) {
+		this.bind('init', function(project, identifier, platform, variant, environment, profile) {
 
 			if (typeof fertilizer.template[platform] === 'object') {
 
@@ -166,6 +172,7 @@ lychee.define('fertilizer.Main').requires([
 
 					var template = new construct({
 						environment: environment,
+						profile:     profile,
 						filesystem:  new fertilizer.data.Filesystem(project + '/build/' + identifier),
 						shell:       new fertilizer.data.Shell(project + '/build/' + identifier)
 					});

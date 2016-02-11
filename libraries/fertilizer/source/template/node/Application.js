@@ -39,25 +39,28 @@ lychee.define('fertilizer.template.node.Application').requires([
 
 				console.log('fertilizer: BUILD ' + env.id);
 
+				var id      = env.id;
+				var version = ('' + lychee.VERSION);
+
+				var profile = this.profile;
 				var blob  = _JSON.encode(env.serialize());
 				var core  = this.getCore('node');
 				var info  = this.getInfo(true);
-				var init  = this.getInit(env.packages.map(function(pkg) { return pkg.id; }));
+
 				var index = _template.toString();
 
 
+				core  = this.getInfo(false) + '\n\n' + core;
 				index = this.replace(index, {
-					blob:  blob,
-					build: env.build,
-					core:  core,
-					id:    env.id,
-					info:  info,
-					init:  init
+					blob:    blob,
+					core:    core,
+					id:      id,
+					init:    init,
+					profile: profile
 				});
 
 
 				fs.write('/index.js', index);
-
 
 				oncomplete(true);
 

@@ -77,7 +77,10 @@ lychee.define('Renderer').tags({
 
 	var _draw_ctx = function(x, y, value) {
 
-		if (x >= 0 && x < this[0].length && y >= 0 && y < this.length) {
+		var max_x = (this[0] || '').length;
+		var max_y = (this    || '').length;
+
+		if (x >= 0 && x < max_x && y >= 0 && y < max_y) {
 			this[y][x] = value;
 		}
 
@@ -271,6 +274,7 @@ lychee.define('Renderer').tags({
 
 
 			this.__buffer.resize(this.width, this.height);
+			this.__ctx = this.__buffer.__ctx;
 			this.offset.x = 0;
 
 		},
@@ -288,6 +292,7 @@ lychee.define('Renderer').tags({
 
 
 			this.__buffer.resize(this.width, this.height);
+			this.__ctx = this.__buffer.__ctx;
 			this.offset.y = 0;
 
 		},
@@ -321,13 +326,12 @@ lychee.define('Renderer').tags({
 
 			var ctx = this.__ctx;
 
-			var line = ctx[0];
+			var line = ctx[0] || '';
 			var info = this.width + 'x' + this.height;
 
 			for (var i = 0; i < info.length; i++) {
 				line[i] = info[i];
 			}
-
 
 			for (var y = 0; y < this.height; y++) {
 				process.stdout.write(ctx[y].join('') + '\n');
@@ -619,6 +623,7 @@ lychee.define('Renderer').tags({
 
 
 				var ctx = this.__ctx;
+
 				var margin  = 0;
 				var texture = font.texture;
 				if (texture !== null && texture.buffer !== null) {
