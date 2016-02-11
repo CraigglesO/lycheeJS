@@ -58,7 +58,7 @@
 				"variant": "application"
 			},
 			"node/server": {
-				"build": "app.net.Server",
+				"build": "app.Main",
 				"debug": false,
 				"packages": [
 					[
