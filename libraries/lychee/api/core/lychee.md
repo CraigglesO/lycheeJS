@@ -60,7 +60,9 @@ var env = new lychee.Environment({
 	debug: true
 });
 
-lychee.init(function(sandbox) {
+lychee.setEnvironment(env);
+
+environment.init(function(sandbox) {
 
 	var lychee = sandbox.lychee;
 
@@ -96,12 +98,12 @@ var foo = new lychee.Environment({ id: 'foo' });
 var bar = new lychee.Environment({ id: 'bar' });
 
 lychee.setEnvironment(foo);
-lychee.init(function(sandbox) {
+foo.init(function(sandbox) {
 
 	console.log(sandbox.lychee.environment.id); // foo
 
 	lychee.setEnvironment(bar);
-	lychee.init(function(sandbox) {
+	bar.init(function(sandbox) {
 	
 		// sandbox is now the sandbox of the isolated environment
 		console.log(sandbox.lychee.environment.id);
@@ -401,13 +403,14 @@ currently active [lychee.environment](#properties-environment).
 
 
 
-= methods-init
+= methods-envinit
 
 ```javascript
-(void) lychee.init(callback);
+(void) lychee.envinit(environment, profile);
 ```
 
-- `(Function) callback` is the callback that is executed once the active [lychee.environment](#properties-environment) is initialized successfully.
+- `(lychee.Environment) environment` is the initialized [lychee.environment](#properties-environment) instance.
+- `(Object) profile` is the profile that is passed to the initialized `environment.build` instance.
 
 This method returns nothing.
 It will initialize the active [lychee.Environment](lychee.Environment)
@@ -417,16 +420,38 @@ property.
 ```javascript
 var env = new lychee.Environment({ /* ... */ });
 
-lychee.setEnvironment(env);              // true
-console.log(lychee.environment === env); // true
 
-lychee.init(function(sandbox) {
+lychee.envinit(env, {
+	foo: 'bar'
+});
+```
 
-	var lychee = sandbox.lychee;
-	var app    = sandbox.app;
 
-	// App Initialization Code
 
+= methods-pkginit
+
+```javascript
+(void) lychee.pkginit(identifier, settings, profile);
+```
+
+- `(String) identifier` is the unique identifier of the environment inside the `lychee.pkg` file.
+- `(Object) settings` are the settings that are passed to the initialized [lychee.environment](#properties-environment) instance.
+- `(Object) profile` is the profile that is passed to the initialized `environment.build` instance.
+
+This method returns nothing.
+It will initialize the active [lychee.Environment](lychee.Environment)
+instance which is reflected by the [lychee.environment](#properties-environment)
+property.
+
+The environment settings are gathered by loading the [lychee.Package](lychee.Package) of the
+current project and tracing `/build/environments/*identifier*` in the `lychee.pkg` file.
+
+```javascript
+lychee.pkginit('html/main', {
+	debug:   true,
+	sandbox: false
+}, {
+	foo: 'bar'
 });
 ```
 
@@ -477,6 +502,7 @@ var env = new lychee.Environment({ /* ... */ });
 
 lychee.setEnvironment(env);                       // true
 console.log(lychee.environment === env);          // true
+
 lychee.setEnvironment({ not: 'an environment' }); // false
 console.log(lychee.environment === env);          // false
 ```
