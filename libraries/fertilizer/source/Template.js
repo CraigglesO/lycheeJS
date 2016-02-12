@@ -120,7 +120,7 @@ lychee.define('fertilizer.Template').requires([
 			lines.push(' * http://lycheejs.org');
 			lines.push(' * ');
 			lines.push(' * (c) 2012-' + year + ' Artificial-Engineering');
-			lines.push(' * MIT License');
+			lines.push(' * MIT / Expat License');
 			lines.push(' * ');
 
 			var env = this.environment;
@@ -156,20 +156,6 @@ lychee.define('fertilizer.Template').requires([
 
 
 			lines.push(' */');
-
-			return lines.join('\n');
-
-		},
-
-		getInit: function(namespaces) {
-
-			var lines = [];
-
-
-			for (var n = 0, nl = namespaces.length; n < nl; n++) {
-				lines.push('var ' + namespaces[n] + ' = sandbox.' + namespaces[n] + ';');
-			}
-
 
 			return lines.join('\n');
 
