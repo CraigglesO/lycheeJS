@@ -1,205 +1,55 @@
 <!doctype html>
 <html>
 <head>
-	<title>lycheeJS Separated Boilerplate</title>
+	<title>lycheeJS App Boilerplate</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="64x64 32x32 16x16">
-	<link rel="apple-touch-icon" sizes="256x256" href="./design/apple-touch-icon.png">
-	<meta property="og:image" content="/design/desktop.png">
+	<link rel="apple-touch-icon" sizes="256x256" href="./icon.png">
+	<meta property="og:image" content="./icon.png">
 	<meta property="og:image:width" content="256">
 	<meta property="og:image:height" content="256">
 	<meta property="og:description" content="Humans need not apply">
-
-	<!-- DESIGN -->
-	<link rel="stylesheet" href="/design/index.css">
-	<script src="/design/index.js"></script>
-
-	<!-- CUSTOM -->
-	<link rel="stylesheet" href="/design/highlight.css">
-	<script src="/design/highlight.js"></script>
 
 	<!-- BOOTSTRAP -->
 	<script src="/libraries/lychee/build/html/core.js"></script>
 	<script src="/libraries/lychee/build/html/dist/index.js"></script>
 
 	<style>
-	#welcome article:nth-child(2) {
-		margin: 0px 16px 0px 16px;
-	}
-	#welcome article:nth-child(3) {
-		margin: 0px 0px 0px 16px;
-	}
-	#welcome article > div {
-		height: 144px;
-	}
-	#welcome article a.button {
-		display: block;
-		width: 160px;
-		margin: 0px auto;
-	}
-	#welcome article pre {
-		display: block;
-		margin: 0px;
-	}
-	#welcome article code {
-		display: inline-block;
-		padding: 0.2em 0.4em;
-		color: #ffffff;
-		background: #1f2726;
-		font-family: monaco, Consolas, 'Lucida Console', monospace;
-		font-size: 14px;
-		border-radius: 3px;
-		vertical-align: middle;
-	}
+		body {
+			margin: 0;
+			padding: 0;
+			color: #ffffff;
+			background: #444444;
+		}
+		
+		.lychee-Renderer {
+			display: block;
+			margin: 0 auto;
+			user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			-webkit-user-select: none;
+		} 
 	</style>
+
 </head>
 <body>
-<menu class="active">
-	<b><span></span></b>
-	<li class="active" onclick="ui.changeState('welcome')">Welcome</li>
-	<li onclick="ui.changeState('settings')">Settings</li>
-	<aside>
-		<button class="ico-refresh ico-only" onclick="window.location.href='./index.html'"></button>
-	</aside>
-</menu>
-<main>
-
-	<section id="welcome" class="center active">
-
-		<article>
-			<h3><b>1</b>Play</h3>
-			<div>
-				This is the lycheeJS Separated Boilerplate.
-				It helps you understand lycheeJS while using
-				it as a library; not as an ecosystem.
-			</div>
-			<p class="center">
-				<a tabindex="1" class="button ico-browser" href="http://lycheejs.org">Open Website</a>
-				<br><br>
-				<a tabindex="1" class="button ico-browser" href="http://cultivator.lycheejs.org/projects/cultivator/tutorial/index.html">Open Tutorial</a>
-			</p>
-		</article>
-
-		<article>
-			<h3><b>2</b>Advance</h3>
-			<div>
-				Advance while developing on this App.
-				Learn how to use proper <code>platform</code> tags
-				in your Definitions and how to integrate your
-				Definitions with the <code>lychee.pkg</code> file.
-			</div>
-			<pre><code class="javascript">
-lychee.define('app.entity.Custom').tags({
-	platform: 'html'
-}).supports(function(lychee, global) {
-
-	if (typeof global.ArrayBuffer === 'function') {
-		return true;
-	}
-
-	return false;
-
-}).exports(function(lychee, app, global, attachments) {
-
-	var _ArrayBuffer = global.ArrayBuffer;
-
-	var Class = function() {
-
-		this.buffer = new _ArrayBuffer();
-
-	};
-
-	Class.prototype = {
-
-	};
-
-	return Class;
-
-});
-			</code></pre>
-		</article>
-
-		<article>
-			<h3><b>3</b>Migrate</h3>
-			<div>
-				When you're ready, migrate this App into a lycheeJS
-				Integrated App with full isomorphic capabilities.
-			</div>
-			<pre><code class="bash">
-cd ./my-project;
-
-lycheejs-breeder migrate;
-			</code></pre>
-			<div>
-				Always remember, don't use platform-specific code.
-				HTML and CSS are platform-specific, too!
-			</div>
-		</article>
-
-	</section>
-
-	<section id="settings">
-
-		<article>
-			<h3><b>1</b>Modify</h3>
-		</article>
-
-		<article>
-			<h3><b>2</b>Preview</h3>
-		</article>
-
-	</section>
-
-</main>
-<footer>
-	lycheeJS is (c) 2012-2016 by Artificial-Engineering and released under MIT license.
-</footer>
-<script>
-(function(lychee, global) {
-
-	var environment = new lychee.Environment({
-		id:       'separated-boilerplate',
-		debug:    true,
-		sandbox:  false,
-		build:    'app.Main',
-		type:     'source',
-		packages: [
-			new lychee.Package('app', './lychee.pkg')
-		],
-		tags:     {
-			platform: [ 'html' ]
-		}
-	});
-
-	lychee.setEnvironment(environment);
-	lychee.inject(lychee.ENVIRONMENTS['/libraries/lychee/dist']);
-
-	lychee.init(function(sandbox) {
-
-		var lychee = sandbox.lychee;
-		var app    = sandbox.app;
-
-
-		// This allows using #MAIN in JSON files
-		sandbox.MAIN = new app.Main();
-		sandbox.MAIN.init();
-
-	});
-
-})(lychee, typeof global !== 'undefined' ? global : this);
-</script>
-<script>
-var codes = [].slice.call(document.querySelectorAll('code'));
-if (codes.length > 0) {
-
-	codes.forEach(function(code) {
-		hljs.highlightBlock(code);
-	});
-
-}
-</script>
+	<script>
+	(function(lychee, global) {
+	
+		lychee.inject(lychee.ENVIRONMENTS['/libraries/lychee/dist']);
+	
+		lychee.pkginit('html/main', {
+			debug:   true,
+			sandbox: false
+		}, {
+		});
+	
+	})(lychee, typeof global !== 'undefined' ? global : this);
+	</script>
 </body>
 </html>
