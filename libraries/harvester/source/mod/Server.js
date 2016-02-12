@@ -145,6 +145,30 @@ lychee.define('harvester.mod.Server').requires([
 
 			});
 
+			server.stdout.on('data', function(lines) {
+
+				lines = lines.trim().split('\n').filter(function(message) {
+
+					if (message.charAt(0) !== '\u001b') {
+						return true;
+					}
+
+					return false;
+
+				});
+
+				if (lines.length > 0) {
+
+					console.log('harvester.mod.Server: LOG (' + project + ')');
+
+					lines.forEach(function(message) {
+						console.log('                      "' + message.trim() + '"');
+
+					});
+
+				}
+
+			});
 
 			server.on('error', function() { this.exit(1); });
 			server.on('exit',  function() {});

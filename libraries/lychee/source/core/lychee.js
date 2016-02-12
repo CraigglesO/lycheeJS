@@ -772,6 +772,7 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 				_bootstrap_environment.call(this);
 
+
 				var definition  = new lychee.Definition(identifier);
 				var environment = this.environment;
 
@@ -797,8 +798,26 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 			if (environment !== null) {
 
+				_bootstrap_environment.call(this);
+
+
 				var code        = '\n';
+				var id          = lychee.ROOT.project.substr(lychee.ROOT.lychee.length) + '/custom';
 				var env_profile = lychee.extend({}, environment.profile, profile);
+
+
+				if (environment.id.substr(0, 19) === 'lychee-Environment-') {
+					environment.setId(id);
+				}
+
+
+				if (_environment !== null) {
+
+					Object.values(_environment.definitions).forEach(function(definition) {
+						environment.define(definition);
+					});
+
+				}
 
 
 				code += [ 'lychee' ].concat(environment.packages.map(function(pkg) {
@@ -830,6 +849,9 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 			if (identifier !== null) {
 
+				_bootstrap_environment.call(this);
+
+
 				var config = new Config('./lychee.pkg');
 
 				config.onload = function() {
@@ -843,9 +865,20 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 							if (data instanceof Object) {
 
 								var code         = '\n';
-								var env_settings = lychee.extend({}, data,         settings);
+								var env_settings = lychee.extend({
+									id: lychee.ROOT.project + '/' + identifier.split('/').pop()
+								}, data, settings);
 								var env_profile  = lychee.extend({}, data.profile, profile);
 								var environment  = new lychee.Environment(env_settings);
+
+
+								if (_environment !== null) {
+
+									Object.values(_environment.definitions).forEach(function(definition) {
+										environment.define(definition);
+									});
+
+								}
 
 
 								code += [ 'lychee' ].concat(env_settings.packages.map(function(pkg) {
@@ -884,6 +917,9 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 
 			if (environment !== null) {
+
+				_bootstrap_environment.call(this);
+
 
 				if (this.environment !== null) {
 

@@ -214,7 +214,7 @@ lychee.define('breeder.Template').requires([
 
 				if (platform === null || platform === 'html') {
 
-					tmp = fs.read('/source/index.html');
+					tmp = fs.read('/index.html');
 
 					if (target !== null) {
 
@@ -229,7 +229,7 @@ lychee.define('breeder.Template').requires([
 					}
 
 					if (tmp !== null) {
-						fs.write('/source/index.html', tmp);
+						fs.write('/index.html', tmp);
 					}
 
 				}
