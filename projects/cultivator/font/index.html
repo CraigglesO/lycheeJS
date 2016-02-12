@@ -147,7 +147,6 @@ lychee.define('app.entity.Foo').exports(function(lychee, app, global, attachment
 (function(lychee, global) {
 
 	var environment = new lychee.Environment({
-		id:      'font',
 		debug:   false,
 		sandbox: false,
 		build:   'tool.Main',
@@ -160,17 +159,7 @@ lychee.define('app.entity.Foo').exports(function(lychee, app, global, attachment
 	});
 
 
-	lychee.setEnvironment(environment);
-
-	lychee.init(function(sandbox) {
-
-		var lychee = sandbox.lychee;
-		var tool   = sandbox.tool;
-
-		sandbox.MAIN = new tool.Main();
-		sandbox.MAIN.init();
-
-	});
+	lychee.envinit(environment, {});
 
 })(lychee, typeof global !== 'undefined' ? global : this);
 </script>

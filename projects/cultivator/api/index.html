@@ -154,7 +154,6 @@
 (function(lychee, global) {
 
 	var environment = new lychee.Environment({
-		id:      'api',
 		debug:   false,
 		sandbox: false,
 		build:   'tool.Main',
@@ -167,17 +166,7 @@
 	});
 
 
-	lychee.setEnvironment(environment);
-
-	lychee.init(function(sandbox) {
-
-		var lychee = sandbox.lychee;
-		var tool   = sandbox.tool;
-
-		sandbox.MAIN = new tool.Main();
-		sandbox.MAIN.init();
-
-	});
+	lychee.envinit(environment, {});
 
 })(lychee, typeof global !== 'undefined' ? global : this);
 </script>

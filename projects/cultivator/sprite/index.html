@@ -172,7 +172,6 @@
 (function(lychee, global) {
 
 	var environment = new lychee.Environment({
-		id:      'sprite',
 		debug:   false,
 		sandbox: false,
 		build:   'tool.Main',
@@ -185,23 +184,13 @@
 	});
 
 
-	lychee.setEnvironment(environment);
-
-	lychee.init(function(sandbox) {
-
-		var lychee = sandbox.lychee;
-		var tool   = sandbox.tool;
-
-		sandbox.MAIN = new tool.Main({
-			dropzone: {
-				element:    document.querySelector('#dropzone'),
-				extensions: {
-					png: true
-				}
+	lychee.envinit(environment, {
+		dropzone: {
+			element:    document.querySelector('#dropzone'),
+			extensions: {
+				png: true
 			}
-		});
-		sandbox.MAIN.init();
-
+		}
 	});
 
 })(lychee, typeof global !== 'undefined' ? global : this);
