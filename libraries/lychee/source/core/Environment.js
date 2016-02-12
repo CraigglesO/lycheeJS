@@ -591,7 +591,8 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 			'deserialize',
 			'serialize',
 			'define',
-			'init',
+			'envinit',
+			'pkginit',
 			'setEnvironment',
 			'Asset',
 			'Debugger',
@@ -1040,7 +1041,7 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 
 			if (build !== null && cache.active === false) {
 
-				var result = this.load(build, 'lychee.init');
+				var result = this.load(build);
 				if (result === true) {
 
 					if (this.debug === true) {

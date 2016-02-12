@@ -20,7 +20,7 @@ require(_root + '/libraries/lychee/build/node/core.js')(__dirname);
 
 (function(lychee, global) {
 
-	lychee.pkginit('node/server', {
+	lychee.pkginit('node/main', {
 		debug:   false,
 		sandbox: false
 	}, {

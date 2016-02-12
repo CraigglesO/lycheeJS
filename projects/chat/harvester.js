@@ -20,31 +20,16 @@ require(_root + '/libraries/lychee/build/node/core.js')(__dirname);
 
 (function(lychee, global) {
 
-	var environment = new lychee.Environment({
-		debug:    false,
-		sandbox:  false,
-		build:    'app.net.Server',
-		packages: [
-			new lychee.Package('app', './lychee.pkg')
-		],
-		tags:     {
-			platform: [ 'node' ]
-		}
-	});
-
-
-	lychee.setEnvironment(environment);
-
-	lychee.init(function(sandbox) {
-
-		var lychee = sandbox.lychee;
-		var app    = sandbox.app;
-
-		sandbox.SERVER = new app.net.Server({
+	lychee.pkginit('node/main', {
+		debug:   false,
+		sandbox: false
+	}, {
+		renderer: null,
+		client:   null,
+		server:   {
 			host: _host,
 			port: _port
-		});
-
+		}
 	});
 
 })(lychee, typeof global !== 'undefined' ? global : this);

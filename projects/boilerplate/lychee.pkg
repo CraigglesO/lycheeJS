@@ -57,7 +57,7 @@
 				},
 				"variant": "application"
 			},
-			"node/server": {
+			"node/main": {
 				"build": "app.Main",
 				"debug": false,
 				"packages": [
