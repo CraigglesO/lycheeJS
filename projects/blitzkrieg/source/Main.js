@@ -2,6 +2,7 @@
 lychee.define('game.Main').requires([
 	'game.Logic',
 	'game.net.Client',
+	'game.net.Server',
 	'game.state.Game'
 ]).includes([
 	'lychee.app.Main'
@@ -62,21 +63,34 @@ lychee.define('game.Main').requires([
 			this.settings.gameclient = this.settings.client;
 			this.settings.client     = null;
 
+			this.settings.gameserver = this.settings.server;
+			this.settings.server     = null;
+
 			oncomplete(true);
 
 		}, this, true);
 
 		this.bind('init', function() {
 
-			var settings = this.settings.gameclient || null;
-			if (settings !== null) {
-				this.client = new game.net.Client(settings, this);
+			var gameclient = this.settings.gameclient || null;
+			if (gameclient !== null) {
+
+				this.client = new game.net.Client(gameclient, this);
+				this.client.bind('connect', function() {
+					this.changeState('game');
+				}, this);
+
 			}
+
+			var gameserver = this.settings.gameserver || null;
+			if (gameserver !== null) {
+				this.server = new game.net.Server(gameserver, this);
+			}
+
 
 			this.logic = new game.Logic(this);
 
 			this.setState('game', new game.state.Game(this));
-			this.changeState('game');
 
 		}, this, true);
 

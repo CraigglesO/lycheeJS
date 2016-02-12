@@ -9,7 +9,7 @@
 				"debug": false,
 				"packages": [
 					[
-						"app",
+						"game",
 						"./lychee.pkg"
 					]
 				],

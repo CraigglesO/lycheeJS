@@ -1,6 +1,7 @@
 
 lychee.define('app.Main').requires([
 	'app.net.Client',
+	'app.net.Server',
 	'app.state.Chat'
 ]).includes([
 	'lychee.app.Main'
@@ -12,6 +13,7 @@ lychee.define('app.Main').requires([
 
 			// Is configured by Sorbet API
 			client: '/api/Server?identifier=chat',
+			server: null,
 
 			input: {
 				delay:       0,
@@ -54,22 +56,32 @@ lychee.define('app.Main').requires([
 			this.settings.appclient = this.settings.client;
 			this.settings.client    = null;
 
+			this.settings.appserver = this.settings.server;
+			this.settings.server    = null;
+
 			oncomplete(true);
 
 		}, this, true);
 
 		this.bind('init', function() {
 
-			var settings = this.settings.appclient || null;
-			if (settings !== null) {
-				this.client = new app.net.Client(settings, this);
+			var appclient = this.settings.appclient || null;
+			if (appclient !== null) {
+
+				this.client = new app.net.Client(appclient, this);
+				this.client.bind('connect', function() {
+					this.changeState('chat');
+				}, this);
+
 			}
 
-			this.setState('chat', new app.state.Chat(this));
+			var appserver = this.settings.appserver || null;
+			if (appserver !== null) {
+				this.server = new app.net.Server(appserver, this);
+			}
 
-			this.client.bind('connect', function() {
-				this.changeState('chat');
-			}, this);
+
+			this.setState('chat', new app.state.Chat(this));
 
 		}, this, true);
 

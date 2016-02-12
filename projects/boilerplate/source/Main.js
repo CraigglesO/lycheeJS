@@ -80,6 +80,7 @@ lychee.define('app.Main').requires([
 
 			this.setState('menu', new app.state.Menu(this));
 
+
 			this.changeState('menu');
 
 		}, this, true);

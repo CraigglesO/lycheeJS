@@ -131,29 +131,20 @@ lychee.define('game.state.Game').requires([
 				var client = this.client;
 				if (client !== null) {
 
-					client.bind('connect', function() {
+					var service = client.getService('controller');
+					if (service !== null) {
 
-						var service = client.getService('controller');
-						if (service !== null) {
+						service.bind('init', function(data) {
 
-							service.bind('init', function(data) {
+							if (data.tid >= 0) {
+								console.log('WAITING');
+							}
 
-								if (data.tid >= 0) {
-									console.log('WAITING');
-								}
+							console.log('INIT EVENT', data.tid, data.timeout);
 
-								console.log('INIT EVENT', data.tid, data.timeout);
+						}, this);
 
-							}, this);
-
-						}
-
-
-// TODO: Get Tank id from Controller Service
-
-console.log('WAITING FOR 10 seconds NAO');
-
-					}, this);
+					}
 
 				}
 

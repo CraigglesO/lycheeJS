@@ -157,6 +157,7 @@ lychee.define('app.state.App').requires([
 
 
 			var entity = null;
+			var client = this.client;
 
 			/*
 			 * HELP LAYER
@@ -183,14 +184,18 @@ lychee.define('app.state.App').requires([
 			}, this);
 
 
-			this.client.bind('sensor', function(name, property, value) {
+			if (client !== null) {
 
-				var room = _get_room.call(this, name);
-				if (room !== null) {
-					room.properties[property] = value;
-				}
+				client.bind('sensor', function(name, property, value) {
 
-			}, this);
+					var room = _get_room.call(this, name);
+					if (room !== null) {
+						room.properties[property] = value;
+					}
+
+				}, this);
+
+			}
 
 
 			var rooms = this.queryLayer('foreground', 'ship').entities.filter(function(val) {
@@ -206,34 +211,40 @@ lychee.define('app.state.App').requires([
 			var astronauts      = [];
 			var astronaut_index = 0;
 
-			this.client.bind('astronaut', function(data) {
+			if (client !== null) {
 
-				var room     = _get_room.call(this, data.room);
-				var state    = data.activity === 'sleep' ? 'default' : (Math.random() > 0.5 ? 'working-right' : 'working-left');
-				var position = {
-					x: room.position.x,
-					y: room.position.y,
-					z: 2
-				};
+				client.bind('astronaut', function(data) {
 
-				var astronaut = new app.entity.Astronaut({
-					state:      state,
-					position:   position,
-					properties: {
-						name:         data.firstName,
-						agency:       data.agency,
-						teamPosition: data.position,
-						activity:     data.activity,
-						avatar:       data.position
-					}
-				});
+					var room     = _get_room.call(this, data.room);
+					var state    = data.activity === 'sleep' ? 'default' : (Math.random() > 0.5 ? 'working-right' : 'working-left');
+					var position = {
+						x: room.position.x,
+						y: room.position.y,
+						z: 2
+					};
 
-				astronaut.room = room;
-				astronauts.push(astronaut);
+					var astronaut = new app.entity.Astronaut({
+						state:      state,
+						position:   position,
+						properties: {
+							name:         data.firstName,
+							agency:       data.agency,
+							teamPosition: data.position,
+							activity:     data.activity,
+							avatar:       data.position
+						}
+					});
 
-				this.queryLayer('foreground', 'ship').addEntity(astronaut);
+					astronaut.room = room;
+					astronauts.push(astronaut);
 
-			}, this);
+					this.queryLayer('foreground', 'ship').addEntity(astronaut);
+
+				}, this);
+
+			}
+
+
 
 			this.loop.setInterval(3000, function() {
 

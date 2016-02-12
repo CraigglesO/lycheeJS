@@ -1,6 +1,7 @@
 
 lychee.define('app.Main').requires([
 	'app.net.Client',
+	'app.net.Server',
 	'app.state.App'
 ]).includes([
 	'lychee.app.Main'
@@ -53,19 +54,32 @@ lychee.define('app.Main').requires([
 			this.settings.appclient = this.settings.client;
 			this.settings.client    = null;
 
+			this.settings.appserver = this.settings.server;
+			this.settings.server    = null;
+
 			oncomplete(true);
 
 		}, this, true);
 
 		this.bind('init', function() {
 
-			var settings = this.settings.appclient || null;
-			if (settings !== null) {
-				this.client = new app.net.Client(settings, this);
+			var appclient = this.settings.appclient || null;
+			if (appclient !== null) {
+
+				this.client = new app.net.Client(appclient, this);
+				this.client.bind('connect', function() {
+					this.changeState('app');
+				}, this);
+
 			}
 
+			var appserver = this.settings.appserver || null;
+			if (appserver !== null) {
+				this.server = new app.net.Server(appserver, this);
+			}
+
+
 			this.setState('app', new app.state.App(this));
-			this.changeState('app');
 
 		}, this, true);
 
