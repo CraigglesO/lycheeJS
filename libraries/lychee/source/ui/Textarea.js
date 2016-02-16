@@ -260,9 +260,9 @@ lychee.define('lychee.ui.Textarea').includes([
 				var ll    = this.__lines.length;
 				var dim_x = font.measure(this.__lines[ll - 1]).width;
 				var dim_y = ll * lh;
-
 				var off_x = 0;
 				var off_y = 0;
+
 
 				if (dim_x > buffer.width)  {
 					off_x = buffer.width - dim_x;
@@ -436,6 +436,7 @@ lychee.define('lychee.ui.Textarea').includes([
 
 				this.__lines   = value.split('\n');
 				this.__isDirty = true;
+
 
 				return true;
 

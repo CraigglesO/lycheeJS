@@ -30,19 +30,28 @@
 					}],
 					"blob": {
 						"entities": [{
-							"constructor": "lychee.ui.Label",
+							"constructor": "lychee.ui.Element",
 							"arguments": [{
-								"label": "Welcome",
+								"label":  "WELCOME",
+								"action": "Settings",
 								"position": {
 									"x": 0,
-									"y": -256
+									"y": 0
 								}
-							}]
-						}]
+							}],
+							"blob": {
+								"entities": [{
+									"constructor": "lychee.ui.Text",
+									"arguments": [{
+										"label": "This is the App Boilerplate.\n\nIt is a truly isomorphic App that consists of a properly setup UI Graph to get you started more easily.\n\nIt is also compatible with the Editor and Ranger."
+									}]
+								}]
+							}
+						}],
+						"map": {
+							"dialog": 0
+						}
 					}
-				}, {
-					"constructor": "lychee.ui.Layer",
-					"arguments": [{}]
 				}, {
 					"constructor": "lychee.ui.Layer",
 					"arguments": [{
@@ -111,10 +120,9 @@
 				}],
 				"map": {
 					"welcome":  0,
-					"network":  1,
-					"settings": 2,
-					"about":    3,
-					"menu":     4
+					"settings": 1,
+					"about":    2,
+					"menu":     3
 				}
 			}
 		}

@@ -1,7 +1,8 @@
 
 lychee.define('lychee.ui.Element').requires([
 	'lychee.ui.Button',
-	'lychee.ui.Label'
+	'lychee.ui.Label',
+	'lychee.ui.Text'
 ]).includes([
 	'lychee.ui.Layer'
 ]).exports(function(lychee, global, attachments) {
@@ -27,7 +28,7 @@ lychee.define('lychee.ui.Element').requires([
 
 
 		settings.width  = 256;
-		settings.height = 448;
+		settings.height = 386;
 
 
 		lychee.ui.Layer.call(this, settings);
@@ -64,6 +65,29 @@ lychee.define('lychee.ui.Element').requires([
 			var x2     =  1/2 * this.width;
 			var y2     =  1/2 * this.height;
 			var step_w = 0;
+			var that   = this;
+
+
+			var filtered = Object.values(this.__map);
+			var offset   = 16;
+
+			this.entities.filter(function(entity) {
+				return filtered.indexOf(entity) === -1;
+			}).forEach(function(entity) {
+
+				if (entity instanceof lychee.ui.Label || entity instanceof lychee.ui.Text) {
+
+					entity.width = that.width - 32;
+
+					entity.trigger('reshape', [ orientation, rotation, width, height ]);
+
+					entity.position.y  = x1 + offset + entity.height / 2;
+					offset            += entity.height + 16;
+
+				}
+
+			});
+
 
 			entity = this.getEntity('step');
 			step_w = entity.width;
@@ -88,6 +112,9 @@ lychee.define('lychee.ui.Element').requires([
 		delete settings.action;
 
 		settings = null;
+
+
+		this.trigger('reshape', [ null, null, null, null ]);
 
 	};
 

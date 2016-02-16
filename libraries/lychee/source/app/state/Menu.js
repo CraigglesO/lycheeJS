@@ -3,10 +3,12 @@ lychee.define('lychee.app.state.Menu').requires([
 	'lychee.effect.Alpha',
 	'lychee.effect.Color',
 	'lychee.ui.Background',
+	'lychee.ui.Element',
 	'lychee.ui.Emblem',
 	'lychee.ui.Label',
 	'lychee.ui.Layer',
 	'lychee.ui.Switch',
+	'lychee.ui.Text',
 	'lychee.ui.Menu'
 ]).includes([
 	'lychee.app.State'
@@ -73,6 +75,7 @@ lychee.define('lychee.app.state.Menu').requires([
 			viewport.relay('reshape', this.queryLayer('bg', 'background'));
 			viewport.relay('reshape', this.queryLayer('bg', 'emblem'));
 			viewport.relay('reshape', this.queryLayer('ui', 'menu'));
+			viewport.relay('reshape', this.queryLayer('ui', 'welcome > dialog'));
 
 		}
 
@@ -113,6 +116,7 @@ lychee.define('lychee.app.state.Menu').requires([
 
 						if (entity === other) {
 
+							other.setVisible(true);
 							other.addEffect(new lychee.effect.Alpha({
 								type:     lychee.effect.Alpha.TYPE.easeout,
 								duration: 300,
@@ -122,6 +126,7 @@ lychee.define('lychee.app.state.Menu').requires([
 
 						} else {
 
+							other.setVisible(false);
 							other.addEffect(new lychee.effect.Alpha({
 								type:     lychee.effect.Alpha.TYPE.easeout,
 								duration: 300,
@@ -136,6 +141,14 @@ lychee.define('lychee.app.state.Menu').requires([
 
 			}, this);
 
+
+			this.queryLayer('ui', 'welcome > dialog').bind('change', function(value) {
+
+
+console.log('WOOP WOOP', value);
+
+			}, this);
+
 		},
 
 		update: function(clock, delta) {
@@ -147,6 +160,12 @@ lychee.define('lychee.app.state.Menu').requires([
 		enter: function(data) {
 
 			lychee.app.State.prototype.enter.call(this);
+
+
+			var menu = this.queryLayer('ui', 'menu');
+			if (menu !== null) {
+				menu.trigger('change', [ 'Welcome' ]);
+			}
 
 		}
 
