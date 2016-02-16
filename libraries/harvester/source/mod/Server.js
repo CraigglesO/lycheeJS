@@ -6,6 +6,7 @@ lychee.define('harvester.mod.Server').requires([
 
 	var _MIN_PORT      = 49152;
 	var _MAX_PORT      = 65534;
+	var _LOG_PROJECT   = null;
 
 	var _child_process = require('child_process');
 	var _net           = require('net');
@@ -133,11 +134,13 @@ lychee.define('harvester.mod.Server').requires([
 
 				if (error !== null && error.signal !== 'SIGTERM') {
 
+					_LOG_PROJECT = project;
 					console.error('harvester.mod.Server: FAILURE ("' + project + ' | ' + host + ':' + port + '")');
 					console.error(stderr);
 
 				} else if (stderr !== '') {
 
+					_LOG_PROJECT = project;
 					console.error('harvester.mod.Server: FAILURE ("' + project + ' | ' + host + ':' + port + '")');
 					_report(stderr);
 
@@ -159,11 +162,13 @@ lychee.define('harvester.mod.Server').requires([
 
 				if (lines.length > 0) {
 
-					console.log('harvester.mod.Server: LOG (' + project + ')');
+					if (_LOG_PROJECT !== project) {
+						console.log('harvester.mod.Server: LOG (' + project + ')');
+						_LOG_PROJECT = project;
+					}
 
 					lines.forEach(function(message) {
 						console.log('                      "' + message.trim() + '"');
-
 					});
 
 				}
