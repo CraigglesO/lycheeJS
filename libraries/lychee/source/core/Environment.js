@@ -991,11 +991,17 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 
 				this.definitions[definition.id] = definition;
 
+
+				return true;
+
 			} else {
 
 				if (this.debug === true) {
 					this.global.console.error('lychee-Environment (' + this.id + '): Invalid Definition "' + definition.id + '"');
 				}
+
+
+				return false;
 
 			}
 

@@ -8,6 +8,77 @@ lychee.define('lychee.net.remote.Debugger').includes([
 
 
 	/*
+	 * HELPERS
+	 */
+
+	var _bind_console = function(event) {
+
+		this.bind(event, function(data) {
+
+			if (this.tunnel !== null) {
+
+				var receiver = data.tid || null;
+				if (receiver !== null) {
+
+					var tunnel = _tunnels.find(function(client) {
+						return (client.host + ':' + client.port) === receiver;
+					}) || null;
+
+					if (tunnel !== null) {
+
+						tunnel.send(data, {
+							id:    'debugger',
+							event: 'console'
+						});
+
+					}
+
+				}
+
+			}
+
+		}, this);
+
+	};
+
+	var _bind_relay = function(event) {
+
+		this.bind(event, function(data) {
+
+			var sender   = null;
+			var receiver = data.tid || null;
+
+			if (this.tunnel !== null) {
+				sender = this.tunnel.host + ':' + this.tunnel.port;
+			}
+
+
+			if (sender !== null && receiver !== null) {
+
+				var tunnel = _tunnels.find(function(client) {
+					return (client.host + ':' + client.port) === receiver;
+				}) || null;
+
+				if (tunnel !== null) {
+
+					data.receiver = sender;
+
+					tunnel.send(data, {
+						id:    'debugger',
+						event: event
+					});
+
+				}
+
+			}
+
+		}, this);
+
+	};
+
+
+
+	/*
 	 * IMPLEMENTATION
 	 */
 
@@ -36,119 +107,18 @@ lychee.define('lychee.net.remote.Debugger').includes([
 
 		}, this);
 
-		this.bind('execute', function(data) {
 
-			var sender   = null;
-			var receiver = data.tid || null;
+		// Relay events to proper tunnel (data.tid)
+		_bind_relay.call(this, 'define');
+		_bind_relay.call(this, 'execute');
+		_bind_relay.call(this, 'expose');
+		_bind_relay.call(this, 'serialize');
 
-			if (this.tunnel !== null) {
-				sender = this.tunnel.host + ':' + this.tunnel.port;
-			}
-
-
-			if (sender !== null && receiver !== null) {
-
-				var tunnel = _tunnels.find(function(client) {
-					return (client.host + ':' + client.port) === receiver;
-				}) || null;
-
-				if (tunnel !== null) {
-
-					data.receiver = sender;
-
-					tunnel.send(data, {
-						id:    'debugger',
-						event: 'execute'
-					});
-
-				}
-
-			}
-
-		}, this);
-
-		this.bind('execute-value', function(data) {
-
-			if (this.tunnel !== null) {
-
-				var receiver = data.tid || null;
-				if (receiver !== null) {
-
-					var tunnel = _tunnels.find(function(client) {
-						return (client.host + ':' + client.port) === receiver;
-					}) || null;
-
-					if (tunnel !== null) {
-
-						tunnel.send(data, {
-							id:    'debugger',
-							event: 'console'
-						});
-
-					}
-
-				}
-
-			}
-
-		}, this);
-
-		this.bind('expose', function(data) {
-
-			var sender   = null;
-			var receiver = data.tid || null;
-
-			if (this.tunnel !== null) {
-				sender = this.tunnel.host + ':' + this.tunnel.port;
-			}
-
-
-			if (sender !== null && receiver !== null) {
-
-				var tunnel = _tunnels.find(function(client) {
-					return (client.host + ':' + client.port) === receiver;
-				}) || null;
-
-				if (tunnel !== null) {
-
-					data.receiver = sender;
-
-					tunnel.send(data, {
-						id:    'debugger',
-						event: 'expose'
-					});
-
-				}
-
-			}
-
-		}, this);
-
-		this.bind('expose-value', function(data) {
-
-			if (this.tunnel !== null) {
-
-				var receiver = data.tid || null;
-				if (receiver !== null) {
-
-					var tunnel = _tunnels.find(function(client) {
-						return (client.host + ':' + client.port) === receiver;
-					}) || null;
-
-					if (tunnel !== null) {
-
-						tunnel.send(data, {
-							id:    'debugger',
-							event: 'console'
-						});
-
-					}
-
-				}
-
-			}
-
-		}, this);
+		// Relay events to proper tunnel (data.receiver > data.tid)
+		_bind_console.call(this, 'define-value');
+		_bind_console.call(this, 'execute-value');
+		_bind_console.call(this, 'expose-value');
+		_bind_console.call(this, 'serialize-value');
 
 	};
 

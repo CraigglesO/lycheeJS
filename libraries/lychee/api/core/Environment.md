@@ -481,6 +481,7 @@ setTimeout(function() {
 
 - `(lychee.Definition) definition` is the definition which needs to be dispatched to the environment.
 
+This method returns `true` on success and `false` on failure.
 This method is not intended for direct usage.
 It is called by [lychee.define](lychee#methods-define) in
 order to map all definitions to the active environment.

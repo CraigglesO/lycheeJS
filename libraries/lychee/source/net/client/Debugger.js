@@ -45,6 +45,36 @@ lychee.define('lychee.net.client.Debugger').includes([
 		 * INITIALIZATION
 		 */
 
+		this.bind('define', function(data) {
+
+			if (typeof data.construtor === 'string' || typeof data.reference === 'string') {
+
+				var scope       = (lychee.environment !== null ? lychee.environment.global : global);
+				var environment = (lychee.environment !== null ? lychee.environment        : null);
+				var definition  = lychee.deserialize(data);
+				var value       = false;
+
+				if (environment !== null) {
+					value = environment.define(definition);
+				}
+
+
+				if (this.tunnel !== null) {
+
+					this.tunnel.send({
+						tid:   data.receiver,
+						value: definition !== null
+					}, {
+						id:    'debugger',
+						event: 'define-value'
+					});
+
+				}
+
+			}
+
+		}, this);
+
 		this.bind('execute', function(data) {
 
 			if (typeof data.reference === 'string') {
@@ -128,6 +158,30 @@ lychee.define('lychee.net.client.Debugger').includes([
 
 		}, this);
 
+		this.bind('serialize', function(data) {
+
+			if (typeof data.reference === 'string') {
+
+				var scope    = (lychee.environment !== null ? lychee.environment.global : global);
+				var instance = _resolve_reference.call(scope, data.reference);
+				var value    = lychee.serialize(instance);
+
+				if (this.tunnel !== null) {
+
+					this.tunnel.send({
+						tid:   data.receiver,
+						value: value
+					}, {
+						id:    'debugger',
+						event: 'serialize-value'
+					});
+
+				}
+
+			}
+
+		}, this);
+
 	};
 
 
@@ -136,6 +190,34 @@ lychee.define('lychee.net.client.Debugger').includes([
 		/*
 		 * CUSTOM API
 		 */
+
+		define: function(tid, data) {
+
+			tid  = typeof tid === 'string' ? tid  : null;
+			data = data instanceof Object  ? data : null;
+
+
+			if (data !== null && this.tunnel !== null) {
+
+				this.tunnel.send({
+					tid:         tid,
+					constructor: data.constructor || null,
+					reference:   data.reference   || null,
+					arguments:   data.arguments   || null
+				}, {
+					id:    'debugger',
+					event: 'define'
+				});
+
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
 
 		execute: function(tid, data) {
 
@@ -164,18 +246,40 @@ lychee.define('lychee.net.client.Debugger').includes([
 
 		},
 
-		expose: function(tid) {
+		expose: function(tid, data) {
 
-			tid  = typeof tid === 'string' ? tid : null;
+			tid  = typeof tid === 'string' ? tid  : null;
+			data = data instanceof Object  ? data : null;
 
 
 			if (this.tunnel !== null) {
 
 				this.tunnel.send({
-					tid:   tid
+					tid:       tid,
+					reference: data.reference || null
 				}, {
 					id:    'debugger',
 					event: 'expose'
+				});
+
+			}
+
+		},
+
+		serialize: function(tid, data) {
+
+			tid  = typeof tid === 'string' ? tid  : null;
+			data = data instanceof Object  ? data : null;
+
+
+			if (this.tunnel !== null) {
+
+				this.tunnel.send({
+					tid:       tid,
+					reference: data.reference || null
+				}, {
+					id:    'debugger',
+					event: 'serialize'
 				});
 
 			}

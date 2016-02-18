@@ -25,9 +25,9 @@ lychee.define('lychee.ui.Menu').requires([
 
 		this.font    = _font;
 		this.label   = 'MENU';
-		this.options = [ 'welcome', 'network', 'settings', 'about' ];
+		this.options = [ 'Welcome', 'Settings', 'About' ];
 		this.state   = 'default';
-		this.value   = 'welcome';
+		this.value   = 'Welcome';
 
 		this.__boundary = 0;
 		this.__states   = { 'default': null, 'active': null };
@@ -170,10 +170,10 @@ lychee.define('lychee.ui.Menu').requires([
 
 			if (this.label !== 'MENU')    settings.label = this.label;
 			if (this.state !== 'default') settings.state = this.state;
-			if (this.value !== 'welcome') settings.value = this.value;
+			if (this.value !== 'Welcome') settings.value = this.value;
 
 			var tmp = this.options.join(',');
-			if (tmp !== 'welcome,network,settings,about') {
+			if (tmp !== 'Welcome,Settings,About') {
 				settings.options = this.options.slice(0, this.options.length);
 			}
 
