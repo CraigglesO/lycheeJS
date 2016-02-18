@@ -407,6 +407,7 @@ article {
 
 article h3 {
 	display: block;
+	position: relative;
 	height: 32px;
 	line-height: 32px;
 	margin: 0px;
@@ -432,7 +433,8 @@ article h3 b {
 }
 
 article h3 span {
-	float: right;
+	position: absolute;
+	right: 16px;
 }
 
 article > div,
