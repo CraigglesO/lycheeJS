@@ -1,4 +1,4 @@
-#!/usr/bin/local/lycheejs-helper env:node
+#!/usr/local/bin/lycheejs-helper env:node
 
 
 
