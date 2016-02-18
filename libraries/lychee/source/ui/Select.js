@@ -344,7 +344,7 @@ lychee.define('lychee.ui.Select').includes([
 
 				renderer.drawText(
 					x1 + 36,
-					y1 + (lh - font.lineheight) / 2,
+					y1 + (font.lineheight / 2),
 					option,
 					font,
 					false
@@ -385,14 +385,21 @@ lychee.define('lychee.ui.Select').includes([
 
 		setOptions: function(options) {
 
-			options = options instanceof Array ? options : null;
+			options = options instanceof Array ? options.unique() : null;
 
 
 			if (options !== null) {
 
+				this.height  = (this.height / this.options.length) * options.length;
 				this.options = options.map(function(option) {
 					return '' + option;
 				});
+
+
+				if (this.options.indexOf(this.value) === -1) {
+					this.setValue(this.options[0] || null);
+				}
+
 
 				return true;
 
