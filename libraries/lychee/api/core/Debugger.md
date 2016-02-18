@@ -56,9 +56,14 @@ env.init(function() {
 (Boolean) lychee.Debugger.report(environment, error [, definition]);
 ```
 
+- `(lychee.Environment) environment` is an instance of `lychee.Environment`.
+- `(Error) error` is an instance of `Error`.
+- `(lychee.Definition) definition` is the optional instance of `lychee.Definition` that threw the error.
+
 - `(Function) callback` is a Function that returns the Definition. Allowed return types are Callback, Class and Module
 
 This method returns `true` on success and `false` on failure.
+It will report the serialized environment and the error to the `Harvester`.
 
 ```javascript
 var Bar = new lychee.Definition('foo.Bar').exports(function(lychee, foo, global, attachments) {
@@ -89,7 +94,7 @@ env.init(function(sandbox) {
 	try {
 		bar.throwError();
 	} catch(e) {
-		lychee.Debugger.report(env, e, foo.Bar);
+		lychee.Debugger.report(env, e, env.definitions['foo.Bar']);
 	}
 
 });
