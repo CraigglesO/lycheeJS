@@ -175,8 +175,16 @@ lychee.define('harvester.mod.Server').requires([
 
 			});
 
-			server.on('error', function() { this.exit(1); });
-			server.on('exit',  function() {});
+			server.on('error', function() {
+
+				console.warn('harvester.mod.Server: SHUTDOWN ("' + project + ' | ' + host + ':' + port + '")');
+
+				this.kill('SIGTERM');
+
+			});
+
+			server.on('exit', function() {
+			});
 
 			server.destroy = function() {
 
