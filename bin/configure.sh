@@ -155,26 +155,26 @@ else
 
 			fi;
 
-			if [ -d /usr/bin ]; then
+			if [ -d /usr/local/bin ]; then
 
 				echo "> Integrating CLI Applications";
 
 
-				rm /usr/bin/lycheejs-breeder 2> /dev/null;
-				rm /usr/bin/lycheejs-editor 2> /dev/null;
-				rm /usr/bin/lycheejs-fertilizer 2> /dev/null;
-				rm /usr/bin/lycheejs-harvester 2> /dev/null;
-				rm /usr/bin/lycheejs-helper 2> /dev/null;
-				rm /usr/bin/lycheejs-ranger 2> /dev/null;
-				rm /usr/bin/lycheejs-strainer 2> /dev/null;
+				rm /usr/local/bin/lycheejs-breeder 2> /dev/null;
+				rm /usr/local/bin/lycheejs-editor 2> /dev/null;
+				rm /usr/local/bin/lycheejs-fertilizer 2> /dev/null;
+				rm /usr/local/bin/lycheejs-harvester 2> /dev/null;
+				rm /usr/local/bin/lycheejs-helper 2> /dev/null;
+				rm /usr/local/bin/lycheejs-ranger 2> /dev/null;
+				rm /usr/local/bin/lycheejs-strainer 2> /dev/null;
 
-				ln -s "$LYCHEEJS_ROOT/bin/breeder.sh" /usr/bin/lycheejs-breeder;
-				ln -s "$LYCHEEJS_ROOT/bin/editor.sh" /usr/bin/lycheejs-editor;
-				ln -s "$LYCHEEJS_ROOT/bin/fertilizer.sh" /usr/bin/lycheejs-fertilizer;
-				ln -s "$LYCHEEJS_ROOT/bin/harvester.sh" /usr/bin/lycheejs-harvester;
-				ln -s "$LYCHEEJS_ROOT/bin/helper.sh" /usr/bin/lycheejs-helper;
-				ln -s "$LYCHEEJS_ROOT/bin/ranger.sh" /usr/bin/lycheejs-ranger;
-				ln -s "$LYCHEEJS_ROOT/bin/strainer.sh" /usr/bin/lycheejs-strainer;
+				ln -s "$LYCHEEJS_ROOT/bin/breeder.sh" /usr/local/bin/lycheejs-breeder;
+				ln -s "$LYCHEEJS_ROOT/bin/editor.sh" /usr/local/bin/lycheejs-editor;
+				ln -s "$LYCHEEJS_ROOT/bin/fertilizer.sh" /usr/local/bin/lycheejs-fertilizer;
+				ln -s "$LYCHEEJS_ROOT/bin/harvester.sh" /usr/local/bin/lycheejs-harvester;
+				ln -s "$LYCHEEJS_ROOT/bin/helper.sh" /usr/local/bin/lycheejs-helper;
+				ln -s "$LYCHEEJS_ROOT/bin/ranger.sh" /usr/local/bin/lycheejs-ranger;
+				ln -s "$LYCHEEJS_ROOT/bin/strainer.sh" /usr/local/bin/lycheejs-strainer;
 
 
 				echo "> DONE";
@@ -195,17 +195,6 @@ else
 			if [ -d /usr/local/bin ]; then
 
 				echo "> Integrating CLI Applications";
-
-
-				if [ -d /usr/bin ]; then
-
-					# The lycheejs-helper binary has to be available in /usr/bin
-					# to allow usage of shebangs (used in harvester.js files)
-
-					rm /usr/bin/lycheejs-helper 2> /dev/null;
-					ln -s "$LYCHEEJS_ROOT/bin/helper.sh" /usr/bin/lycheejs-helper;
-
-				fi;
 
 
 				rm /usr/local/bin/lycheejs-breeder 2> /dev/null;
