@@ -99,8 +99,20 @@ cd /opt/lycheejs-edge;
 git clone https://github.com/Artificial-Engineering/lycheeJS.git ./;
 git checkout development;
 git clone https://github.com/Artificial-Engineering/lycheeJS-runtime.git ./bin/runtime;
+```
 
-# Run lycheeJS
+
+## Start lycheeJS
+
+After you've installed lycheeJS, you can directly start the `harvester`.
+An initial bootup requires the `./bin/configure.sh` script to run first.
+
+![Bootup](./guides/asset/readme-start.gif)
+
+```bash
+cd /opt/lycheejs-edge;
+
+# Start lycheeJS
 sudo ./bin/configure.sh;              # use --no-integration if you want a sandboxed installation
 lycheejs-harvester start development; # no sudo required
 ```
