@@ -75,7 +75,6 @@ lychee.define('lychee.app.state.Menu').requires([
 			viewport.relay('reshape', this.queryLayer('bg', 'background'));
 			viewport.relay('reshape', this.queryLayer('bg', 'emblem'));
 			viewport.relay('reshape', this.queryLayer('ui', 'menu'));
-			viewport.relay('reshape', this.queryLayer('ui', 'welcome > dialog'));
 
 		}
 

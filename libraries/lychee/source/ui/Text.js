@@ -40,14 +40,19 @@ lychee.define('lychee.ui.Text').includes([
 
 	};
 
-	var _get_lines = function() {
+	var _on_relayout = function() {
 
-		var lines = [];
-		var font  = this.font;
-		var label = this.label;
-		var width = this.width;
+		var that   = this;
+		var font   = this.font;
+		var label  = this.label;
+		var width  = this.width;
+		var height = this.height;
 
-		if (font !== null && width > 0) {
+		if (font !== null && label !== null && width > 0) {
+
+			this.__lines   = [];
+			this.__isDirty = true;
+
 
 			label.split('\n').forEach(function(line) {
 
@@ -59,21 +64,25 @@ lychee.define('lychee.ui.Text').includes([
 				if (tmp.length > 0) {
 
 					for (var t = 0, tl = tmp.length; t < tl; t++) {
-						lines.push(tmp[t]);
+						that.__lines.push(tmp[t]);
 					}
 
 				} else {
 
-					lines.push('');
+					that.__lines.push('');
 
 				}
 
 			});
 
+
+			this.height = this.__lines.length * font.lineheight;
+
+			if (this.__buffer !== null) {
+				this.__buffer.resize(this.width, this.height);
+			}
+
 		}
-
-
-		return lines;
 
 	};
 
@@ -114,22 +123,10 @@ lychee.define('lychee.ui.Text').includes([
 		 * INITIALIZATION
 		 */
 
+		this.bind('relayout', _on_relayout, this);
+
+
 		this.setLabel(settings.label);
-
-		this.bind('reshape', function(orientation, rotation, width, height) {
-
-			this.__lines   = _get_lines.call(this);
-			this.__isDirty = true;
-
-			if (this.font !== null) {
-				this.height = this.__lines.length * this.font.lineheight;
-			}
-
-			if (this.__buffer !== null) {
-				this.__buffer.resize(this.width, this.height);
-			}
-
-		}, this);
 
 		settings = null;
 
@@ -283,18 +280,7 @@ lychee.define('lychee.ui.Text').includes([
 			if (label !== null) {
 
 				this.label = label;
-
-				this.__lines   = _get_lines.call(this);
-				this.__isDirty = true;
-
-				if (this.font !== null) {
-					this.height = this.__lines.length * this.font.lineheight;
-				}
-
-				if (this.__buffer !== null) {
-					this.__buffer.resize(this.width, this.height);
-				}
-
+				this.trigger('relayout', []);
 
 				return true;
 

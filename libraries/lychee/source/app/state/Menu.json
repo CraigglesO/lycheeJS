@@ -45,7 +45,15 @@
 									"arguments": [{
 										"label": "This is the App Boilerplate.\n\nIt is a truly isomorphic App that consists of a properly setup UI Graph to get you started more easily.\n\nIt is also compatible with the Editor and Ranger."
 									}]
-								}]
+								}, {
+									"constructor": "lychee.ui.Button",
+									"arguments": [{
+										"label": "woop!"
+									}]
+								}],
+								"map": {
+									"test": 1
+								}
 							}
 						}],
 						"map": {
@@ -111,7 +119,6 @@
 					"arguments": [{
 						"options": [
 							"Welcome",
-							"Network",
 							"Settings",
 							"About"
 						],

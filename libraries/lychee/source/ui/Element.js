@@ -15,6 +15,94 @@ lychee.define('lychee.ui.Element').requires([
 
 
 	/*
+	 * HELPERS
+	 */
+
+	var _on_relayout = function() {
+
+		var content = this.__content;
+		var entity  = null;
+		var label   = null;
+		var layout  = [
+			this.getEntity('step'),
+			this.getEntity('label'),
+			this.getEntity('action')
+		];
+
+
+		var x1 = -1/2 * this.width;
+		var x2 =  1/2 * this.width;
+		var y1 = -1/2 * this.height;
+		var y2 =  1/2 * this.height;
+
+
+		if (content.length % 2 === 0) {
+
+			var offset   = 64 + 16;
+			var boundary = 0;
+
+			for (var c = 0, cl = content.length; c < cl; c += 2) {
+
+				entity   = content[c]     || null;
+				label    = content[c + 1] || null;
+				boundary = 0;
+
+				if (label !== null) {
+
+					label.width       =  1/2 * (this.width - 32);
+					label.position.x  = -1/4 * (this.width - 32);
+					label.position.y  =   y1 + offset + label.height / 2;
+
+					entity.width      =  1/2 * (this.width - 32);
+					entity.position.x =  1/4 * (this.width - 32);
+					entity.position.y =   y1 + offset + entity.height / 2;
+					entity.trigger('relayout', []);
+
+					boundary = Math.max(label.height, entity.height);
+					label.position.y  = y1 + offset + boundary / 2;
+					entity.position.y = y1 + offset + boundary / 2;
+
+					offset += boundary + 16;
+
+				} else {
+
+					entity.width      = this.width - 32;
+					entity.position.x = 0;
+					entity.position.y = y1 + offset + entity.height / 2;
+					entity.trigger('relayout', []);
+
+					boundary = entity.height;
+					entity.position.y = y1 + offset + boundary / 2;
+
+					offset += boundary + 16;
+
+				}
+
+			}
+
+		}
+
+
+		var step_width = 0;
+
+		entity = layout[0];
+		step_w = entity.width;
+		entity.position.x = x1 + 16 + step_width / 2;
+		entity.position.y = y1 + 32 - 1;
+
+		entity = layout[1];
+		entity.position.x = x1 + 32 + step_width + entity.width / 2;
+		entity.position.y = y1 + 32;
+
+		entity = layout[2];
+		entity.position.x = x2 - 16 - entity.width / 2;
+		entity.position.y = y2 - 32;
+
+	};
+
+
+
+	/*
 	 * IMPLEMENTATION
 	 */
 
@@ -23,12 +111,15 @@ lychee.define('lychee.ui.Element').requires([
 		var settings = lychee.extend({}, data);
 
 
-		this.label  = 'CONTENT';
-		this.action = 'Next';
+		this.label     = 'CONTENT';
+		this.action    = 'Next';
+
+		this.__content = [];
 
 
-		settings.width  = 256;
-		settings.height = 386;
+		settings.width    = 256;
+		settings.height   = 386;
+		settings.relayout = false;
 
 
 		lychee.ui.Layer.call(this, settings);
@@ -39,17 +130,17 @@ lychee.define('lychee.ui.Element').requires([
 		 * INITIALIZATION
 		 */
 
-		this.setEntity('step', new lychee.ui.Label({
+		lychee.ui.Layer.prototype.setEntity.call(this, 'step', new lychee.ui.Label({
 			label: '1',
 			font:  _fonts.step
 		}));
 
-		this.setEntity('label', new lychee.ui.Label({
+		lychee.ui.Layer.prototype.setEntity.call(this, 'label', new lychee.ui.Label({
 			label: this.label,
 			font:  _fonts.label
 		}));
 
-		this.setEntity('action', new lychee.ui.Button({
+		lychee.ui.Layer.prototype.setEntity.call(this, 'action', new lychee.ui.Button({
 			label: this.action
 		}));
 
@@ -57,52 +148,10 @@ lychee.define('lychee.ui.Element').requires([
 			this.trigger('change', [ this.action.toLowerCase() ]);
 		}, this);
 
-		this.bind('reshape', function(orientation, rotation, width, height) {
 
-			var entity = null;
-			var x1     = -1/2 * this.width;
-			var y1     = -1/2 * this.height;
-			var x2     =  1/2 * this.width;
-			var y2     =  1/2 * this.height;
-			var step_w = 0;
-			var that   = this;
+		this.__content = [];
 
-
-			var filtered = Object.values(this.__map);
-			var offset   = 16;
-
-			this.entities.filter(function(entity) {
-				return filtered.indexOf(entity) === -1;
-			}).forEach(function(entity) {
-
-				if (entity instanceof lychee.ui.Label || entity instanceof lychee.ui.Text) {
-
-					entity.width = that.width - 32;
-
-					entity.trigger('reshape', [ orientation, rotation, width, height ]);
-
-					entity.position.y  = x1 + offset + entity.height / 2;
-					offset            += entity.height + 16;
-
-				}
-
-			});
-
-
-			entity = this.getEntity('step');
-			step_w = entity.width;
-			entity.position.x = x1 + 16 + step_w / 2;
-			entity.position.y = y1 + 32 - 1;
-
-			entity = this.getEntity('label');
-			entity.position.x = x1 + 32 + step_w + entity.width / 2;
-			entity.position.y = y1 + 32;
-
-			entity = this.getEntity('action');
-			entity.position.x = x2 - 16 - entity.width / 2;
-			entity.position.y = y2 - 32;
-
-		}, this);
+		this.bind('relayout', _on_relayout, this);
 
 
 		this.setLabel(settings.label);
@@ -112,9 +161,6 @@ lychee.define('lychee.ui.Element').requires([
 		delete settings.action;
 
 		settings = null;
-
-
-		this.trigger('reshape', [ null, null, null, null ]);
 
 	};
 
@@ -197,6 +243,67 @@ lychee.define('lychee.ui.Element').requires([
 		/*
 		 * CUSTOM API
 		 */
+
+		addEntity: function(entity) {
+
+			var result = lychee.ui.Layer.prototype.addEntity.call(this, entity);
+			if (result === true) {
+				this.__content.push(entity);
+				this.__content.push(null);
+			}
+
+			return result;
+
+		},
+
+		setEntity: function(id, entity) {
+
+			var result = lychee.ui.Layer.prototype.setEntity.call(this, id, entity);
+			if (result === true) {
+
+				var label = new lychee.ui.Label({
+					label: id
+				});
+
+
+				this.entities.push(label);
+
+
+				var index = this.__content.length - 1;
+				if (this.__content[index] === null) {
+					this.__content[index] = label;
+				}
+
+			}
+
+			return result;
+
+		},
+
+		removeEntity: function(entity) {
+
+			var result = lychee.ui.Layer.prototype.removeEntity.call(this, entity);
+			if (result === true) {
+
+				var index = this.__content.indexOf(entity);
+				if (index !== -1) {
+
+					var label = this.__content[index + 1];
+					var tmp   = this.entities.indexOf(label);
+					if (tmp !== -1) {
+						this.entities.splice(tmp, 1);
+					}
+
+
+					this.__content.splice(index, 2);
+
+				}
+
+			}
+
+			return result;
+
+		},
 
 		setAction: function(action) {
 
