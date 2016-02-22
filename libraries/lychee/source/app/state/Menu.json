@@ -67,46 +67,11 @@
 					}],
 					"blob": {
 						"entities": [{
-							"constructor": "lychee.ui.Label",
+							"constructor": "lychee.ui.element.Network",
 							"arguments": [{
-								"label": "Settings",
 								"position": {
 									"x": 0,
-									"y": -256
-								}
-							}]
-						}, {
-							"constructor": "lychee.ui.Label",
-							"arguments": [{
-								"label": "Debug",
-								"position": {
-									"x": -128,
-									"y": -192
-								}
-							}]
-						}, {
-							"constructor": "lychee.ui.Switch",
-							"arguments": [{
-								"position": {
-									"x":  128,
-									"y": -192
-								}
-							}]
-						}, {
-							"constructor": "lychee.ui.Label",
-							"arguments": [{
-								"label": "Fullscreen",
-								"position": {
-									"x": -128,
-									"y": -144
-								}
-							}]
-						}, {
-							"constructor": "lychee.ui.Switch",
-							"arguments": [{
-								"position": {
-									"x":  128,
-									"y": -144
+									"y": 0
 								}
 							}]
 						}]

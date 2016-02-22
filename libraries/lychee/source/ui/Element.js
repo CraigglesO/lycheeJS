@@ -47,34 +47,46 @@ lychee.define('lychee.ui.Element').requires([
 				label    = content[c + 1] || null;
 				boundary = 0;
 
-				if (label !== null) {
 
-					label.width       =  1/2 * (this.width - 32);
-					label.position.x  = -1/4 * (this.width - 32);
-					label.position.y  =   y1 + offset + label.height / 2;
+				if (entity.visible === true) {
 
-					entity.width      =  1/2 * (this.width - 32);
-					entity.position.x =  1/4 * (this.width - 32);
-					entity.position.y =   y1 + offset + entity.height / 2;
-					entity.trigger('relayout', []);
+					if (label !== null) {
 
-					boundary = Math.max(label.height, entity.height);
-					label.position.y  = y1 + offset + boundary / 2;
-					entity.position.y = y1 + offset + boundary / 2;
+						label.width       =  1/2 * (this.width - 32);
+						label.position.x  = -1/4 * (this.width - 32);
+						label.position.y  =   y1 + offset + label.height / 2;
+						label.visible     = true;
 
-					offset += boundary + 16;
+						entity.width      =  1/2 * (this.width - 32);
+						entity.position.x =  1/4 * (this.width - 32);
+						entity.position.y =   y1 + offset + entity.height / 2;
+						entity.trigger('relayout', []);
+
+						boundary = Math.max(label.height, entity.height);
+						label.position.y  = y1 + offset + boundary / 2;
+						entity.position.y = y1 + offset + boundary / 2;
+
+						offset += boundary + 16;
+
+					} else {
+
+						entity.width      = this.width - 32;
+						entity.position.x = 0;
+						entity.position.y = y1 + offset + entity.height / 2;
+						entity.trigger('relayout', []);
+
+						boundary = entity.height;
+						entity.position.y = y1 + offset + boundary / 2;
+
+						offset += boundary + 16;
+
+					}
 
 				} else {
 
-					entity.width      = this.width - 32;
-					entity.position.x = 0;
-					entity.position.y = y1 + offset + entity.height / 2;
-					entity.trigger('relayout', []);
-
-					boundary = entity.height;
-					entity.position.y = y1 + offset + boundary / 2;
-
-					offset += boundary + 16;
+					if (label !== null) {
+						label.visible = false;
+					}
 
 				}
 
@@ -262,7 +274,7 @@ lychee.define('lychee.ui.Element').requires([
 			if (result === true) {
 
 				var label = new lychee.ui.Label({
-					label: id
+					label: id.charAt(0).toUpperCase() + id.substr(1)
 				});
 
 

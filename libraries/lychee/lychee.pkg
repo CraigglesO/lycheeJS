@@ -527,7 +527,12 @@
 				"Textarea": [
 					"fnt",
 					"js"
-				]
+				],
+				"element": {
+					"Network": [
+						"js"
+					]
+				}
 			},
 			"verlet": {
 				"AngleConstraint": [

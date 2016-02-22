@@ -9,7 +9,8 @@ lychee.define('lychee.app.state.Menu').requires([
 	'lychee.ui.Layer',
 	'lychee.ui.Switch',
 	'lychee.ui.Text',
-	'lychee.ui.Menu'
+	'lychee.ui.Menu',
+	'lychee.ui.element.Network'
 ]).includes([
 	'lychee.app.State'
 ]).exports(function(lychee, global, attachments) {
