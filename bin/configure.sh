@@ -160,6 +160,13 @@ else
 				echo "> Integrating CLI Applications";
 
 
+				# Well, fuck you, Apple.
+				if [ ! -f /usr/local/bin/png2icns ]; then
+					cp "$LYCHEEJS_ROOT/bin/helper/osx/png2icns.sh" /usr/local/bin/png2icns;
+					chmod +x /usr/local/bin/png2icns;
+				fi;
+
+
 				rm /usr/local/bin/lycheejs-breeder 2> /dev/null;
 				rm /usr/local/bin/lycheejs-editor 2> /dev/null;
 				rm /usr/local/bin/lycheejs-fertilizer 2> /dev/null;
