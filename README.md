@@ -63,7 +63,7 @@ starting the `lycheejs-harvester`.
 
 ## Install lycheeJS
 
-**Easy Way: Bundle Installation**
+**1) Easy Way: Bundle Installation**
 
 There are prebuilt bundles that ship all dependencies and
 runtimes lycheeJS needs in order to work and cross-compile
@@ -73,7 +73,7 @@ machine and not on the target platform.
 Visit [lycheejs.org](http://lycheejs.org) for a list of available bundles.
 
 
-**UNIX Way: Net Installation**
+**2) UNIX Way: Net Installation**
 
 The netinstall shell script allows to automatically install
 lycheeJS on any UNIX-compatible machine (arm or amd64).
@@ -94,7 +94,7 @@ The above commands will look similar to this if everything went fine.
 ![Install lycheeJS](./guides/asset/readme-netinstall.gif)
 
 
-**Awesome Way: Git Installation**
+**3) Awesome Way: Git Installation**
 
 We love your contributions of any kind. Please consider reading
 the [Contribution Guide](./guides/CONTRIBUTION.md) to get
