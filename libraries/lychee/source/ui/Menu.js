@@ -172,10 +172,7 @@ lychee.define('lychee.ui.Menu').requires([
 			if (this.state !== 'default') settings.state = this.state;
 			if (this.value !== 'Welcome') settings.value = this.value;
 
-			var tmp = this.options.join(',');
-			if (tmp !== 'Welcome,Settings,About') {
-				settings.options = this.options.slice(0, this.options.length);
-			}
+			if (this.options.join(',') !== 'Welcome,Settings,About') settings.options = this.options.slice(0, this.options.length);
 
 
 			if (this.font !== null) blob.font = lychee.serialize(this.font);

@@ -57,13 +57,13 @@ lychee.define('lychee.ui.element.Network').requires([
 			if (typeof client === 'string') {
 
 				this.getEntity('API').setValue(client);
-				this.getEntity('connection').setValue('dynamic');
+				this.getEntity('mode').setValue('dynamic');
 
 			} else if (client instanceof Object) {
 
 				this.getEntity('host').setValue(client.host);
 				this.getEntity('port').setValue(client.port);
-				this.getEntity('connection').setValue('static');
+				this.getEntity('mode').setValue('static');
 
 			}
 
@@ -71,13 +71,13 @@ lychee.define('lychee.ui.element.Network').requires([
 			if (typeof server === 'string') {
 
 				this.getEntity('API').setValue(server);
-				this.getEntity('connection').setValue('dynamic');
+				this.getEntity('mode').setValue('dynamic');
 
 			} else if (server instanceof Object) {
 
 				this.getEntity('host').setValue(server.host);
 				this.getEntity('port').setValue(server.port);
-				this.getEntity('connection').setValue('static');
+				this.getEntity('mode').setValue('static');
 
 			}
 
@@ -94,8 +94,8 @@ lychee.define('lychee.ui.element.Network').requires([
 			var server = main.server || null;
 
 
-			var connection = this.getEntity('connection').value;
-			if (connection === 'dynamic') {
+			var mode = this.getEntity('mode').value;
+			if (mode === 'dynamic') {
 
 				if (client !== null) {
 
@@ -124,7 +124,7 @@ lychee.define('lychee.ui.element.Network').requires([
 
 				}
 
-			} else if (connection === 'static') {
+			} else if (mode === 'static') {
 
 
 				if (client !== null) {
@@ -163,8 +163,8 @@ lychee.define('lychee.ui.element.Network').requires([
 		var settings = lychee.extend({}, data);
 
 
-		settings.label  = 'Network';
-		settings.action = 'Save';
+		settings.label   = 'Network';
+		settings.options = [ 'Save' ];
 
 
 		lychee.ui.Element.call(this, settings);
@@ -175,7 +175,7 @@ lychee.define('lychee.ui.element.Network').requires([
 		 * INITIALIZATION
 		 */
 
-		this.setEntity('connection', new lychee.ui.Select({
+		this.setEntity('mode', new lychee.ui.Select({
 			options: [ 'dynamic', 'static' ],
 			value:   [ 'dynamic' ]
 		}));
@@ -199,7 +199,7 @@ lychee.define('lychee.ui.element.Network').requires([
 			value: '/api/Server?identifier=boilerplate'
 		}));
 
-		this.getEntity('connection').bind('change', function(value) {
+		this.getEntity('mode').bind('change', function(value) {
 
 			if (value === 'dynamic') {
 

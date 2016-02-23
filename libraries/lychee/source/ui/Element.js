@@ -24,9 +24,10 @@ lychee.define('lychee.ui.Element').requires([
 		var entity  = null;
 		var label   = null;
 		var layout  = [
-			this.getEntity('step'),
-			this.getEntity('label'),
-			this.getEntity('action')
+			this.getEntity('@step'),
+			this.getEntity('@label'),
+			this.getEntity('@options-next'),
+			this.getEntity('@options-prev')
 		];
 
 
@@ -52,8 +53,7 @@ lychee.define('lychee.ui.Element').requires([
 
 					if (label !== null) {
 
-						label.width       =  1/2 * (this.width - 32);
-						label.position.x  = -1/4 * (this.width - 32);
+						label.position.x  =   x1 + 16 + label.width / 2;
 						label.position.y  =   y1 + offset + label.height / 2;
 						label.visible     = true;
 
@@ -66,7 +66,7 @@ lychee.define('lychee.ui.Element').requires([
 						label.position.y  = y1 + offset + boundary / 2;
 						entity.position.y = y1 + offset + boundary / 2;
 
-						offset += boundary + 16;
+						offset += boundary + 32;
 
 					} else {
 
@@ -78,7 +78,7 @@ lychee.define('lychee.ui.Element').requires([
 						boundary = entity.height;
 						entity.position.y = y1 + offset + boundary / 2;
 
-						offset += boundary + 16;
+						offset += boundary + 32;
 
 					}
 
@@ -107,7 +107,13 @@ lychee.define('lychee.ui.Element').requires([
 		entity.position.y = y1 + 32;
 
 		entity = layout[2];
+		entity.width      = 96;
 		entity.position.x = x2 - 16 - entity.width / 2;
+		entity.position.y = y2 - 32;
+
+		entity = layout[3];
+		entity.width      = 96;
+		entity.position.x = x1 + 16 + entity.width / 2;
 		entity.position.y = y2 - 32;
 
 	};
@@ -124,7 +130,8 @@ lychee.define('lychee.ui.Element').requires([
 
 
 		this.label     = 'CONTENT';
-		this.action    = 'Next';
+		this.options   = [ 'Okay', 'Cancel' ];
+		this.step      = '1';
 
 		this.__content = [];
 
@@ -142,35 +149,41 @@ lychee.define('lychee.ui.Element').requires([
 		 * INITIALIZATION
 		 */
 
-		lychee.ui.Layer.prototype.setEntity.call(this, 'step', new lychee.ui.Label({
-			label: '1',
+		lychee.ui.Layer.prototype.setEntity.call(this, '@step', new lychee.ui.Label({
+			label: this.step,
 			font:  _fonts.step
 		}));
 
-		lychee.ui.Layer.prototype.setEntity.call(this, 'label', new lychee.ui.Label({
+		lychee.ui.Layer.prototype.setEntity.call(this, '@label', new lychee.ui.Label({
 			label: this.label,
 			font:  _fonts.label
 		}));
 
-		lychee.ui.Layer.prototype.setEntity.call(this, 'action', new lychee.ui.Button({
-			label: this.action
+		lychee.ui.Layer.prototype.setEntity.call(this, '@options-next', new lychee.ui.Button({
+			label: this.options[0]
 		}));
 
-		this.getEntity('action').bind('touch', function(id, position, delta) {
-			this.trigger('change', [ this.action.toLowerCase() ]);
-		}, this);
+		lychee.ui.Layer.prototype.setEntity.call(this, '@options-prev', new lychee.ui.Button({
+			label: this.options[1]
+		}));
 
 
 		this.__content = [];
-
 		this.bind('relayout', _on_relayout, this);
 
 
-		this.setLabel(settings.label);
-		this.setAction(settings.action);
+		this.getEntity('@options-next').bind('#touch', function(entity, id, position, delta) {
+			this.trigger('change', [ entity.label.toLowerCase() ]);
+		}, this);
 
-		delete settings.label;
-		delete settings.action;
+		this.getEntity('@options-prev').bind('#touch', function(entity, id, position, delta) {
+			this.trigger('change', [ entity.label.toLowerCase() ]);
+		}, this);
+
+
+		this.setLabel(settings.label);
+		this.setOptions(settings.options);
+		this.setStep(settings.step);
 
 		settings = null;
 
@@ -194,8 +207,9 @@ lychee.define('lychee.ui.Element').requires([
 			var blob     = (data['blob'] || {});
 
 
-			if (this.label !== 'MENU')  settings.label  = this.label;
-			if (this.action !== 'Next') settings.action = this.action;
+			if (this.label !== 'CONTENT')                 settings.label   = this.label;
+			if (this.options.join(',') !== 'Okay,Cancel') settings.options = this.options.slice(0, this.options.length);
+			if (this.step !== '1')                        settings.step    = this.step;
 
 
 			data['blob'] = Object.keys(blob).length > 0 ? blob : null;
@@ -317,15 +331,15 @@ lychee.define('lychee.ui.Element').requires([
 
 		},
 
-		setAction: function(action) {
+		setLabel: function(label) {
 
-			action = typeof action === 'string' ? action : null;
+			label = typeof label === 'string' ? label : null;
 
 
-			if (action !== null) {
+			if (label !== null) {
 
-				this.getEntity('action').setLabel(action);
-				this.action = action;
+				this.getEntity('@label').setLabel(label);
+				this.label = label;
 
 
 				return true;
@@ -337,15 +351,63 @@ lychee.define('lychee.ui.Element').requires([
 
 		},
 
-		setLabel: function(label) {
+		setOptions: function(options) {
 
-			label = typeof label === 'string' ? label : null;
+			options = options instanceof Array ? options : null;
 
 
-			if (label !== null) {
+			if (options !== null) {
 
-				this.getEntity('label').setLabel(label);
-				this.label = label;
+				this.options = options.map(function(val) {
+					return '' + val;
+				});
+
+
+				var next = this.getEntity('@options-next');
+				var prev = this.getEntity('@options-prev');
+
+				if (this.options.length === 0) {
+
+					next.visible = false;
+					prev.visible = false;
+
+				} else if (this.options.length === 1) {
+
+					next.visible = true;
+					next.setLabel(this.options[0]);
+
+					prev.visible = false;
+
+				} else if (this.options.length === 2) {
+
+					next.visible = true;
+					next.setLabel(this.options[0]);
+
+					prev.visible = true;
+					prev.setLabel(this.options[1]);
+
+
+				}
+
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
+		setStep: function(step) {
+
+			step = typeof step === 'string' ? step : null;
+
+
+			if (step !== null) {
+
+				this.getEntity('@step').setLabel(step);
+				this.step = step;
 
 
 				return true;
