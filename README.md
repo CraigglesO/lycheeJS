@@ -61,31 +61,40 @@ script in the `./bin/runtime` folder and execute it once before
 starting the `lycheejs-harvester`.
 
 
-## Bundle Installation
+## Install lycheeJS
+
+**Easy Way: Bundle Installation**
 
 There are prebuilt bundles that ship all dependencies and
 runtimes lycheeJS needs in order to work and cross-compile
 properly. These bundles should be installed on the developer's
-machine and not on the target platform. Visit [lycheejs.org](http://lycheejs.org)
-for a list of available bundles.
+machine and not on the target platform.
+
+Visit [lycheejs.org](http://lycheejs.org) for a list of available bundles.
 
 
-## Manual Installation
+**UNIX Way: Net Installation**
 
 The netinstall shell script allows to automatically install
 lycheeJS on any UNIX-compatible machine (arm or amd64).
-The only requirement for the script itself is `curl` and `unzip`.
+
+Note that the lycheeJS toolchain has some dependencies, but those
+are installed among typical GNU systems. We don't need any compiler
+here as we ship our own runtimes as binaries.
 
 ```bash
 sudo mkdir -m 0777 /opt/lycheejs;
 cd /opt;
 
-# Install lycheeJS into ./lycheejs
 wget -q -O - http://lycheejs.org/download/lycheejs-2015-Q4-netinstall.sh | bash;
 ```
 
+The above commands will look similar to this if everything went fine.
 
-## Contributor Installation
+![Install lycheeJS](./guides/asset/readme-netinstall.gif)
+
+
+**Awesome Way: Git Installation**
 
 We love your contributions of any kind. Please consider reading
 the [Contribution Guide](./guides/CONTRIBUTION.md) to get
@@ -95,30 +104,32 @@ you started in a couple minutes.
 sudo mkdir -m 0777 /opt/lycheejs-edge;
 cd /opt/lycheejs-edge;
 
-# Install lycheeJS
 git clone https://github.com/Artificial-Engineering/lycheeJS.git ./;
 git checkout development;
 git clone https://github.com/Artificial-Engineering/lycheeJS-runtime.git ./bin/runtime;
 ```
 
 
-## Start lycheeJS
+## Bootup lycheeJS
 
 After you've installed lycheeJS, you can directly start the `lycheejs-harvester`.
 
-If you want OS-wide system integration of the `lycheejs-` tools, you have to execute
-the `./bin/configure.sh` script as `root` initially. If you don't want OS-wide system
-integration, you can use the `--no-integration` flag.
+The `./bin/configure.sh` script has to be executed initially one time as `root` in
+order to compile down all the lycheeJS core libraries.
 
-![lycheeJS Bootup](./guides/asset/readme-start.gif)
+If you want a sandboxed installation without the awesome system-wide integration of
+the `lycheejs-` tools, you can use the `--no-integration` flag.
 
 ```bash
-cd /opt/lycheejs-edge;
+cd /opt/lycheejs;
 
-# Start lycheeJS
 sudo ./bin/configure.sh;              # --no-integration if you want a sandboxed installation
 lycheejs-harvester start development; # --no-integration if you want a sandboxed harvester
 ```
+
+The above commands will look similar to this if everything went fine.
+
+![Bootup lycheeJS](./guides/asset/readme-bootup.gif)
 
 
 ## Guides
@@ -130,7 +141,6 @@ Please let us know if we can improve anything in these documents [by opening an 
 - [Contribution Guide](./guides/CONTRIBUTION.md)
 - [Codestyle Guide](./guides/CODESTYLE.md)
 - [Release Guide](./guides/RELEASE.md)
-
 
 
 ## License
