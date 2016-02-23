@@ -10,6 +10,41 @@ lychee.define('lychee.ui.element.Network').requires([
 	 * HELPERS
 	 */
 
+	var _api_origin = '';
+
+	(function(location) {
+
+		var origin = location.origin || '';
+		var proto  = origin.split(':')[0];
+
+		if (proto.match(/app|file/g)) {
+
+			_api_origin = 'http://harvester.lycheejs.org:8080';
+
+		} else if (proto.match(/http|https/g)) {
+
+			_api_origin = location.origin;
+
+		}
+
+	})(global.location || {});
+
+
+	var _load_api = function(url, callback, scope) {
+
+		url = typeof url === 'string' ? url : '/api/Server?identifier=boilerplate';
+
+
+		var config = new Config(_api_origin + url);
+
+		config.onload = function(result) {
+			callback.call(scope, result === true ? this.buffer : null);
+		};
+
+		config.load();
+
+	};
+
 	var _read = function() {
 
 		var main = global.MAIN || null;
@@ -63,11 +98,30 @@ lychee.define('lychee.ui.element.Network').requires([
 			if (connection === 'dynamic') {
 
 				if (client !== null) {
-// TODO: Dynamic configuration
+
+					_load_api(this.getEntity('API').value, function(settings) {
+
+						client.disconnect();
+						client.setHost(settings.host);
+						client.setPort(settings.port);
+						client.connect();
+
+					}, this);
+
 				}
 
+
 				if (server !== null) {
-// TODO: Dynamic configuration
+
+					_load_api(this.getEntity('API').value, function(settings) {
+
+						server.disconnect();
+						server.setHost(settings.host);
+						server.setPort(settings.port);
+						server.connect();
+
+					}, this);
+
 				}
 
 			} else if (connection === 'static') {
@@ -79,6 +133,16 @@ lychee.define('lychee.ui.element.Network').requires([
 					client.setHost(this.getEntity('host').value);
 					client.setPort(this.getEntity('port').value);
 					client.connect();
+
+				}
+
+
+				if (server !== null) {
+
+					server.disconnect();
+					server.setHost(this.getEntity('host').value);
+					server.setPort(this.getEntity('port').value);
+					server.connect();
 
 				}
 
