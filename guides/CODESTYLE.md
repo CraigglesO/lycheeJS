@@ -19,7 +19,6 @@
 4. [Entity Layout](#entity-layout)
   - [Naming of Attachments](#naming-attachments)
   - [Naming of Events](#naming-events)
-  - [Naming of Methods](#naming-methods)
 
 
 ## Project Layout
@@ -871,15 +870,11 @@ All attachments are mapped with their extension to the original Definition name.
 ### Naming (Events)
 
 Events are named accordingly to the `Scene Graph` or `Timeline Graph` integration.
+Those events are `triggered` from either a `lychee.app.State` instance or any of the platform adapters (for example `lychee.Input`, `lychee.Viewport` or `lychee.net.Client`).
 
 - All `ui` Entities have an optional `touch` event.
-- All `ui` Entities have a `default` and `active` state.
 - All `ui` Entities have a `focus` event (`default` to `active` state) and a `blur` event (`active` to `default` state).
 - All `ui` Entities have a `change` event if a user action can change their behaviour.
 - All `ui` Entities have to have a `touch` event if they can receive `swipe` events.
 - All `ui` Entities that can be focussed can then receive a `key` or `keymodifier` event.
-
-
-### Naming (Methods)
-
 
