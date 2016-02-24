@@ -139,7 +139,7 @@ lychee.define('lychee.ui.Select').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Entity.prototype.serialize.call(this);
-			data['constructor'] = 'lyche.ui.Select';
+			data['constructor'] = 'lychee.ui.Select';
 
 			var settings = data['arguments'][0];
 			var blob     = (data['blob'] || {});

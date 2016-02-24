@@ -85,7 +85,7 @@ lychee.define('lychee.ui.element.Network').requires([
 
 	};
 
-	var _write = function() {
+	var _save = function() {
 
 		var main = global.MAIN || null;
 		if (main !== null) {
@@ -177,7 +177,7 @@ lychee.define('lychee.ui.element.Network').requires([
 
 		this.setEntity('mode', new lychee.ui.Select({
 			options: [ 'dynamic', 'static' ],
-			value:   [ 'dynamic' ]
+			value:   'dynamic'
 		}));
 
 		this.setEntity('host', new lychee.ui.Input({
@@ -223,7 +223,7 @@ lychee.define('lychee.ui.element.Network').requires([
 		this.bind('change', function(action) {
 
 			if (action === 'save') {
-				_write.call(this);
+				_save.call(this);
 			}
 
 		}, this);
