@@ -83,7 +83,7 @@ are installed among typical GNU systems. We don't need any compiler
 here as we ship our own runtimes as binaries.
 
 ```bash
-wget -q -O - http://lycheejs.org/download/lycheejs-2015-Q4-netinstall.sh | sudo bash;
+sudo bash -c "$(wget -q -O - http://lycheejs.org/download/lycheejs-2015-Q4-netinstall.sh)";
 ```
 
 The above commands will look similar to this if everything went fine.
