@@ -66,7 +66,7 @@ lychee.define('lychee.ui.Element').requires([
 						label.position.y  = y1 + offset + boundary / 2;
 						entity.position.y = y1 + offset + boundary / 2;
 
-						offset += boundary + 32;
+						offset += boundary + 16;
 
 					} else {
 
@@ -78,7 +78,7 @@ lychee.define('lychee.ui.Element').requires([
 						boundary = entity.height;
 						entity.position.y = y1 + offset + boundary / 2;
 
-						offset += boundary + 32;
+						offset += boundary + 16;
 
 					}
 

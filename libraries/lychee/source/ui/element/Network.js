@@ -1,7 +1,7 @@
 
 lychee.define('lychee.ui.element.Network').requires([
-	'lychee.ui.Label',
-	'lychee.ui.Input'
+	'lychee.ui.Input',
+	'lychee.ui.Select'
 ]).includes([
 	'lychee.ui.Element'
 ]).exports(function(lychee, global, attachments) {

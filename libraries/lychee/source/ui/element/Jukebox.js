@@ -1,7 +1,6 @@
 
 lychee.define('lychee.ui.element.Jukebox').requires([
 	'lychee.app.Jukebox',
-	'lychee.ui.Label',
 	'lychee.ui.Slider',
 	'lychee.ui.Switch'
 ]).includes([
@@ -90,10 +89,10 @@ lychee.define('lychee.ui.element.Jukebox').requires([
 		}));
 
 		this.setEntity('channels', new lychee.ui.Slider({
+			type:  lychee.ui.Slider.TYPE.horizontal,
 			min:   0,
 			max:   16,
 			step:  1,
-			type:  lychee.ui.Slider.TYPE.horizontal,
 			value: 8
 		}));
 
