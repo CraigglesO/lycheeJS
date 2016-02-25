@@ -68,12 +68,22 @@
 					"blob": {
 						"entities": [{
 							"constructor": "lychee.ui.element.Network",
-							"arguments": [{
-								"position": {
-									"x": 0,
-									"y": 0
-								}
-							}]
+							"arguments": [{}]
+						}, {
+							"constructor": "lychee.ui.element.Input",
+							"arguments": [{}]
+						}, {
+							"constructor": "lychee.ui.element.Jukebox",
+							"arguments": [{}]
+						}, {
+							"constructor": "lychee.ui.element.Stash",
+							"arguments": [{}]
+						}, {
+							"constructor": "lychee.ui.element.Storage",
+							"arguments": [{}]
+						}, {
+							"constructor": "lychee.ui.element.Viewport",
+							"arguments": [{}]
 						}]
 					}
 				}, {

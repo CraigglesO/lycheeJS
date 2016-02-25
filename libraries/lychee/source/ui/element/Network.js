@@ -181,17 +181,19 @@ lychee.define('lychee.ui.element.Network').requires([
 		}));
 
 		this.setEntity('host', new lychee.ui.Input({
-			type:  lychee.ui.Input.TYPE.text,
-			min:   1,
-			max:   1024,
-			value: 'localhost'
+			type:    lychee.ui.Input.TYPE.text,
+			min:     1,
+			max:     1024,
+			value:   'localhost',
+			visible: false
 		}));
 
 		this.setEntity('port', new lychee.ui.Input({
-			type:  lychee.ui.Input.TYPE.number,
-			min:   1024,
-			max:   65534,
-			value: 1337
+			type:    lychee.ui.Input.TYPE.number,
+			min:     1024,
+			max:     65534,
+			value:   1337,
+			visible: false
 		}));
 
 		this.setEntity('API', new lychee.ui.Input({
@@ -227,10 +229,6 @@ lychee.define('lychee.ui.element.Network').requires([
 			}
 
 		}, this);
-
-
-		this.getEntity('host').visible = false;
-		this.getEntity('port').visible = false;
 
 
 		_read.call(this);

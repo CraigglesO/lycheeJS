@@ -11,7 +11,7 @@ lychee.define('lychee.ui.Slider').includes([
 	 * HELPERS
 	 */
 
-	var _refresh = function() {
+	var _on_relayout = function() {
 
 		var val  = this.value;
 		var map  = this.__cursor.map;
@@ -110,6 +110,8 @@ lychee.define('lychee.ui.Slider').includes([
 		/*
 		 * INITIALIZATION
 		 */
+
+		this.bind('relayout', _on_relayout, this);
 
 		this.bind('touch', function(id, position, delta) {
 
@@ -500,7 +502,7 @@ lychee.define('lychee.ui.Slider').includes([
 			if (max !== null) {
 
 				this.max = max;
-				_refresh.call(this);
+				_on_relayout.call(this);
 
 				return true;
 
@@ -519,7 +521,7 @@ lychee.define('lychee.ui.Slider').includes([
 			if (min !== null) {
 
 				this.min = min;
-				_refresh.call(this);
+				_on_relayout.call(this);
 
 				return true;
 
@@ -538,7 +540,7 @@ lychee.define('lychee.ui.Slider').includes([
 			if (step !== null) {
 
 				this.step = step;
-				_refresh.call(this);
+				_on_relayout.call(this);
 
 				return true;
 
@@ -611,7 +613,7 @@ lychee.define('lychee.ui.Slider').includes([
 				if (value >= this.min && value <= this.max) {
 
 					this.value = value;
-					_refresh.call(this);
+					_on_relayout.call(this);
 
 					return true;
 

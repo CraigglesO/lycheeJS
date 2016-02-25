@@ -10,7 +10,12 @@ lychee.define('lychee.app.state.Menu').requires([
 	'lychee.ui.Switch',
 	'lychee.ui.Text',
 	'lychee.ui.Menu',
-	'lychee.ui.element.Network'
+//	'lychee.ui.element.Input',
+	'lychee.ui.element.Jukebox',
+	'lychee.ui.element.Network',
+	'lychee.ui.element.Stash',
+	'lychee.ui.element.Storage',
+	'lychee.ui.element.Viewport'
 ]).includes([
 	'lychee.app.State'
 ]).exports(function(lychee, global, attachments) {

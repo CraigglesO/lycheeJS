@@ -1,6 +1,6 @@
 
-lychee.define('lychee.ui.element.Stash').requires([
-	'lychee.Stash',
+lychee.define('lychee.ui.element.Storage').requires([
+	'lychee.Storage',
 	'lychee.ui.Input',
 	'lychee.ui.Select'
 ]).includes([
@@ -16,10 +16,10 @@ lychee.define('lychee.ui.element.Stash').requires([
 		var main = global.MAIN || null;
 		if (main !== null) {
 
-			var stash = main.stash || null;
-			if (stash !== null) {
+			var storage = main.storage || null;
+			if (storage !== null) {
 
-				var data = lychee.serialize(stash);
+				var data = lychee.serialize(storage);
 				if (data !== null) {
 
 					var blob = data.blob || null;
@@ -27,7 +27,7 @@ lychee.define('lychee.ui.element.Stash').requires([
 						delete data.blob;
 					}
 
-					main.stash = lychee.deserialize(data);
+					main.storage = lychee.deserialize(data);
 
 				}
 
@@ -42,18 +42,18 @@ lychee.define('lychee.ui.element.Stash').requires([
 		var main = global.MAIN || null;
 		if (main !== null) {
 
-			var stash = main.stash || null;
-			if (stash !== null) {
+			var storage = main.storage || null;
+			if (storage !== null) {
 
-				var id   = stash.id;
-				var type = stash.type;
+				var id   = storage.id;
+				var type = storage.type;
 
 
 				this.getEntity('id').setValue(id);
 
-				if (type === lychee.Stash.TYPE.persistent) {
+				if (type === lychee.Storage.TYPE.persistent) {
 					this.getEntity('mode').setValue('persistent');
-				} else if (type === lychee.Stash.TYPE.temporary) {
+				} else if (type === lychee.Storage.TYPE.temporary) {
 					this.getEntity('mode').setValue('temporary');
 				}
 
@@ -68,19 +68,19 @@ lychee.define('lychee.ui.element.Stash').requires([
 		var main = global.MAIN || null;
 		if (main !== null) {
 
-			var stash = main.stash || null;
-			if (stash !== null) {
+			var storage = main.storage || null;
+			if (storage !== null) {
 
 				var id   = this.getEntity('id').value;
 				var mode = this.getEntity('mode').value;
 
 
-				stash.setId(id);
+				storage.setId(id);
 
 				if (mode === 'persistent') {
-					stash.setType(lychee.Stash.TYPE.persistent);
+					storage.setType(lychee.Storage.TYPE.persistent);
 				} else if (mode === 'temporary') {
-					stash.setType(lychee.Stash.TYPE.temporary);
+					storage.setType(lychee.Storage.TYPE.temporary);
 				}
 
 			}
@@ -100,7 +100,7 @@ lychee.define('lychee.ui.element.Stash').requires([
 		var settings = lychee.extend({}, data);
 
 
-		settings.label   = 'Stash';
+		settings.label   = 'Storage';
 		settings.options = [ 'Save', 'Clear' ];
 
 

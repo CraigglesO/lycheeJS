@@ -9,7 +9,7 @@ lychee.define('lychee.ui.Element').requires([
 
 	var _fonts = {
 		label: attachments["label.fnt"],
-		step:  attachments["step.fnt"]
+		order: attachments["order.fnt"]
 	};
 
 
@@ -24,7 +24,7 @@ lychee.define('lychee.ui.Element').requires([
 		var entity  = null;
 		var label   = null;
 		var layout  = [
-			this.getEntity('@step'),
+			this.getEntity('@order'),
 			this.getEntity('@label'),
 			this.getEntity('@options-next'),
 			this.getEntity('@options-prev')
@@ -95,15 +95,15 @@ lychee.define('lychee.ui.Element').requires([
 		}
 
 
-		var step_width = 0;
+		var order_width = 0;
 
-		entity = layout[0];
-		step_w = entity.width;
-		entity.position.x = x1 + 16 + step_width / 2;
+		entity      = layout[0];
+		order_width = entity.width;
+		entity.position.x = x1 + 16 + order_width / 2;
 		entity.position.y = y1 + 32 - 1;
 
 		entity = layout[1];
-		entity.position.x = x1 + 32 + step_width + entity.width / 2;
+		entity.position.x = x1 + 32 + order_width + entity.width / 2;
 		entity.position.y = y1 + 32;
 
 		entity = layout[2];
@@ -131,13 +131,13 @@ lychee.define('lychee.ui.Element').requires([
 
 		this.label     = 'CONTENT';
 		this.options   = [ 'Okay', 'Cancel' ];
-		this.step      = '1';
+		this.order     = 1;
 
 		this.__content = [];
 
 
-		settings.width    = 256;
-		settings.height   = 386;
+		settings.width    = typeof settings.width === 'number'  ? settings.width  : 256;
+		settings.height   = typeof settings.height === 'number' ? settings.height : 384;
 		settings.relayout = false;
 
 
@@ -149,9 +149,9 @@ lychee.define('lychee.ui.Element').requires([
 		 * INITIALIZATION
 		 */
 
-		lychee.ui.Layer.prototype.setEntity.call(this, '@step', new lychee.ui.Label({
-			label: this.step,
-			font:  _fonts.step
+		lychee.ui.Layer.prototype.setEntity.call(this, '@order', new lychee.ui.Label({
+			label: '' + this.order,
+			font:  _fonts.order
 		}));
 
 		lychee.ui.Layer.prototype.setEntity.call(this, '@label', new lychee.ui.Label({
@@ -183,7 +183,7 @@ lychee.define('lychee.ui.Element').requires([
 
 		this.setLabel(settings.label);
 		this.setOptions(settings.options);
-		this.setStep(settings.step);
+		this.setOrder(settings.order);
 
 		settings = null;
 
@@ -209,7 +209,7 @@ lychee.define('lychee.ui.Element').requires([
 
 			if (this.label !== 'CONTENT')                 settings.label   = this.label;
 			if (this.options.join(',') !== 'Okay,Cancel') settings.options = this.options.slice(0, this.options.length);
-			if (this.step !== '1')                        settings.step    = this.step;
+			if (this.order !== 1)                         settings.order   = this.order;
 
 
 			data['blob'] = Object.keys(blob).length > 0 ? blob : null;
@@ -399,15 +399,15 @@ lychee.define('lychee.ui.Element').requires([
 
 		},
 
-		setStep: function(step) {
+		setOrder: function(order) {
 
-			step = typeof step === 'string' ? step : null;
+			order = typeof order === 'number' ? (order | 0) : null;
 
 
-			if (step !== null) {
+			if (order !== null) {
 
-				this.getEntity('@step').setLabel(step);
-				this.step = step;
+				this.getEntity('@order').setLabel('' + order);
+				this.order = order;
 
 
 				return true;

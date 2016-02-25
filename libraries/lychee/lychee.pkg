@@ -478,7 +478,7 @@
 				"Element": [
 					"js",
 					"label.fnt",
-					"step.fnt"
+					"order.fnt"
 				],
 				"Emblem": [
 					"js",
@@ -529,7 +529,19 @@
 					"js"
 				],
 				"element": {
+					"Jukebox": [
+						"js"
+					],
 					"Network": [
+						"js"
+					],
+					"Stash": [
+						"js"
+					],
+					"Storage": [
+						"js"
+					],
+					"Viewport": [
 						"js"
 					]
 				}
