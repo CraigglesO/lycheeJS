@@ -1,7 +1,8 @@
 
 lychee.define('lychee.app.state.Menu').requires([
 	'lychee.effect.Alpha',
-	'lychee.effect.Color',
+	'lychee.effect.Position',
+	'lychee.effect.Visible',
 	'lychee.ui.Background',
 	'lychee.ui.Blueprint',
 	'lychee.ui.Element',
@@ -28,6 +29,61 @@ lychee.define('lychee.app.state.Menu').requires([
 	/*
 	 * HELPERS
 	 */
+
+	var _on_change = function(active) {
+
+		var fade_offset = -3/2 * this.getLayer('ui').height;
+		var layers      = this.getLayer('ui').entities.filter(function(entity) {
+			return lychee.interfaceof(lychee.ui.Menu, entity) === false;
+		});
+
+
+		var entity = this.queryLayer('ui', active);
+		if (entity !== null) {
+
+			layers.forEach(function(layer) {
+
+				if (entity === layer) {
+
+					layer.setVisible(true);
+					layer.setPosition({
+						y: fade_offset
+					});
+
+					layer.addEffect(new lychee.effect.Position({
+						type:     lychee.effect.Position.TYPE.easeout,
+						duration: 300,
+						position: {
+							y: 0
+						}
+					}));
+
+				} else {
+
+					layer.setPosition({
+						y: 0
+					});
+
+					layer.addEffect(new lychee.effect.Position({
+						type:     lychee.effect.Position.TYPE.easeout,
+						duration: 300,
+						position: {
+							y: fade_offset
+						}
+					}));
+
+					layer.addEffect(new lychee.effect.Visible({
+						delay:   300,
+						visible: false
+					}));
+
+				}
+
+			});
+
+		}
+
+	};
 
 	var _on_relayout = function() {
 
@@ -159,49 +215,11 @@ lychee.define('lychee.app.state.Menu').requires([
 
 
 			this.queryLayer('ui', 'menu').bind('change', function(value) {
-
-				var others = this.getLayer('ui').entities.filter(function(entity) {
-					return lychee.interfaceof(lychee.ui.Menu, entity) === false;
-				});
-
-				var entity = this.queryLayer('ui', value.toLowerCase());
-				if (entity !== null) {
-
-					others.forEach(function(other) {
-
-						if (entity === other) {
-
-							other.setVisible(true);
-							other.addEffect(new lychee.effect.Alpha({
-								type:     lychee.effect.Alpha.TYPE.easeout,
-								duration: 300,
-								delay:    300,
-								alpha:    1.0
-							}));
-
-						} else {
-
-							other.setVisible(false);
-							other.addEffect(new lychee.effect.Alpha({
-								type:     lychee.effect.Alpha.TYPE.easeout,
-								duration: 300,
-								alpha:    0.0
-							}));
-
-						}
-
-					});
-
-				}
-
+				_on_change.call(this, value.toLowerCase());
 			}, this);
 
-
 			this.queryLayer('ui', 'welcome > dialog').bind('change', function(value) {
-
-
-console.log('WOOP WOOP', value);
-
+				_on_change.call(this, value);
 			}, this);
 
 		},
