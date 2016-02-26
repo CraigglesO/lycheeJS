@@ -1,6 +1,5 @@
 
 lychee.define('lychee.app.state.Menu').requires([
-	'lychee.effect.Alpha',
 	'lychee.effect.Position',
 	'lychee.effect.Visible',
 	'lychee.ui.Background',
