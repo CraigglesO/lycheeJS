@@ -1,26 +1,25 @@
 
-lychee.define('lychee.effect.Visible').exports(function(lychee, global, attachments) {
+lychee.define('lychee.effect.Event').exports(function(lychee, global, attachments) {
 
 	var Class = function(settings) {
 
-		this.delay    = 0;
-		this.visible  = true;
+		this.delay = 0;
+		this.event = null;
 
-		this.__origin = null;
-		this.__start  = null;
+		this.__start = null;
 
 
 		// No data validation garbage allowed for effects
 
-		var delay   = typeof settings.delay === 'number' ? (settings.delay | 0) : null;
-		var visible = settings.visible === true;
+		var delay = typeof settings.delay === 'number' ? (settings.delay | 0) : null;
+		var event = typeof settings.event === 'string' ? settings.event       : null;
 
 		if (delay !== null) {
 			this.delay = delay;
 		}
 
-		if (visible === true || visible === false) {
-			this.visible = visible;
+		if (event !== null) {
+			this.event = event;
 		}
 
 	};
@@ -39,12 +38,12 @@ lychee.define('lychee.effect.Visible').exports(function(lychee, global, attachme
 			var settings = {};
 
 
-			if (this.delay !== 0)      settings.delay   = this.delay;
-			if (this.visible !== true) settings.visible = this.visible;
+			if (this.delay !== 0)    settings.delay = this.delay;
+			if (this.event !== null) settings.event = this.event;
 
 
 			return {
-				'constructor': 'lychee.effect.Visible',
+				'constructor': 'lychee.effect.Event',
 				'arguments':   [ settings ]
 			};
 
@@ -58,7 +57,6 @@ lychee.define('lychee.effect.Visible').exports(function(lychee, global, attachme
 
 			if (this.__start === null) {
 				this.__start  = clock;
-				this.__origin = entity.visible || false;
 			}
 
 
@@ -68,19 +66,17 @@ lychee.define('lychee.effect.Visible').exports(function(lychee, global, attachme
 			}
 
 
-			var origin  = this.__origin;
-			var visible = this.visible;
+			var event = this.event;
 
 			if (t <= 1) {
-
-				entity.visible = origin;
-
 
 				return true;
 
 			} else {
 
-				entity.visible = visible;
+				if (typeof entity.trigger === 'function') {
+					entity.trigger(event, []);
+				}
 
 
 				return false;

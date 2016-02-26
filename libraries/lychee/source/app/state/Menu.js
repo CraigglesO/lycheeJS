@@ -3,6 +3,7 @@ lychee.define('lychee.app.state.Menu').requires([
 	'lychee.effect.Alpha',
 	'lychee.effect.Color',
 	'lychee.ui.Background',
+	'lychee.ui.Blueprint',
 	'lychee.ui.Element',
 	'lychee.ui.Emblem',
 	'lychee.ui.Label',
@@ -21,6 +22,46 @@ lychee.define('lychee.app.state.Menu').requires([
 ]).exports(function(lychee, global, attachments) {
 
 	var _blob = attachments["json"].buffer;
+
+
+
+	/*
+	 * HELPERS
+	 */
+
+	var _on_relayout = function() {
+
+		var viewport = this.viewport;
+		if (viewport !== null) {
+
+			var entity = null;
+			var width  = viewport.width;
+			var height = viewport.height;
+			var menu   = this.queryLayer('ui', 'menu');
+
+
+			entity = this.getLayer('ui');
+			entity.width      = width;
+			entity.height     = height;
+
+			entity = this.queryLayer('ui', 'welcome');
+			entity.width      = width - menu.width;
+			entity.height     = height;
+			entity.position.x = menu.width / 2;
+
+			entity = this.queryLayer('ui', 'settings');
+			entity.width      = width - menu.width;
+			entity.height     = height;
+			entity.position.x = menu.width / 2;
+
+			entity = this.queryLayer('ui', 'about');
+			entity.width      = width - menu.width;
+			entity.height     = height;
+			entity.position.x = menu.width / 2;
+
+		}
+
+	};
 
 
 
@@ -81,6 +122,15 @@ lychee.define('lychee.app.state.Menu').requires([
 			viewport.relay('reshape', this.queryLayer('bg', 'background'));
 			viewport.relay('reshape', this.queryLayer('bg', 'emblem'));
 			viewport.relay('reshape', this.queryLayer('ui', 'menu'));
+
+
+			this.queryLayer('ui', 'menu').bind('relayout', function() {
+				_on_relayout.call(this);
+			}, this);
+
+			viewport.bind('reshape', function(orientation, rotation, width, height) {
+				_on_relayout.call(this);
+			}, this);
 
 		}
 

@@ -286,6 +286,9 @@
 				"Depth": [
 					"js"
 				],
+				"Event": [
+					"js"
+				],
 				"Height": [
 					"js"
 				],

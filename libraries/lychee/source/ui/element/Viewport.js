@@ -118,7 +118,6 @@ lychee.define('lychee.ui.element.Viewport').requires([
 
 		settings.label   = 'Viewport';
 		settings.options = [ 'Save' ];
-		settings.height  = 512;
 
 
 		lychee.ui.Element.call(this, settings);

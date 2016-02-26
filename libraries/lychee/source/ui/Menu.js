@@ -1,6 +1,7 @@
 
 lychee.define('lychee.ui.Menu').requires([
 	'lychee.effect.Alpha',
+	'lychee.effect.Event',
 	'lychee.effect.Position',
 	'lychee.effect.Visible',
 	'lychee.effect.Width',
@@ -40,9 +41,10 @@ lychee.define('lychee.ui.Menu').requires([
 		delete settings.value;
 
 
-		settings.width  = 144;
-		settings.height = 144;
-		settings.alpha  = 0.0;
+		settings.width    = 144;
+		settings.height   = 144;
+		settings.alpha    = 0.0;
+		settings.relayout = false;
 
 
 		lychee.ui.Layer.call(this, settings);
@@ -55,8 +57,8 @@ lychee.define('lychee.ui.Menu').requires([
 
 		this.bind('touch', function(id, position, delta) {
 
-			var miny = -1/2 * this.height + 64;
-			if (miny > position.y) {
+			var min_y = -1/2 * this.height + 64;
+			if (min_y > position.y) {
 
 				if (this.state === 'active') {
 					this.trigger('blur');
@@ -98,7 +100,7 @@ lychee.define('lychee.ui.Menu').requires([
 				var y1     = -1/2 * this.height;
 
 
-				entity = this.getEntity('label');
+				entity = this.getEntity('@label');
 				entity.position.x = -52 + entity.width / 2;
 				entity.position.y =  y1 + 21 + entity.height / 2;
 
@@ -111,7 +113,7 @@ lychee.define('lychee.ui.Menu').requires([
 		}, this);
 
 
-		this.setEntity('label', new lychee.ui.Label({
+		this.setEntity('@label', new lychee.ui.Label({
 			label: this.label,
 			font:  this.font
 		}));
@@ -264,7 +266,7 @@ lychee.define('lychee.ui.Menu').requires([
 
 			if (font !== null) {
 
-				this.getEntity('label').setFont(font);
+				this.getEntity('@label').setFont(font);
 				this.font = font;
 
 
@@ -284,7 +286,7 @@ lychee.define('lychee.ui.Menu').requires([
 
 			if (label !== null) {
 
-				this.getEntity('label').setLabel(label);
+				this.getEntity('@label').setLabel(label);
 				this.label = label;
 
 
@@ -352,7 +354,7 @@ lychee.define('lychee.ui.Menu').requires([
 						width:    144
 					}));
 
-					this.getEntity('label').addEffect(new lychee.effect.Visible({
+					this.getEntity('@label').addEffect(new lychee.effect.Visible({
 						delay:   300,
 						visible: true
 					}));
@@ -388,7 +390,7 @@ lychee.define('lychee.ui.Menu').requires([
 						width:     64
 					}));
 
-					this.getEntity('label').addEffect(new lychee.effect.Visible({
+					this.getEntity('@label').addEffect(new lychee.effect.Visible({
 						delay:   300,
 						visible: false
 					}));
@@ -399,6 +401,12 @@ lychee.define('lychee.ui.Menu').requires([
 					}));
 
 				}
+
+
+				this.addEffect(new lychee.effect.Event({
+					delay:   600,
+					event:   'relayout'
+				}));
 
 
 				this.state = id;
