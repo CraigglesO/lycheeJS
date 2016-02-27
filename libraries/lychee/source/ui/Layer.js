@@ -185,6 +185,9 @@ lychee.define('lychee.ui.Layer').requires([
 
 	var _on_touch = function(id, position, delta) {
 
+		if (this.visible === false) return null;
+
+
 		var triggered = null;
 		var args      = [ id, {
 			x: position.x - this.offset.x,
