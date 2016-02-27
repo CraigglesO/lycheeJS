@@ -34,6 +34,8 @@
 							"arguments": [{
 								"label":    "WELCOME",
 								"options":  [ "Settings" ],
+								"width":    416,
+								"height":   416,
 								"position": {
 									"x": 0,
 									"y": 0
@@ -43,12 +45,22 @@
 								"entities": [{
 									"constructor": "lychee.ui.Text",
 									"arguments": [{
-										"label": "This is the App Boilerplate.\n\nIt is a truly isomorphic App that consists of a properly setup UI Graph to get you started more easily."
+										"label": "This is the App Boilerplate.\n\nIt is an isomorphic App that is compatible with\nthe Editor, Fertilizer, Ranger and Strainer."
 									}]
 								}, {
 									"constructor": "lychee.ui.Text",
 									"arguments": [{
-										"label": "It is also compatible with the Editor and Ranger and all lycheeJS Tools."
+										"label": "Navigate through the App via Touch, Mouse, Tablet, Gamepad or Keyboard."
+									}]
+								}, {
+									"constructor": "lychee.ui.Text",
+									"arguments": [{
+										"label": "Gamepad Bindings:\n- Menu via [Start]\n- Select via [Joystick]\n- Scroll via [R] and [L]"
+									}]
+								}, {
+									"constructor": "lychee.ui.Text",
+									"arguments": [{
+										"label": "Keyboard Bindings:\n- Menu via [Esc]\n- Select via [Tab] and [Shift]+[Tab]\n- Scroll via [Page-Down] and [Page-Up]"
 									}]
 								}]
 							}
