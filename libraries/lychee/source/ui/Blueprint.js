@@ -364,6 +364,34 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 	Class.prototype = {
 
+		/*
+		 * CUSTOM API
+		 */
+
+		addEntity: function(entity) {
+
+			entity = entity instanceof lychee.ui.Element ? entity : null;
+
+
+			if (entity !== null) {
+
+				var index = this.entities.indexOf(entity);
+				if (index === -1) {
+
+					this.entities.push(entity);
+					this.trigger('relayout', []);
+
+					return true;
+
+				}
+
+			}
+
+
+			return false;
+
+		},
+
 		setVisible: function(visible) {
 
 			if (visible === true || visible === false) {
