@@ -58,7 +58,7 @@ lychee.define('Renderer').tags({
 	 * STRUCTS
 	 */
 
-	var _buffer = function(width, height) {
+	var _Buffer = function(width, height) {
 
 		this.width  = typeof width === 'number'  ? width  : 1;
 		this.height = typeof height === 'number' ? height : 1;
@@ -71,7 +71,7 @@ lychee.define('Renderer').tags({
 
 	};
 
-	_buffer.prototype = {
+	_Buffer.prototype = {
 
 		clear: function() {
 
@@ -259,7 +259,7 @@ lychee.define('Renderer').tags({
 
 		clear: function(buffer) {
 
-			buffer = buffer instanceof _buffer ? buffer : null;
+			buffer = buffer instanceof _Buffer ? buffer : null;
 
 
 			if (buffer !== null) {
@@ -282,12 +282,12 @@ lychee.define('Renderer').tags({
 		},
 
 		createBuffer: function(width, height) {
-			return new _buffer(width, height);
+			return new _Buffer(width, height);
 		},
 
 		setBuffer: function(buffer) {
 
-			buffer = buffer instanceof _buffer ? buffer : null;
+			buffer = buffer instanceof _Buffer ? buffer : null;
 
 
 			if (buffer !== null) {
@@ -364,7 +364,7 @@ lychee.define('Renderer').tags({
 
 		drawBuffer: function(x1, y1, buffer) {
 
-			buffer = buffer instanceof _buffer ? buffer : null;
+			buffer = buffer instanceof _Buffer ? buffer : null;
 
 
 			if (buffer !== null) {
