@@ -14,8 +14,12 @@ lychee.define('lychee.app.State').requires([
 		if (focus !== null) {
 
 			var result = focus.trigger('key', [ key, name, delta ]);
-			if (result === true && key === 'return' && focus.state === 'default') {
-				this.__focus = null;
+			if (result === true) {
+
+				if (focus.state === 'default') {
+					this.__focus = null;
+				}
+
 			}
 
 		}
@@ -451,7 +455,7 @@ lychee.define('lychee.app.State').requires([
 
 		setLayer: function(id, layer) {
 
-			id    = typeof id === 'string'                                                                       ? id    : null;
+			id    = typeof id === 'string'                                                                      ? id    : null;
 			layer = (lychee.interfaceof(lychee.app.Layer, layer) || lychee.interfaceof(lychee.ui.Layer, layer)) ? layer : null;
 
 

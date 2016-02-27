@@ -405,9 +405,10 @@ lychee.define('Input').tags({
 			if (shift === true && key !== 'ctrl' && key !== 'alt' && key !== 'shift') {
 
 				tmp = String.fromCharCode(code);
-				key = tmp !== '' ? tmp : key;
+				key = tmp.trim() !== '' ? tmp : key;
 
 			}
+
 
 			name += key.toLowerCase();
 
