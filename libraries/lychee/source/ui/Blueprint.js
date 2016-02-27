@@ -12,6 +12,25 @@ lychee.define('lychee.ui.Blueprint').requires([
 	 * HELPERS
 	 */
 
+	var _validate_entity = function(entity) {
+
+		if (entity instanceof Object) {
+
+			if (typeof entity.update === 'function' && typeof entity.render === 'function' && typeof entity.shape === 'number') {
+
+				if (typeof entity.setOrder === 'function' && typeof entity.isAtPosition === 'function') {
+					return true;
+				}
+
+			}
+
+		}
+
+
+		return false;
+
+	};
+
 	var _on_relayout = function() {
 
 		var visible = this.visible;
@@ -370,7 +389,7 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 		addEntity: function(entity) {
 
-			entity = entity instanceof lychee.ui.Element ? entity : null;
+			entity = _validate_entity(entity) === true ? entity : null;
 
 
 			if (entity !== null) {
