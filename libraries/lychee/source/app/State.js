@@ -198,8 +198,8 @@ lychee.define('lychee.app.State').requires([
 
 			var touch = this.__touches[id];
 
-			touch.entity   = new_focus;
-			touch.layer    = touch_layer;
+			touch.entity = new_focus;
+			touch.layer  = touch_layer;
 
 
 			_trace_entity_offset.call(

@@ -1,6 +1,7 @@
 
 lychee.define('lychee.ui.Blueprint').requires([
 	'lychee.effect.Alpha',
+	'lychee.effect.Offset',
 	'lychee.effect.Position',
 	'lychee.ui.Element'
 ]).includes([
@@ -27,13 +28,17 @@ lychee.define('lychee.ui.Blueprint').requires([
 			var fade_offset = 3/2 * this.height;
 
 
+			this.__scroll.min   = 0;
+			this.__scroll.delta = 0;
+
+
 			for (var e = 0, el = this.entities.length; e < el; e++) {
 
 				var entity = this.entities[e];
 				var pos_x  = offset_x + entity.width  / 2;
 				var pos_y  = offset_y + entity.height / 2;
 
-				if (pos_x > x2) {
+				if (pos_x + entity.width / 2 > x2 - 32) {
 
 					offset_x  = x1 + 32;
 					offset_y += entity.height + 32;
@@ -81,9 +86,105 @@ lychee.define('lychee.ui.Blueprint').requires([
 					}
 				}));
 
+
+				this.__scroll.min   = Math.min(this.__scroll.min,   -1 * (y1 + pos_y + entity.height / 2 + 32));
+				this.__scroll.delta = Math.max(this.__scroll.delta, entity.height + 32);
+
 			}
 
 		}
+
+	};
+
+	var _on_touch = function(id, position, delta) {
+
+		if (this.visible === false) return null;
+
+
+		var triggered = null;
+		var args      = [ id, {
+			x: position.x - this.offset.x,
+			y: position.y - this.offset.y
+		}, delta ];
+
+
+		var entity = this.getEntity(null, args[1]);
+		if (entity !== null) {
+
+			if (typeof entity.trigger === 'function') {
+
+				args[1].x -= entity.position.x;
+				args[1].y -= entity.position.y;
+
+				var result = entity.trigger('touch', args);
+				if (result === true) {
+					triggered = entity;
+				} else if (result !== false) {
+					triggered = result;
+				}
+
+			}
+
+		} else {
+
+			triggered = this;
+
+		}
+
+
+		return triggered;
+
+	};
+
+	var _on_swipe = function(id, type, position, delta, swipe) {
+
+		if (this.effects.length === 0) {
+
+			var scroll = this.__scroll;
+
+			if (type === 'start') {
+
+				scroll.start = this.offset.y;
+
+			} else if (type === 'move' || type === 'end') {
+
+				if (Math.abs(swipe.y) > 128) {
+
+					var offset_y = scroll.start;
+
+					if (swipe.y > 0) {
+						offset_y += scroll.delta;
+					} else if (swipe.y < 0) {
+						offset_y -= scroll.delta;
+					}
+
+
+					if (offset_y < scroll.min) {
+						offset_y = scroll.min;
+					} else if (offset_y > 0) {
+						offset_y = 0;
+					}
+
+
+					this.addEffect(new lychee.effect.Offset({
+						type:     lychee.effect.Offset.TYPE.easeout,
+						duration: 300,
+						offset:   {
+							y: offset_y
+						}
+					}));
+
+
+					return false;
+
+				}
+
+			}
+
+		}
+
+
+		return true;
 
 	};
 
@@ -101,6 +202,13 @@ lychee.define('lychee.ui.Blueprint').requires([
 		settings.relayout = false;
 
 
+		this.__scroll = {
+			start: 0,
+			delta: 0,
+			min:   0
+		};
+
+
 		lychee.ui.Layer.call(this, settings);
 
 
@@ -109,7 +217,11 @@ lychee.define('lychee.ui.Blueprint').requires([
 		 * INITIALIZATION
 		 */
 
+		this.unbind('touch');
+
 		this.bind('relayout', _on_relayout, this);
+		this.bind('touch',    _on_touch,    this);
+		this.bind('swipe',    _on_swipe,    this);
 
 	};
 
