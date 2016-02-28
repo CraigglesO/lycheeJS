@@ -195,6 +195,10 @@ lychee.define('tool.data.SPRITE').requires([
 			}
 
 
+			if (size_x === 0) size_x = 1;
+			if (size_y === 0) size_y = 1;
+
+
 			files.forEach(function(file, index) {
 
 				var state   = file.name.toLowerCase().split('_')[0].split('.')[0];
