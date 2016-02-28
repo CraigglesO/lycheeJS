@@ -149,7 +149,7 @@ lychee.define('lychee.ui.Joystick').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Entity.prototype.serialize.call(this);
-			data['constructor'] = 'lyche.ui.Joystick';
+			data['constructor'] = 'lychee.ui.Joystick';
 
 			var settings = data['arguments'][0];
 			var blob     = (data['blob'] || {});

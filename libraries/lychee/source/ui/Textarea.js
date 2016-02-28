@@ -149,7 +149,7 @@ lychee.define('lychee.ui.Textarea').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Entity.prototype.serialize.call(this);
-			data['constructor'] = 'lyche.ui.Textarea';
+			data['constructor'] = 'lychee.ui.Textarea';
 
 			var settings = data['arguments'][0];
 			var blob     = (data['blob'] || {});

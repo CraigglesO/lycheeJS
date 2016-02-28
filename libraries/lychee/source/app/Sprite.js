@@ -58,7 +58,7 @@ lychee.define('lychee.app.Sprite').includes([
 		serialize: function() {
 
 			var data = lychee.app.Entity.prototype.serialize.call(this);
-			data['constructor'] = 'lyche.app.Sprite';
+			data['constructor'] = 'lychee.app.Sprite';
 
 			var settings = data['arguments'][0];
 			var blob     = data['blob'] = (data['blob'] || {});

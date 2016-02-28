@@ -237,7 +237,7 @@ lychee.define('lychee.ui.Slider').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Entity.prototype.serialize.call(this);
-			data['constructor'] = 'lyche.ui.Slider';
+			data['constructor'] = 'lychee.ui.Slider';
 
 			var settings = data['arguments'][0];
 			var blob     = (data['blob'] || {});

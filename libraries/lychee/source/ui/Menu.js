@@ -164,7 +164,7 @@ lychee.define('lychee.ui.Menu').requires([
 		serialize: function() {
 
 			var data = lychee.ui.Layer.prototype.serialize.call(this);
-			data['constructor'] = 'lyche.ui.Menu';
+			data['constructor'] = 'lychee.ui.Menu';
 
 			var settings = data['arguments'][0];
 			var blob     = (data['blob'] || {});

@@ -218,7 +218,7 @@ lychee.define('lychee.ui.Input').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Entity.prototype.serialize.call(this);
-			data['constructor'] = 'lyche.ui.Input';
+			data['constructor'] = 'lychee.ui.Input';
 
 			var settings = data['arguments'][0];
 			var blob     = (data['blob'] || {});
