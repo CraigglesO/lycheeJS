@@ -351,6 +351,7 @@ lychee.define('lychee.ui.Blueprint').requires([
 		this.unbind('touch');
 
 		this.bind('relayout', _on_relayout, this);
+		this.bind('reshape',  _on_relayout, this);
 		this.bind('touch',    _on_touch,    this);
 		this.bind('swipe',    _on_swipe,    this);
 

@@ -178,6 +178,10 @@ lychee.define('lychee.app.state.Menu').requires([
 			viewport.relay('reshape', this.queryLayer('bg', 'emblem'));
 			viewport.relay('reshape', this.queryLayer('ui', 'menu'));
 
+			viewport.relay('reshape', this.queryLayer('ui', 'welcome'));
+			viewport.relay('reshape', this.queryLayer('ui', 'settings'));
+			viewport.relay('reshape', this.queryLayer('ui', 'about'));
+
 
 			this.queryLayer('ui', 'menu').bind('relayout', function() {
 				_on_relayout.call(this);

@@ -104,7 +104,7 @@ lychee.define('lychee.ui.Menu').requires([
 				entity.position.x = -52 + entity.width / 2;
 				entity.position.y =  y1 + 21 + entity.height / 2;
 
-				entity = this.getEntity('select');
+				entity = this.getEntity('@select');
 				entity.position.x = 8;
 				entity.position.y = y1 + 64 + entity.height / 2;
 
@@ -118,12 +118,12 @@ lychee.define('lychee.ui.Menu').requires([
 			font:  this.font
 		}));
 
-		this.setEntity('select', new lychee.ui.Select({
+		this.setEntity('@select', new lychee.ui.Select({
 			options: this.options,
 			value:   this.value
 		}));
 
-		this.getEntity('select').bind('change', function(value) {
+		this.getEntity('@select').bind('change', function(value) {
 
 			var result = this.setValue(value);
 			if (result === true) {
@@ -310,7 +310,7 @@ lychee.define('lychee.ui.Menu').requires([
 					return '' + option;
 				});
 
-				this.getEntity('select').setOptions(this.options);
+				this.getEntity('@select').setOptions(this.options);
 
 
 				return true;
@@ -359,7 +359,7 @@ lychee.define('lychee.ui.Menu').requires([
 						visible: true
 					}));
 
-					this.getEntity('select').addEffect(new lychee.effect.Visible({
+					this.getEntity('@select').addEffect(new lychee.effect.Visible({
 						delay:   300,
 						visible: true
 					}));
@@ -395,7 +395,7 @@ lychee.define('lychee.ui.Menu').requires([
 						visible: false
 					}));
 
-					this.getEntity('select').addEffect(new lychee.effect.Visible({
+					this.getEntity('@select').addEffect(new lychee.effect.Visible({
 						delay:   300,
 						visible: false
 					}));
@@ -404,8 +404,8 @@ lychee.define('lychee.ui.Menu').requires([
 
 
 				this.addEffect(new lychee.effect.Event({
-					delay:   600,
-					event:   'relayout'
+					delay: 600,
+					event: 'relayout'
 				}));
 
 
