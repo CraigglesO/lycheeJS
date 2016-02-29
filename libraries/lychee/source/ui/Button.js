@@ -13,6 +13,7 @@ lychee.define('lychee.ui.Button').includes([
 
 		this.label = null;
 		this.font  = _font;
+		this.value = null;
 
 		this.__pulse = {
 			active:   false,
@@ -24,9 +25,11 @@ lychee.define('lychee.ui.Button').includes([
 
 		this.setFont(settings.font);
 		this.setLabel(settings.label);
+		this.setValue(settings.value);
 
 		delete settings.font;
 		delete settings.label;
+		delete settings.value;
 
 
 		settings.width  = typeof settings.width === 'number'  ? settings.width  : 128;
@@ -83,6 +86,7 @@ lychee.define('lychee.ui.Button').includes([
 
 
 			if (this.label !== null) settings.label = this.label;
+			if (this.value !== null) settings.value = this.value;
 
 
 			if (this.font !== null) blob.font = lychee.serialize(this.font);
@@ -245,6 +249,24 @@ lychee.define('lychee.ui.Button').includes([
 
 				}
 
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
+		setValue: function(value) {
+
+			value = typeof value === 'string' ? value : null;
+
+
+			if (value !== null) {
+
+				this.value = value;
 
 				return true;
 

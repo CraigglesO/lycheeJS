@@ -9,6 +9,7 @@ lychee.define('lychee.app.state.Menu').requires([
 	'lychee.ui.Label',
 	'lychee.ui.Layer',
 	'lychee.ui.Switch',
+	'lychee.ui.Table',
 	'lychee.ui.Text',
 	'lychee.ui.Menu',
 	'lychee.ui.element.Input',

@@ -49,7 +49,8 @@ lychee.define('lychee.ui.Table').includes([
 		this.type  = Class.TYPE.horizontal;
 		this.value = [];
 
-		this.__pulse  = {
+		this.__lines = [];
+		this.__pulse = {
 			active:   false,
 			duration: 300,
 			start:    null,
@@ -60,6 +61,7 @@ lychee.define('lychee.ui.Table').includes([
 		this.setFont(settings.font);
 		this.setModel(settings.model);
 		this.setType(settings.type);
+		this.setValue(settings.value);
 
 
 		settings.shape = lychee.ui.Entity.SHAPE.rectangle;
@@ -104,6 +106,24 @@ lychee.define('lychee.ui.Table').includes([
 				this.setFont(font);
 			}
 
+
+			if (blob.model instanceof Object) {
+
+				var model = {};
+
+				for (var property in blob.model) {
+					model[property] = lychee.deserialize(blob.model[property]);
+				}
+
+				this.setModel(model);
+
+			}
+
+
+			if (blob.value instanceof Array) {
+				this.setValue(blob.value);
+			}
+
 		},
 
 		serialize: function() {
@@ -115,12 +135,28 @@ lychee.define('lychee.ui.Table').includes([
 			var blob     = (data['blob'] || {});
 
 
-			if (Object.keys(this.model).length !== 0)   settings.model = this.model;
-			if (this.type !== Class.TYPE.horizontal)    settings.type  = this.type;
-			if (Object.values(this.value).length !== 0) settings.value = this.value;
+			if (this.type !== Class.TYPE.horizontal) settings.type = this.type;
 
 
 			if (this.font !== null) blob.font = lychee.serialize(this.font);
+
+
+			if (Object.keys(this.model).length !== 0) {
+
+				blob.model = {};
+
+				for (var property in this.model) {
+					blob.model[property] = lychee.serialize(this.model[property]);
+				}
+
+			}
+
+
+			if (Object.values(this.value).length !== 0) {
+
+				blob.value = this.value;
+
+			}
 
 
 			data['blob'] = Object.keys(blob).length > 0 ? blob : null;
@@ -161,6 +197,7 @@ lychee.define('lychee.ui.Table').includes([
 
 			var alpha    = this.alpha;
 			var font     = this.font;
+			var model    = this.model;
 			var position = this.position;
 			var type     = this.type;
 			var x        = position.x + offsetX;
@@ -173,14 +210,27 @@ lychee.define('lychee.ui.Table').includes([
 				renderer.setAlpha(alpha);
 			}
 
-			if (type === Class.TYPE.horizontal) {
 
-			} else if (type === Class.TYPE.vertical) {
+			var lines = this.__lines;
+			if (lines.length > 0) {
+
+				if (type === Class.TYPE.horizontal) {
+
+
+				} else if (type === Class.TYPE.vertical) {
+
+				}
+
+
+console.log(lines);
 
 			}
 
 
 
+
+
+/*
 			var pulse = this.__pulse;
 			if (pulse.active === true) {
 
@@ -197,7 +247,7 @@ lychee.define('lychee.ui.Table').includes([
 				renderer.setAlpha(1.0);
 
 			}
-
+*/
 
 			if (alpha !== 1) {
 				renderer.setAlpha(1.0);
@@ -238,12 +288,12 @@ lychee.define('lychee.ui.Table').includes([
 
 				this.model = {};
 
+
 				for (var property in model) {
 
-					var reference = model[property];
-					var construct = _resolve_reference.call(global, reference);
-					if (construct !== null) {
-						this.model[property] = reference;
+					var instance = model[property];
+					if (lychee.interfaceof(lychee.ui.Entity, instance) === true) {
+						this.model[property] = instance;
 					}
 
 				}
@@ -283,9 +333,59 @@ lychee.define('lychee.ui.Table').includes([
 
 			if (value !== null) {
 
+				var model = this.model;
+
+
+console.log(model, value);
+
 				this.value = value.filter(function(val) {
-					return lychee.interfaceof(this.model, val);
-				}.bind(this));
+					return Object.keys(model).join(',') === Object.keys(val).join(',');
+				});
+
+				this.__lines = this.value.map(function(data) {
+
+					var map = {};
+
+					for (var property in data) {
+
+						var value = data[property];
+						if (value instanceof Array) {
+
+							map[property] = value.map(function(val) {
+
+								var instance = lychee.deserialize(lychee.serialize(model[property]));
+								if (instance !== null) {
+									instance.setValue(val);
+								}
+
+								return instance;
+
+							});
+
+						} else {
+
+							var instance = lychee.deserialize(lychee.serialize(model[property]));
+							if (instance !== null) {
+
+								if (typeof instance.setLabel === 'function') {
+									instance.setLabel(value);
+								}
+
+								if (typeof instance.setValue === 'function') {
+									instance.setValue(value);
+								}
+
+							}
+
+							map[property] = instance;
+
+						}
+
+					}
+
+					return map;
+
+				});
 
 
 				return true;

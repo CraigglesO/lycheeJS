@@ -13,13 +13,16 @@ lychee.define('lychee.ui.Label').includes([
 
 		this.font  = _font;
 		this.label = null;
+		this.value = null;
 
 
 		this.setFont(settings.font);
 		this.setLabel(settings.label);
+		this.setValue(settings.value);
 
 		delete settings.font;
 		delete settings.label;
+		delete settings.value;
 
 
 		settings.shape  = lychee.ui.Entity.SHAPE.rectangle;
@@ -158,6 +161,24 @@ lychee.define('lychee.ui.Label').includes([
 				}
 
 				this.label = label;
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
+		setValue: function(value) {
+
+			value = typeof value === 'string' ? value : null;
+
+
+			if (value !== null) {
+
+				this.value = value;
 
 				return true;
 

@@ -44,17 +44,17 @@ lychee.define('lychee.ui.Text').includes([
 
 		var that   = this;
 		var font   = this.font;
-		var label  = this.label;
+		var value  = this.value;
 		var width  = this.width;
 		var height = this.height;
 
-		if (font !== null && label !== null && width > 0) {
+		if (font !== null && value !== null && width > 0) {
 
 			this.__lines   = [];
 			this.__isDirty = true;
 
 
-			label.split('\n').forEach(function(line) {
+			value.split('\n').forEach(function(line) {
 
 				line = line.replace('\t', ' ');
 
@@ -98,7 +98,7 @@ lychee.define('lychee.ui.Text').includes([
 
 
 		this.font  = _font;
-		this.label = null;
+		this.value = null;
 
 		this.__buffer  = null;
 		this.__lines   = [];
@@ -126,7 +126,7 @@ lychee.define('lychee.ui.Text').includes([
 		this.bind('relayout', _on_relayout, this);
 
 
-		this.setLabel(settings.label);
+		this.setValue(settings.value);
 
 		settings = null;
 
@@ -259,8 +259,8 @@ lychee.define('lychee.ui.Text').includes([
 				this.font = font;
 
 				// refresh the layout
-				if (this.label !== null) {
-					this.setLabel(this.label);
+				if (this.value !== null) {
+					this.setValue(this.value);
 				}
 
 				return true;
@@ -272,14 +272,14 @@ lychee.define('lychee.ui.Text').includes([
 
 		},
 
-		setLabel: function(label) {
+		setValue: function(value) {
 
-			label = typeof label === 'string' ? label : null;
+			value = typeof value === 'string' ? value : null;
 
 
-			if (label !== null) {
+			if (value !== null) {
 
-				this.label = label;
+				this.value = value;
 				this.trigger('relayout', []);
 
 				return true;

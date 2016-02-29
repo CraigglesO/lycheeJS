@@ -53,7 +53,7 @@ lychee.define('lychee.ui.Slider').includes([
 
 
 		this.font  = _font;
-		this.max   = 100;
+		this.max   = 128;
 		this.min   = 0;
 		this.step  = 1;
 		this.type  = Class.TYPE.horizontal;
