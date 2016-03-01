@@ -45,7 +45,9 @@ lychee.define('lychee.ui.Button').includes([
 		 * INITIALIZATION
 		 */
 
-		this.bind('touch', function() {}, this);
+		this.bind('touch', function() {
+			this.trigger('change', [ this.value ]);
+		}, this);
 
 		this.bind('focus', function() {
 			this.setState('active');
