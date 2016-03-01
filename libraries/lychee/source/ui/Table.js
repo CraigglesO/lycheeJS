@@ -49,13 +49,16 @@ lychee.define('lychee.ui.Table').includes([
 		this.type  = Class.TYPE.horizontal;
 		this.value = [];
 
-		this.__lines = [];
-		this.__pulse = {
+		this.__buffer  = null;
+		this.__pulse   = {
 			active:   false,
 			duration: 300,
 			start:    null,
 			alpha:    0.0
 		};
+		this.__label   = [];
+		this.__lines   = [];
+		this.__isDirty = false;
 
 
 		this.setFont(settings.font);
@@ -83,6 +86,8 @@ lychee.define('lychee.ui.Table').includes([
 		/*
 		 * INITIALIZATION
 		 */
+
+global.__TABLE = this;
 
 	};
 
@@ -210,23 +215,135 @@ lychee.define('lychee.ui.Table').includes([
 				renderer.setAlpha(alpha);
 			}
 
+			if (type === Class.TYPE.horizontal) {
 
-			var lines = this.__lines;
-			if (lines.length > 0) {
+				renderer.drawBox(
+					x - hwidth,
+					y - hheight,
+					x + hwidth,
+					y - hheight + 64,
+					'#2f3736',
+					true
+				);
+
+
+				renderer.drawBox(
+					x - hwidth,
+					y - hheight + 64,
+					x + hwidth,
+					y + hheight,
+					'#363f3e',
+					true
+				);
+
+			} else if (type === Class.TYPE.vertical) {
+
+				renderer.drawBox(
+					x - hwidth,
+					y - hheight,
+					x - hwidth + 96,
+					y + hheight,
+					'#2f3736',
+					true
+				);
+
+
+				renderer.drawBox(
+					x - hwidth + 96,
+					y - hheight,
+					x + hwidth,
+					y + hheight,
+					'#363f3e',
+					true
+				);
+
+			}
+
+			if (alpha !== 1) {
+				renderer.setAlpha(1.0);
+			}
+
+
+			var buffer = this.__buffer;
+			if (buffer === null) {
+				this.__buffer = buffer = renderer.createBuffer(this.width, this.height);
+			}
+
+
+			if (this.__isDirty === true) {
+
+				renderer.clear(buffer);
+				renderer.setBuffer(buffer);
+				renderer.setAlpha(1.0);
+
+
+				var label = this.__label;
+				var lines = this.__lines;
+				var dim_x = 0;
+				var dim_y = 0;
+				var off_x = 0;
+				var off_y = 0;
+
 
 				if (type === Class.TYPE.horizontal) {
+
+					off_x = 0;
+					off_y = 0;
+					dim_x = this.width / label.length;
+					dim_y = 64;
+
+					for (var l1 = 0, l1l = label.length; l1 < l1l; l1++) {
+
+						renderer.drawText(
+							off_x + dim_x / 2,
+							off_y + dim_y / 2,
+							label[l1],
+							font,
+							true
+						);
+
+						off_x += dim_x;
+
+					}
+
+
+//				for (var l2 = 0, l2l = lines.length; l2 < l2l; l2++) {
+// TODO: Render lines
+//				}
 
 
 				} else if (type === Class.TYPE.vertical) {
 
+					off_x = 0;
+					off_y = 0;
+					dim_x = 96;
+					dim_y = 64;
+
+					for (var l1 = 0, l1l = label.length; l1 < l1l; l1++) {
+
+						renderer.drawText(
+							off_x + dim_x / 2,
+							off_y + dim_y / 2,
+							label[l1],
+							font,
+							true
+						);
+
+						off_y += dim_y;
+
+					}
+
+
+// TODO: Render lines
+
+
 				}
 
 
-console.log(lines);
+				renderer.setBuffer(null);
+				this.__isDirty = false;
 
 			}
-
-
 
 
 
@@ -248,6 +365,17 @@ console.log(lines);
 
 			}
 */
+
+
+			if (alpha !== 1) {
+				renderer.setAlpha(alpha);
+			}
+
+			renderer.drawBuffer(
+				x - hwidth,
+				y - hheight,
+				this.__buffer
+			);
 
 			if (alpha !== 1) {
 				renderer.setAlpha(1.0);
@@ -316,6 +444,8 @@ console.log(lines);
 			if (type !== null) {
 
 				this.type = type;
+				this.__isDirty = true;
+
 
 				return true;
 
@@ -336,11 +466,16 @@ console.log(lines);
 				var model = this.model;
 
 
-console.log(model, value);
-
 				this.value = value.filter(function(val) {
 					return Object.keys(model).join(',') === Object.keys(val).join(',');
 				});
+
+
+				this.__label   = Object.keys(model).map(function(value) {
+					return value.toUpperCase();
+				});
+				this.__isDirty = true;
+
 
 				this.__lines = this.value.map(function(data) {
 

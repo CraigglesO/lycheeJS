@@ -254,45 +254,48 @@ lychee.define('lychee.ui.Textarea').includes([
 
 				renderer.clear(buffer);
 				renderer.setBuffer(buffer);
+				renderer.setAlpha(1.0);
 
 
+				var lines = this.__lines;
 				var lh    = font.lineheight;
-				var ll    = this.__lines.length;
-				var dim_x = font.measure(this.__lines[ll - 1]).width;
-				var dim_y = ll * lh;
-				var off_x = 0;
-				var off_y = 0;
+				var ll    = lines.length;
+				if (ll > 0) {
+
+					var dim_x = font.measure(lines[ll - 1]).width;
+					var dim_y = ll * lh;
+					var off_x = 0;
+					var off_y = 0;
 
 
-				if (dim_x > buffer.width)  {
-					off_x = buffer.width - dim_x;
+					if (dim_x > buffer.width)  {
+						off_x = buffer.width - dim_x;
+					}
+
+					if (dim_y > buffer.height) {
+						off_y = buffer.height - dim_y;
+					}
+
+
+					for (var l = 0; l < ll; l++) {
+
+						renderer.drawText(
+							off_x,
+							off_y + lh * l,
+							lines[l],
+							font,
+							false
+						);
+
+					}
+
+
+					var cur = this.__cursor.map;
+
+					cur.x = dim_x > buffer.width  ? (buffer.width)       : dim_x;
+					cur.y = dim_y > buffer.height ? (buffer.height - lh) : (dim_y - lh);
+
 				}
-
-				if (dim_y > buffer.height) {
-					off_y = buffer.height - dim_y;
-				}
-
-
-				for (var l = 0; l < ll; l++) {
-
-					var text = this.__lines[l];
-
-
-					renderer.drawText(
-						off_x,
-						off_y + lh * l,
-						text,
-						font,
-						false
-					);
-
-				}
-
-
-				var cur = this.__cursor.map;
-
-				cur.x = dim_x > buffer.width  ? (buffer.width)       : dim_x;
-				cur.y = dim_y > buffer.height ? (buffer.height - lh) : (dim_y - lh);
 
 
 				renderer.setBuffer(null);
