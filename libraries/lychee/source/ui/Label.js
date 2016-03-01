@@ -12,16 +12,13 @@ lychee.define('lychee.ui.Label').includes([
 
 
 		this.font  = _font;
-		this.label = null;
 		this.value = null;
 
 
 		this.setFont(settings.font);
-		this.setLabel(settings.label);
 		this.setValue(settings.value);
 
 		delete settings.font;
-		delete settings.label;
 		delete settings.value;
 
 
@@ -61,7 +58,7 @@ lychee.define('lychee.ui.Label').includes([
 			var blob     = (data['blob'] || {});
 
 
-			if (this.label !== null) settings.label = this.label;
+			if (this.value !== null) settings.value = this.value;
 
 
 			if (this.font !== null) blob.font = lychee.serialize(this.font);
@@ -86,8 +83,8 @@ lychee.define('lychee.ui.Label').includes([
 			var y = position.y + offsetY;
 
 
-			var label = this.label;
 			var font  = this.font;
+			var value = this.value;
 
 
 			if (alpha !== 1) {
@@ -95,12 +92,12 @@ lychee.define('lychee.ui.Label').includes([
 			}
 
 
-			if (label !== null && font !== null) {
+			if (value !== null && font !== null) {
 
 				renderer.drawText(
 					x,
 					y,
-					label,
+					value,
 					font,
 					true
 				);
@@ -130,37 +127,9 @@ lychee.define('lychee.ui.Label').includes([
 				this.font = font;
 
 				// refresh the layout
-				if (this.label !== null) {
-					this.setLabel(this.label);
+				if (this.value !== null) {
+					this.setValue(this.value);
 				}
-
-				return true;
-
-			}
-
-
-			return false;
-
-		},
-
-		setLabel: function(label) {
-
-			label = typeof label === 'string' ? label : null;
-
-
-			if (label !== null) {
-
-				var font = this.font;
-				if (font !== null) {
-
-					var dim = font.measure(label);
-
-					this.width  = dim.realwidth;
-					this.height = dim.realheight;
-
-				}
-
-				this.label = label;
 
 				return true;
 
@@ -177,6 +146,17 @@ lychee.define('lychee.ui.Label').includes([
 
 
 			if (value !== null) {
+
+				var font = this.font;
+				if (font !== null) {
+
+					var dim = font.measure(value);
+
+					this.width  = dim.realwidth;
+					this.height = dim.realheight;
+
+				}
+
 
 				this.value = value;
 

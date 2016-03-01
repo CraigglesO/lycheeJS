@@ -58,7 +58,7 @@
 				"entities": [{
 					"constructor": "lychee.ui.Label",
 					"arguments": [{
-						"label": "0 - 0",
+						"value":    "0 - 0",
 						"position": {
 							"x": 0,
 							"y": -64

@@ -81,7 +81,7 @@ lychee.define('game.state.Game').requires([
 
 		var score = this.queryLayer('ui', 'score');
 		if (score !== null) {
-			score.setLabel(this.__score.player + ' - ' + this.__score.enemy);
+			score.setValue(this.__score.player + ' - ' + this.__score.enemy);
 		}
 
 

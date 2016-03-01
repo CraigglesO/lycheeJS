@@ -150,21 +150,23 @@ lychee.define('lychee.ui.Element').requires([
 		 */
 
 		lychee.ui.Layer.prototype.setEntity.call(this, '@order', new lychee.ui.Label({
-			label: '' + this.order,
-			font:  _fonts.order
+			font:  _fonts.order,
+			value: '' + this.order
 		}));
 
 		lychee.ui.Layer.prototype.setEntity.call(this, '@label', new lychee.ui.Label({
-			label: this.label,
-			font:  _fonts.label
-		}));
-
-		lychee.ui.Layer.prototype.setEntity.call(this, '@options-next', new lychee.ui.Button({
-			label: this.options[0]
+			font:  _fonts.label,
+			value: this.label
 		}));
 
 		lychee.ui.Layer.prototype.setEntity.call(this, '@options-prev', new lychee.ui.Button({
-			label: this.options[1]
+			label: this.options[1],
+			value: this.options[1].toLowerCase()
+		}));
+
+		lychee.ui.Layer.prototype.setEntity.call(this, '@options-next', new lychee.ui.Button({
+			label: this.options[0],
+			value: this.options[0].toLowerCase()
 		}));
 
 
@@ -172,12 +174,12 @@ lychee.define('lychee.ui.Element').requires([
 		this.bind('relayout', _on_relayout, this);
 
 
-		this.getEntity('@options-next').bind('#touch', function(entity, id, position, delta) {
-			this.trigger('change', [ entity.label.toLowerCase() ]);
+		this.getEntity('@options-prev').bind('change', function(value) {
+			this.trigger('change', [ value ]);
 		}, this);
 
-		this.getEntity('@options-prev').bind('#touch', function(entity, id, position, delta) {
-			this.trigger('change', [ entity.label.toLowerCase() ]);
+		this.getEntity('@options-next').bind('change', function(value) {
+			this.trigger('change', [ value ]);
 		}, this);
 
 
@@ -288,7 +290,7 @@ lychee.define('lychee.ui.Element').requires([
 			if (result === true) {
 
 				var label = new lychee.ui.Label({
-					label: id.charAt(0).toUpperCase() + id.substr(1)
+					value: id.charAt(0).toUpperCase() + id.substr(1)
 				});
 
 
@@ -338,7 +340,7 @@ lychee.define('lychee.ui.Element').requires([
 
 			if (label !== null) {
 
-				this.getEntity('@label').setLabel(label);
+				this.getEntity('@label').setValue(label);
 				this.label = label;
 
 
@@ -375,6 +377,7 @@ lychee.define('lychee.ui.Element').requires([
 
 					next.visible = true;
 					next.setLabel(this.options[0]);
+					next.setValue(this.options[0].toLowerCase());
 
 					prev.visible = false;
 
@@ -382,9 +385,11 @@ lychee.define('lychee.ui.Element').requires([
 
 					next.visible = true;
 					next.setLabel(this.options[0]);
+					next.setValue(this.options[0].toLowerCase());
 
 					prev.visible = true;
 					prev.setLabel(this.options[1]);
+					prev.setValue(this.options[1].toLowerCase());
 
 
 				}
@@ -406,7 +411,7 @@ lychee.define('lychee.ui.Element').requires([
 
 			if (order !== null) {
 
-				this.getEntity('@order').setLabel('' + order);
+				this.getEntity('@order').setValue('' + order);
 				this.order = order;
 
 

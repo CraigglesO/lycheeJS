@@ -114,8 +114,8 @@ lychee.define('lychee.ui.Menu').requires([
 
 
 		this.setEntity('@label', new lychee.ui.Label({
-			label: this.label,
-			font:  this.font
+			font:  this.font,
+			value: this.label
 		}));
 
 		this.setEntity('@select', new lychee.ui.Select({
@@ -286,7 +286,7 @@ lychee.define('lychee.ui.Menu').requires([
 
 			if (label !== null) {
 
-				this.getEntity('@label').setLabel(label);
+				this.getEntity('@label').setValue(label);
 				this.label = label;
 
 

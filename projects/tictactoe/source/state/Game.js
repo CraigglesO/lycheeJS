@@ -169,7 +169,7 @@ lychee.define('game.state.Game').requires([
 
 		var score = this.queryLayer('ui', 'score');
 		if (score !== null) {
-			score.setLabel(this.__scores.x + ' : ' + this.__scores.o);
+			score.setValue(this.__scores.x + ' : ' + this.__scores.o);
 		}
 
 	};
@@ -288,7 +288,7 @@ lychee.define('game.state.Game').requires([
 
 			var score = this.queryLayer('ui', 'score');
 			if (score !== null) {
-				score.setLabel('0 : 0');
+				score.setValue('0 : 0');
 			}
 
 		},
