@@ -203,6 +203,7 @@ lychee.define('lychee.ui.Text').includes([
 
 				renderer.clear(buffer);
 				renderer.setBuffer(buffer);
+				renderer.setAlpha(1.0);
 
 
 				for (var l = 0; l < ll; l++) {

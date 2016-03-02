@@ -24,7 +24,7 @@
 			"arguments": [{}],
 			"blob": {
 				"entities": [{
-					"constructor": "lychee.ui.Layer",
+					"constructor": "lychee.ui.Blueprint",
 					"arguments": [{
 						"visible": true
 					}]

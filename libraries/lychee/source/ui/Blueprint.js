@@ -1,6 +1,5 @@
 
 lychee.define('lychee.ui.Blueprint').requires([
-	'lychee.effect.Alpha',
 	'lychee.effect.Offset',
 	'lychee.effect.Position',
 	'lychee.ui.Element'
@@ -33,84 +32,191 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 	var _on_relayout = function() {
 
+		var fade    = this.__fade;
 		var visible = this.visible;
+
 		if (visible === true) {
 
-			var x1 = -1/2 * this.width;
-			var x2 =  1/2 * this.width;
-			var y1 = -1/2 * this.height;
-			var y2 =  1/2 * this.height;
-
-
-			var offset_x    = x1 + 32;
-			var offset_y    = y1 + 32;
-			var fade_offset = 3/2 * this.height;
+			var entity = null;
+			var type   = this.type;
+			var x1     = -1/2 * this.width;
+			var x2     =  1/2 * this.width;
+			var y1     = -1/2 * this.height;
+			var y2     =  1/2 * this.height;
+			var off_x  = x1 + 32;
+			var off_y  = y1 + 32;
+			var pos_x  = 0;
+			var pos_y  = 0;
 
 
 			this.__scroll.min   = 0;
 			this.__scroll.delta = 0;
 
 
-			for (var e = 0, el = this.entities.length; e < el; e++) {
+			if (type === Class.TYPE.grid) {
 
-				var entity = this.entities[e];
-				var pos_x  = offset_x + entity.width  / 2;
-				var pos_y  = offset_y + entity.height / 2;
+				for (var e = 0, el = this.entities.length; e < el; e++) {
 
-				if (pos_x + entity.width / 2 > x2 - 32) {
+					entity = this.entities[e];
+					pos_x  = off_x + entity.width  / 2;
+					pos_y  = off_y + entity.height / 2;
 
-					offset_x  = x1 + 32;
-					offset_y += entity.height + 32;
+					if (pos_x + entity.width / 2 > x2 - 32) {
 
-					pos_x = offset_x + entity.width  / 2;
-					pos_y = offset_y + entity.height / 2;
+						off_x  = x1 + 32;
+						off_y += entity.height + 32;
 
-					offset_x += entity.width + 32;
+						pos_x = off_x + entity.width  / 2;
+						pos_y = off_y + entity.height / 2;
 
-				} else {
+						off_x += entity.width + 32;
 
-					pos_x = offset_x + entity.width  / 2;
-					pos_y = offset_y + entity.height / 2;
+					} else {
 
-					offset_x += entity.width + 32;
+						pos_x = off_x + entity.width  / 2;
+						pos_y = off_y + entity.height / 2;
+
+						off_x += entity.width + 32;
+
+					}
+
+
+					entity.trigger('relayout');
+					entity.setOrder(e + 1);
+
+
+					if (fade === true) {
+
+						entity.setPosition({
+							x: pos_x,
+							y: pos_y - 3/2 * this.height
+						});
+
+						entity.addEffect(new lychee.effect.Position({
+							type:     lychee.effect.Position.TYPE.easeout,
+							delay:    100 * e,
+							duration: 300,
+							position: {
+								x: pos_x,
+								y: pos_y
+							}
+						}));
+
+					} else {
+
+						entity.setPosition({
+							x: pos_x,
+							y: pos_y
+						});
+
+					}
+
+
+					this.__scroll.min   = Math.min(this.__scroll.min,   -1 * (y1 + pos_y + entity.height / 2 + 32));
+					this.__scroll.delta = Math.max(this.__scroll.delta, entity.height + 32);
 
 				}
 
 
-				entity.trigger('relayout', []);
+			} else if (type === Class.TYPE.view) {
+
+				if (this.entities.length === 2) {
+
+					entity        = this.entities[0];
+					entity.width  = 320;
+					entity.height = this.height;
+
+					pos_x = x1 + 32 + entity.width / 2;
+					pos_y = y1 + entity.height / 2;
+
+					entity.trigger('relayout');
+					entity.setOrder(1);
 
 
-				entity.setAlpha(0);
-				entity.setOrder(e + 1);
-				entity.setPosition({
-					x: pos_x,
-					y: pos_y - fade_offset
-				});
+					if (fade === true) {
 
+						entity.setPosition({
+							x: pos_x,
+							y: pos_y - 3/2 * this.height
+						});
 
-				entity.addEffect(new lychee.effect.Alpha({
-					type:     lychee.effect.Alpha.TYPE.easeout,
-					delay:    100 * 3,
-					duration: 300,
-					alpha:    1.0
-				}));
+						entity.addEffect(new lychee.effect.Position({
+							type:     lychee.effect.Position.TYPE.easeout,
+							delay:    100,
+							duration: 300,
+							position: {
+								x: pos_x,
+								y: pos_y
+							}
+						}));
 
-				entity.addEffect(new lychee.effect.Position({
-					type:     lychee.effect.Position.TYPE.easeout,
-					delay:    100 * e,
-					duration: 300,
-					position: {
-						x: pos_x,
-						y: pos_y
+					} else {
+
+						entity.setPosition({
+							x: pos_x,
+							y: pos_y
+						});
+
 					}
-				}));
 
 
-				this.__scroll.min   = Math.min(this.__scroll.min,   -1 * (y1 + pos_y + entity.height / 2 + 32));
-				this.__scroll.delta = Math.max(this.__scroll.delta, entity.height + 32);
+					entity        = this.entities[1];
+					entity.width  = this.width - 64 - 320;
+					entity.height = this.height;
+
+					pos_x = x1 + 320 + 64 + entity.width / 2;
+					pos_y = y1 + entity.height / 2;
+
+					entity.trigger('relayout');
+					entity.setOrder(2);
+
+
+					if (fade === true) {
+
+						entity.setPosition({
+							x: pos_x,
+							y: pos_y - 3/2 * this.height
+						});
+
+						entity.addEffect(new lychee.effect.Position({
+							type:     lychee.effect.Position.TYPE.easeout,
+							delay:    100,
+							duration: 300,
+							position: {
+								x: pos_x,
+								y: pos_y
+							}
+						}));
+
+					} else {
+
+						entity.setPosition({
+							x: pos_x,
+							y: pos_y
+						});
+
+					}
+
+				}
+
+			} else if (type === Class.TYPE.full) {
+
+				for (var e = 0, el = this.entities.length; e < el; e++) {
+
+					var entity = this.entities[e];
+
+					entity.position.x = 0;
+					entity.position.y = 0;
+
+				}
 
 			}
 
+		}
+
+
+		if (fade === true) {
+			this.__fade = false;
 		}
 
 	};
@@ -326,6 +432,10 @@ lychee.define('lychee.ui.Blueprint').requires([
 		var settings = lychee.extend({}, data);
 
 
+		this.type = Class.TYPE.grid;
+
+
+		this.__fade   = false;
 		this.__focus  = {
 			element: null,
 			entity:  null
@@ -335,6 +445,11 @@ lychee.define('lychee.ui.Blueprint').requires([
 			delta: 0,
 			min:   0
 		};
+
+
+		this.setType(settings.type);
+
+		delete settings.type;
 
 
 		settings.relayout = false;
@@ -382,6 +497,13 @@ lychee.define('lychee.ui.Blueprint').requires([
 	};
 
 
+	Class.TYPE = {
+		grid: 0,
+		view: 1,
+		full: 2
+	};
+
+
 	Class.prototype = {
 
 		/*
@@ -399,7 +521,7 @@ lychee.define('lychee.ui.Blueprint').requires([
 				if (index === -1) {
 
 					this.entities.push(entity);
-					this.trigger('relayout', []);
+					this.trigger('relayout');
 
 					return true;
 
@@ -412,21 +534,41 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 		},
 
+		setType: function(type) {
+
+			type = lychee.enumof(Class.TYPE, type) ? type : null;
+
+
+			if (type !== null) {
+
+				this.type = type;
+				this.trigger('relayout');
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
 		setVisible: function(visible) {
 
 			if (visible === true || visible === false) {
 
-				var relayout = false;
+				var fade = false;
 				if (this.visible === false && visible === true) {
-					relayout = true;
+					fade = true;
 				}
 
 
 				this.visible = visible;
 
 
-				if (relayout === true) {
-					this.trigger('relayout', []);
+				if (fade === true) {
+					this.__fade = true;
+					this.trigger('relayout');
 				}
 
 

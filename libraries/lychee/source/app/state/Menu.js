@@ -100,15 +100,20 @@ lychee.define('lychee.app.state.Menu').requires([
 			entity.width      = width;
 			entity.height     = height;
 
-			entity = this.queryLayer('ui', 'welcome');
-			entity.width      = width - menu.width;
-			entity.height     = height;
-			entity.position.x = menu.width / 2;
 
-			entity = this.queryLayer('ui', 'settings');
-			entity.width      = width - menu.width;
-			entity.height     = height;
-			entity.position.x = menu.width / 2;
+			for (var e = 0, el = entity.entities.length; e < el; e++) {
+
+				var blueprint = entity.entities[e];
+				if (blueprint !== menu) {
+
+					blueprint.width      = width - menu.width;
+					blueprint.height     = height;
+					blueprint.position.x = menu.width / 2;
+					blueprint.trigger('relayout');
+
+				}
+
+			}
 
 		}
 

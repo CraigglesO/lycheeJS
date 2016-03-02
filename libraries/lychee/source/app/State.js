@@ -25,6 +25,15 @@ lychee.define('lychee.app.State').requires([
 
 	var _recursive_deserialize = function(oldlayer, newlayer) {
 
+		if (typeof oldlayer.setType === 'function') {
+			oldlayer.setType(newlayer.type);
+		}
+
+		if (typeof oldlayer.setVisible === 'function') {
+			oldlayer.setVisible(newlayer.visible);
+		}
+
+
 		for (var e = 0, el = newlayer.entities.length; e < el; e++) {
 
 			var entity = newlayer.entities[e];
