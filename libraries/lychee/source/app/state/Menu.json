@@ -45,22 +45,22 @@
 								"entities": [{
 									"constructor": "lychee.ui.Text",
 									"arguments": [{
-										"label": "This is the App Boilerplate.\n\nIt is an isomorphic App that is compatible with\nthe Editor, Fertilizer, Ranger and Strainer."
+										"value": "This is the App Boilerplate.\n\nIt is an isomorphic App that is compatible with\nthe Editor, Fertilizer, Ranger and Strainer."
 									}]
 								}, {
 									"constructor": "lychee.ui.Text",
 									"arguments": [{
-										"label": "Navigate through the App via Touch, Mouse, Tablet, Gamepad or Keyboard."
+										"value": "Navigate through the App via Touch, Mouse, Tablet, Gamepad or Keyboard."
 									}]
 								}, {
 									"constructor": "lychee.ui.Text",
 									"arguments": [{
-										"label": "Gamepad Bindings:\n- Menu via [Start]\n- Select via [Joystick]\n- Scroll via [R] and [L]"
+										"value": "Gamepad Bindings:\n- Menu via [Start]\n- Select via [Joystick]\n- Scroll via [R] and [L]"
 									}]
 								}, {
 									"constructor": "lychee.ui.Text",
 									"arguments": [{
-										"label": "Keyboard Bindings:\n- Menu via [Esc]\n- Select via [Tab] and [Shift]+[Tab]\n- Scroll via [Page-Down] and [Page-Up]"
+										"value": "Keyboard Bindings:\n- Menu via [Esc]\n- Select via [Tab] and [Shift]+[Tab]\n- Scroll via [Page-Down] and [Page-Up]"
 									}]
 								}]
 							}
@@ -99,7 +99,48 @@
 					"constructor": "lychee.ui.Layer",
 					"arguments": [{
 						"visible": false
-					}]
+					}],
+					"blob": {
+						"entities": [{
+							"constructor": "lychee.ui.Table",
+							"arguments": [{}],
+							"blob": {
+								"model": {
+									"id": {
+										"constructor": "lychee.ui.Label",
+										"arguments": [{}]
+									},
+									"name": {
+										"constructor": "lychee.ui.Input",
+										"arguments": [{
+											"type": 0
+										}]
+									},
+									"num": {
+										"constructor": "lychee.ui.Slider",
+										"arguments": [{
+											"min":  8,
+											"max":  32,
+											"step": 1
+										}]
+									}
+								},
+								"value": [{
+									"id": "123",
+									"name": "cookiengineer",
+									"num": 16
+								}, {
+									"id": "120",
+									"name": "codekittey",
+									"num": 13
+								}, {
+									"id": "1337",
+									"name": "bottidibotbot",
+									"num": [ 13, 37, 10, 13 ]
+								}]
+							}
+						}]
+					}
 				}, {
 					"constructor": "lychee.ui.Menu",
 					"arguments": [{

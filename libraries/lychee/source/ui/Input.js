@@ -325,7 +325,7 @@ lychee.define('lychee.ui.Input').includes([
 
 				renderer.clear(buffer);
 				renderer.setBuffer(buffer);
-				renderer.setAlpha(1);
+				renderer.setAlpha(1.0);
 
 
 				var font  = this.font;

@@ -140,7 +140,7 @@ lychee.define('harvester.mod.Package').requires([
 
 		can: function(project) {
 
-			if (project.package !== null && project.filesystem !== null) {
+			if (project.identifier.indexOf('__') === -1 && project.package !== null && project.filesystem !== null) {
 
 				var diff_a = JSON.stringify(project.package.json);
 				var diff_b = JSON.stringify(_serialize(project));
