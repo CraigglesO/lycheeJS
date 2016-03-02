@@ -60,6 +60,7 @@ lychee.define('lychee.ui.Element').requires([
 						entity.width      =  1/2 * (this.width - 32);
 						entity.position.x =  1/4 * (this.width - 32);
 						entity.position.y =   y1 + offset + entity.height / 2;
+						entity.visible    = true;
 						entity.trigger('relayout', []);
 
 						boundary = Math.max(label.height, entity.height);
@@ -73,6 +74,7 @@ lychee.define('lychee.ui.Element').requires([
 						entity.width      = this.width - 32;
 						entity.position.x = 0;
 						entity.position.y = y1 + offset + entity.height / 2;
+						entity.visible    = true;
 						entity.trigger('relayout', []);
 
 						boundary = entity.height;
@@ -171,6 +173,7 @@ lychee.define('lychee.ui.Element').requires([
 
 
 		this.__content = [];
+		this.unbind('relayout');
 		this.bind('relayout', _on_relayout, this);
 
 
@@ -198,7 +201,13 @@ lychee.define('lychee.ui.Element').requires([
 		 * ENTITY API
 		 */
 
-		// deserialize: function(blob) {},
+		deserialize: function(blob) {
+
+			lychee.ui.Layer.prototype.deserialize.call(this, blob);
+
+			this.trigger('relayout');
+
+		},
 
 		serialize: function() {
 
