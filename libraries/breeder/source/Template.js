@@ -119,6 +119,7 @@ lychee.define('breeder.Template').requires([
 				_TPL.copy(fs, '/source/net/client/Ping.js');
 
 				_TPL.copy(fs, '/source/state/Menu.js');
+				_TPL.copy(fs, '/source/state/Menu.json');
 
 				oncomplete(true);
 
