@@ -110,11 +110,6 @@ lychee.define('lychee.app.state.Menu').requires([
 			entity.height     = height;
 			entity.position.x = menu.width / 2;
 
-			entity = this.queryLayer('ui', 'about');
-			entity.width      = width - menu.width;
-			entity.height     = height;
-			entity.position.x = menu.width / 2;
-
 		}
 
 	};
@@ -181,7 +176,6 @@ lychee.define('lychee.app.state.Menu').requires([
 
 			viewport.relay('reshape', this.queryLayer('ui', 'welcome'));
 			viewport.relay('reshape', this.queryLayer('ui', 'settings'));
-			viewport.relay('reshape', this.queryLayer('ui', 'about'));
 
 
 			this.queryLayer('ui', 'menu').bind('relayout', function() {
@@ -220,10 +214,6 @@ lychee.define('lychee.app.state.Menu').requires([
 
 			this.queryLayer('ui', 'menu').bind('change', function(value) {
 				_on_change.call(this, value.toLowerCase());
-			}, this);
-
-			this.queryLayer('ui', 'welcome > dialog').bind('change', function(value) {
-				_on_change.call(this, value);
 			}, this);
 
 		},

@@ -8,6 +8,43 @@ lychee.define('lychee.app.State').requires([
 	 * HELPERS
 	 */
 
+	var _get_id = function(entity) {
+
+		for (var id in this.__map) {
+
+			if (this.__map[id] === entity) {
+				return id;
+			}
+
+		}
+
+
+		return null;
+
+	};
+
+	var _recursive_deserialize = function(oldlayer, newlayer) {
+
+		for (var e = 0, el = newlayer.entities.length; e < el; e++) {
+
+			var entity = newlayer.entities[e];
+			var id     = _get_id.call(newlayer, entity);
+			var other  = oldlayer.getEntity(id);
+
+			if (other === null) {
+
+				oldlayer.setEntity(id, entity);
+
+			} else if (typeof other.entities !== 'undefined' && typeof entity.entities !== 'undefined') {
+
+				_recursive_deserialize(other, entity);
+
+			}
+
+		}
+
+	};
+
 	var _on_key = function(key, name, delta) {
 
 		var focus = this.__focus;
@@ -325,7 +362,20 @@ lychee.define('lychee.app.State').requires([
 			if (blob.layers) {
 
 				for (var laid in blob.layers) {
-					this.setLayer(laid, lychee.deserialize(blob.layers[laid]));
+
+					var tmp1 = this.__layers[laid] || null;
+					var tmp2 = lychee.deserialize(blob.layers[laid]);
+
+					if (tmp1 === null && tmp2 !== null) {
+
+						this.setLayer(laid, tmp2);
+
+					} else if (tmp1 !== null && tmp2 !== null) {
+
+						_recursive_deserialize.call(this, tmp1, tmp2);
+
+					}
+
 				}
 
 			}
