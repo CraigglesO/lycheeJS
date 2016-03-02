@@ -5,7 +5,7 @@
 			"arguments": [{}],
 			"blob": {
 				"entities": [{
-					"constructor": "lychee.ui.Layer",
+					"constructor": "lychee.ui.Blueprint",
 					"arguments": [{
 						"visible": true
 					}],
@@ -16,11 +16,7 @@
 								"label":    "WELCOME",
 								"options":  [ "Settings" ],
 								"width":    416,
-								"height":   416,
-								"position": {
-									"x": 0,
-									"y": 0
-								}
+								"height":   416
 							}],
 							"blob": {
 								"entities": [{
