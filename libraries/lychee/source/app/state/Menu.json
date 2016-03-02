@@ -27,48 +27,7 @@
 					"constructor": "lychee.ui.Layer",
 					"arguments": [{
 						"visible": true
-					}],
-					"blob": {
-						"entities": [{
-							"constructor": "lychee.ui.Element",
-							"arguments": [{
-								"label":    "WELCOME",
-								"options":  [ "Settings" ],
-								"width":    416,
-								"height":   416,
-								"position": {
-									"x": 0,
-									"y": 0
-								}
-							}],
-							"blob": {
-								"entities": [{
-									"constructor": "lychee.ui.Text",
-									"arguments": [{
-										"value": "This is the App Boilerplate.\n\nIt is an isomorphic App that is compatible with\nthe Editor, Fertilizer, Ranger and Strainer."
-									}]
-								}, {
-									"constructor": "lychee.ui.Text",
-									"arguments": [{
-										"value": "Navigate through the App via Touch, Mouse, Tablet, Gamepad or Keyboard."
-									}]
-								}, {
-									"constructor": "lychee.ui.Text",
-									"arguments": [{
-										"value": "Gamepad Bindings:\n- Menu via [Start]\n- Select via [Joystick]\n- Scroll via [R] and [L]"
-									}]
-								}, {
-									"constructor": "lychee.ui.Text",
-									"arguments": [{
-										"value": "Keyboard Bindings:\n- Menu via [Esc]\n- Select via [Tab] and [Shift]+[Tab]\n- Scroll via [Page-Down] and [Page-Up]"
-									}]
-								}]
-							}
-						}],
-						"map": {
-							"dialog": 0
-						}
-					}
+					}]
 				}, {
 					"constructor": "lychee.ui.Blueprint",
 					"arguments": [{
@@ -96,58 +55,11 @@
 						}]
 					}
 				}, {
-					"constructor": "lychee.ui.Layer",
-					"arguments": [{
-						"visible": false
-					}],
-					"blob": {
-						"entities": [{
-							"constructor": "lychee.ui.Table",
-							"arguments": [{}],
-							"blob": {
-								"model": {
-									"id": {
-										"constructor": "lychee.ui.Label",
-										"arguments": [{}]
-									},
-									"name": {
-										"constructor": "lychee.ui.Input",
-										"arguments": [{
-											"type": 0
-										}]
-									},
-									"num": {
-										"constructor": "lychee.ui.Slider",
-										"arguments": [{
-											"min":  8,
-											"max":  32,
-											"step": 1
-										}]
-									}
-								},
-								"value": [{
-									"id": "123",
-									"name": "cookiengineer",
-									"num": 16
-								}, {
-									"id": "120",
-									"name": "codekittey",
-									"num": 13
-								}, {
-									"id": "1337",
-									"name": "bottidibotbot",
-									"num": [ 13, 37, 10, 13 ]
-								}]
-							}
-						}]
-					}
-				}, {
 					"constructor": "lychee.ui.Menu",
 					"arguments": [{
 						"options": [
 							"Welcome",
-							"Settings",
-							"About"
+							"Settings"
 						],
 						"value": "Welcome"
 					}]
@@ -155,8 +67,7 @@
 				"map": {
 					"welcome":  0,
 					"settings": 1,
-					"about":    2,
-					"menu":     3
+					"menu":     2
 				}
 			}
 		}
