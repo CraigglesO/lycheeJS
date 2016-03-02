@@ -104,7 +104,7 @@ lychee.define('breeder.Template').requires([
 
 				var platform = this.settings.platform;
 
-				if (platform === null || platform === 'node') {
+				if (platform === null) {
 
 					_LIB.copy(fs, '/libraries/lychee/build/node/core.js');
 					_LIB.copy(fs, '/libraries/lychee/build/node/dist/index.js');
@@ -112,47 +112,20 @@ lychee.define('breeder.Template').requires([
 					_TPL.copy(fs, '/harvester.js');
 					fs.chmod('/harvester.js', '775');
 
-					_TPL.copy(fs, '/source/net/remote/Ping.js');
-					_TPL.copy(fs, '/source/net/Server.js');
-
-				}
-
-				if (platform === null || platform === 'html') {
-
-					_LIB.copy(fs, '/libraries/lychee/build/html/core.js');
-					_LIB.copy(fs, '/libraries/lychee/build/html/dist/index.js');
-
 					_TPL.copy(fs, '/index.html');
 					_TPL.copy(fs, '/favicon.ico');
 
-					_TPL.copy(fs, '/design/highlight.css');
-					_TPL.copy(fs, '/design/highlight.js');
-					_TPL.copy(fs, '/design/icon.eot');
-					_TPL.copy(fs, '/design/icon.svg');
-					_TPL.copy(fs, '/design/icon.ttf');
-					_TPL.copy(fs, '/design/icon.woff');
-					_TPL.copy(fs, '/design/index.css');
-					_TPL.copy(fs, '/design/index.js');
-					_TPL.copy(fs, '/design/museo-sans-300.eot');
-					_TPL.copy(fs, '/design/museo-sans-300.svg');
-					_TPL.copy(fs, '/design/museo-sans-300.ttf');
-					_TPL.copy(fs, '/design/museo-sans-300.woff');
-					_TPL.copy(fs, '/design/museo-sans-300.woff2');
-					_TPL.copy(fs, '/design/museo-sans-500.eot');
-					_TPL.copy(fs, '/design/museo-sans-500.svg');
-					_TPL.copy(fs, '/design/museo-sans-500.ttf');
-					_TPL.copy(fs, '/design/museo-sans-500.woff');
-					_TPL.copy(fs, '/design/museo-sans-500.woff2');
-
 					_TPL.copy(fs, '/source/Main.js');
-					_TPL.copy(fs, '/source/Main.json');
+
+					_TPL.copy(fs, '/source/net/remote/Ping.js');
+					_TPL.copy(fs, '/source/net/Server.js');
+
 					_TPL.copy(fs, '/source/net/Client.js');
 					_TPL.copy(fs, '/source/net/client/Ping.js');
-					_TPL.copy(fs, '/source/state/Welcome.js');
-					_TPL.copy(fs, '/source/state/Settings.js');
+
+					_TPL.copy(fs, '/source/state/Menu.js');
 
 				}
-
 
 				oncomplete(true);
 

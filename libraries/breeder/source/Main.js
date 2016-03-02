@@ -34,9 +34,7 @@ lychee.define('breeder.Main').requires([
 
 	var _breed = function(settings) {
 
-		var platform   = typeof settings.platform === 'string' ? settings.platform : 'default';
 		var project    = settings.project;
-		var identifier = settings.platform;
 
 
 		var template   = new breeder.Template({
@@ -48,7 +46,7 @@ lychee.define('breeder.Main').requires([
 		template.bind('complete', function() {
 
 			if (lychee.debug === true) {
-				console.info('breeder: SUCCESS ("' + project + ' | ' + identifier + '")');
+				console.info('breeder: SUCCESS ("' + project + '")');
 			}
 
 			this.destroy();
@@ -58,7 +56,7 @@ lychee.define('breeder.Main').requires([
 		template.bind('error', function(event) {
 
 			if (lychee.debug === true) {
-				console.error('breeder: FAILURE ("' + project + ' | ' + identifier + '") at "' + event + '" template event');
+				console.error('breeder: FAILURE ("' + project + '") at "' + event + '" template event');
 			}
 
 			this.destroy();

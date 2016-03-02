@@ -11,7 +11,6 @@ var _port = parseInt(process.argv[3], 10);
 var _host = process.argv[4] === 'null' ? null : process.argv[4];
 
 require(_root + '/libraries/lychee/build/node/core.js')(__dirname);
-require(_root + '/libraries/lychee/build/node/dist/index.js');
 
 
 
@@ -20,8 +19,6 @@ require(_root + '/libraries/lychee/build/node/dist/index.js');
  */
 
 (function(lychee, global) {
-
-	lychee.inject(lychee.ENVIRONMENTS['/libraries/lychee/dist']);
 
 	lychee.pkginit('node/main', {
 		debug:   false,

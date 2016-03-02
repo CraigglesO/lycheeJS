@@ -27,7 +27,7 @@ lychee.define('app.net.Server').requires([
 
 		this.bind('connect', function(remote) {
 
-			console.log('(Separated Boilerplate) app.net.Server: Remote connected (' + remote.host + ':' + remote.port + ')');
+			console.log('(Boilerplate) app.net.Server: Remote connected (' + remote.host + ':' + remote.port + ')');
 
 			remote.addService(new _Ping(remote));
 
@@ -35,7 +35,7 @@ lychee.define('app.net.Server').requires([
 
 		this.bind('disconnect', function(remote) {
 
-			console.log('(Separated Boilerplate) app.net.Server: Remote disconnected (' + remote.host + ':' + remote.port + ')');
+			console.log('(Boilerplate) app.net.Server: Remote disconnected (' + remote.host + ':' + remote.port + ')');
 
 		}, this);
 
