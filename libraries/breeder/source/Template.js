@@ -101,31 +101,24 @@ lychee.define('breeder.Template').requires([
 
 				_TPL.copy(fs, '/lychee.pkg');
 
+				_LIB.copy(fs, '/libraries/lychee/build/node/core.js');
+				_LIB.copy(fs, '/libraries/lychee/build/node/dist/index.js');
 
-				var platform = this.settings.platform;
+				_TPL.copy(fs, '/harvester.js');
+				fs.chmod('/harvester.js', '775');
 
-				if (platform === null) {
+				_TPL.copy(fs, '/index.html');
+				_TPL.copy(fs, '/favicon.ico');
 
-					_LIB.copy(fs, '/libraries/lychee/build/node/core.js');
-					_LIB.copy(fs, '/libraries/lychee/build/node/dist/index.js');
+				_TPL.copy(fs, '/source/Main.js');
 
-					_TPL.copy(fs, '/harvester.js');
-					fs.chmod('/harvester.js', '775');
+				_TPL.copy(fs, '/source/net/remote/Ping.js');
+				_TPL.copy(fs, '/source/net/Server.js');
 
-					_TPL.copy(fs, '/index.html');
-					_TPL.copy(fs, '/favicon.ico');
+				_TPL.copy(fs, '/source/net/Client.js');
+				_TPL.copy(fs, '/source/net/client/Ping.js');
 
-					_TPL.copy(fs, '/source/Main.js');
-
-					_TPL.copy(fs, '/source/net/remote/Ping.js');
-					_TPL.copy(fs, '/source/net/Server.js');
-
-					_TPL.copy(fs, '/source/net/Client.js');
-					_TPL.copy(fs, '/source/net/client/Ping.js');
-
-					_TPL.copy(fs, '/source/state/Menu.js');
-
-				}
+				_TPL.copy(fs, '/source/state/Menu.js');
 
 				oncomplete(true);
 

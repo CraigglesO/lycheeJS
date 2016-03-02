@@ -22,9 +22,9 @@ var lychee = require(root + '/libraries/lychee/build/node/core.js')(root);
 var _print_help = function() {
 
 	console.log('                                                            ');
-	console.info('lycheeJS ' + lychee.VERSION + ' Breeder');
+	console.info('lycheeJS ' + lychee.VERSION + ' Breeder                    ');
 	console.log('                                                            ');
-	console.log('Usage: lycheejs-breeder [Action] [Library/Project] ');
+	console.log('Usage: lycheejs-breeder [Action] [Target] [Library/Project] ');
 	console.log('                                                            ');
 	console.log('                                                            ');
 	console.log('Available Actions:                                          ');
@@ -36,7 +36,7 @@ var _print_help = function() {
 	console.log('    cd /projects/my-project;                                ');
 	console.log('                                                            ');
 	console.log('    lycheejs-breeder init;                                  ');
-	console.log('    lycheejs-breeder pull /libraries/harvester;             ');
+	console.log('    lycheejs-breeder pull /dist /libraries/harvester;       ');
 	console.log('    lycheejs-breeder push;                                  ');
 	console.log('                                                            ');
 
@@ -50,6 +50,7 @@ var _settings = (function() {
 		project:  null,
 		action:   null,
 		target:   null,
+		platform: null,
 		library:  null
 	};
 
@@ -57,11 +58,10 @@ var _settings = (function() {
 	var raw_arg0 = process.argv[2] || '';
 	var raw_arg1 = process.argv[3] || '';
 	var raw_arg2 = process.argv[4] || '';
+	var raw_arg3 = process.argv[5] || '';
 
-
-
-	if (raw_arg2.substr(0, 10) === '--project=') {
-		var tmp = raw_arg2.substr(10);
+	if (raw_arg3.substr(0, 10) === '--project=') {
+		var tmp = raw_arg3.substr(10);
 		if (tmp.indexOf('.') === -1) {
 
 			try {
@@ -91,21 +91,20 @@ var _settings = (function() {
 	} else if (raw_arg0 === 'pull') {
 
 		settings.action = 'pull';
+		settings.platform = raw_arg1.split('/')[0] || null;
 
+		console.log(settings.platform);
 		try {
-
-			var stat1 = fs.lstatSync(root + raw_arg1);
-			var stat2 = fs.lstatSync(root + raw_arg1 + '/lychee.pkg');
+			var stat1 = fs.lstatSync(root + raw_arg2);
+			var stat2 = fs.lstatSync(root + raw_arg2 + '/lychee.pkg');
 			if (stat1.isDirectory() && stat2.isFile()) {
-				settings.library = raw_arg1;
+				settings.library = raw_arg2;
 			}
 
 		} catch(e) {
-
 			settings.library = null;
 
 		}
-
 	// push --project="/projects/my-project"
 	} else if (raw_arg0 === 'push') {
 
@@ -208,12 +207,14 @@ var _bootup = function(settings) {
 	var has_library = settings.library !== null;
 	var has_target  = settings.target !== null;
 
-
-	var platform = null;
 	var target   = null;
+	var platform = null;
+
 	if (has_target) {
 		platform = settings.target.split('/')[0] || null;
 		target   = settings.target.split('/')[1] || null;
+		console.log(platform);
+		console.log(target);
 	}
 
 	if (action === 'init' && has_project) {
@@ -221,7 +222,6 @@ var _bootup = function(settings) {
 		_bootup({
 			action:  'init',
 			project:  settings.project,
-			platform: platform
 		});
 
 	} else if (action === 'pull' && has_project && has_library) {
@@ -230,7 +230,7 @@ var _bootup = function(settings) {
 			action:   'pull',
 			project:  settings.project,
 			library:  settings.library,
-			platform: platform,
+			platform: platform
 		});
 
 	} else if (action === 'push' && has_project) {

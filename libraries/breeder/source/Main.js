@@ -20,7 +20,6 @@ lychee.define('breeder.Main').requires([
 	var _defaults = {
 
 		action:   null,
-		platform: null,
 		project:  null,
 		library:  null
 
@@ -34,10 +33,8 @@ lychee.define('breeder.Main').requires([
 
 	var _breed = function(settings) {
 
-		var project    = settings.project;
-
-
-		var template   = new breeder.Template({
+		var project  = settings.project;
+		var template = new breeder.Template({
 			filesystem: new fertilizer.data.Filesystem(settings.project),
 			shell:      new fertilizer.data.Filesystem(settings.project),
 			settings:   settings
