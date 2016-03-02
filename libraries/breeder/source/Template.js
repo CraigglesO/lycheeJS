@@ -59,7 +59,9 @@ lychee.define('breeder.Template').requires([
 			var str = line.trim();
 			if (str.substr(0, 14) === 'lychee.inject(') {
 				index.inject = i;
-			} else if (str.substr(0, 22) === 'lychee.setEnvironment(' && index.inject === -1) {
+			} else if (str.substr(0, 15) === 'lychee.envinit(' && index.inject === -1) {
+				index.inject = i;
+			} else if (str.substr(0, 15) === 'lychee.pkginit(' && index.inject === -1) {
 				index.inject = i;
 			}
 
@@ -100,32 +102,27 @@ lychee.define('breeder.Template').requires([
 			if (fs !== null) {
 
 				_TPL.copy(fs, '/lychee.pkg');
+				_TPL.copy(fs, '/harvester.js');
+				fs.chmod('/harvester.js', '775');
 
 
-				var platform = this.settings.platform;
+				_LIB.copy(fs, '/libraries/lychee/build/node/core.js');
+				_LIB.copy(fs, '/libraries/lychee/build/node/dist/index.js');
 
-				if (platform === null) {
+				_LIB.copy(fs, '/libraries/lychee/build/html/core.js');
+				_LIB.copy(fs, '/libraries/lychee/build/html/dist/index.js');
 
-					_LIB.copy(fs, '/libraries/lychee/build/node/core.js');
-					_LIB.copy(fs, '/libraries/lychee/build/node/dist/index.js');
+				_TPL.copy(fs, '/source/Main.js');
+				_TPL.copy(fs, '/source/net/remote/Ping.js');
+				_TPL.copy(fs, '/source/net/Server.js');
+				_TPL.copy(fs, '/source/net/Client.js');
+				_TPL.copy(fs, '/source/net/client/Ping.js');
+				_TPL.copy(fs, '/source/state/Menu.js');
+				_TPL.copy(fs, '/source/state/Menu.json');
 
-					_TPL.copy(fs, '/harvester.js');
-					fs.chmod('/harvester.js', '775');
+				_TPL.copy(fs, '/index.html');
+				_TPL.copy(fs, '/favicon.ico');
 
-					_TPL.copy(fs, '/index.html');
-					_TPL.copy(fs, '/favicon.ico');
-
-					_TPL.copy(fs, '/source/Main.js');
-
-					_TPL.copy(fs, '/source/net/remote/Ping.js');
-					_TPL.copy(fs, '/source/net/Server.js');
-
-					_TPL.copy(fs, '/source/net/Client.js');
-					_TPL.copy(fs, '/source/net/client/Ping.js');
-
-					_TPL.copy(fs, '/source/state/Menu.js');
-
-				}
 
 				oncomplete(true);
 
@@ -143,10 +140,8 @@ lychee.define('breeder.Template').requires([
 			var lib = this.settings.library;
 			if (fs !== null && lib !== null) {
 
-				var platform    = this.settings.platform;
-				var target      = this.settings.target;
-				var tmp         = null;
-				var copy_target = function(platform, target) {
+				var tmp  = null;
+				var copy = function(platform, target) {
 
 					var path = lib + '/build/' + platform + '/' + target + '/index.js';
 					var info = _LIB.info(path);
@@ -163,49 +158,25 @@ lychee.define('breeder.Template').requires([
 				};
 
 
-				if (platform === null || platform === 'node') {
+				tmp = fs.read('/harvester.js');
+				_LIB.dir(lib + '/build/node').forEach(function(target) {
+					copy('node', target);
+				});
 
-					tmp = fs.read('/harvester.js');
-
-					if (target !== null) {
-
-						copy_target('node', target);
-
-					} else {
-
-						_LIB.dir(lib + '/build/node').forEach(function(target) {
-							copy_target('node', target);
-						});
-
-					}
-
-					if (tmp !== null) {
-						fs.write('/harvester.js', tmp);
-					}
-
+				if (tmp !== null) {
+					fs.write('/harvester.js', tmp);
 				}
 
-				if (platform === null || platform === 'html') {
 
-					tmp = fs.read('/index.html');
+				tmp = fs.read('/index.html');
+				_LIB.dir(lib + '/build/html').forEach(function(target) {
+					copy('html', target);
+				});
 
-					if (target !== null) {
-
-						copy_target('html', target);
-
-					} else {
-
-						_LIB.dir(lib + '/build/html').forEach(function(target) {
-							copy_target('html', target);
-						});
-
-					}
-
-					if (tmp !== null) {
-						fs.write('/index.html', tmp);
-					}
-
+				if (tmp !== null) {
+					fs.write('/index.html', tmp);
 				}
+
 
 				oncomplete(true);
 

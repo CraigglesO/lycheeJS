@@ -21,24 +21,24 @@ var lychee = require(root + '/libraries/lychee/build/node/core.js')(root);
 
 var _print_help = function() {
 
-	console.log('                                                            ');
+	console.log('                                                   ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Breeder');
-	console.log('                                                            ');
+	console.log('                                                   ');
 	console.log('Usage: lycheejs-breeder [Action] [Library/Project] ');
-	console.log('                                                            ');
-	console.log('                                                            ');
-	console.log('Available Actions:                                          ');
-	console.log('                                                            ');
-	console.log('   init, pull, push                                         ');
-	console.log('                                                            ');
-	console.log('Examples:                                                   ');
-	console.log('                                                            ');
-	console.log('    cd /projects/my-project;                                ');
-	console.log('                                                            ');
-	console.log('    lycheejs-breeder init;                                  ');
-	console.log('    lycheejs-breeder pull /libraries/harvester;             ');
-	console.log('    lycheejs-breeder push;                                  ');
-	console.log('                                                            ');
+	console.log('                                                   ');
+	console.log('                                                   ');
+	console.log('Available Actions:                                 ');
+	console.log('                                                   ');
+	console.log('   init, pull, push                                ');
+	console.log('                                                   ');
+	console.log('Examples:                                          ');
+	console.log('                                                   ');
+	console.log('    cd /projects/my-project;                       ');
+	console.log('                                                   ');
+	console.log('    lycheejs-breeder init;                         ');
+	console.log('    lycheejs-breeder pull /libraries/harvester;    ');
+	console.log('    lycheejs-breeder push;                         ');
+	console.log('                                                   ');
 
 };
 
@@ -49,7 +49,6 @@ var _settings = (function() {
 	var settings = {
 		project:  null,
 		action:   null,
-		target:   null,
 		library:  null
 	};
 
@@ -59,8 +58,8 @@ var _settings = (function() {
 	var raw_arg2 = process.argv[4] || '';
 
 
-
 	if (raw_arg2.substr(0, 10) === '--project=') {
+
 		var tmp = raw_arg2.substr(10);
 		if (tmp.indexOf('.') === -1) {
 
@@ -82,12 +81,13 @@ var _settings = (function() {
 	}
 
 
-	// init --project="/projects/my-project"
+	// init "" --project="/projects/my-project"
 	if (raw_arg0 === 'init') {
 
 		settings.action = 'init';
 
-	// pull node/dist /libraries/harvester --project="/projects/my-project"
+
+	// pull /libraries/harvester --project="/projects/my-project"
 	} else if (raw_arg0 === 'pull') {
 
 		settings.action = 'pull';
@@ -106,10 +106,11 @@ var _settings = (function() {
 
 		}
 
-	// push --project="/projects/my-project"
+	// push "" --project="/projects/my-project"
 	} else if (raw_arg0 === 'push') {
 
 		settings.action = 'push';
+
 	}
 
 
@@ -206,31 +207,21 @@ var _bootup = function(settings) {
 	var action      = settings.action;
 	var has_project = settings.project !== null;
 	var has_library = settings.library !== null;
-	var has_target  = settings.target !== null;
 
-
-	var platform = null;
-	var target   = null;
-	if (has_target) {
-		platform = settings.target.split('/')[0] || null;
-		target   = settings.target.split('/')[1] || null;
-	}
 
 	if (action === 'init' && has_project) {
 
 		_bootup({
 			action:  'init',
-			project:  settings.project,
-			platform: platform
+			project: settings.project
 		});
 
 	} else if (action === 'pull' && has_project && has_library) {
 
 		_bootup({
-			action:   'pull',
-			project:  settings.project,
-			library:  settings.library,
-			platform: platform,
+			action:  'pull',
+			project: settings.project,
+			library: settings.library
 		});
 
 	} else if (action === 'push' && has_project) {

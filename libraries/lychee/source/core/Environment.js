@@ -1065,13 +1065,14 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 					var onbuildtimeout = function() {
 
 						if (this.debug === true) {
-
-							this.global.console.error('lychee-Environment (' + this.id + '): BUILD TIMEOUT (' + (cache.end - cache.start) + 'ms)');
-							this.global.console.error('lychee-Environment (' + this.id + '): Invalid Dependencies ' + cache.load.map(function(value, index) {
-								return '"' + value + '" (required by ' + cache.track[index] + ')';
-							}).join(', '));
-
+							this.global.console.log('lychee-Environment (' + this.id + '): BUILD TIMEOUT (' + (cache.end - cache.start) + 'ms)');
 						}
+
+
+						// XXX: Always show Dependency Errors
+						this.global.console.error('lychee-Environment (' + this.id + '): Invalid Dependencies ' + cache.load.map(function(value, index) {
+							return '"' + value + '" (required by ' + cache.track[index] + ')';
+						}).join(', '));
 
 
 						if (this.debug === true) {

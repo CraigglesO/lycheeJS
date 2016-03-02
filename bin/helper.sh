@@ -109,7 +109,9 @@ if [ "$protocol" == "lycheejs" ]; then
 	fi;
 
 
-	if [ "$action" == "web" ]; then
+	if [ "$action" == "unboot" ]; then
+		resource="DUMMY";
+	elif [ "$action" == "web" ]; then
 		resource=$(echo $1 | cut -c 16-);
 	fi;
 

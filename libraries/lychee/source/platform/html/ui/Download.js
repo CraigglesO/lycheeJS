@@ -52,7 +52,7 @@ lychee.define('lychee.ui.Download').tags({
 
 				for (var ext in mime) {
 
-					var element = document.createElement('a');
+					var element = global.document.createElement('a');
 
 					element.download = name + '.' + ext;
 					element.href     = data.blob.buffer[ext];
@@ -67,7 +67,7 @@ lychee.define('lychee.ui.Download').tags({
 					name = mime.name + '.' + mime.ext;
 				}
 
-				var element = document.createElement('a');
+				var element = global.document.createElement('a');
 
 				element.download = name;
 				element.href     = data.blob.buffer;

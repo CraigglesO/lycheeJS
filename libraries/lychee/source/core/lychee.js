@@ -820,6 +820,14 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 				}
 
 
+				code += '\n\n';
+				code += 'if (sandbox === null) {\n';
+				code += '\tconsole.error("lychee: envinit() failed.");\n';
+				code += '\treturn;\n';
+				code += '}\n';
+				code += '\n\n';
+
+
 				code += [ 'lychee' ].concat(environment.packages.map(function(pkg) {
 					return pkg.id;
 				})).map(function(lib) {
@@ -828,6 +836,7 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 				code += '\n\n';
 				code += 'sandbox.MAIN = new ' + environment.build + '(' + JSON.stringify(env_profile) + ');\n';
+				code += '\n\n';
 				code += 'if (typeof sandbox.MAIN.init === \'function\') {\n';
 				code += '\tsandbox.MAIN.init();\n';
 				code += '}\n';
@@ -881,6 +890,13 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 								}
 
 
+								code += '\n\n';
+								code += 'if (sandbox === null) {\n';
+								code += '\tconsole.error("lychee: pkginit() failed.");\n';
+								code += '\treturn;\n';
+								code += '}\n';
+								code += '\n\n';
+
 								code += [ 'lychee' ].concat(env_settings.packages.map(function(pkg) {
 									return pkg.id;
 								})).map(function(lib) {
@@ -889,6 +905,7 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 								code += '\n\n';
 								code += 'sandbox.MAIN = new ' + env_settings.build + '(' + JSON.stringify(env_profile) + ');\n';
+								code += '\n\n';
 								code += 'if (typeof sandbox.MAIN.init === \'function\') {\n';
 								code += '\tsandbox.MAIN.init();\n';
 								code += '}\n';
