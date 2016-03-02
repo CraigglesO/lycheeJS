@@ -43,9 +43,16 @@ lychee.define('app.state.Menu').includes([
 			this.queryLayer('ui', 'welcome > dialog').bind('change', function(value) {
 
 				if (this.main.getState(value) !== null) {
+
 					this.main.changeState(value);
+
 				} else if (this.queryLayer('ui', value) !== null) {
-					this.queryLayer('ui', 'menu').setValue(value);
+
+					var val = value.charAt(0).toUpperCase() + value.substr(1);
+
+					this.queryLayer('ui', 'menu').setValue(val);
+					this.queryLayer('ui', 'menu').trigger('change', [ value ]);
+
 				}
 
 			}, this);
