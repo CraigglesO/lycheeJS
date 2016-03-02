@@ -235,7 +235,7 @@ lychee.define('harvester.mod.Server').requires([
 
 		can: function(project) {
 
-			if (project.server === null) {
+			if (project.identifier.indexOf('__') === -1 && project.server === null) {
 
 				var info = project.filesystem.info('/harvester.js');
 				if (info !== null && info.type === 'file') {
