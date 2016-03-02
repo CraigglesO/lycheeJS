@@ -91,17 +91,17 @@ var _settings = (function() {
 	} else if (raw_arg0 === 'pull') {
 
 		settings.action = 'pull';
+		settings.platform = raw_arg1.split('/')[0] || null;
 
+		console.log(settings.platform);
 		try {
-
-			var stat1 = fs.lstatSync(root + raw_arg1);
-			var stat2 = fs.lstatSync(root + raw_arg1 + '/lychee.pkg');
+			var stat1 = fs.lstatSync(root + raw_arg2);
+			var stat2 = fs.lstatSync(root + raw_arg2 + '/lychee.pkg');
 			if (stat1.isDirectory() && stat2.isFile()) {
-				settings.library = raw_arg1;
+				settings.library = raw_arg2;
 			}
 
 		} catch(e) {
-
 			settings.library = null;
 
 		}

@@ -430,6 +430,9 @@
 						"Download": [
 							"js"
 						],
+						"Helper": [
+							"js"
+						],
 						"Upload": [
 							"js"
 						]
