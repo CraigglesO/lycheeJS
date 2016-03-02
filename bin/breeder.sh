@@ -49,17 +49,17 @@ case "$1" in
 
 	init)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js init "" "" --project=/$PROJECT_ROOT;
+		$LYCHEEJS_NODE ./bin/breeder.js init "" --project=/$PROJECT_ROOT;
 	;;
 
 	pull)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js pull "$2" "$3" --project=/$PROJECT_ROOT;
+		$LYCHEEJS_NODE ./bin/breeder.js pull "$2" --project=/$PROJECT_ROOT;
 	;;
 
 	push)
 		cd $LYCHEEJS_ROOT;
-		$LYCHEEJS_NODE ./bin/breeder.js push "" "" --project=/$PROJECT_ROOT;
+		$LYCHEEJS_NODE ./bin/breeder.js push "" --project=/$PROJECT_ROOT;
 	;;
 
 	*)
