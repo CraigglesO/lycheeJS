@@ -1,17 +1,11 @@
 
 lychee.define('app.Main').requires([
-	'lychee.data.JSON',
 	'app.net.Client',
-	'app.state.Welcome',
-	'app.state.Settings'
+	'app.net.Server',
+	'app.state.Menu'
 ]).includes([
 	'lychee.app.Main'
 ]).exports(function(lychee, app, global, attachments) {
-
-	var _JSON   = lychee.data.JSON;
-	var _config = attachments["json"].buffer;
-
-
 
 	/*
 	 * IMPLEMENTATION
@@ -19,7 +13,36 @@ lychee.define('app.Main').requires([
 
 	var Class = function(data) {
 
-		var settings = lychee.extend({}, _config, data);
+		var settings = lychee.extend({
+
+			// Is configured by Sorbet API
+			client: '/api/Server?identifier=boilerplate',
+
+			input: {
+				delay:       0,
+				key:         true,
+				keymodifier: false,
+				touch:       true,
+				swipe:       true
+			},
+
+			jukebox: {
+				music: true,
+				sound: true
+			},
+
+			renderer: {
+				id:         'boilerplate',
+				width:      null,
+				height:     null,
+				background: '#404948'
+			},
+
+			viewport: {
+				fullscreen: false
+			}
+
+		}, data);
 
 
 		lychee.app.Main.call(this, settings);
@@ -35,8 +58,8 @@ lychee.define('app.Main').requires([
 			this.settings.appclient = this.settings.client;
 			this.settings.client    = null;
 
-			// this.settings.appserver = this.settings.server;
-			// this.settings.server    = null;
+			this.settings.appserver = this.settings.server;
+			this.settings.server    = null;
 
 			oncomplete(true);
 
@@ -49,16 +72,16 @@ lychee.define('app.Main').requires([
 				this.client = new app.net.Client(appclient, this);
 			}
 
-			// var appserver = this.settings.appserver || null;
-			// if (appserver !== null) {
-			// 	this.server = new app.net.Server(appserver, this);
-			// }
+			var appserver = this.settings.appserver || null;
+			if (appserver !== null) {
+				this.server = new app.net.Server(appserver, this);
+			}
 
 
-			this.setState('welcome',  new app.state.Welcome(this));
-			this.setState('settings', new app.state.Settings(this));
+			this.setState('menu', new app.state.Menu(this));
 
-			ui.changeState('welcome');
+
+			this.changeState('menu');
 
 		}, this, true);
 
@@ -100,4 +123,3 @@ lychee.define('app.Main').requires([
 	return Class;
 
 });
-

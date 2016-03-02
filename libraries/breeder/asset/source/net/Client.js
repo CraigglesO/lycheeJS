@@ -36,7 +36,7 @@ lychee.define('app.net.Client').requires([
 			this.addService(new _Ping(this));
 
 			if (lychee.debug === true) {
-				console.log('(Separated Boilerplate) app.net.Client: Remote connected');
+				console.log('(Boilerplate) app.net.Client: Remote connected');
 			}
 
 		}, this);
@@ -44,7 +44,7 @@ lychee.define('app.net.Client').requires([
 		this.bind('disconnect', function(code) {
 
 			if (lychee.debug === true) {
-				console.log('(Separated Boilerplate) app.net.Client: Remote disconnected (' + code + ')');
+				console.log('(Boilerplate) app.net.Client: Remote disconnected (' + code + ')');
 			}
 
 		}, this);

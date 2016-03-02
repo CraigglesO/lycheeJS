@@ -3,14 +3,93 @@
 		"files": {}
 	},
 	"build": {
-		"environments": {},
+		"environments": {
+			"html-nwjs/main": {
+				"build": "app.Main",
+				"debug": false,
+				"packages": [
+					[
+						"app",
+						"./lychee.pkg"
+					]
+				],
+				"sandbox": false,
+				"tags": {
+					"platform": [
+						"html-nwjs",
+						"html"
+					]
+				},
+				"variant": "application"
+			},
+			"html-webview/main": {
+				"build": "app.Main",
+				"debug": false,
+				"packages": [
+					[
+						"app",
+						"./lychee.pkg"
+					]
+				],
+				"sandbox": false,
+				"tags": {
+					"platform": [
+						"html-webview",
+						"html"
+					]
+				},
+				"variant": "application"
+			},
+			"html/main": {
+				"build": "app.Main",
+				"debug": false,
+				"packages": [
+					[
+						"app",
+						"./lychee.pkg"
+					]
+				],
+				"sandbox": false,
+				"tags": {
+					"platform": [
+						"html"
+					]
+				},
+				"variant": "application"
+			},
+			"node/main": {
+				"build": "app.Main",
+				"debug": false,
+				"packages": [
+					[
+						"app",
+						"./lychee.pkg"
+					]
+				],
+				"sandbox": false,
+				"tags": {
+					"platform": [
+						"node"
+					]
+				},
+				"variant": "application"
+			}
+		},
 		"files": {}
 	},
 	"source": {
 		"environments": {},
-		"tags": {},
 		"files": {
+			"Main": [
+				"js"
+			],
 			"net": {
+				"Client": [
+					"js"
+				],
+				"Server": [
+					"js"
+				],
 				"client": {
 					"Ping": [
 						"js"
@@ -20,30 +99,14 @@
 					"Ping": [
 						"js"
 					]
-				},
-				"Client": [
-					"js"
-				],
-				"Server": [
-					"js"
-				]
+				}
 			},
 			"state": {
-				"Welcome": [
+				"Menu": [
 					"js"
-				],
-				"Settings": [
-					"js"
-				]
-			},
-			"Main": [
-				"js",
-				"json"
-			],
-			"index": [
-				"html",
-				"js"
-			]
-		}
-	}
+					]
+				}
+		},
+		"tags": {}
+	},
 }
