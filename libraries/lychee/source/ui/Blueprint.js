@@ -49,7 +49,8 @@ lychee.define('lychee.ui.Blueprint').requires([
 			var pos_y  = 0;
 
 
-			this.__scroll.min   = 0;
+			this.__scroll.max_x = 0;
+			this.__scroll.min_y = 0;
 			this.__scroll.delta = 0;
 
 
@@ -112,7 +113,7 @@ lychee.define('lychee.ui.Blueprint').requires([
 					}
 
 
-					this.__scroll.min   = Math.min(this.__scroll.min,   -1 * (y1 + pos_y + entity.height / 2 + 32));
+					this.__scroll.min_y = Math.min(this.__scroll.min_y, -1 * (y1 + pos_y + entity.height / 2 + 32));
 					this.__scroll.delta = Math.max(this.__scroll.delta, entity.height + 32);
 
 				}
@@ -161,7 +162,7 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 
 					entity        = this.entities[1];
-					entity.width  = this.width - 64 - 320;
+					entity.width  = Math.max(480, this.width - 64 - 320);
 					entity.height = this.height;
 
 					pos_x = x1 + 320 + 64 + entity.width / 2;
@@ -196,6 +197,9 @@ lychee.define('lychee.ui.Blueprint').requires([
 						});
 
 					}
+
+
+					this.__scroll.max_x = Math.min(this.__scroll.max_x, -1 * (x1 + pos_x + entity.width / 2 + 32));
 
 				}
 
@@ -363,52 +367,103 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 	};
 
-	var _on_swipe = function(id, type, position, delta, swipe) {
+	var _on_swipe = function(id, state, position, delta, swipe) {
 
 		if (this.effects.length === 0) {
 
 			var scroll = this.__scroll;
+			var type   = this.type;
 
 
-			if (type === 'start') {
+			if (type === Class.TYPE.grid) {
 
-				scroll.start = this.offset.y;
+				if (state === 'start') {
 
-			} else if (type === 'move' || type === 'end') {
+					scroll.start = this.offset.y;
 
-				if (scroll.start === null) {
-					scroll.start = this.offset.x;
+				} else if (state === 'move' || state === 'end') {
+
+					if (scroll.start === null) {
+						scroll.start = this.offset.x;
+					}
+
+
+					if (Math.abs(swipe.y) >= 128) {
+
+						var offset_y = scroll.start;
+
+						if (swipe.y > 0) {
+							offset_y += scroll.delta;
+						} else if (swipe.y < 0) {
+							offset_y -= scroll.delta;
+						}
+
+
+						if (offset_y < scroll.min_y) {
+							offset_y = scroll.min_y;
+						} else if (offset_y > 0) {
+							offset_y = 0;
+						}
+
+
+						this.addEffect(new lychee.effect.Offset({
+							type:     lychee.effect.Offset.TYPE.easeout,
+							duration: 300,
+							offset:   {
+								y: offset_y
+							}
+						}));
+
+
+						return false;
+
+					}
+
 				}
 
+			} else if (type === Class.TYPE.view) {
 
-				if (Math.abs(swipe.y) >= 128) {
+				if (state === 'start') {
 
-					var offset_y = scroll.start;
+					scroll.start = this.offset.x;
 
-					if (swipe.y > 0) {
-						offset_y += scroll.delta;
-					} else if (swipe.y < 0) {
-						offset_y -= scroll.delta;
+				} else if (state === 'move' || state === 'end') {
+
+					if (scroll.start === null) {
+						scroll.start = this.offset.x;
 					}
 
 
-					if (offset_y < scroll.min) {
-						offset_y = scroll.min;
-					} else if (offset_y > 0) {
-						offset_y = 0;
-					}
+					if (Math.abs(swipe.x) >= 128) {
 
+						var offset_x = scroll.start;
 
-					this.addEffect(new lychee.effect.Offset({
-						type:     lychee.effect.Offset.TYPE.easeout,
-						duration: 300,
-						offset:   {
-							y: offset_y
+						if (swipe.x > 0) {
+							offset_x += scroll.delta;
+						} else if (swipe.x < 0) {
+							offset_x -= scroll.delta;
 						}
-					}));
 
 
-					return false;
+						if (offset_x > scroll.max_x) {
+							offset_x = scroll.max_x;
+						} else if (offset_x < 0) {
+							offset_x = 0;
+						}
+
+
+						this.addEffect(new lychee.effect.Offset({
+							type:     lychee.effect.Offset.TYPE.easeout,
+							duration: 300,
+							offset:   {
+								x: offset_x
+							}
+						}));
+
+
+						return false;
+
+					}
 
 				}
 
@@ -443,7 +498,8 @@ lychee.define('lychee.ui.Blueprint').requires([
 		this.__scroll = {
 			start: 0,
 			delta: 0,
-			min:   0
+			max_x: 0,
+			min_y: 0
 		};
 
 
