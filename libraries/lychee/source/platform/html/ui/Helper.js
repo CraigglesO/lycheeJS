@@ -64,6 +64,9 @@ lychee.define('lychee.ui.Helper').tags({
 
 		element.click();
 
+
+		return true;
+
 	};
 
 
@@ -94,7 +97,12 @@ lychee.define('lychee.ui.Helper').tags({
 
 			var value = this.value;
 			if (value !== null) {
-				_help(this.value);
+
+				var result = _help(this.value);
+				if (result === true) {
+					this.trigger('change', [ this.value ]);
+				}
+
 			}
 
 		}, this);

@@ -73,6 +73,7 @@ lychee.define('lychee.ui.Table').includes([
 						entity.height     = dim_y;
 						entity.position.x = x1 + off_x + dim_x / 2;
 						entity.position.y = y1 + off_y + dim_y / 2;
+						entity.trigger('relayout');
 
 						this.entities.push(entity);
 
@@ -125,6 +126,7 @@ lychee.define('lychee.ui.Table').includes([
 						entity.height     = dim_y;
 						entity.position.x = x1 + off_x + dim_x / 2;
 						entity.position.y = y1 + off_y + dim_y / 2;
+						entity.trigger('relayout');
 
 						this.entities.push(entity);
 
@@ -162,6 +164,7 @@ lychee.define('lychee.ui.Table').includes([
 							entity.height     = dim_y;
 							entity.position.x = x1 + off_x + dim_x / 2;
 							entity.position.y = y1 + off_y + dim_y / 2;
+							entity.trigger('relayout');
 
 						}
 
@@ -196,6 +199,7 @@ lychee.define('lychee.ui.Table').includes([
 							entity.height     = dim_y;
 							entity.position.x = x1 + off_x + dim_x / 2;
 							entity.position.y = y1 + off_y + dim_y / 2;
+							entity.trigger('relayout');
 
 						}
 
