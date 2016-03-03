@@ -672,26 +672,6 @@ lychee.define('Renderer').tags({
 
 			}
 
-		},
-
-
-
-		/*
-		 * RENDERING API
-		 */
-
-		renderEntity: function(entity, offsetX, offsetY) {
-
-			if (typeof entity.render === 'function') {
-
-				entity.render(
-					this,
-					offsetX || 0,
-					offsetY || 0
-				);
-
-			}
-
 		}
 
 	};
