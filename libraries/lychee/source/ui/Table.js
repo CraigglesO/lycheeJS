@@ -1,6 +1,8 @@
 
 lychee.define('lychee.ui.Table').includes([
 	'lychee.ui.Layer'
+]).requires([
+	'lychee.ui.Label'
 ]).exports(function(lychee, global, attachments) {
 
 	var _font = attachments["fnt"];
@@ -23,7 +25,9 @@ lychee.define('lychee.ui.Table').includes([
 
 		if (this.entities.length === 0) {
 
-			this.__label = Object.keys(this.model);
+			this.__label = Object.keys(this.model).map(function(label) {
+				return label.toUpperCase();
+			});
 
 			for (var prop in this.model) {
 				tmp[prop] = lychee.serialize(this.model[prop]);
@@ -50,17 +54,27 @@ lychee.define('lychee.ui.Table').includes([
 
 							if (typeof value === 'string') {
 								entity.setValue(value);
+							} else if (value instanceof Object) {
+								entity.setLabel(value.label);
+								entity.setValue(value.value);
 							}
 
-							entity.width      = dim_x;
-							entity.height     = dim_y;
-							entity.position.x = x1 + off_x + dim_x / 2;
-							entity.position.y = y1 + off_y + dim_y / 2;
 
-							this.entities.push(entity);
+						} else {
+
+							entity = new lychee.ui.Label({
+								value: '(Invalid UI Entity)'
+							});
 
 						}
 
+
+						entity.width      = dim_x;
+						entity.height     = dim_y;
+						entity.position.x = x1 + off_x + dim_x / 2;
+						entity.position.y = y1 + off_y + dim_y / 2;
+
+						this.entities.push(entity);
 
 						off_x += dim_x;
 
@@ -93,17 +107,26 @@ lychee.define('lychee.ui.Table').includes([
 
 							if (typeof value === 'string') {
 								entity.setValue(value);
+							} else if (value instanceof Object) {
+								entity.setLabel(value.label);
+								entity.setValue(value.value);
 							}
 
-							entity.width      = dim_x;
-							entity.height     = dim_y;
-							entity.position.x = x1 + off_x + dim_x / 2;
-							entity.position.y = y1 + off_y + dim_y / 2;
+						} else {
 
-							this.entities.push(entity);
+							entity = new lychee.ui.Label({
+								value: '(Invalid UI Entity)'
+							});
 
 						}
 
+
+						entity.width      = dim_x;
+						entity.height     = dim_y;
+						entity.position.x = x1 + off_x + dim_x / 2;
+						entity.position.y = y1 + off_y + dim_y / 2;
+
+						this.entities.push(entity);
 
 						off_y += dim_y;
 
@@ -480,12 +503,13 @@ lychee.define('lychee.ui.Table').includes([
 
 				this.model = {};
 
-
 				for (var property in model) {
 
 					var instance = model[property];
-					if (lychee.interfaceof(lychee.ui.Entity, instance) === true) {
+					if (instance !== null && typeof instance.setValue === 'function') {
 						this.model[property] = instance;
+					} else {
+						this.model[property] = null;
 					}
 
 				}
