@@ -260,15 +260,9 @@ lychee.define('game.state.Game').requires([
 		 * CUSTOM API
 		 */
 
-		update: function(clock, delta) {
+		enter: function(oncomplete) {
 
-			lychee.app.State.prototype.update.call(this, clock, delta);
-
-		},
-
-		enter: function() {
-
-			lychee.app.State.prototype.enter.call(this);
+			lychee.app.State.prototype.enter.call(this, oncomplete);
 
 
 			this.__player   = 'x';
@@ -293,12 +287,12 @@ lychee.define('game.state.Game').requires([
 
 		},
 
-		leave: function() {
-
-			lychee.app.State.prototype.leave.call(this);
-
+		leave: function(oncomplete) {
 
 			this.jukebox.stop(_music);
+
+
+			lychee.app.State.prototype.leave.call(this, oncomplete);
 
 		}
 
