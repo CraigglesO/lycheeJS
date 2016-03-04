@@ -243,7 +243,7 @@ lychee.define('lychee.app.Main').requires([
 			width:      null,
 			height:     null,
 			id:         'app',
-			background: '#404844'
+			background: '#405050'
 		},
 
 		stash: {

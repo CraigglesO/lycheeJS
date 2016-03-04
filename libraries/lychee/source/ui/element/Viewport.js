@@ -147,7 +147,7 @@ lychee.define('lychee.ui.element.Viewport').requires([
 
 		this.setEntity('background', new lychee.ui.Input({
 			type:  lychee.ui.Input.TYPE.text,
-			value: '#404844'
+			value: '#405050'
 		}));
 
 		this.getEntity('mode').bind('change', function(value) {

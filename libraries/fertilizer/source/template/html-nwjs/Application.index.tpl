@@ -13,8 +13,6 @@
 		body {
 			margin: 0;
 			padding: 0;
-			color: #fff;
-			background: #444;
 		}
 		
 		.lychee-Renderer-canvas {

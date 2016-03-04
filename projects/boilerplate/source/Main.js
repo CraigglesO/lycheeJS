@@ -32,10 +32,9 @@ lychee.define('app.Main').requires([
 			},
 
 			renderer: {
-				id:         'boilerplate',
-				width:      null,
-				height:     null,
-				background: '#404948'
+				id:     'boilerplate',
+				width:  null,
+				height: null
 			},
 
 			viewport: {

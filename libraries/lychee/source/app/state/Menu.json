@@ -7,7 +7,7 @@
 				"entities": [{
 					"constructor": "lychee.ui.Background",
 					"arguments": [{
-						"color": "#404844"
+						"color": "#405050"
 					}]
 				}, {
 					"constructor": "lychee.ui.Emblem",
