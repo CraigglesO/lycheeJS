@@ -574,31 +574,41 @@ lychee.define('lychee.app.Main').requires([
 		changeState: function(id, data) {
 
 			id   = typeof id === 'string' ? id   : null;
-			data = data instanceof Object ? data : null;
+			data = data !== undefined     ? data : null;
 
 
+			var that     = this;
 			var oldstate = this.state;
 			var newstate = this.__states[id] || null;
+
 
 			if (newstate !== null) {
 
 				if (oldstate !== null) {
-					oldstate.leave();
-				}
 
-				if (newstate !== null) {
-					newstate.enter(data);
-				}
+					oldstate.leave(function(result) {
+						newstate.enter(function(result) {
+							that.state = newstate;
+						}, data);
+					});
 
-				this.state = newstate;
+				} else {
+
+					newstate.enter(function(result) {
+						that.state = newstate;
+					}, data);
+
+				}
 
 			} else {
 
 				if (oldstate !== null) {
-					oldstate.leave();
-				}
 
-				this.state = null;
+					oldstate.leave(function(result) {
+						that.state = null;
+					});
+
+				}
 
 			}
 

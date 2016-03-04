@@ -416,7 +416,10 @@ lychee.define('lychee.app.State').requires([
 
 		},
 
-		enter: function(data) {
+		enter: function(oncomplete) {
+
+			oncomplete = oncomplete instanceof Function ? oncomplete : null;
+
 
 			var input = this.input;
 			if (input !== null) {
@@ -425,9 +428,17 @@ lychee.define('lychee.app.State').requires([
 				input.bind('swipe', _on_swipe, this);
 			}
 
+
+			if (oncomplete !== null) {
+				oncomplete(true);
+			}
+
 		},
 
-		leave: function() {
+		leave: function(oncomplete) {
+
+			oncomplete = oncomplete instanceof Function ? oncomplete : null;
+
 
 			var focus = this.__focus;
 			if (focus !== null) {
@@ -454,6 +465,11 @@ lychee.define('lychee.app.State').requires([
 				input.unbind('swipe', _on_swipe, this);
 				input.unbind('touch', _on_touch, this);
 				input.unbind('key',   _on_key,   this);
+			}
+
+
+			if (oncomplete !== null) {
+				oncomplete(true);
 			}
 
 		},

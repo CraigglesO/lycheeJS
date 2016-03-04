@@ -30,16 +30,16 @@ lychee.define('lychee.app.state.Menu').requires([
 	 * HELPERS
 	 */
 
-	var _on_change = function(active) {
+	var _on_fade = function(id) {
 
 		var fade_offset = -3/2 * this.getLayer('ui').height;
-		var layers      = this.getLayer('ui').entities.filter(function(entity) {
-			return lychee.interfaceof(lychee.ui.Menu, entity) === false;
+		var entity      = this.queryLayer('ui', id);
+		var layers      = this.getLayer('ui').entities.filter(function(layer) {
+			return lychee.interfaceof(lychee.ui.Menu, layer) === false;
 		});
 
 
-		var entity = this.queryLayer('ui', active);
-		if (entity !== null) {
+		if (entity !== null && entity.visible === false) {
 
 			layers.forEach(function(layer) {
 
@@ -78,6 +78,29 @@ lychee.define('lychee.app.state.Menu').requires([
 					}));
 
 				}
+
+			});
+
+		} else if (entity === null) {
+
+			layers.forEach(function(layer) {
+
+				layer.setPosition({
+					y: 0
+				});
+
+				layer.addEffect(new lychee.effect.Position({
+					type:     lychee.effect.Position.TYPE.easeout,
+					duration: 300,
+					position: {
+						y: fade_offset
+					}
+				}));
+
+				layer.addEffect(new lychee.effect.Visible({
+					delay:   300,
+					visible: false
+				}));
 
 			});
 
@@ -218,7 +241,12 @@ lychee.define('lychee.app.state.Menu').requires([
 
 
 			this.queryLayer('ui', 'menu').bind('change', function(value) {
-				_on_change.call(this, value.toLowerCase());
+
+				var entity = this.queryLayer('ui', value.toLowerCase());
+				if (entity !== null) {
+					_on_fade.call(this, value.toLowerCase());
+				}
+
 			}, this);
 
 		},
@@ -229,15 +257,28 @@ lychee.define('lychee.app.state.Menu').requires([
 
 		},
 
-		enter: function(data) {
+		enter: function(oncomplete, data) {
 
-			lychee.app.State.prototype.enter.call(this);
-
-
-			var menu = this.queryLayer('ui', 'menu');
-			if (menu !== null) {
-				menu.trigger('change', [ 'Welcome' ]);
+			if (data !== null) {
+				_on_fade.call(this, data);
+			} else {
+				_on_fade.call(this, 'welcome');
 			}
+
+
+			this.loop.setTimeout(400, function() {
+				lychee.app.State.prototype.enter.call(this, oncomplete);
+			}, this);
+
+		},
+
+		leave: function(oncomplete) {
+
+			_on_fade.call(this, null);
+
+			this.loop.setTimeout(400, function() {
+				lychee.app.State.prototype.leave.call(this, oncomplete);
+			}, this);
 
 		}
 
