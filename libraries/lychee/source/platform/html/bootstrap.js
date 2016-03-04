@@ -11,6 +11,13 @@
 		var cwd    = (location.pathname || '');
 		var proto  = origin.split(':')[0];
 
+
+		// Hint: CDNs might have no proper redirect to index.html
+		if (cwd.split('/').pop() === 'index.html') {
+			cwd = cwd.split('/').slice(0, -1).join('/');
+		}
+
+
 		if (proto.match(/http|https/g) !== null) {
 
 			// Hint: The harvester (HTTP server) understands
@@ -18,11 +25,6 @@
 
 			lychee.ROOT.lychee = '';
 
-
-			// Hint: CDNs might have no proper redirect to index.html
-			if (cwd.split('/').pop() === 'index.html') {
-				cwd = cwd.split('/').slice(0, -1).join('/');
-			}
 
 			if (cwd !== '') {
 				lychee.ROOT.project = cwd;
@@ -37,6 +39,17 @@
 				lychee.ROOT.lychee = selfpath.substr(0, tmp1).substr(tmp2 + 3);
 			} else if (tmp1 !== -1) {
 				lychee.ROOT.lychee = selfpath.substr(0, tmp1);
+			}
+
+
+			var tmp3 = selfpath.split('/').slice(0, 3).join('/');
+			if (tmp3.substr(0, 13) === '/opt/lycheejs') {
+				lychee.ROOT.lychee = tmp3;
+			}
+
+
+			if (cwd !== '') {
+				lychee.ROOT.project = cwd;
 			}
 
 		}
