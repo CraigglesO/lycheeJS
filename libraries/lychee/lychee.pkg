@@ -447,7 +447,12 @@
 					],
 					"bootstrap": [
 						"js"
-					]
+					],
+					"ui": {
+						"Helper": [
+							"js"
+						]
+					}
 				},
 				"node": {
 					"Input": [

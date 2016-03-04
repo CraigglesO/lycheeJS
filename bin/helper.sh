@@ -60,13 +60,23 @@ _start_env () {
 
 }
 
-_put_API_Projects () {
+_put_API_Project () {
 
-	action="$1";
-	identifier="$2";
+	identifier="$1";
+	action="$2";
 	apiurl="http://localhost:4848/api/Project?identifier=$identifier&action=$action";
 
 	curl -i -X PUT $apiurl 2>&1;
+
+}
+
+_put_API_Profile () {
+
+	identifier="$1";
+	data="$2";
+	apiurl="http://localhost:4848/api/Profile?identifier=$identifier";
+
+	curl -i -H "Content-Type: application/json" -X PUT -d "$data" $apiurl 2>&1;
 
 }
 
@@ -76,7 +86,9 @@ _put_API_Projects () {
 # USE CASES (ARGUMENTS LIST)
 #
 # lycheejs://boot=development
+# lycheejs://profile=development&data={"port":1337,"hosts":{"localhost":null}}
 # lycheejs://unboot
+#
 # lycheejs://start=boilerplate
 # lycheejs://stop=boilerplate
 # lycheejs://edit=boilerplate
@@ -100,6 +112,7 @@ content=$(echo $1 | cut -d":" -f 2);
 if [ "$protocol" == "lycheejs" ]; then
 
 	action=$(echo $content | cut -c 3- | cut -d"=" -f 1);
+	data="";
 
 
 	if [[ $content =~ .*=.* ]]; then
@@ -109,7 +122,9 @@ if [ "$protocol" == "lycheejs" ]; then
 	fi;
 
 
-	if [ "$action" == "unboot" ]; then
+	if [ "$action" == "profile" ]; then
+		data=$(echo $1 | cut -d"=" -f 3);
+	elif [ "$action" == "unboot" ]; then
 		resource="DUMMY";
 	elif [ "$action" == "web" ]; then
 		resource=$(echo $1 | cut -c 16-);
@@ -134,6 +149,16 @@ if [ "$protocol" == "lycheejs" ]; then
 
 			;;
 
+			profile)
+
+				cd $LYCHEEJS_ROOT;
+
+				profile=
+
+				_put_API_Profile "$resource" "$data";
+
+			;;
+
 			unboot)
 
 				cd $LYCHEEJS_ROOT;
@@ -145,14 +170,14 @@ if [ "$protocol" == "lycheejs" ]; then
 
 			start)
 
-				_put_API_Projects "start" "$resource";
+				_put_API_Project "$resource" "start";
 				exit 0;
 
 			;;
 
 			stop)
 
-				_put_API_Projects "stop" "$resource";
+				_put_API_Project "$resource" "stop";
 				exit 0;
 
 			;;
