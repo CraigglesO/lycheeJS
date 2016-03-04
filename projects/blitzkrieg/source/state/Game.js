@@ -214,20 +214,14 @@ lychee.define('game.state.Game').requires([
 
 	Class.prototype = {
 
-		deserialize: function(blob) {
-
-			lychee.app.State.prototype.deserialize.call(this, blob);
-
-		},
-
-		enter: function(data) {
+		enter: function(oncomplete, data) {
 
 			var settings = lychee.extend({
 				level: 'debug'
 			}, data);
 
 
-			lychee.app.State.prototype.enter.call(this);
+			lychee.app.State.prototype.enter.call(this, oncomplete);
 
 
 			var logic = this.logic;
@@ -268,10 +262,7 @@ lychee.define('game.state.Game').requires([
 
 		},
 
-		leave: function() {
-
-			lychee.app.State.prototype.leave.call(this);
-
+		leave: function(oncomplete) {
 
 			var ui_game = this.queryLayer('ui', 'game');
 			if (ui_game !== null) {
@@ -290,6 +281,9 @@ lychee.define('game.state.Game').requires([
 			}
 
 			this.input.unbind('swipe', _process_swipe, this);
+
+
+			lychee.app.State.prototype.leave.call(this, oncomplete);
 
 		},
 

@@ -185,7 +185,7 @@ lychee.define('game.state.Game').requires([
 
 		},
 
-		enter: function() {
+		enter: function(oncomplete) {
 
 			this.__score.enemy  = 0;
 			this.__score.player = 0;
@@ -193,10 +193,6 @@ lychee.define('game.state.Game').requires([
 
 
 			_reset_game.call(this, null);
-
-
-			lychee.app.State.prototype.enter.call(this);
-
 
 
 			// Allow AI playing while welcome dialog is visible
@@ -224,13 +220,17 @@ lychee.define('game.state.Game').requires([
 
 			this.jukebox.play(_music);
 
+
+			lychee.app.State.prototype.enter.call(this, oncomplete);
+
 		},
 
-		leave: function() {
-
-			lychee.app.State.prototype.leave.call(this);
+		leave: function(oncomplete) {
 
 			this.input.unbind('touch', _on_touch, this);
+
+
+			lychee.app.State.prototype.leave.call(this, oncomplete);
 
 		},
 

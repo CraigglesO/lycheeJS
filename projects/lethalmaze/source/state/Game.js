@@ -103,9 +103,12 @@ lychee.define('game.state.Game').requires([
 
 		},
 
-		enter: function(data) {
+		enter: function(oncomplete, data) {
 
 			data = data instanceof Object ? data : { level: 'intro' };
+
+
+			lychee.app.State.prototype.enter.call(this, oncomplete);
 
 
 			var level = game.data.Level.decode(_LEVELS[data.level] || null) || null;
@@ -155,16 +158,15 @@ lychee.define('game.state.Game').requires([
 
 			}
 
-			lychee.app.State.prototype.enter.call(this);
-
 		},
 
-		leave: function() {
+		leave: function(oncomplete) {
 
 			this.queryLayer('game', 'terrain').setEntities([]);
 			this.queryLayer('game', 'objects').setEntities([]);
 
-			lychee.app.State.prototype.leave.call(this);
+
+			lychee.app.State.prototype.leave.call(this, oncomplete);
 
 		}
 

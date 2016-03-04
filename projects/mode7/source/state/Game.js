@@ -77,9 +77,9 @@ lychee.define('game.state.Game').requires([
 
 		},
 
-		enter: function(data) {
+		enter: function(oncomplete, data) {
 
-			lychee.app.State.prototype.enter.call(this);
+			lychee.app.State.prototype.enter.call(this, oncomplete);
 
 
 			this.__track = new game.entity.Track(data.track);
@@ -132,13 +132,13 @@ lychee.define('game.state.Game').requires([
 
 		},
 
-		leave: function() {
+		leave: function(oncomplete) {
 
 			this.__autopilot = false;
 			this.__track     = null;
 
 
-			lychee.app.State.prototype.leave.call(this);
+			lychee.app.State.prototype.leave.call(this, oncomplete);
 
 		},
 

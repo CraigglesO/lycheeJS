@@ -230,12 +230,6 @@ lychee.define('game.state.Menu').requires([
 
 			lychee.app.State.prototype.update.call(this, clock, delta);
 
-		},
-
-		enter: function(data) {
-
-			lychee.app.State.prototype.enter.call(this);
-
 		}
 
 	};

@@ -313,18 +313,6 @@ lychee.define('app.state.App').requires([
 
 			}
 
-		},
-
-		enter: function() {
-
-			lychee.app.State.prototype.enter.call(this);
-
-		},
-
-		leave: function() {
-
-			lychee.app.State.prototype.leave.call(this);
-
 		}
 
 	};

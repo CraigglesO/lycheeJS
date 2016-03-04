@@ -39,7 +39,15 @@
 				"variant": "application"
 			}
 		},
-		"files": {}
+		"files": {
+			"html": {
+				"main": {
+					"core": [
+						"js"
+					]
+				}
+			}
+		}
 	},
 	"source": {
 		"environments": {},

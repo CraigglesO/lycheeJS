@@ -330,9 +330,9 @@ lychee.define('app.state.Chat').requires([
 
 		},
 
-		enter: function(data) {
+		enter: function(oncomplete) {
 
-			lychee.app.State.prototype.enter.call(this);
+			lychee.app.State.prototype.enter.call(this, oncomplete);
 
 
 			var service = this.client.getService('chat');
@@ -349,7 +349,7 @@ lychee.define('app.state.Chat').requires([
 
 		},
 
-		leave: function() {
+		leave: function(oncomplete) {
 
 			var service = this.client.getService('chat');
 			if (service !== null) {
@@ -357,7 +357,7 @@ lychee.define('app.state.Chat').requires([
 			}
 
 
-			lychee.app.State.prototype.leave.call(this);
+			lychee.app.State.prototype.leave.call(this, oncomplete);
 
 		}
 
