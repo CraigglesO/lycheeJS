@@ -1,0 +1,106 @@
+{
+	"layers": {
+		"ui": {
+			"constructor": "lychee.ui.Layer",
+			"arguments": [{}],
+			"blob": {
+				"entities": [{
+					"constructor": "lychee.ui.Blueprint",
+					"arguments": [{
+						"visible": true,
+						"type": 2
+					}],
+					"blob": {
+						"entities": [{
+							"constructor": "lychee.ui.Element",
+							"arguments": [{
+								"label":    "WELCOME",
+								"options":  [ "Boot" ],
+								"width":    416,
+								"height":   416,
+								"position": {
+									"x": 0,
+									"y": 0
+								}
+							}],
+							"blob": {
+								"entities": [{
+									"constructor": "lychee.ui.Text",
+									"arguments": [{
+										"value": "The lycheejs-harvester is not booted up."
+									}]
+								}, {
+									"constructor": "lychee.ui.Text",
+									"arguments": [{
+										"value": "Select a Profile to boot lycheeJS.\nIf you have no clue, select \"development\"."
+									}]
+								}, {
+									"constructor": "lychee.ui.Select",
+									"arguments": [{
+										"options": [ "development", "production" ],
+										"value": "development"
+									}]
+								}],
+								"map": {
+									"profile": 2
+								}
+							}
+						}, {
+							"constructor": "lychee.ui.Element",
+							"arguments": [{
+								"label":    "STATUS",
+								"options":  [],
+								"width":    640,
+								"height":   480,
+								"position": {
+									"x": 0,
+									"y": 0
+								}
+							}],
+							"blob": {
+								"entities": [{
+									"constructor": "lychee.ui.Table",
+									"arguments": [{
+										"width":  608,
+										"height": 384,
+										"position": {
+											"x":  0,
+											"y": 32
+										}
+									}],
+									"blob": {
+										"model": {
+											"identifier": {
+												"constructor": "lychee.ui.Label",
+												"arguments": [{}]
+											},
+											"status": {
+												"constructor": "app.ui.Status",
+												"arguments": [{}]
+											},
+											"control": {
+												"constructor": "app.ui.Control",
+												"arguments": [{}]
+											},
+											"web": {
+												"constructor": "app.ui.Web",
+												"arguments": [{}]
+											}
+										}
+									}
+								}]
+							}
+						}],
+						"map": {
+							"dialog": 0,
+							"status": 1
+						}
+					}
+				}],
+				"map": {
+					"welcome": 0
+				}
+			}
+		}
+	}
+}
