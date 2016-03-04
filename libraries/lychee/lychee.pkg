@@ -438,6 +438,17 @@
 						]
 					}
 				},
+				"html-nwjs": {
+					"Stash": [
+						"js"
+					],
+					"Storage": [
+						"js"
+					],
+					"bootstrap": [
+						"js"
+					]
+				},
 				"node": {
 					"Input": [
 						"js"
