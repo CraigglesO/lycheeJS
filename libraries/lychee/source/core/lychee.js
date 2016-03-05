@@ -631,6 +631,13 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 			data = data instanceof Object ? data : null;
 
 
+			try {
+				data = JSON.parse(JSON.stringify(data));
+			} catch(e) {
+				data = null;
+			}
+
+
 			if (data !== null) {
 
 				var instance = null;
