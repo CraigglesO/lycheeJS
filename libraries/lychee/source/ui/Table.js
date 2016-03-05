@@ -15,7 +15,6 @@ lychee.define('lychee.ui.Table').includes([
 
 	var _on_relayout = function() {
 
-		var tmp  = {};
 		var type = this.type;
 		var x1   = -1/2 * this.width;
 		var y1   = -1/2 * this.height;
@@ -24,15 +23,6 @@ lychee.define('lychee.ui.Table').includes([
 
 
 		if (this.entities.length === 0) {
-
-			this.__label = Object.keys(this.model).map(function(label) {
-				return label.toUpperCase();
-			});
-
-			for (var prop in this.model) {
-				tmp[prop] = lychee.serialize(this.model[prop]);
-			}
-
 
 			if (type === Class.TYPE.horizontal) {
 
@@ -47,7 +37,7 @@ lychee.define('lychee.ui.Table').includes([
 
 					for (var property in object) {
 
-						var entity = lychee.deserialize(tmp[property]);
+						var entity = lychee.deserialize(this.model[property]);
 						var value  = object[property];
 
 						if (entity !== null) {
@@ -69,8 +59,6 @@ lychee.define('lychee.ui.Table').includes([
 						}
 
 
-						entity.width      = dim_x;
-						entity.height     = dim_y;
 						entity.position.x = x1 + off_x + dim_x / 2;
 						entity.position.y = y1 + off_y + dim_y / 2;
 						entity.trigger('relayout');
@@ -101,7 +89,7 @@ lychee.define('lychee.ui.Table').includes([
 
 					for (var property in object) {
 
-						var entity = lychee.deserialize(tmp[property]);
+						var entity = lychee.deserialize(this.model[property]);
 						var value  = object[property];
 
 						if (entity !== null) {
@@ -122,8 +110,6 @@ lychee.define('lychee.ui.Table').includes([
 						}
 
 
-						entity.width      = dim_x;
-						entity.height     = dim_y;
 						entity.position.x = x1 + off_x + dim_x / 2;
 						entity.position.y = y1 + off_y + dim_y / 2;
 						entity.trigger('relayout');
@@ -511,12 +497,17 @@ lychee.define('lychee.ui.Table').includes([
 
 					var instance = model[property];
 					if (instance !== null && typeof instance.setValue === 'function') {
-						this.model[property] = instance;
+						this.model[property] = lychee.serialize(model[property]);
 					} else {
 						this.model[property] = null;
 					}
 
 				}
+
+
+				this.__label = Object.keys(this.model).map(function(label) {
+					return label.toUpperCase();
+				});
 
 
 				return true;
