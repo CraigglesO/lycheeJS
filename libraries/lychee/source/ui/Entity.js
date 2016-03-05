@@ -14,7 +14,7 @@ lychee.define('lychee.ui.Entity').includes([
 
 		this.width  = typeof settings.width  === 'number' ? settings.width  : 0;
 		this.height = typeof settings.height === 'number' ? settings.height : 0;
-		this.depth  = 0;
+		this.depth  = typeof settings.depth === 'number'  ? settings.depth  : 0;
 		this.radius = typeof settings.radius === 'number' ? settings.radius : 0;
 
 		this.alpha     = 1;
@@ -85,6 +85,7 @@ lychee.define('lychee.ui.Entity').includes([
 
 			if (this.width  !== 0) settings.width  = this.width;
 			if (this.height !== 0) settings.height = this.height;
+			if (this.depth !== 0)  settings.depth  = this.depth;
 			if (this.radius !== 0) settings.radius = this.radius;
 
 			if (this.alpha !== 1)                      settings.alpha   = this.alpha;

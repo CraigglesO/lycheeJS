@@ -232,8 +232,8 @@ lychee.define('lychee.ui.Layer').requires([
 
 		this.width  = typeof settings.width  === 'number' ? settings.width  : 0;
 		this.height = typeof settings.height === 'number' ? settings.height : 0;
-		this.depth  = 0;
-
+		this.depth  = typeof settings.depth === 'number'  ? settings.depth  : 0;
+		this.radius = typeof settings.radius === 'number' ? settings.radius : 0;
 
 		this.alpha      = 1;
 		this.effects    = [];
@@ -337,6 +337,12 @@ lychee.define('lychee.ui.Layer').requires([
 
 			var settings = {};
 			var blob     = {};
+
+
+			if (this.width  !== 0) settings.width  = this.width;
+			if (this.height !== 0) settings.height = this.height;
+			if (this.depth !== 0)  settings.depth  = this.depth;
+			if (this.radius !== 0) settings.radius = this.radius;
 
 
 			if (this.grid.width !== 0 || this.grid.height !== 0 || this.grid.depth !== 0) {
@@ -460,8 +466,8 @@ lychee.define('lychee.ui.Layer').requires([
 				oy = position.y + offsetY;
 
 
-				var hwidth   = this.width  / 2;
-				var hheight  = this.height / 2;
+				var hwidth  = this.width  / 2;
+				var hheight = this.height / 2;
 
 
 				renderer.drawBox(
