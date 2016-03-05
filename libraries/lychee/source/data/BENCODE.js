@@ -1,5 +1,5 @@
 
-lychee.define('lychee.data.BENCODE').exports(function(lychee, global) {
+lychee.define('lychee.data.BENCODE').exports(function(lychee, global, attachments) {
 
 	/*
 	 * HELPERS

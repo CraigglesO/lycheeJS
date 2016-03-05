@@ -5,7 +5,7 @@ lychee.define('lychee.ui.Blueprint').requires([
 	'lychee.ui.Element'
 ]).includes([
 	'lychee.ui.Layer'
-]).exports(function(lychee, global) {
+]).exports(function(lychee, global, attachments) {
 
 	/*
 	 * HELPERS

@@ -9,7 +9,7 @@ lychee.define('lychee.app.Loop').includes([
 
 	return false;
 
-}).exports(function(lychee, global) {
+}).exports(function(lychee, global, attachments) {
 
     var _instances = [];
  	var _id        = 0;

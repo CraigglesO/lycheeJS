@@ -1,5 +1,5 @@
 
-lychee.define('lychee.net.protocol.WS').exports(function(lychee, global) {
+lychee.define('lychee.net.protocol.WS').exports(function(lychee, global, attachments) {
 
 	/*
 	 * HELPERS

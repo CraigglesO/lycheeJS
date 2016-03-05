@@ -12,7 +12,7 @@ lychee.define('Storage').tags({
 
 	return false;
 
-}).exports(function(lychee, global) {
+}).exports(function(lychee, global, attachments) {
 
 	var _JSON       = {
 		encode: JSON.stringify,

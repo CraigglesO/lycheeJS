@@ -1,7 +1,7 @@
 
 lychee.define('lychee.ui.Sprite').includes([
 	'lychee.ui.Entity'
-]).exports(function(lychee, global) {
+]).exports(function(lychee, global, attachments) {
 
 	var Class = function(data) {
 

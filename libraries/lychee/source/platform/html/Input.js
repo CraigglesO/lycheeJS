@@ -12,7 +12,7 @@ lychee.define('Input').tags({
 
 	return false;
 
-}).exports(function(lychee, global) {
+}).exports(function(lychee, global, attachments) {
 
 	/*
 	 * EVENTS

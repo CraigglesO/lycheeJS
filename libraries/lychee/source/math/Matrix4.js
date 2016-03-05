@@ -1,5 +1,5 @@
 
-lychee.define('lychee.math.Matrix4').exports(function(lychee, global) {
+lychee.define('lychee.math.Matrix4').exports(function(lychee, global, attachments) {
 
 	var _type = typeof Float32Array !== 'undefined' ? Float32Array : Array;
 

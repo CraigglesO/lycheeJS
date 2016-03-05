@@ -2,7 +2,7 @@
 lychee.define('lychee.app.State').requires([
 	'lychee.app.Layer',
 	'lychee.ui.Layer'
-]).exports(function(lychee, global) {
+]).exports(function(lychee, global, attachments) {
 
 	/*
 	 * HELPERS

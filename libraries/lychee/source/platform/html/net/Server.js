@@ -7,7 +7,7 @@ lychee.define('lychee.net.Server').tags({
 	'lychee.net.Remote'
 ]).includes([
 	'lychee.event.Emitter'
-]).exports(function(lychee, global) {
+]).exports(function(lychee, global, attachments) {
 
 	var _JSON = lychee.data.JSON;
 

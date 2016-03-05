@@ -1,7 +1,7 @@
 
 lychee.define('lychee.app.Sprite').includes([
 	'lychee.app.Entity'
-]).exports(function(lychee, global) {
+]).exports(function(lychee, global, attachments) {
 
 	/*
 	 * IMPLEMENTATION

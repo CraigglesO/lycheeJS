@@ -1,5 +1,5 @@
 
-lychee.define('lychee.event.Emitter').exports(function(lychee, global) {
+lychee.define('lychee.event.Emitter').exports(function(lychee, global, attachments) {
 
 	/*
 	 * HELPERS

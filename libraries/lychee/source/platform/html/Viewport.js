@@ -20,7 +20,7 @@ lychee.define('Viewport').tags({
 
 	return false;
 
-}).exports(function(lychee, global) {
+}).exports(function(lychee, global, attachments) {
 
 	/*
 	 * EVENTS

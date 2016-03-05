@@ -3,7 +3,7 @@ lychee.define('lychee.ui.Layer').requires([
 	'lychee.ui.Entity'
 ]).includes([
 	'lychee.event.Emitter'
-]).exports(function(lychee, global) {
+]).exports(function(lychee, global, attachments) {
 
 	/*
 	 * HELPERS
