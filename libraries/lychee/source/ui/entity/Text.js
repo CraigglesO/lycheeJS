@@ -16,7 +16,11 @@ lychee.define('lychee.ui.entity.Text').includes([
 		var font = this.font;
 		if (font !== null && font.texture !== null) {
 
-			this.__buffer = renderer.createBuffer(this.width, this.height);
+			if (this.__buffer !== null) {
+				this.__buffer.resize(this.width, this.height);
+			} else {
+				this.__buffer = renderer.createBuffer(this.width, this.height);
+			}
 
 
 			renderer.clear(this.__buffer);

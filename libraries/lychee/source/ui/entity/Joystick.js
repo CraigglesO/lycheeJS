@@ -7,7 +7,7 @@ lychee.define('lychee.ui.entity.Joystick').includes([
 	 * HELPERS
 	 */
 
-	var _refresh = function() {
+	var _update_cursor = function() {
 
 		var val = this.value;
 		var map = this.__cursor.map;
@@ -15,6 +15,9 @@ lychee.define('lychee.ui.entity.Joystick').includes([
 
 		map.x = (val.x / 2) * (this.width  - 44);
 		map.y = (val.y / 2) * (this.height - 44);
+
+
+		this.__isDirty = false;
 
 	};
 
@@ -48,6 +51,7 @@ lychee.define('lychee.ui.entity.Joystick').includes([
 			start:    null,
 			alpha:    0.0
 		};
+		this.__isDirty = true;
 
 
 		this.setValue(settings.value);
@@ -67,6 +71,10 @@ lychee.define('lychee.ui.entity.Joystick').includes([
 		/*
 		 * INITIALIZATION
 		 */
+
+		this.bind('relayout', function() {
+			this.__isDirty = true;
+		}, this);
 
 		this.bind('touch', function(id, position, delta) {
 
@@ -208,6 +216,11 @@ lychee.define('lychee.ui.entity.Joystick').includes([
 					cursor.pingpong = !cursor.pingpong;
 				}
 
+			}
+
+
+			if (this.__isDirty === true) {
+				_update_cursor.call(this);
 			}
 
 
@@ -391,7 +404,8 @@ lychee.define('lychee.ui.entity.Joystick').includes([
 				this.value.y = val;
 
 
-				_refresh.call(this);
+				this.__isDirty = true;
+
 
 				return true;
 

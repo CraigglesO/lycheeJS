@@ -16,7 +16,11 @@ lychee.define('lychee.ui.entity.Textarea').includes([
 		var font = this.font;
 		if (font !== null && font.texture !== null) {
 
-			this.__buffer = renderer.createBuffer(this.width - 16, this.height - 16);
+			if (this.__buffer !== null) {
+				this.__buffer.resize(this.width - 16, this.height - 16);
+			} else {
+				this.__buffer = renderer.createBuffer(this.width - 16, this.height - 16);
+			}
 
 
 			renderer.clear(this.__buffer);

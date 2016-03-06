@@ -16,7 +16,11 @@ lychee.define('lychee.ui.entity.Input').includes([
 		var font = this.font;
 		if (font !== null && font.texture !== null) {
 
-			this.__buffer = renderer.createBuffer(this.width - 16, this.height);
+			if (this.__buffer !== null) {
+				this.__buffer.resize(this.width - 16, this.height);
+			} else {
+				this.__buffer = renderer.createBuffer(this.width - 16, this.height);
+			}
 
 
 			renderer.clear(this.__buffer);
@@ -29,8 +33,6 @@ lychee.define('lychee.ui.entity.Input').includes([
 			var text   = this.__value;
 			var cur    = this.__cursor.map;
 			var dim_x  = font.measure(text).width;
-
-
 			if (dim_x > buffer.width) {
 
 				renderer.drawText(
