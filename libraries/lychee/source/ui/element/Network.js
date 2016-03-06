@@ -1,7 +1,7 @@
 
 lychee.define('lychee.ui.element.Network').requires([
-	'lychee.ui.Input',
-	'lychee.ui.Select'
+	'lychee.ui.entity.Input',
+	'lychee.ui.entity.Select'
 ]).includes([
 	'lychee.ui.Element'
 ]).exports(function(lychee, global, attachments) {
@@ -175,28 +175,28 @@ lychee.define('lychee.ui.element.Network').requires([
 		 * INITIALIZATION
 		 */
 
-		this.setEntity('mode', new lychee.ui.Select({
+		this.setEntity('mode', new lychee.ui.entity.Select({
 			options: [ 'dynamic', 'static' ],
 			value:   'dynamic'
 		}));
 
-		this.setEntity('host', new lychee.ui.Input({
-			type:    lychee.ui.Input.TYPE.text,
+		this.setEntity('host', new lychee.ui.entity.Input({
+			type:    lychee.ui.entity.Input.TYPE.text,
 			min:     1,
 			max:     1024,
 			value:   'localhost',
 			visible: false
 		}));
 
-		this.setEntity('port', new lychee.ui.Input({
-			type:    lychee.ui.Input.TYPE.number,
+		this.setEntity('port', new lychee.ui.entity.Input({
+			type:    lychee.ui.entity.Input.TYPE.number,
 			min:     1024,
 			max:     65534,
 			value:   1337,
 			visible: false
 		}));
 
-		this.setEntity('API', new lychee.ui.Input({
+		this.setEntity('API', new lychee.ui.entity.Input({
 			type:  lychee.ui.Input.TYPE.text,
 			value: '/api/Server?identifier=boilerplate'
 		}));
@@ -239,6 +239,20 @@ lychee.define('lychee.ui.element.Network').requires([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.ui.Element.prototype.serialize.call(this);
+			data['constructor'] = 'lychee.ui.element.Network';
+
+
+			return data;
+
+		}
 
 	};
 

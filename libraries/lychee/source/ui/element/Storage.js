@@ -1,8 +1,8 @@
 
 lychee.define('lychee.ui.element.Storage').requires([
 	'lychee.Storage',
-	'lychee.ui.Input',
-	'lychee.ui.Select'
+	'lychee.ui.entity.Input',
+	'lychee.ui.entity.Select'
 ]).includes([
 	'lychee.ui.Element'
 ]).exports(function(lychee, global, attachments) {
@@ -112,13 +112,13 @@ lychee.define('lychee.ui.element.Storage').requires([
 		 * INITIALIZATION
 		 */
 
-		this.setEntity('mode', new lychee.ui.Select({
+		this.setEntity('mode', new lychee.ui.entity.Select({
 			options: [ 'persistent', 'temporary' ],
 			value:   'persistent'
 		}));
 
-		this.setEntity('id', new lychee.ui.Input({
-			type:  lychee.ui.Input.TYPE.text,
+		this.setEntity('id', new lychee.ui.entity.Input({
+			type:  lychee.ui.entity.Input.TYPE.text,
 			value: 'app'
 		}));
 
@@ -141,6 +141,20 @@ lychee.define('lychee.ui.element.Storage').requires([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.ui.Element.prototype.serialize.call(this);
+			data['constructor'] = 'lychee.ui.element.Storage';
+
+
+			return data;
+
+		}
 
 	};
 

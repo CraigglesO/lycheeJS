@@ -1,8 +1,8 @@
 
 lychee.define('lychee.ui.element.Jukebox').requires([
 	'lychee.app.Jukebox',
-	'lychee.ui.Slider',
-	'lychee.ui.Switch'
+	'lychee.ui.entity.Slider',
+	'lychee.ui.entity.Switch'
 ]).includes([
 	'lychee.ui.Element'
 ]).exports(function(lychee, global, attachments) {
@@ -80,16 +80,16 @@ lychee.define('lychee.ui.element.Jukebox').requires([
 		 * INITIALIZATION
 		 */
 
-		this.setEntity('music', new lychee.ui.Switch({
+		this.setEntity('music', new lychee.ui.entity.Switch({
 			value: 'on'
 		}));
 
-		this.setEntity('sound', new lychee.ui.Switch({
+		this.setEntity('sound', new lychee.ui.entity.Switch({
 			value: 'on'
 		}));
 
-		this.setEntity('channels', new lychee.ui.Slider({
-			type:  lychee.ui.Slider.TYPE.horizontal,
+		this.setEntity('channels', new lychee.ui.entity.Slider({
+			type:  lychee.ui.entity.Slider.TYPE.horizontal,
 			min:   0,
 			max:   16,
 			step:  1,
@@ -113,6 +113,20 @@ lychee.define('lychee.ui.element.Jukebox').requires([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.ui.Element.prototype.serialize.call(this);
+			data['constructor'] = 'lychee.ui.element.Network';
+
+
+			return data;
+
+		}
 
 	};
 

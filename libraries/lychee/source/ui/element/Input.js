@@ -1,8 +1,8 @@
 
 lychee.define('lychee.ui.element.Input').requires([
-	'lychee.app.Jukebox',
-	'lychee.ui.Slider',
-	'lychee.ui.Switch'
+	'lychee.Input',
+	'lychee.ui.entity.Slider',
+	'lychee.ui.entity.Switch'
 ]).includes([
 	'lychee.ui.Element'
 ]).exports(function(lychee, global, attachments) {
@@ -88,27 +88,27 @@ lychee.define('lychee.ui.element.Input').requires([
 		 * INITIALIZATION
 		 */
 
-		this.setEntity('delay', new lychee.ui.Slider({
-			type:  lychee.ui.Slider.TYPE.horizontal,
+		this.setEntity('delay', new lychee.ui.entity.Slider({
+			type:  lychee.ui.entity.Slider.TYPE.horizontal,
 			min:   0,
 			max:   1000,
 			step:  100,
 			value: 0
 		}));
 
-		this.setEntity('key', new lychee.ui.Switch({
+		this.setEntity('key', new lychee.ui.entity.Switch({
 			value: 'on'
 		}));
 
-		this.setEntity('keymodifier', new lychee.ui.Switch({
+		this.setEntity('keymodifier', new lychee.ui.entity.Switch({
 			value: 'on'
 		}));
 
-		this.setEntity('touch', new lychee.ui.Switch({
+		this.setEntity('touch', new lychee.ui.entity.Switch({
 			value: 'on'
 		}));
 
-		this.setEntity('swipe', new lychee.ui.Switch({
+		this.setEntity('swipe', new lychee.ui.entity.Switch({
 			value: 'on'
 		}));
 
@@ -129,6 +129,20 @@ lychee.define('lychee.ui.element.Input').requires([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.ui.Element.prototype.serialize.call(this);
+			data['constructor'] = 'lychee.ui.element.Network';
+
+
+			return data;
+
+		}
 
 	};
 
