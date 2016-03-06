@@ -8,83 +8,33 @@ lychee.define('app.ui.Messages').requires([
 	var _font = attachments["fnt"];
 
 
-	var Class = function(data) {
 
-		var settings = lychee.extend({}, data);
+	/*
+	 * HELPERS
+	 */
 
+	var _render_buffer = function(renderer) {
 
-		this.avatar = null;
-		this.cache  = {
-			channel:  '#home',
-			users:    [],
-			messages: []
-		};
-		this.offset = {
-			x: 0,
-			y: 0
-		};
+		var font = _font;
+		if (font !== null && font.texture !== null) {
 
-		this.__buffer = null;
-
-
-		lychee.ui.Entity.call(this, settings);
-
-
-
-		/*
-		 * INITIALIZATION
-		 */
-
-		this.bind('touch', function() {}, this);
-
-		this.bind('relayout', function() {
-			this.__buffer = null;
-		}, this);
-
-	};
-
-
-	Class.prototype = {
-
-		/*
-		 * ENTITY API
-		 */
-
-		serialize: function() {
-
-			var data = lychee.app.Sprite.prototype.serialize.call(this);
-			data['constructor'] = 'app.ui.Messages';
-
-
-			return data;
-
-		},
-
-		render: function(renderer, offsetX, offsetY) {
-
-			var avatar   = this.avatar;
-			var font     = _font;
-			var position = this.position;
-			var offset   = this.offset;
-			var messages = this.cache.messages;
-
-
-			var buffer = this.__buffer;
-			if (buffer === null) {
-				buffer = this.__buffer = renderer.createBuffer(this.width, this.height);
+			if (this.__buffer !== null) {
+				this.__buffer.resize(this.width, this.height);
+			} else {
+				this.__buffer = renderer.createBuffer(this.width, this.height);
 			}
 
 
-			renderer.clear(buffer);
-			renderer.setBuffer(buffer);
+			renderer.clear(this.__buffer);
+			renderer.setBuffer(this.__buffer);
+			renderer.setAlpha(1.0);
 
 
-			var x1   = position.x + offsetX - this.width  / 2;
-			var y1   = position.y + offsetY - this.height / 2;
-			var mx1  = this.offset.x;
-			var my1  = this.offset.y + this.height - 32;
-			var last = null;
-
+			var avatar   = this.avatar;
+			var mx1      = this.offset.x;
+			var my1      = this.offset.y + this.height - 32;
+			var last     = null;
+			var messages = this.cache.messages;
 
 			for (var m = messages.length - 1; m >= 0; m--) {
 
@@ -147,12 +97,106 @@ lychee.define('app.ui.Messages').requires([
 
 
 			renderer.setBuffer(null);
+			this.__isDirty = false;
 
-			renderer.drawBuffer(
-				x1,
-				y1,
-				buffer
-			);
+		}
+
+	};
+
+
+
+	/*
+	 * IMPLEMENTATION
+	 */
+
+	var Class = function(data) {
+
+		var settings = lychee.extend({}, data);
+
+
+		this.avatar = null;
+		this.cache  = {
+			channel:  '#home',
+			users:    [],
+			messages: []
+		};
+		this.offset = {
+			x: 0,
+			y: 0
+		};
+
+		this.__buffer  = null;
+		this.__isDirty = true;
+
+
+		lychee.ui.Entity.call(this, settings);
+
+
+
+		/*
+		 * INITIALIZATION
+		 */
+
+		this.bind('touch', function() {}, this);
+
+		this.bind('relayout', function() {
+			this.__isDirty = true;
+		}, this);
+
+	};
+
+
+	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.app.Sprite.prototype.serialize.call(this);
+			data['constructor'] = 'app.ui.Messages';
+
+
+			return data;
+
+		},
+
+		render: function(renderer, offsetX, offsetY) {
+
+			if (this.visible === false) return;
+
+
+			var alpha    = this.alpha;
+			var position = this.position;
+			var x        = position.x + offsetX;
+			var y        = position.y + offsetY;
+			var hwidth   = this.width  / 2;
+			var hheight  = this.height / 2;
+
+
+			if (this.__isDirty === true) {
+				_render_buffer.call(this, renderer);
+			}
+
+
+			if (alpha !== 1) {
+				renderer.setAlpha(alpha);
+			}
+
+			if (this.__buffer !== null) {
+
+				renderer.drawBuffer(
+					x - hwidth,
+					y - hheight,
+					this.__buffer
+				);
+
+			}
+
+			if (alpha !== 1) {
+				renderer.setAlpha(1.0);
+			}
 
 		},
 

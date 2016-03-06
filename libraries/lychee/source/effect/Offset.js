@@ -180,6 +180,8 @@ lychee.define('lychee.effect.Offset').exports(function(lychee, global, attachmen
 				if (offsetx !== null) entity.offset.x = x;
 				if (offsety !== null) entity.offset.y = y;
 
+				entity.__isDirty = true;
+
 
 				return true;
 
@@ -187,6 +189,8 @@ lychee.define('lychee.effect.Offset').exports(function(lychee, global, attachmen
 
 				if (offsetx !== null) entity.offset.x = offsetx;
 				if (offsety !== null) entity.offset.y = offsety;
+
+				entity.__isDirty = true;
 
 
 				return false;

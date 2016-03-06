@@ -5,7 +5,7 @@
 			"arguments": [{}],
 			"blob": {
 				"entities": [{
-					"constructor": "lychee.ui.Background",
+					"constructor": "lychee.ui.sprite.Background",
 					"arguments": [{
 						"color": "#404844"
 					}]
@@ -20,14 +20,14 @@
 			"arguments": [{}],
 			"blob": {
 				"entities": [{
-					"constructor": "lychee.ui.Background",
+					"constructor": "lychee.ui.sprite.Background",
 					"arguments": [{
 						"color": "#2f3736",
 						"width": 640,
 						"height": 192
 					}]
 				}, {
-					"constructor": "lychee.ui.Select",
+					"constructor": "lychee.ui.entity.Select",
 					"arguments": [{
 						"options": [ "#home", "#design", "#tech", "#help" ],
 						"value": "#home",
@@ -39,7 +39,7 @@
 						}
 					}]
 				}, {
-					"constructor": "lychee.ui.Textarea",
+					"constructor": "lychee.ui.entity.Textarea",
 					"arguments": [{
 						"width": 320,
 						"height": 128,
@@ -57,7 +57,7 @@
 						}
 					}]
 				}, {
-					"constructor": "lychee.ui.Button",
+					"constructor": "lychee.ui.entity.Button",
 					"arguments": [{
 						"label": "SEND",
 						"width": 64,
@@ -78,7 +78,7 @@
 						}
 					}]
 				}, {
-					"constructor": "lychee.ui.Slider",
+					"constructor": "lychee.ui.entity.Slider",
 					"arguments": [{
 						"height": 480,
 						"type": 1,

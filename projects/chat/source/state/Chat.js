@@ -2,11 +2,11 @@
 lychee.define('app.state.Chat').requires([
 	'lychee.effect.Color',
 	'lychee.effect.Offset',
-	'lychee.ui.Background',
-	'lychee.ui.Button',
-	'lychee.ui.Select',
-	'lychee.ui.Slider',
-	'lychee.ui.Textarea',
+	'lychee.ui.entity.Button',
+	'lychee.ui.entity.Select',
+	'lychee.ui.entity.Slider',
+	'lychee.ui.entity.Textarea',
+	'lychee.ui.sprite.Background',
 	'app.ui.Avatar',
 	'app.ui.Messages'
 ]).includes([
@@ -144,6 +144,10 @@ lychee.define('app.state.Chat').requires([
 
 		}
 
+
+		entity = this.queryLayer('ui', 'messages');
+		entity.trigger('relayout');
+
 	};
 
 
@@ -196,13 +200,15 @@ lychee.define('app.state.Chat').requires([
 					entity.height = height;
 
 					entity = this.queryLayer('background', 'background');
-					entity.width  = width;
-					entity.height = height;
+					entity.width     = width;
+					entity.height    = height;
+					entity.__isDirty = true;
 
 
 					entity = this.queryLayer('ui', 'background');
-					entity.width  = width;
+					entity.width      = width;
 					entity.position.y = 1/2 * height - entity.height / 2;
+					entity.__isDirty  = true;
 
 					entity = this.queryLayer('ui', 'channel');
 					entity.position.y = 1/2 * height - 32 - entity.height / 2;
@@ -217,9 +223,10 @@ lychee.define('app.state.Chat').requires([
 					entity.position.y = 1/2 * height - 64;
 
 					entity = this.queryLayer('ui', 'messages');
-					entity.width  = width;
-					entity.height = height - 192;
+					entity.width      = width;
+					entity.height     = height - 192;
 					entity.position.y = -192/2;
+					entity.__isDirty  = true;
 
 					entity = this.queryLayer('ui', 'slider');
 					entity.height = height - 192;

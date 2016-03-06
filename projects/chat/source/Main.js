@@ -101,11 +101,13 @@ lychee.define('app.Main').requires([
 			var data = lychee.app.Main.prototype.serialize.call(this);
 			data['constructor'] = 'app.Main';
 
+
 			var settings = data['arguments'][0] || {};
 			var blob     = data['blob'] || {};
 
 
-			if (this.defaults.client !== null) { settings.client = this.defaults.client; }
+			if (this.settings.appclient !== null) settings.client = this.defaults.client;
+			if (this.settings.appserver !== null) settings.server = this.defaults.server;
 
 
 			data['arguments'][0] = settings;
