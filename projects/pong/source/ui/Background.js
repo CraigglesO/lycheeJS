@@ -1,6 +1,6 @@
 
-lychee.define('game.entity.Background').includes([
-	'lychee.ui.Background'
+lychee.define('game.ui.Background').includes([
+	'lychee.ui.sprite.Background'
 ]).exports(function(lychee, game, global, attachments) {
 
 	var _texture = attachments["png"];
@@ -24,7 +24,7 @@ lychee.define('game.entity.Background').includes([
 		settings.state   = 'default';
 
 
-		lychee.ui.Background.call(this, settings);
+		lychee.ui.sprite.Background.call(this, settings);
 
 		settings = null;
 
@@ -32,6 +32,20 @@ lychee.define('game.entity.Background').includes([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.ui.sprite.Background.prototype.serialize.call(this);
+			data['constructor'] = 'game.ui.Background';
+
+
+			return data;
+
+		}
 
 	};
 

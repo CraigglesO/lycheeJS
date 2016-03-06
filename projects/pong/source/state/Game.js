@@ -2,11 +2,11 @@
 lychee.define('game.state.Game').requires([
 	'lychee.effect.Color',
 	'lychee.effect.Shake',
-	'game.entity.Background',
 	'game.entity.Ball',
 	'game.entity.Paddle',
+	'game.ui.Background',
 	'game.ui.Welcome',
-	'lychee.ui.Label'
+	'lychee.ui.entity.Label'
 ]).includes([
 	'lychee.app.State'
 ]).exports(function(lychee, game, global, attachments) {
@@ -169,6 +169,8 @@ lychee.define('game.state.Game').requires([
 		 * STATE API
 		 */
 
+		// deserialize: function(blob) {},
+
 		serialize: function() {
 
 			var data = lychee.app.State.prototype.serialize.call(this);
@@ -176,12 +178,6 @@ lychee.define('game.state.Game').requires([
 
 
 			return data;
-
-		},
-
-		deserialize: function(blob) {
-
-			lychee.app.State.prototype.deserialize.call(this, blob);
 
 		},
 

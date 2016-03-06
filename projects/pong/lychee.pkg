@@ -49,11 +49,6 @@
 				"js"
 			],
 			"entity": {
-				"Background": [
-					"js",
-					"json",
-					"png"
-				],
 				"Ball": [
 					"js",
 					"json",
@@ -78,6 +73,11 @@
 				]
 			},
 			"ui": {
+				"Background": [
+					"js",
+					"json",
+					"png"
+				],
 				"Welcome": [
 					"js",
 					"png"

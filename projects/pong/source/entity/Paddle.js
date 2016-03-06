@@ -10,6 +10,11 @@ lychee.define('game.entity.Paddle').includes([
 	};
 
 
+
+	/*
+	 * IMPLEMENTATION
+	 */
+
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, _config, data);

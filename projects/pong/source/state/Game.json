@@ -5,7 +5,7 @@
 			"arguments": [{}],
 			"blob": {
 				"entities": [{
-					"constructor": "game.entity.Background",
+					"constructor": "game.ui.Background",
 					"arguments": [{}]
 				}],
 				"map": {
@@ -56,7 +56,7 @@
 			"arguments": [{}],
 			"blob": {
 				"entities": [{
-					"constructor": "lychee.ui.Label",
+					"constructor": "lychee.ui.entity.Label",
 					"arguments": [{
 						"value":    "0 - 0",
 						"position": {

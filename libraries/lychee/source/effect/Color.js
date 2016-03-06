@@ -211,14 +211,16 @@ lychee.define('lychee.effect.Color').exports(function(lychee, global, attachment
 				}
 
 
-				entity.color = _rgba_to_color(r | 0, g | 0, b | 0);
+				entity.color     = _rgba_to_color(r | 0, g | 0, b | 0);
+				entity.__isDirty = true;
 
 
 				return true;
 
 			} else {
 
-				entity.color = _rgba_to_color(colorr | 0, colorg | 0, colorb | 0);
+				entity.color     = _rgba_to_color(colorr | 0, colorg | 0, colorb | 0);
+				entity.__isDirty = true;
 
 
 				return false;

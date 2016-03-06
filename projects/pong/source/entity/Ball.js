@@ -7,6 +7,11 @@ lychee.define('game.entity.Ball').includes([
 	var _texture = attachments["png"];
 
 
+
+	/*
+	 * IMPLEMENTATION
+	 */
+
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, _config, data);
