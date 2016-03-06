@@ -5,8 +5,8 @@ lychee.define('lychee.ui.Menu').requires([
 	'lychee.effect.Position',
 	'lychee.effect.Visible',
 	'lychee.effect.Width',
-	'lychee.ui.Label',
-	'lychee.ui.Select'
+	'lychee.ui.entity.Label',
+	'lychee.ui.entity.Select'
 ]).includes([
 	'lychee.ui.Layer'
 ]).exports(function(lychee, global, attachments) {
@@ -113,12 +113,12 @@ lychee.define('lychee.ui.Menu').requires([
 		}, this);
 
 
-		this.setEntity('@label', new lychee.ui.Label({
+		this.setEntity('@label', new lychee.ui.entity.Label({
 			font:  this.font,
 			value: this.label
 		}));
 
-		this.setEntity('@select', new lychee.ui.Select({
+		this.setEntity('@select', new lychee.ui.entity.Select({
 			options: this.options,
 			value:   this.value
 		}));

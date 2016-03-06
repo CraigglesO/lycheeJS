@@ -5,12 +5,12 @@
 			"arguments": [{}],
 			"blob": {
 				"entities": [{
-					"constructor": "lychee.ui.Background",
+					"constructor": "lychee.ui.sprite.Background",
 					"arguments": [{
 						"color": "#405050"
 					}]
 				}, {
-					"constructor": "lychee.ui.Emblem",
+					"constructor": "lychee.ui.sprite.Emblem",
 					"arguments": [{}]
 				}],
 				"map": {
@@ -35,13 +35,13 @@
 					}],
 					"blob": {
 						"entities": [{
-							"constructor": "lychee.ui.element.Network",
-							"arguments": [{}]
-						}, {
 							"constructor": "lychee.ui.element.Input",
 							"arguments": [{}]
 						}, {
 							"constructor": "lychee.ui.element.Jukebox",
+							"arguments": [{}]
+						}, {
+							"constructor": "lychee.ui.element.Network",
 							"arguments": [{}]
 						}, {
 							"constructor": "lychee.ui.element.Stash",

@@ -1,6 +1,11 @@
 
-lychee.define('app.state.Menu').includes([
-	'lychee.app.state.Menu'
+lychee.define('app.state.Welcome').includes([
+	'lychee.ui.State'
+]).requires([
+	'lychee.ui.Blueprint',
+	'lychee.ui.Element',
+	'lychee.ui.Layer',
+	'lychee.ui.entity.Text'
 ]).exports(function(lychee, app, global, attachments) {
 
 	var _blob = attachments["json"].buffer;
@@ -13,7 +18,7 @@ lychee.define('app.state.Menu').includes([
 
 	var Class = function(main) {
 
-		lychee.app.state.Menu.call(this, main);
+		lychee.ui.State.call(this, main);
 
 	};
 
@@ -21,13 +26,13 @@ lychee.define('app.state.Menu').includes([
 	Class.prototype = {
 
 		/*
-		 * STATE API
+		 * ENTITY API
 		 */
 
 		serialize: function() {
 
-			var data = lychee.app.state.Menu.prototype.serialize.call(this);
-			data['constructor'] = 'app.state.Menu';
+			var data = lychee.ui.State.prototype.serialize.call(this);
+			data['constructor'] = 'app.state.Welcome';
 
 
 			return data;
@@ -36,7 +41,7 @@ lychee.define('app.state.Menu').includes([
 
 		deserialize: function(blob) {
 
-			lychee.app.state.Menu.prototype.deserialize.call(this, blob);
+			lychee.ui.State.prototype.deserialize.call(this, blob);
 			lychee.app.State.prototype.deserialize.call(this, _blob);
 
 

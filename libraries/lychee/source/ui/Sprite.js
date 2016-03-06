@@ -3,6 +3,10 @@ lychee.define('lychee.ui.Sprite').includes([
 	'lychee.ui.Entity'
 ]).exports(function(lychee, global, attachments) {
 
+	/*
+	 * IMPLEMENTATION
+	 */
+
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, data);

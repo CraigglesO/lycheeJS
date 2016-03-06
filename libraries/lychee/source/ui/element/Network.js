@@ -197,7 +197,7 @@ lychee.define('lychee.ui.element.Network').requires([
 		}));
 
 		this.setEntity('API', new lychee.ui.entity.Input({
-			type:  lychee.ui.Input.TYPE.text,
+			type:  lychee.ui.entity.Input.TYPE.text,
 			value: '/api/Server?identifier=boilerplate'
 		}));
 

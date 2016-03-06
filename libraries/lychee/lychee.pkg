@@ -226,13 +226,7 @@
 				],
 				"State": [
 					"js"
-				],
-				"state": {
-					"Menu": [
-						"js",
-						"json"
-					]
-				}
+				]
 			},
 			"core": {
 				"Asset": [
@@ -487,14 +481,7 @@
 				}
 			},
 			"ui": {
-				"Background": [
-					"js"
-				],
 				"Blueprint": [
-					"js"
-				],
-				"Button": [
-					"fnt",
 					"js"
 				],
 				"Element": [
@@ -502,22 +489,7 @@
 					"label.fnt",
 					"order.fnt"
 				],
-				"Emblem": [
-					"js",
-					"png"
-				],
 				"Entity": [
-					"js"
-				],
-				"Input": [
-					"fnt",
-					"js"
-				],
-				"Joystick": [
-					"js"
-				],
-				"Label": [
-					"fnt",
 					"js"
 				],
 				"Layer": [
@@ -527,32 +499,12 @@
 					"fnt",
 					"js"
 				],
-				"Select": [
-					"fnt",
-					"js"
-				],
-				"Slider": [
-					"fnt",
-					"js"
-				],
 				"Sprite": [
 					"js"
 				],
-				"Switch": [
-					"fnt",
-					"js"
-				],
-				"Table": [
-					"fnt",
-					"js"
-				],
-				"Text": [
-					"fnt",
-					"js"
-				],
-				"Textarea": [
-					"fnt",
-					"js"
+				"State": [
+					"js",
+					"json"
 				],
 				"element": {
 					"Input": [
@@ -572,6 +524,58 @@
 					],
 					"Viewport": [
 						"js"
+					]
+				},
+				"entity": {
+					"Button": [
+						"fnt",
+						"js"
+					],
+					"Input": [
+						"fnt",
+						"js"
+					],
+					"Joystick": [
+						"js"
+					],
+					"Label": [
+						"fnt",
+						"js"
+					],
+					"Select": [
+						"fnt",
+						"js"
+					],
+					"Slider": [
+						"fnt",
+						"js"
+					],
+					"Switch": [
+						"fnt",
+						"js"
+					],
+					"Text": [
+						"fnt",
+						"js"
+					],
+					"Textarea": [
+						"fnt",
+						"js"
+					]
+				},
+				"layer": {
+					"Table": [
+						"fnt",
+						"js"
+					]
+				},
+				"sprite": {
+					"Background": [
+						"js"
+					],
+					"Emblem": [
+						"js",
+						"png"
 					]
 				}
 			},

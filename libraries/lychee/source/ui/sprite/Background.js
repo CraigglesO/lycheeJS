@@ -42,8 +42,8 @@ lychee.define('lychee.ui.sprite.Background').includes([
 			renderer.drawBox(
 				0,
 				0,
-				buffer.width,
-				buffer.height,
+				this.width,
+				this.height,
 				color,
 				true
 			);
@@ -142,8 +142,9 @@ lychee.define('lychee.ui.sprite.Background').includes([
 
 			if (typeof width === 'number' && typeof height === 'number') {
 
-				this.width  = width;
-				this.height = height;
+				this.width     = width;
+				this.height    = height;
+				this.__isDirty = true;
 
 			}
 
@@ -197,8 +198,8 @@ lychee.define('lychee.ui.sprite.Background').includes([
 
 			var alpha    = this.alpha;
 			var position = this.position;
-			var x1       = position.x + offsetX;
-			var y1       = position.y + offsetY;
+			var x        = position.x + offsetX;
+			var y        = position.y + offsetY;
 			var hwidth   = this.width  / 2;
 			var hheight  = this.height / 2;
 

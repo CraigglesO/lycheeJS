@@ -224,8 +224,9 @@ lychee.define('lychee.ui.entity.Text').includes([
 
 					var realwidth  = 0;
 					var realheight = 0;
+					var lines      = value.split('\n');
 
-					value.split('\n').forEach(function(line) {
+					lines.forEach(function(line) {
 
 						var tmp = font.measure(line);
 						if (tmp.realwidth  > realwidth)  realwidth  = tmp.realwidth;
@@ -234,7 +235,7 @@ lychee.define('lychee.ui.entity.Text').includes([
 					});
 
 					this.width  = realwidth;
-					this.height = realheight;
+					this.height = realheight * lines.length;
 
 				}
 

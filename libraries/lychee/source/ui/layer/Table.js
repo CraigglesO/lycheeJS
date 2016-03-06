@@ -2,7 +2,7 @@
 lychee.define('lychee.ui.layer.Table').includes([
 	'lychee.ui.Layer'
 ]).requires([
-	'lychee.ui.Label'
+	'lychee.ui.entity.Label'
 ]).exports(function(lychee, global, attachments) {
 
 	var _font = attachments["fnt"];
@@ -52,7 +52,7 @@ lychee.define('lychee.ui.layer.Table').includes([
 
 						} else {
 
-							entity = new lychee.ui.Label({
+							entity = new lychee.ui.entity.Label({
 								value: '(Invalid UI Entity)'
 							});
 
@@ -102,7 +102,7 @@ lychee.define('lychee.ui.layer.Table').includes([
 
 						} else {
 
-							entity = new lychee.ui.Label({
+							entity = new lychee.ui.entity.Label({
 								value: '(Invalid UI Entity)'
 							});
 

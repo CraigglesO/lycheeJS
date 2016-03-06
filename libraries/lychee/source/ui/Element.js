@@ -1,8 +1,8 @@
 
 lychee.define('lychee.ui.Element').requires([
-	'lychee.ui.Button',
-	'lychee.ui.Label',
-	'lychee.ui.Text'
+	'lychee.ui.entity.Button',
+	'lychee.ui.entity.Label',
+	'lychee.ui.entity.Text'
 ]).includes([
 	'lychee.ui.Layer'
 ]).exports(function(lychee, global, attachments) {
@@ -151,22 +151,22 @@ lychee.define('lychee.ui.Element').requires([
 		 * INITIALIZATION
 		 */
 
-		lychee.ui.Layer.prototype.setEntity.call(this, '@order', new lychee.ui.Label({
+		lychee.ui.Layer.prototype.setEntity.call(this, '@order', new lychee.ui.entity.Label({
 			font:  _fonts.order,
 			value: '' + this.order
 		}));
 
-		lychee.ui.Layer.prototype.setEntity.call(this, '@label', new lychee.ui.Label({
+		lychee.ui.Layer.prototype.setEntity.call(this, '@label', new lychee.ui.entity.Label({
 			font:  _fonts.label,
 			value: this.label
 		}));
 
-		lychee.ui.Layer.prototype.setEntity.call(this, '@options-prev', new lychee.ui.Button({
+		lychee.ui.Layer.prototype.setEntity.call(this, '@options-prev', new lychee.ui.entity.Button({
 			label: this.options[1],
 			value: this.options[1].toLowerCase()
 		}));
 
-		lychee.ui.Layer.prototype.setEntity.call(this, '@options-next', new lychee.ui.Button({
+		lychee.ui.Layer.prototype.setEntity.call(this, '@options-next', new lychee.ui.entity.Button({
 			label: this.options[0],
 			value: this.options[0].toLowerCase()
 		}));
@@ -298,7 +298,7 @@ lychee.define('lychee.ui.Element').requires([
 			var result = lychee.ui.Layer.prototype.setEntity.call(this, id, entity);
 			if (result === true) {
 
-				var label = new lychee.ui.Label({
+				var label = new lychee.ui.entity.Label({
 					value: id.charAt(0).toUpperCase() + id.substr(1)
 				});
 

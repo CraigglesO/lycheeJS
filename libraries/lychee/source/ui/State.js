@@ -1,23 +1,19 @@
 
-lychee.define('lychee.app.state.Menu').requires([
+lychee.define('lychee.ui.State').requires([
 	'lychee.effect.Position',
 	'lychee.effect.Visible',
-	'lychee.ui.Background',
 	'lychee.ui.Blueprint',
 	'lychee.ui.Element',
-	'lychee.ui.Emblem',
-	'lychee.ui.Label',
 	'lychee.ui.Layer',
-	'lychee.ui.Switch',
-	'lychee.ui.Table',
-	'lychee.ui.Text',
 	'lychee.ui.Menu',
 	'lychee.ui.element.Input',
 	'lychee.ui.element.Jukebox',
 	'lychee.ui.element.Network',
 	'lychee.ui.element.Stash',
 	'lychee.ui.element.Storage',
-	'lychee.ui.element.Viewport'
+	'lychee.ui.element.Viewport',
+	'lychee.ui.sprite.Background',
+	'lychee.ui.sprite.Emblem'
 ]).includes([
 	'lychee.app.State'
 ]).exports(function(lychee, global, attachments) {
@@ -222,13 +218,13 @@ lychee.define('lychee.app.state.Menu').requires([
 	Class.prototype = {
 
 		/*
-		 * STATE API
+		 * ENTITY API
 		 */
 
 		serialize: function() {
 
 			var data = lychee.app.State.prototype.serialize.call(this);
-			data['constructor'] = 'lychee.app.state.Menu';
+			data['constructor'] = 'lychee.ui.State';
 
 
 			return data;
@@ -251,11 +247,11 @@ lychee.define('lychee.app.state.Menu').requires([
 
 		},
 
-		update: function(clock, delta) {
 
-			lychee.app.State.prototype.update.call(this, clock, delta);
 
-		},
+		/*
+		 * STATE API
+		 */
 
 		enter: function(oncomplete, data) {
 
