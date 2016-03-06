@@ -78,10 +78,7 @@
 					"js"
 				],
 				"Layer": [
-					"fnt",
-					"js",
-					"json",
-					"png"
+					"fnt"
 				]
 			}
 		},
