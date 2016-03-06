@@ -43,6 +43,7 @@ lychee.define('game.entity.Tile').includes([
 			var data = lychee.ui.Sprite.prototype.serialize.call(this);
 			data['constructor'] = 'game.entity.Tile';
 
+
 			return data;
 
 		},

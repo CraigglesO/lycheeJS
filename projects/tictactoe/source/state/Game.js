@@ -1,9 +1,8 @@
 
 lychee.define('game.state.Game').requires([
 	'lychee.effect.Shake',
-	'lychee.ui.Background',
+	'lychee.app.sprite.Background',
 	'game.entity.Board',
-	'game.ui.Button',
 	'game.ui.Label'
 ]).includes([
 	'lychee.app.State'
@@ -211,8 +210,9 @@ lychee.define('game.state.Game').requires([
 
 
 					entity = this.queryLayer('background', 'background');
-					entity.width  = width;
-					entity.height = height;
+					entity.width     = width;
+					entity.height    = height;
+					entity.__isDirty = true;
 
 				}
 
@@ -247,10 +247,6 @@ lychee.define('game.state.Game').requires([
 			this.queryLayer('ui', 'board').entities.forEach(function(entity) {
 				entity.bind('#touch', _on_touch, this);
 			}.bind(this));
-
-			this.queryLayer('ui', 'back').bind('touch', function() {
-				this.main.changeState('menu');
-			}, this);
 
 		},
 

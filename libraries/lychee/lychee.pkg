@@ -226,7 +226,12 @@
 				],
 				"State": [
 					"js"
-				]
+				],
+				"sprite": {
+					"Background": [
+						"js"
+					]
+				}
 			},
 			"core": {
 				"Asset": [

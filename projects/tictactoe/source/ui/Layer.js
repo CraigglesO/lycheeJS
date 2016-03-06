@@ -48,8 +48,9 @@ lychee.define('game.ui.Layer').includes([
 			lychee.ui.Layer.prototype.deserialize.call(this, blob);
 
 
-			if (blob.font instanceof Object) {
-				this.font = lychee.deserialize(blob.font);
+			var font = lychee.deserialize(blob.font);
+			if (font !== null) {
+				this.setFont(font);
 			}
 
 		},
@@ -66,9 +67,7 @@ lychee.define('game.ui.Layer').includes([
 			if (this.label !== null) settings.label = this.label;
 
 
-			if (this.font !== null) {
-				blob.font = lychee.serialize(this.font);
-			}
+			if (this.font !== null) blob.font = lychee.serialize(this.font);
 
 
 			data['arguments'][0] = settings;

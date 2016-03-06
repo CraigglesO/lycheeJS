@@ -1,7 +1,6 @@
 
 lychee.define('game.Main').requires([
-	'game.state.Game',
-	'game.state.Menu'
+	'game.state.Game'
 ]).includes([
 	'lychee.app.Main'
 ]).exports(function(lychee, game, global, attachments) {
@@ -55,8 +54,9 @@ lychee.define('game.Main').requires([
 		this.bind('init', function() {
 
 			this.setState('game', new game.state.Game(this));
-			this.setState('menu', new game.state.Menu(this));
-			this.changeState('menu');
+
+
+			this.changeState('game');
 
 		}, this, true);
 

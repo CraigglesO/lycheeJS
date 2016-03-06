@@ -61,23 +61,12 @@ lychee.define('game.entity.Board').requires([
 		 * ENTITY API
 		 */
 
-		deserialize: function(blob) {
-
-			lychee.ui.Layer.prototype.deserialize.call(this, blob);
-
-		},
+		// deserialize: function(blob) {},
 
 		serialize: function() {
 
 			var data = lychee.ui.Layer.prototype.serialize.call(this);
 			data['constructor'] = 'game.entity.Board';
-
-			var settings = data['arguments'][0] || {};
-			var blob     = data['blob'] || {};
-
-
-			data['arguments'][0] = settings;
-			data['blob']         = Object.keys(blob).length > 0 ? blob : null;
 
 
 			return data;

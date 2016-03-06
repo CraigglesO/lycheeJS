@@ -70,19 +70,9 @@
 					"json",
 					"msc",
 					"snd"
-				],
-				"Menu": [
-					"js",
-					"json"
 				]
 			},
 			"ui": {
-				"Button": [
-					"fnt",
-					"js",
-					"json",
-					"png"
-				],
 				"Label": [
 					"fnt",
 					"js"
