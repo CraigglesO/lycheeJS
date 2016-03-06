@@ -172,6 +172,20 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 
 	Class.prototype = {
 
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = fertilizer.Template.prototype.serialize.call(this);
+			data['constructor'] = 'fertilizer.template.html-nwjs.Application';
+
+
+			return data;
+
+		}
+
 	};
 
 

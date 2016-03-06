@@ -1,5 +1,25 @@
 
-lychee.define('fertilizer.data.Filesystem').exports(function(lychee, fertilizer, global, attachments) {
+lychee.define('fertilizer.data.Filesystem').tags({
+	platform: 'node'
+}).supports(function(lychee, global) {
+
+	if (typeof process !== 'undefined') {
+
+		try {
+
+			require('fs');
+			require('path');
+
+			return true;
+
+		} catch(e) {
+		}
+
+	}
+
+	return false;
+
+}).exports(function(lychee, fertilizer, global, attachments) {
 
 	var _fs   = require('fs');
 	var _path = require('path');

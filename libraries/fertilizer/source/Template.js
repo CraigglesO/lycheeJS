@@ -42,6 +42,63 @@ lychee.define('fertilizer.Template').requires([
 
 	Class.prototype = {
 
+		/*
+		 * ENTITY API
+		 */
+
+		deserialize: function(blob) {
+
+			var environment = lychee.deserialize(blob.environment);
+			var filesystem  = lychee.deserialize(blob.filesystem);
+			var shell       = lychee.deserialize(blob.shell);
+
+			if (environment !== null) {
+				this.setEnvironment(environment);
+			}
+
+			if (filesystem !== null) {
+				this.setFilesystem(filesystem);
+			}
+
+			if (shell !== null) {
+				this.setShell(shell);
+			}
+
+		},
+
+		serialize: function() {
+
+			var data = lychee.event.Flow.prototype.serialize.call(this);
+			data['constructor'] = 'fertilizer.Template';
+
+
+			var settings = data['arguments'][0] || {};
+			var blob     = data['blob'] || {};
+
+
+			if (this.profile !== null)                 settings.profile  = this.profile;
+			if (Object.keys(this.settings).length > 0) settings.settings = this.settings;
+
+
+			if (this.environment !== null) blob.environment = lychee.serialize(this.environment);
+			if (this.filesystem !== null)  blob.filesystem  = lychee.serialize(this.filesystem);
+			if (this.shell !== null)       blob.shell       = lychee.serialize(this.shell);
+
+
+			data['arguments'][0] = settings;
+			data['blob']         = Object.keys(blob).length > 0 ? blob : null;
+
+
+			return data;
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
 		replace: function(template, object) {
 
 			template = typeof template === 'string' ? template : '';

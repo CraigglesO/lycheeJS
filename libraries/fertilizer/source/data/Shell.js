@@ -1,5 +1,25 @@
 
-lychee.define('fertilizer.data.Shell').exports(function(lychee, fertilizer, global, attachments) {
+lychee.define('fertilizer.data.Shell').tags({
+	platform: 'node'
+}).supports(function(lychee, global) {
+
+	if (typeof process !== 'undefined') {
+
+		try {
+
+			require('child_process');
+			require('path');
+
+			return true;
+
+		} catch(e) {
+		}
+
+	}
+
+	return false;
+
+}).exports(function(lychee, fertilizer, global, attachments) {
 
 	var _child_process = require('child_process');
 	var _path          = require('path');
@@ -13,7 +33,7 @@ lychee.define('fertilizer.data.Shell').exports(function(lychee, fertilizer, glob
 
 	var Class = function(root) {
 
-		this.root    = _root + _path.normalize(root);
+		this.root = _root + _path.normalize(root);
 
 		this.__stack = [];
 
@@ -21,6 +41,27 @@ lychee.define('fertilizer.data.Shell').exports(function(lychee, fertilizer, glob
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		// deserialize: function(blob) {},
+
+		serialize: function() {
+
+			return {
+				'constructor': 'fertilizer.data.Shell',
+				'arguments':   [ this.root.substr(_root.length) ]
+			};
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
 
 		exec: function(command, callback, scope) {
 

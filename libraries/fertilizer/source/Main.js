@@ -1,5 +1,7 @@
 
-lychee.define('fertilizer.Main').requires([
+lychee.define('fertilizer.Main').tags({
+	platform: 'node'
+}).requires([
 	'lychee.Input',
 	'lychee.data.JSON',
 	'fertilizer.data.Filesystem',
@@ -14,7 +16,24 @@ lychee.define('fertilizer.Main').requires([
 	'fertilizer.template.node.Library'
 ]).includes([
 	'lychee.event.Emitter'
-]).exports(function(lychee, fertilizer, global, attachments) {
+]).supports(function(lychee, global) {
+
+	if (typeof process !== 'undefined') {
+
+		try {
+
+			require('path');
+
+			return true;
+
+		} catch(e) {
+		}
+
+	}
+
+	return false;
+
+}).exports(function(lychee, fertilizer, global, attachments) {
 
 	var _lychee = lychee;
 	var _path   = require('path');
@@ -217,6 +236,30 @@ lychee.define('fertilizer.Main').requires([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.event.Emitter.prototype.serialize.call(this);
+			data['constructor'] = 'fertilizer.Main';
+
+
+			var settings = lychee.extendunlink({}, this.settings);
+			var blob     = data['blob'] || {};
+
+
+			data['arguments'][0] = settings;
+			data['blob']         = Object.keys(blob).length > 0 ? blob : null;
+
+
+			return data;
+
+		},
+
+
 
 		/*
 		 * MAIN API
