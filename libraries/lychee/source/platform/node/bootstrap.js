@@ -531,8 +531,22 @@
 
 
 		if (data.texture !== undefined) {
-			this.texture = new Texture(data.texture);
-			this.texture.load();
+
+			var texture = new Texture(data.texture);
+			var that    = this;
+
+			texture.onload = function() {
+				that.texture = this;
+			};
+
+			texture.load();
+
+		} else {
+
+			if (lychee.debug === true) {
+				console.error('bootstrap.js: Font at "' + this.url + '" is invalid (No FNT file)');
+			}
+
 		}
 
 
@@ -565,15 +579,6 @@
 
 				this.__charset[id] = chr;
 
-			}
-
-		}
-
-
-		if (this.texture === null) {
-
-			if (lychee.debug === true) {
-				console.error('bootstrap.js: Font at "' + this.url + '" is invalid (No FNT file)');
 			}
 
 		}
