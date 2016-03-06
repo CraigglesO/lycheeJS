@@ -8,7 +8,6 @@ lychee.define('breeder.Main').requires([
 ]).exports(function(lychee, breeder, global, attachments) {
 
 	var _lychee = lychee;
-	var _path   = require('path');
 	var _JSON   = lychee.data.JSON;
 
 
@@ -116,6 +115,30 @@ lychee.define('breeder.Main').requires([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.event.Emitter.prototype.serialize.call(this);
+			data['constructor'] = 'breeder.Main';
+
+
+			var settings = lychee.extendunlink({}, this.settings);
+			var blob     = data['blob'] || {};
+
+
+			data['arguments'][0] = settings;
+			data['blob']         = Object.keys(blob).length > 0 ? blob : null;
+
+
+			return data;
+
+		},
+
+
 
 		/*
 		 * MAIN API

@@ -193,6 +193,20 @@ lychee.define('breeder.Template').requires([
 
 	Class.prototype = {
 
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = fertilizer.Template.prototype.serialize.call(this);
+			data['constructor'] = 'breeder.Template';
+
+
+			return data;
+
+		}
+
 	};
 
 
