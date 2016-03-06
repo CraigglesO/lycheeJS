@@ -1,9 +1,55 @@
 
-lychee.define('lychee.ui.entity.Label').includes([
+lychee.define('lychee.ui.entity.Text').includes([
 	'lychee.ui.Entity'
 ]).exports(function(lychee, global, attachments) {
 
 	var _font = attachments["fnt"];
+
+
+
+	/*
+	 * HELPERS
+	 */
+
+	var _render_buffer = function(renderer) {
+
+		var font = this.font;
+		if (font !== null && font.texture !== null) {
+
+			this.__buffer = renderer.createBuffer(this.width, this.height);
+
+
+			renderer.clear(this.__buffer);
+			renderer.setBuffer(this.__buffer);
+			renderer.setAlpha(1.0);
+
+
+			var lines = this.__lines;
+			var lh    = font.lineheight;
+			var ll    = lines.length;
+			if (ll > 0) {
+
+				for (var l = 0; l < ll; l++) {
+
+					renderer.drawText(
+						0,
+						0 + lh * l,
+						lines[l],
+						font,
+						false
+					);
+
+				}
+
+			}
+
+
+			renderer.setBuffer(null);
+			this.__isDirty = false;
+
+		}
+
+	};
 
 
 
@@ -18,6 +64,10 @@ lychee.define('lychee.ui.entity.Label').includes([
 
 		this.font  = _font;
 		this.value = '';
+
+		this.__buffer  = null;
+		this.__lines   = [];
+		this.__isDirty = true;
 
 
 		this.setFont(settings.font);
@@ -39,6 +89,10 @@ lychee.define('lychee.ui.entity.Label').includes([
 		/*
 		 * INITIALIZATION
 		 */
+
+		this.bind('relayout', function() {
+			this.__isDirty = true;
+		}, this);
 
 		// this.bind('touch', function() {
 		// 	this.trigger('change', [ this.value ]);
@@ -68,7 +122,7 @@ lychee.define('lychee.ui.entity.Label').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Entity.prototype.serialize.call(this);
-			data['constructor'] = 'lychee.ui.entity.Label';
+			data['constructor'] = 'lychee.ui.entity.Text';
 
 			var settings = data['arguments'][0];
 			var blob     = (data['blob'] || {});
@@ -94,32 +148,30 @@ lychee.define('lychee.ui.entity.Label').includes([
 
 			var alpha    = this.alpha;
 			var position = this.position;
+			var x        = position.x + offsetX;
+			var y        = position.y + offsetY;
+			var hwidth   = this.width  / 2;
+			var hheight  = this.height / 2;
 
-			var x = position.x + offsetX;
-			var y = position.y + offsetY;
 
-
-			var font  = this.font;
-			var value = this.value;
+			if (this.__isDirty === true) {
+				_render_buffer.call(this, renderer);
+			}
 
 
 			if (alpha !== 1) {
 				renderer.setAlpha(alpha);
 			}
 
+			if (this.__buffer !== null) {
 
-			if (font !== null) {
-
-				renderer.drawText(
-					x,
-					y,
-					value,
-					font,
-					true
+				renderer.drawBuffer(
+					x - hwidth,
+					y - hheight,
+					this.__buffer
 				);
 
 			}
-
 
 			if (alpha !== 1) {
 				renderer.setAlpha(1.0);
@@ -166,15 +218,28 @@ lychee.define('lychee.ui.entity.Label').includes([
 				var font = this.font;
 				if (font !== null) {
 
-					var dim = font.measure(value);
+					var realwidth  = 0;
+					var realheight = 0;
 
-					this.width  = dim.realwidth;
-					this.height = dim.realheight;
+					value.split('\n').forEach(function(line) {
+
+						var tmp = font.measure(line);
+						if (tmp.realwidth  > realwidth)  realwidth  = tmp.realwidth;
+						if (tmp.realheight > realheight) realheight = tmp.realheight;
+
+					});
+
+					this.width  = realwidth;
+					this.height = realheight;
 
 				}
 
 
 				this.value = value;
+
+				this.__lines   = value.split('\n');
+				this.__isDirty = true;
+
 
 				return true;
 
