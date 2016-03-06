@@ -9,7 +9,7 @@ lychee.define('harvester.data.Package').includes([
 
 	var _parse_buffer = function() {
 
-		var json = this.buffer.toString();
+		var json = JSON.parse(this.buffer.toString());
 		if (json instanceof Object) {
 
 			if (json.api instanceof Object) {
