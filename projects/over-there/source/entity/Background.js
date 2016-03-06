@@ -1,6 +1,6 @@
 
 lychee.define('app.entity.Background').includes([
-	'lychee.ui.Background'
+	'lychee.app.sprite.Background'
 ]).exports(function(lychee, app, global, attachments) {
 
 	var _texture = attachments["png"];
@@ -24,7 +24,7 @@ lychee.define('app.entity.Background').includes([
 		settings.map     = _config.map;
 
 
-		lychee.ui.Background.call(this, settings);
+		lychee.app.sprite.Background.call(this, settings);
 
 		settings = null;
 

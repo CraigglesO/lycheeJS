@@ -175,6 +175,47 @@ lychee.define('harvester.mod.Server').requires([
 
 			});
 
+			server.stderr.on('data', function(lines) {
+
+				lines = lines.trim().split('\n').filter(function(message) {
+
+					if (message.charAt(0) === '\u001b') {
+						return true;
+					}
+
+					return false;
+
+				}).map(function(message) {
+
+					if (message.charAt(0) === '\u001b') {
+						message = message.substr(12);
+
+						if (message.charAt(message.length - 1) === 'm') {
+							message = message.substr(0, message.length - 12);
+						}
+
+					}
+
+					return message;
+
+				});
+
+
+				if (lines.length > 0) {
+
+					if (_LOG_PROJECT !== project) {
+						console.error('harvester.mod.Server: ERROR (' + project + ')');
+						_LOG_PROJECT = project;
+					}
+
+					lines.forEach(function(message) {
+						console.error('                      "' + message.trim() + '"');
+					});
+
+				}
+
+			});
+
 			server.on('error', function() {
 
 				console.warn('harvester.mod.Server: SHUTDOWN ("' + project + ' | ' + host + ':' + port + '")');
