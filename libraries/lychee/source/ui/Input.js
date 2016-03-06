@@ -6,6 +6,71 @@ lychee.define('lychee.ui.Input').includes([
 	var _font = attachments["fnt"];
 
 
+
+	/*
+	 * HELPERS
+	 */
+
+	var _render_buffer = function(renderer) {
+
+		var font  = this.font;
+		if (font !== null && font.texture !== null) {
+
+			this.__buffer = renderer.createBuffer(this.width - 16, this.height);
+
+
+			renderer.clear(this.__buffer);
+			renderer.setBuffer(this.__buffer);
+			renderer.setAlpha(1.0);
+
+
+			var lh     = font.lineheight;
+			var buffer = this.__buffer;
+			var text   = this.__value;
+			var cur    = this.__cursor.map;
+			var dim_x  = font.measure(text).width;
+
+
+			if (dim_x > buffer.width) {
+
+				renderer.drawText(
+					buffer.width - dim_x,
+					lh / 2,
+					text,
+					font,
+					false
+				);
+
+				cur.x = buffer.width;
+
+			} else {
+
+				renderer.drawText(
+					0,
+					lh / 2,
+					text,
+					font,
+					false
+				);
+
+				cur.x = dim_x;
+
+			}
+
+
+			renderer.setBuffer(null);
+			this.__isDirty = false;
+
+		}
+
+	};
+
+
+
+	/*
+	 * IMPLEMENTATION
+	 */
+
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, data);
@@ -37,7 +102,7 @@ lychee.define('lychee.ui.Input').includes([
 			alpha:    0.0
 		};
 		this.__value   = '';
-		this.__isDirty = false;
+		this.__isDirty = true;
 
 
 		this.setFont(settings.font);
@@ -211,6 +276,7 @@ lychee.define('lychee.ui.Input').includes([
 			var font = lychee.deserialize(blob.font);
 			if (font !== null) {
 				this.setFont(font);
+				this.__isDirty = true;
 			}
 
 		},
@@ -315,54 +381,8 @@ lychee.define('lychee.ui.Input').includes([
 			}
 
 
-			var buffer = this.__buffer;
-			if (buffer === null) {
-				this.__buffer = buffer = renderer.createBuffer(this.width - 16, this.height);
-			}
-
-
 			if (this.__isDirty === true) {
-
-				renderer.clear(buffer);
-				renderer.setBuffer(buffer);
-				renderer.setAlpha(1.0);
-
-
-				var font  = this.font;
-				var lh    = font.lineheight;
-				var text  = this.__value;
-				var cur   = this.__cursor.map;
-				var dim_x = font.measure(text).width;
-
-				if (dim_x > buffer.width) {
-
-					renderer.drawText(
-						buffer.width - dim_x,
-						lh / 2,
-						text,
-						font,
-						false
-					);
-
-				} else {
-
-					renderer.drawText(
-						0,
-						lh / 2,
-						text,
-						font,
-						false
-					);
-
-				}
-
-
-				cur.x = dim_x > buffer.width ? buffer.width : dim_x;
-
-
-				renderer.setBuffer(null);
-				this.__isDirty = false;
-
+				_render_buffer.call(this, renderer);
 			}
 
 
@@ -413,11 +433,15 @@ lychee.define('lychee.ui.Input').includes([
 				renderer.setAlpha(alpha);
 			}
 
-			renderer.drawBuffer(
-				x - hwidth + 8,
-				y - hheight,
-				this.__buffer
-			);
+			if (this.__buffer !== null) {
+
+				renderer.drawBuffer(
+					x - hwidth + 8,
+					y - hheight,
+					this.__buffer
+				);
+
+			}
 
 			if (alpha !== 1) {
 				renderer.setAlpha(1.0);
@@ -440,11 +464,9 @@ lychee.define('lychee.ui.Input').includes([
 
 				this.font = font;
 
-
-				var map = this.__cursor.map;
-
-				map.w = font.measure('_').realwidth;
-				map.h = font.measure('_').realheight;
+				this.__cursor.map.w = font.measure('_').realwidth;
+				this.__cursor.map.h = font.measure('_').realheight;
+				this.__isDirty      = true;
 
 
 				return true;
