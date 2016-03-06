@@ -193,6 +193,9 @@ lychee.define('lychee.ui.layer.Table').includes([
 
 		}
 
+
+		this.__isDirty = true;
+
 	};
 
 	var _render_buffer = function(renderer) {

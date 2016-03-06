@@ -1,5 +1,5 @@
 
-lychee.define('lychee.ui.Emblem').includes([
+lychee.define('lychee.ui.sprite.Emblem').includes([
 	'lychee.ui.Sprite'
 ]).exports(function(lychee, global, attachments) {
 
@@ -43,7 +43,7 @@ lychee.define('lychee.ui.Emblem').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Sprite.prototype.serialize.call(this);
-			data['constructor'] = 'lychee.ui.Emblem';
+			data['constructor'] = 'lychee.ui.sprite.Emblem';
 
 
 			return data;

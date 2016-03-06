@@ -1,5 +1,5 @@
 
-lychee.define('lychee.ui.Background').includes([
+lychee.define('lychee.ui.sprite.Background').includes([
 	'lychee.ui.Sprite'
 ]).exports(function(lychee, global, attachments) {
 
@@ -79,9 +79,12 @@ lychee.define('lychee.ui.Background').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Sprite.prototype.serialize.call(this);
-			data['constructor'] = 'lychee.ui.Background';
+			data['constructor'] = 'lychee.ui.sprite.Background';
 
 			var settings = data['arguments'][0];
+
+
+			if (this.color !== null) settings.color = this.color;
 
 
 			if (this.origin.x !== 0 || this.origin.y !== 0) {
