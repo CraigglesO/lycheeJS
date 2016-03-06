@@ -7,8 +7,9 @@ lychee.define('harvester.data.Package').includes([
 	 * HELPERS
 	 */
 
-	var _parse_json = function(json) {
+	var _parse_buffer = function() {
 
+		var json = this.buffer.toString();
 		if (json instanceof Object) {
 
 			if (json.api instanceof Object) {
@@ -109,11 +110,9 @@ lychee.define('harvester.data.Package').includes([
 	 * IMPLEMENTATION
 	 */
 
-
 	var Class = function(buffer) {
 
-		buffer = buffer instanceof Buffer ? buffer : null;
-
+		this.buffer = null;
 
 		this.api    = [];
 		this.build  = [];
@@ -121,9 +120,7 @@ lychee.define('harvester.data.Package').includes([
 		this.json   = {};
 
 
-		if (buffer !== null) {
-			_parse_json.call(this, JSON.parse(buffer.toString()));
-		}
+		this.setBuffer(buffer);
 
 
 		lychee.event.Emitter.call(this);
@@ -132,6 +129,66 @@ lychee.define('harvester.data.Package').includes([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		deserialize: function(blob) {
+
+			var buffer = lychee.deserialize(blob.buffer);
+			if (buffer !== null) {
+				this.setBuffer(buffer);
+			}
+
+		},
+
+		serialize: function() {
+
+			var data = lychee.event.Emitter.prototype.serialize.call(this);
+			data['constructor'] = 'harvester.data.Package';
+
+
+			var settings = {};
+			var blob     = data['blob'] || {};
+
+
+			if (this.buffer !== null) blob.buffer = lychee.serialize(this.buffer);
+
+
+			data['arguments'][0] = null;
+			data['blob']         = Object.keys(blob).length > 0 ? blob : null;
+
+
+			return data;
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
+		setBuffer: function(buffer) {
+
+			buffer = buffer instanceof Buffer ? buffer : null;
+
+
+			if (buffer !== null) {
+
+				this.buffer = buffer;
+				_parse_buffer.call(this);
+
+
+				return true;
+
+			}
+
+
+			return false;
+
+		}
 
 	};
 

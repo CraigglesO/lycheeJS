@@ -47,7 +47,17 @@ lychee.define('harvester.data.Project').requires([
 			data['constructor'] = 'harvester.data.Project';
 
 
+			var settings = data['arguments'] || {};
+			var blob     = data['blob'] || {};
+
+
+			if (this.filesystem !== null) blob.filesystem = lychee.serialize(this.filesystem);
+			if (this.package !== null)    blob.package    = lychee.serialize(this.package);
+			if (this.server !== null)     blob.server     = lychee.serialize(this.server);
+
+
 			data['arguments'] = [ this.identifier, this.filesystem.root ];
+			data['blob']      = Object.keys(blob).length > 0 ? blob : null;
 
 
 			return data;

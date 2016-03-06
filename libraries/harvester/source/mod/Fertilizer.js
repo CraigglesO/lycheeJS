@@ -74,8 +74,6 @@ lychee.define('harvester.mod.Fertilizer').tags({
 
 	var _fertilize = function(project, target) {
 
-		// XXX: (libUV Bug) Don't change this to a .js file.
-		// It will use native node binary, not the lycheeJS-shipped one.
 		_child_process.execFile(_root + '/bin/fertilizer.sh', [
 			target,
 			project

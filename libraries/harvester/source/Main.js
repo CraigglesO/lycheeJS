@@ -504,6 +504,50 @@ lychee.define('harvester.Main').requires([
 	Class.prototype = {
 
 		/*
+		 * ENTITY API
+		 */
+
+		deserialize: function(blob) {
+
+			var admin  = lychee.deserialize(blob.admin);
+			var server = lychee.deserialize(blob.server);
+
+
+			if (admin !== null) {
+				this.admin = admin;
+			}
+
+			if (server !== null) {
+				this.server = server;
+			}
+
+		},
+
+		serialize: function() {
+
+			var data = lychee.event.Emitter.prototype.serialize.call(this);
+			data['constructor'] = 'harvester.Main';
+
+
+			var settings = lychee.extendunlink({}, this.settings);
+			var blob     = data['blob'] || {};
+
+
+			if (this.admin !== null)  blob.admin  = lychee.serialize(this.admin);
+			if (this.server !== null) blob.server = lychee.serialize(this.server);
+
+
+			data['arguments'][0] = settings;
+			data['blob']         = Object.keys(blob).length > 0 ? blob : null;
+
+
+			return data;
+
+		},
+
+
+
+		/*
 		 * MAIN API
 		 */
 

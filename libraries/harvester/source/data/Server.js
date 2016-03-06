@@ -1,7 +1,5 @@
 
-lychee.define('harvester.data.Server').includes([
-	'lychee.event.Emitter'
-]).exports(function(lychee, harvester, global, attachments) {
+lychee.define('harvester.data.Server').exports(function(lychee, harvester, global, attachments) {
 
 	/*
 	 * IMPLEMENTATION
@@ -17,8 +15,6 @@ lychee.define('harvester.data.Server').includes([
 
 		this.__process = settings.process || null;
 
-
-		lychee.event.Emitter.call(this);
 
 		settings = null;
 
@@ -40,6 +36,9 @@ lychee.define('harvester.data.Server').includes([
 
 			if (this.host !== null) settings.host = this.host;
 			if (this.port !== null) settings.port = this.port;
+
+
+			// XXX: native process instance can't be serialized :(
 
 
 			return {

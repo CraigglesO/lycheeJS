@@ -24,7 +24,7 @@ lychee.define('harvester.net.Server').tags({
 
 }).exports(function(lychee, harvester, global, attachments) {
 
-	var net = require('net');
+	var _net = require('net');
 
 
 
@@ -105,6 +105,7 @@ lychee.define('harvester.net.Server').tags({
 			var data = lychee.event.Emitter.prototype.serialize.call(this);
 			data['constructor'] = 'harvester.net.Server';
 
+
 			var settings = {};
 			var blob     = (data['blob'] || {});
 
@@ -139,7 +140,7 @@ lychee.define('harvester.net.Server').tags({
 				var that = this;
 
 
-				this.__socket = new net.Server();
+				this.__socket = new _net.Server();
 
 				this.__socket.on('connection', function(socket) {
 
