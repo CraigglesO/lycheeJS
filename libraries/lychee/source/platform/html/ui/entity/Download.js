@@ -1,8 +1,8 @@
 
-lychee.define('lychee.ui.Download').tags({
+lychee.define('lychee.ui.entity.Download').tags({
 	platform: 'html'
 }).includes([
-	'lychee.ui.Button'
+	'lychee.ui.entity.Button'
 ]).supports(function(lychee, global) {
 
 	if (typeof global.document !== 'undefined') {
@@ -101,7 +101,7 @@ lychee.define('lychee.ui.Download').tags({
 		delete settings.value;
 
 
-		lychee.ui.Button.call(this, settings);
+		lychee.ui.entity.Button.call(this, settings);
 
 		settings = null;
 

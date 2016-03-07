@@ -447,21 +447,6 @@ lychee.define('Renderer').tags({
 
 				}
 
-
-				if (lychee.debug === true) {
-
-					this.drawBox(
-						x1,
-						y1,
-						x1 + buffer.width,
-						y1 + buffer.height,
-						'#00ff00',
-						false,
-						1
-					);
-
-				}
-
 			}
 
 		},
@@ -576,20 +561,6 @@ lychee.define('Renderer').tags({
 				if (map === null) {
 
 				} else {
-
-					if (lychee.debug === true) {
-
-						this.drawBox(
-							x1,
-							y1,
-							x1 + map.w,
-							y1 + map.h,
-							'#ff0000',
-							false,
-							1
-						);
-
-					}
 
 				}
 

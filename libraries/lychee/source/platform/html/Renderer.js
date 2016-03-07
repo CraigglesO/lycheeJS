@@ -375,21 +375,6 @@ lychee.define('Renderer').tags({
 				ctx.globalAlpha = this.alpha;
 				ctx.drawImage(buffer.__buffer, x1, y1);
 
-
-				if (lychee.debug === true) {
-
-					this.drawBox(
-						x1,
-						y1,
-						x1 + buffer.width,
-						y1 + buffer.height,
-						'#00ff00',
-						false,
-						1
-					);
-
-				}
-
 			}
 
 		},
@@ -572,20 +557,6 @@ lychee.define('Renderer').tags({
 
 				} else {
 
-					if (lychee.debug === true) {
-
-						this.drawBox(
-							x1,
-							y1,
-							x1 + map.w,
-							y1 + map.h,
-							'#ff0000',
-							false,
-							1
-						);
-
-					}
-
 					ctx.drawImage(
 						texture.buffer,
 						map.x,
@@ -637,20 +608,6 @@ lychee.define('Renderer').tags({
 					for (t = 0, l = text.length; t < l; t++) {
 
 						var chr = font.measure(text[t]);
-
-						if (lychee.debug === true) {
-
-							this.drawBox(
-								x1 + margin,
-								y1,
-								x1 + margin + chr.realwidth,
-								y1 + chr.height,
-								'#00ff00',
-								false,
-								1
-							);
-
-						}
 
 						ctx.drawImage(
 							texture.buffer,

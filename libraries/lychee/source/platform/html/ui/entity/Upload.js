@@ -1,8 +1,8 @@
 
-lychee.define('lychee.ui.Upload').tags({
+lychee.define('lychee.ui.entity.Upload').tags({
 	platform: 'html'
 }).includes([
-	'lychee.ui.Button'
+	'lychee.ui.entity.Button'
 ]).supports(function(lychee, global) {
 
 	if (typeof global.document !== 'undefined' && typeof global.document.createElement === 'function') {
@@ -119,7 +119,7 @@ lychee.define('lychee.ui.Upload').tags({
 		delete settings.value;
 
 
-		lychee.ui.Button.call(this, settings);
+		lychee.ui.entity.Button.call(this, settings);
 
 		settings = null;
 

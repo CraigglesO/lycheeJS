@@ -193,14 +193,15 @@ lychee.define('lychee.ui.layer.Table').includes([
 
 		}
 
-
-		this.__isDirty = true;
-
 	};
 
 	var _render_buffer = function(renderer) {
 
-		this.__buffer = renderer.createBuffer(this.width, this.height);
+		if (this.__buffer !== null) {
+			this.__buffer.resize(this.width, this.height);
+		} else {
+			this.__buffer = renderer.createBuffer(this.width, this.height);
+		}
 
 
 		renderer.clear(this.__buffer);
@@ -230,7 +231,6 @@ lychee.define('lychee.ui.layer.Table').includes([
 
 
 		renderer.setBuffer(null);
-		this.__isDirty = false;
 
 	};
 
@@ -250,9 +250,8 @@ lychee.define('lychee.ui.layer.Table').includes([
 		this.type  = Class.TYPE.horizontal;
 		this.value = [];
 
-		this.__buffer  = null;
-		this.__label   = [];
-		this.__isDirty = true;
+		this.__buffer = null;
+		this.__label  = [];
 
 
 		this.setFont(settings.font);
@@ -269,7 +268,7 @@ lychee.define('lychee.ui.layer.Table').includes([
 			settings.height = typeof settings.height === 'number' ? settings.height : 512;
 		}
 
-		settings.shape    = lychee.ui.Layer.SHAPE.rectangle;
+		settings.shape    = lychee.ui.Entity.SHAPE.rectangle;
 		settings.relayout = false;
 
 
@@ -483,9 +482,7 @@ lychee.define('lychee.ui.layer.Table').includes([
 			}
 
 
-			if (this.__isDirty === true) {
-				_render_buffer.call(this, renderer);
-			}
+			_render_buffer.call(this, renderer);
 
 
 			if (alpha !== 1) {
@@ -495,8 +492,8 @@ lychee.define('lychee.ui.layer.Table').includes([
 			if (this.__buffer !== null) {
 
 				renderer.drawBuffer(
-					x - hwidth,
-					y - hheight,
+					x1,
+					y1,
 					this.__buffer
 				);
 
@@ -577,7 +574,6 @@ lychee.define('lychee.ui.layer.Table').includes([
 
 				this.type = type;
 				this.trigger('relayout');
-				this.__isDirty = true;
 
 
 				return true;
@@ -603,7 +599,6 @@ lychee.define('lychee.ui.layer.Table').includes([
 					return model === Object.keys(val).join(',');
 				});
 				this.trigger('relayout');
-				this.__isDirty = true;
 
 
 				return true;

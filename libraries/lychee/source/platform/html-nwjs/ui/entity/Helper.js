@@ -1,22 +1,21 @@
 
-lychee.define('lychee.ui.Helper').tags({
-	platform: 'html'
+lychee.define('lychee.ui.entity.Helper').tags({
+	platform: 'node'
 }).includes([
-	'lychee.ui.Button'
+	'lychee.ui.entity.Button'
 ]).supports(function(lychee, global) {
 
-	if (typeof global.document !== 'undefined') {
-
-		if (typeof global.document.createElement === 'function') {
-			return true;
-		}
-
+	var child_process = require('child_process');
+	if (typeof child_process.execFile === 'function') {
+		return true;
 	}
-
 
 	return false;
 
 }).exports(function(lychee, global, attachments) {
+
+	var _child_process = require('child_process');
+	var _root          = lychee.ROOT.lychee;
 
 
 
@@ -63,14 +62,52 @@ lychee.define('lychee.ui.Helper').tags({
 
 	var _help = function(value) {
 
-		var element = global.document.createElement('a');
+		var helper = null;
 
-		element.href = 'lycheejs://' + value;
+		try {
 
-		element.click();
+			var helper = _child_process.execFile(_root + '/bin/helper.sh', [
+				'lycheejs://' + value
+			], {
+				cwd: _root
+			}, function(error, stdout, stderr) {
+
+				stderr = (stderr.trim() || '').toString();
 
 
-		return true;
+				if (error !== null && error.signal !== 'SIGTERM') {
+
+					helper = null;
+
+				} else if (stderr !== '') {
+
+console.error(stderr);
+
+				}
+
+			});
+
+			helper.stdout.on('data', function(lines) {
+
+console.log('DATA', lines);
+
+			});
+
+			helper.on('error', function() {
+				this.kill('SIGTERM');
+			});
+
+			helper.on('exit', function() {
+			});
+
+		} catch(e) {
+
+			helper = null;
+
+		}
+
+
+		return helper !== null;
 
 	};
 
@@ -87,7 +124,7 @@ lychee.define('lychee.ui.Helper').tags({
 		}, data);
 
 
-		lychee.ui.Button.call(this, settings);
+		lychee.ui.entity.Button.call(this, settings);
 
 		settings = null;
 

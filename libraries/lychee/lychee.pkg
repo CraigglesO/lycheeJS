@@ -426,15 +426,17 @@
 						]
 					},
 					"ui": {
-						"Download": [
-							"js"
-						],
-						"Helper": [
-							"js"
-						],
-						"Upload": [
-							"js"
-						]
+						"entity": {
+							"Download": [
+								"js"
+							],
+							"Helper": [
+								"js"
+							],
+							"Upload": [
+								"js"
+							]
+						}
 					}
 				},
 				"html-nwjs": {
@@ -448,9 +450,11 @@
 						"js"
 					],
 					"ui": {
-						"Helper": [
-							"js"
-						]
+						"entity": {
+							"Helper": [
+								"js"
+							]
+						}
 					}
 				},
 				"node": {
