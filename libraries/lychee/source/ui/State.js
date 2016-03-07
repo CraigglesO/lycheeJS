@@ -19,6 +19,7 @@ lychee.define('lychee.ui.State').requires([
 ]).exports(function(lychee, global, attachments) {
 
 	var _blob = attachments["json"].buffer;
+	var _MENU = null;
 
 
 
@@ -234,6 +235,19 @@ lychee.define('lychee.ui.State').requires([
 		deserialize: function(blob) {
 
 			lychee.app.State.prototype.deserialize.call(this, blob);
+
+
+			var menu = this.queryLayer('ui', 'menu');
+			if (_MENU === null && menu !== null) {
+
+				_MENU = menu;
+
+			} else if (_MENU !== null && menu !== null) {
+
+				this.getLayer('ui').removeEntity(menu);
+				this.getLayer('ui').setEntity('menu', _MENU);
+
+			}
 
 
 			this.queryLayer('ui', 'menu').bind('change', function(value) {
