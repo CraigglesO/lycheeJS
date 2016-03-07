@@ -1,13 +1,18 @@
 
 lychee.define('app.ui.Overlay').requires([
+	'lychee.effect.Alpha',
 	'app.ui.Bubble'
 ]).includes([
 	'lychee.ui.Layer'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _font    = attachments["fnt"];
-//	var _texture = attachments["png"];
+	var _font = attachments["fnt"];
 
+
+
+	/*
+	 * IMPLEMENTATION
+	 */
 
 	var Class = function(data) {
 
@@ -27,42 +32,17 @@ lychee.define('app.ui.Overlay').requires([
 
 	Class.prototype = {
 
-		setEntity: function(entity) {
+		/*
+		 * ENTITY API
+		 */
 
-			entity = lychee.interfaceof(entity, lychee.app.Entity) ? entity : null;
+		serialize: function() {
 
-
-			if (entity !== null) {
-
-				var properties = entity.properties || null;
-				if (properties !== null) {
-
-					var entities = [];
-
-					for (var key in properties) {
-
-						entities.push(new app.ui.Bubble({
-							key:   key,
-							value: properties[key]
-						}));
-
-					}
+			var data = lychee.ui.Layer.prototype.serialize.call(this);
+			data['constructor'] = 'app.ui.Overlay';
 
 
-					this.setEntities(entities);
-
-				}
-
-
-				this.__entity = entity;
-				this.__orbit  = 64;
-				// Math.max(entity.width / 2, entity.height / 2, entity.radius);
-
-			} else {
-
-				this.__orbit = null;
-
-			}
+			return data;
 
 		},
 
@@ -122,6 +102,63 @@ lychee.define('app.ui.Overlay').requires([
 
 
 			lychee.ui.Layer.prototype.render.call(this, renderer, offsetX, offsetY);
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
+		setEntity: function(entity) {
+
+			entity = lychee.interfaceof(entity, lychee.app.Entity) ? entity : null;
+
+
+			if (entity !== null) {
+
+				var properties = entity.properties || null;
+				if (properties !== null) {
+
+					var entities = [];
+
+					for (var key in properties) {
+
+						var bubble = new app.ui.Bubble({
+							key:   key,
+							value: properties[key]
+						});
+
+
+						bubble.alpha = 0;
+						bubble.addEffect(new lychee.effect.Alpha({
+							type:     lychee.effect.Alpha.TYPE.easeout,
+							duration: 600,
+							delay:    entities.length * 200
+						}));
+
+						entities.push(bubble);
+
+					}
+
+					this.setEntities(entities);
+
+				} else {
+
+					this.entities = [];
+
+				}
+
+
+				this.__entity = entity;
+				this.__orbit  = 64;
+
+			} else {
+
+				this.__orbit = null;
+
+			}
 
 		}
 

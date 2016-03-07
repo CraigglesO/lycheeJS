@@ -1,9 +1,7 @@
 
 lychee.define('app.state.App').requires([
 	'lychee.effect.Alpha',
-	'lychee.effect.Color',
 	'lychee.effect.Position',
-	'lychee.effect.Shake',
 	'app.entity.Background',
 	'app.entity.Astronaut',
 	'app.entity.Emblem',
@@ -169,16 +167,73 @@ lychee.define('app.state.App').requires([
 			entity = this.getLayer('ui');
 			entity.bind('touch', function(id, position, delta) {
 
+				var entity = null;
 				var target = this.queryLayer('foreground', 'ship').getEntity(null, position);
+
+
 				if (target !== null) {
+
 					this.__entity = target;
 					this.__overlay.setEntity(target);
 					this.__overlay.setPosition(target.position);
 					this.__overlay.setVisible(true);
-				} else {
+
+					entity = this.queryLayer('midground', 'midground');
+					entity.alpha = 1.0;
+					entity.addEffect(new lychee.effect.Alpha({
+						type:     lychee.effect.Alpha.TYPE.easeout,
+						alpha:    0.1,
+						duration: 300
+					}));
+
+					entity = this.queryLayer('foreground', 'ship');
+					entity.entities.forEach(function(other) {
+
+						if (other !== target) {
+
+							other.addEffect(new lychee.effect.Alpha({
+								type:     lychee.effect.Alpha.TYPE.easeout,
+								alpha:    0.1,
+								duration: 300
+							}));
+
+						} else {
+
+							other.addEffect(new lychee.effect.Alpha({
+								type:     lychee.effect.Alpha.TYPE.easeout,
+								alpha:    1.0,
+								duration: 300
+							}));
+
+						}
+
+					});
+
+				} else if (this.__entity !== null) {
+
 					this.__entity = null;
 					this.__overlay.setEntity(null);
 					this.__overlay.setVisible(false);
+
+					entity = this.queryLayer('midground', 'midground');
+					entity.alpha = 0.1;
+					entity.addEffect(new lychee.effect.Alpha({
+						type:     lychee.effect.Alpha.TYPE.easeout,
+						alpha:    1.0,
+						duration: 500
+					}));
+
+					entity = this.queryLayer('foreground', 'ship');
+					entity.entities.forEach(function(other) {
+
+						other.addEffect(new lychee.effect.Alpha({
+							type:     lychee.effect.Alpha.TYPE.easeout,
+							alpha:    1.0,
+							duration: 300
+						}));
+
+					});
+
 				}
 
 			}, this);
@@ -198,11 +253,9 @@ lychee.define('app.state.App').requires([
 			}
 
 
-			var rooms = this.queryLayer('foreground', 'ship').entities.filter(function(val) {
+			this.queryLayer('foreground', 'ship').entities.filter(function(val) {
 				return val instanceof app.entity.Room;
-			});
-
-			rooms.forEach(function(room) {
+			}).forEach(function(room) {
 				room.properties['name'] = room.state;
 			});
 
@@ -235,7 +288,17 @@ lychee.define('app.state.App').requires([
 						}
 					});
 
-					astronaut.room = room;
+
+					astronaut.room  = room;
+					astronaut.alpha = 0.0;
+					astronaut.addEffect(new lychee.effect.Alpha({
+						type:     lychee.effect.Alpha.TYPE.easeout,
+						alpha:    1.0,
+						duration: 600,
+						delay:    astronauts.length * 300
+					}))
+
+
 					astronauts.push(astronaut);
 
 					this.queryLayer('foreground', 'ship').addEntity(astronaut);
@@ -243,7 +306,6 @@ lychee.define('app.state.App').requires([
 				}, this);
 
 			}
-
 
 
 			this.loop.setInterval(3000, function() {
@@ -271,10 +333,8 @@ lychee.define('app.state.App').requires([
 			var background = this.queryLayer('background', 'background');
 			if (background !== null) {
 
-				var x = background.origin.x;
-
 				background.setOrigin({
-					x: x + delta/250
+					x: background.origin.x + 1/250 * delta
 				});
 
 			}
@@ -286,6 +346,9 @@ lychee.define('app.state.App').requires([
 
 		render: function(clock, delta) {
 
+			lychee.app.State.prototype.render.call(this, clock, delta);
+
+/*
 			var entity   = this.__entity;
 			var renderer = this.renderer;
 
@@ -293,13 +356,13 @@ lychee.define('app.state.App').requires([
 
 				renderer.clear();
 
-				renderer.setAlpha(0.4);
+				renderer.setAlpha(0.5);
 				this.getLayer('background').render(renderer, 0, 0);
 
-				renderer.setAlpha(0.4);
+				renderer.setAlpha(0.5);
 				this.getLayer('midground').render(renderer, 0, 0);
 
-				renderer.setAlpha(0.4);
+				renderer.setAlpha(0.5);
 				this.getLayer('foreground').render(renderer, 0, 0);
 
 				renderer.setAlpha(1);
@@ -307,11 +370,10 @@ lychee.define('app.state.App').requires([
 
 				renderer.flush();
 
-			} else {
-
-				lychee.app.State.prototype.render.call(this, clock, delta, false);
-
 			}
+
+*/
+
 
 		}
 

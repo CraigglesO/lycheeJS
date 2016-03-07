@@ -3,6 +3,8 @@ lychee.define('app.entity.Astronaut').includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, app, global, attachments) {
 
+	var _config   = attachments["json"].buffer;
+	var _id       = 0;
 	var _textures = [
 		attachments["blue.png"],
 		attachments["light.png"],
@@ -14,20 +16,18 @@ lychee.define('app.entity.Astronaut').includes([
 		attachments["yellow.png"]
 	];
 
-	var _texture = attachments["png"];
-	var _config  = attachments["json"].buffer;
 
 
-	var _id = 0;
+	/*
+	 * IMPLEMENTATION
+	 */
 
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, data);
 
 
-		this.nearest = null;
-
-		this.properties  = settings.properties;
+		this.properties = {};
 
 
 		settings.texture = _textures[_id++];
@@ -39,6 +39,11 @@ lychee.define('app.entity.Astronaut').includes([
 		settings.state   = settings.state || _config.state;
 
 
+		this.setProperties(settings.properties);
+
+		delete settings.properties;
+
+
 		lychee.app.Sprite.call(this, settings);
 
 		settings = null;
@@ -48,6 +53,10 @@ lychee.define('app.entity.Astronaut').includes([
 
 	Class.prototype = {
 
+		/*
+		 * ENTITY API
+		 */
+
 		serialize: function() {
 
 			var data = lychee.app.Sprite.prototype.serialize.call(this);
@@ -55,6 +64,31 @@ lychee.define('app.entity.Astronaut').includes([
 
 
 			return data;
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
+		setProperties: function(properties) {
+
+			properties = properties instanceof Object ? properties : null;
+
+
+			if (properties !== null) {
+
+				this.properties = properties;
+
+
+				return true;
+
+			}
+
+
+			return false;
 
 		}
 

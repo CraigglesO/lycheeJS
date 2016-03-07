@@ -20,11 +20,20 @@ lychee.define('app.ui.Bubble').includes([
 		var settings = lychee.extend({}, data);
 
 
-		this.key        = settings.key   || 'urine';
-		this.value      = settings.value || '0%';
+		this.key   = 'urine';
+		this.value = '0%';
 
 
-		settings.radius = 48;
+		this.setKey(settings.key);
+		this.setValue(settings.value);
+
+
+		delete settings.key;
+		delete settings.value;
+
+
+		settings.alpha  = 1.0;
+		settings.radius = 32;
 		settings.shape  = lychee.ui.Entity.SHAPE.circle;
 
 
@@ -37,14 +46,43 @@ lychee.define('app.ui.Bubble').includes([
 
 	Class.prototype = {
 
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.ui.Entity.prototype.serialize.call(this);
+			data['constructor'] = 'app.ui.Bubble';
+
+
+			var settings = data['arguments'][0] || {};
+			var blob     = data['blob'] || {};
+
+
+			if (this.key !== 'urine') settings.key   = this.key;
+			if (this.value !== '0%')  settings.value = this.value;
+
+
+			return data;
+
+		},
+
 		render: function(renderer, offsetX, offsetY) {
 
+			if (this.visible === false) return;
+
+
+			var alpha    = this.alpha;
 			var position = this.position;
 			var map      = null;
 			var radius   = this.radius;
 
 
-			renderer.setAlpha(0.6);
+			if (alpha !== 1) {
+				renderer.setAlpha(alpha);
+			}
+
 
 			renderer.drawCircle(
 				position.x + offsetX,
@@ -53,8 +91,6 @@ lychee.define('app.ui.Bubble').includes([
 				'#00000',
 				true
 			);
-
-			renderer.setAlpha(1);
 
 			renderer.drawCircle(
 				position.x + offsetX,
@@ -115,6 +151,52 @@ lychee.define('app.ui.Bubble').includes([
 				}
 
 			}
+
+
+			if (alpha !== 1) {
+				renderer.setAlpha(1.0);
+			}
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
+		setKey: function(key) {
+
+			key = typeof key === 'string' ? key : null;
+
+
+			if (key !== null) {
+
+				this.key = key;
+
+
+				return true;
+
+			}
+
+		},
+
+		setValue: function(value) {
+
+			value = typeof value === 'string' ? value : null;
+
+
+			if (value !== null) {
+
+				this.value = value;
+
+
+				return true;
+
+			}
+
+
+			return false;
 
 		}
 

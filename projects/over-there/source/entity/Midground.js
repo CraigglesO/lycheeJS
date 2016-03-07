@@ -10,11 +10,14 @@ lychee.define('app.entity.Midground').includes([
 	};
 
 
-	var Class = function(settings) {
 
-		if (settings === undefined) {
-			settings = {};
-		}
+	/*
+	 * IMPLEMENTATION
+	 */
+
+	var Class = function(data) {
+
+		var settings = lychee.extend({}, data);
 
 
 		settings.repeat  = false;
@@ -32,6 +35,20 @@ lychee.define('app.entity.Midground').includes([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.app.Sprite.prototype.serialize.call(this);
+			data['constructor'] = 'app.entity.Midground';
+
+
+			return data;
+
+		}
 
 	};
 

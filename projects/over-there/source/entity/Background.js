@@ -11,11 +11,14 @@ lychee.define('app.entity.Background').includes([
 	};
 
 
-	var Class = function(settings) {
 
-		if (settings === undefined) {
-			settings = {};
-		}
+	/*
+	 * IMPLEMENTATION
+	 */
+
+	var Class = function(data) {
+
+		var settings = lychee.extend({}, data);
 
 
 		settings.texture = _texture;
@@ -32,6 +35,20 @@ lychee.define('app.entity.Background').includes([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.app.sprite.Background.prototype.serialize.call(this);
+			data['constructor'] = 'app.entity.Background';
+
+
+			return data;
+
+		}
 
 	};
 

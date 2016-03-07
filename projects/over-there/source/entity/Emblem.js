@@ -10,6 +10,11 @@ lychee.define('app.entity.Emblem').includes([
 	};
 
 
+
+	/*
+	 * IMPLEMENTATION
+	 */
+
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, data);
@@ -28,6 +33,10 @@ lychee.define('app.entity.Emblem').includes([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
 
 		serialize: function() {
 
