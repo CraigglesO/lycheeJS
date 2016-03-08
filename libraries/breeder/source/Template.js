@@ -112,16 +112,33 @@ lychee.define('breeder.Template').requires([
 				_LIB.copy(fs, '/libraries/lychee/build/html/core.js');
 				_LIB.copy(fs, '/libraries/lychee/build/html/dist/index.js');
 
-				_TPL.copy(fs, '/source/Main.js');
-				_TPL.copy(fs, '/source/net/remote/Ping.js');
-				_TPL.copy(fs, '/source/net/Server.js');
-				_TPL.copy(fs, '/source/net/Client.js');
-				_TPL.copy(fs, '/source/net/client/Ping.js');
-				_TPL.copy(fs, '/source/state/Menu.js');
-				_TPL.copy(fs, '/source/state/Menu.json');
+				// _TPL.copy(fs, '/source/Main.js');
+				// _TPL.copy(fs, '/source/net/Server.js');
+				// _TPL.copy(fs, '/source/net/Client.js');
 
-				_TPL.copy(fs, '/index.html');
+				_TPL.copy(fs, '/source/net/client/Ping.js');
+				_TPL.copy(fs, '/source/net/remote/Ping.js');
+				_TPL.copy(fs, '/source/state/Welcome.js');
+				_TPL.copy(fs, '/source/state/Welcome.json');
+
+				_TPL.copy(fs, '/icon.png');
 				_TPL.copy(fs, '/favicon.ico');
+				_TPL.copy(fs, '/index.html');
+
+
+				var id     = fs.root.split('/').pop();
+				var main   = _TPL.read('/source/Main.js');
+				var client = _TPL.read('/source/net/Client.js');
+				var server = _TPL.read('/source/net/Server.js');
+
+				main   = this.replace(main,   { id: id });
+				client = this.replace(client, { id: id });
+				server = this.replace(server, { id: id });
+
+
+				fs.write('/source/Main.js',       main);
+				fs.write('/source/net/Client.js', client);
+				fs.write('/source/net/Server.js', server);
 
 
 				oncomplete(true);

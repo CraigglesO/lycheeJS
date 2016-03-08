@@ -2,7 +2,7 @@
 lychee.define('app.Main').requires([
 	'app.net.Client',
 	'app.net.Server',
-	'app.state.Menu'
+	'app.state.Welcome'
 ]).includes([
 	'lychee.app.Main'
 ]).exports(function(lychee, app, global, attachments) {
@@ -16,7 +16,7 @@ lychee.define('app.Main').requires([
 		var settings = lychee.extend({
 
 			// Is configured by Sorbet API
-			client: '/api/Server?identifier=boilerplate',
+			client: '/api/Server?identifier=${id}',
 
 			input: {
 				delay:       0,
@@ -32,10 +32,9 @@ lychee.define('app.Main').requires([
 			},
 
 			renderer: {
-				id:         'boilerplate',
-				width:      null,
-				height:     null,
-				background: '#404948'
+				id:     '${id}',
+				width:  null,
+				height: null
 			},
 
 			viewport: {
@@ -78,10 +77,10 @@ lychee.define('app.Main').requires([
 			}
 
 
-			this.setState('menu', new app.state.Menu(this));
+			this.setState('welcome', new app.state.Welcome(this));
 
 
-			this.changeState('menu');
+			this.changeState('welcome');
 
 		}, this, true);
 
@@ -101,12 +100,13 @@ lychee.define('app.Main').requires([
 			var data = lychee.app.Main.prototype.serialize.call(this);
 			data['constructor'] = 'app.Main';
 
+
 			var settings = data['arguments'][0] || {};
 			var blob     = data['blob'] || {};
 
 
-			if (this.defaults.client !== null) { settings.client = this.defaults.client; }
-			if (this.defaults.server !== null) { settings.server = this.defaults.server; }
+			if (this.settings.appclient !== null) settings.client = this.defaults.client;
+			if (this.settings.appserver !== null) settings.server = this.defaults.server;
 
 
 			data['arguments'][0] = settings;
