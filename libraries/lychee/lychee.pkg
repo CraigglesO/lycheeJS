@@ -227,9 +227,29 @@
 				"State": [
 					"js"
 				],
+				"entity": {
+					"Label": [
+						"fnt",
+						"js"
+					],
+					"Text": [
+						"fnt",
+						"js"
+					]
+				},
+				"layer": {
+					"Table": [
+						"fnt",
+						"js"
+					]
+				},
 				"sprite": {
 					"Background": [
 						"js"
+					],
+					"Emblem": [
+						"js",
+						"png"
 					]
 				}
 			},
