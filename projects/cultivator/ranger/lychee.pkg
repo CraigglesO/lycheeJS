@@ -80,6 +80,9 @@
 				"Control": [
 					"js"
 				],
+				"Profile": [
+					"js"
+				],
 				"Status": [
 					"js"
 				],

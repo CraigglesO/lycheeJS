@@ -25,17 +25,17 @@
 							}],
 							"blob": {
 								"entities": [{
-									"constructor": "lychee.ui.Text",
+									"constructor": "lychee.ui.entity.Text",
 									"arguments": [{
 										"value": "The lycheejs-harvester is not booted up."
 									}]
 								}, {
-									"constructor": "lychee.ui.Text",
+									"constructor": "lychee.ui.entity.Text",
 									"arguments": [{
 										"value": "Select a Profile to boot lycheeJS.\nIf you have no clue, select \"development\"."
 									}]
 								}, {
-									"constructor": "lychee.ui.Select",
+									"constructor": "lychee.ui.entity.Select",
 									"arguments": [{
 										"options": [ "development", "production" ],
 										"value": "development"
@@ -59,7 +59,7 @@
 							}],
 							"blob": {
 								"entities": [{
-									"constructor": "lychee.ui.Table",
+									"constructor": "lychee.ui.layer.Table",
 									"arguments": [{
 										"width":  608,
 										"height": 384,
@@ -71,7 +71,7 @@
 									"blob": {
 										"model": {
 											"identifier": {
-												"constructor": "lychee.ui.Label",
+												"constructor": "lychee.ui.entity.Label",
 												"arguments": [{}]
 											},
 											"status": {
@@ -80,11 +80,17 @@
 											},
 											"control": {
 												"constructor": "app.ui.Control",
-												"arguments": [{}]
+												"arguments": [{
+													"width": 224,
+													"height": 32
+												}]
 											},
 											"web": {
 												"constructor": "app.ui.Web",
-												"arguments": [{}]
+												"arguments": [{
+													"width": 224,
+													"height": 32
+												}]
 											}
 										}
 									}

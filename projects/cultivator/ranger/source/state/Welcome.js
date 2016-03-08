@@ -1,16 +1,16 @@
 
 lychee.define('app.state.Welcome').includes([
-	'lychee.app.state.Menu'
+	'lychee.ui.State'
 ]).requires([
-	'lychee.ui.Helper',
-	'lychee.ui.Label',
+	'lychee.ui.entity.Helper',
+	'lychee.ui.entity.Label',
 	'app.ui.Control',
 	'app.ui.Status',
 	'app.ui.Web'
 ]).exports(function(lychee, app, global, attachments) {
 
 	var _blob   = attachments["json"].buffer;
-	var _helper = new lychee.ui.Helper();
+	var _helper = new lychee.ui.entity.Helper();
 
 
 
@@ -18,7 +18,7 @@ lychee.define('app.state.Welcome').includes([
 	 * HELPERS
 	 */
 
-	var _on_interval = function() {
+	var _update_projects = function() {
 
 		this.main.reload(function(config, profile) {
 
@@ -103,10 +103,7 @@ lychee.define('app.state.Welcome').includes([
 
 	var Class = function(main) {
 
-		this.__interval = null;
-
-
-		lychee.app.state.Menu.call(this, main);
+		lychee.ui.State.call(this, main);
 
 	};
 
@@ -119,7 +116,7 @@ lychee.define('app.state.Welcome').includes([
 
 		deserialize: function(blob) {
 
-			lychee.app.state.Menu.prototype.deserialize.call(this, blob);
+			lychee.ui.State.prototype.deserialize.call(this, blob);
 			lychee.app.State.prototype.deserialize.call(this, _blob);
 
 
@@ -189,8 +186,8 @@ lychee.define('app.state.Welcome').includes([
 
 		serialize: function() {
 
-			var data = lychee.app.state.Menu.prototype.serialize.call(this);
-			data['constructor'] = 'app.state.Menu';
+			var data = lychee.ui.State.prototype.serialize.call(this);
+			data['constructor'] = 'app.state.Welcome';
 
 
 			return data;
@@ -205,21 +202,17 @@ lychee.define('app.state.Welcome').includes([
 				this.queryLayer('ui', 'welcome > dialog').setVisible(true);
 				this.queryLayer('ui', 'welcome > status').setVisible(false);
 
-				this.__interval = null;
-
 			} else {
 
 				this.queryLayer('ui', 'welcome > dialog').setVisible(false);
 				this.queryLayer('ui', 'welcome > status').setVisible(true);
 
-				_on_interval.call(this);
-
-				this.__interval = this.loop.setInterval(3000, _on_interval, this);
+				_update_projects.call(this);
 
 			}
 
 
-			lychee.app.state.Menu.prototype.enter.call(this, oncomplete, data);
+			lychee.ui.State.prototype.enter.call(this, oncomplete, data);
 
 		},
 
@@ -227,11 +220,10 @@ lychee.define('app.state.Welcome').includes([
 
 			if (this.__interval !== null) {
 				this.loop.removeInterval(this.__interval);
-				this.__interval = null;
 			}
 
 
-			lychee.app.state.Menu.prototype.leave.call(this, oncomplete);
+			lychee.ui.State.prototype.leave.call(this, oncomplete);
 
 		}
 

@@ -2,7 +2,7 @@
 lychee.define('app.ui.Control').includes([
 	'lychee.ui.Layer'
 ]).requires([
-	'lychee.ui.Helper'
+	'lychee.ui.entity.Helper'
 ]).exports(function(lychee, app, global, attachments) {
 
 
@@ -49,7 +49,7 @@ lychee.define('app.ui.Control').includes([
 
 				for (var l = 0, ll = label.length; l < ll; l++) {
 
-					var helper = new lychee.ui.Helper();
+					var helper = new lychee.ui.entity.Helper();
 
 					helper.bind('change', _on_change, helper);
 

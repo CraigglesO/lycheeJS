@@ -2,23 +2,103 @@
 lychee.define('app.state.Profile').includes([
 	'lychee.app.State'
 ]).requires([
+	'lychee.data.JSON',
 	'lychee.ui.Blueprint',
 	'lychee.ui.Element',
-	'lychee.ui.Input',
-	'lychee.ui.Select',
-	'lychee.ui.Table',
-	'lychee.ui.Helper',
-//	'app.ui.Profile'
+	'lychee.ui.entity.Helper',
+	'lychee.ui.entity.Input',
+	'lychee.ui.entity.Select',
+	'lychee.ui.layer.Table',
+	'app.ui.Profile'
 ]).exports(function(lychee, app, global, attachments) {
 
 	var _blob   = attachments["json"].buffer;
-	var _helper = new lychee.ui.Helper();
+	var _cache  = {};
+	var _helper = new lychee.ui.entity.Helper();
+	var _JSON   = lychee.data.JSON;
 
 
 
 	/*
 	 * HELPERS
 	 */
+
+	var _read_profile = function(profile) {
+
+		if (profile.buffer !== null && profile.buffer.length > 0) {
+
+			_cache = {};
+
+
+			var element = this.queryLayer('ui', 'profile > select');
+			var entity  = this.queryLayer('ui', 'profile > select > 0');
+			var options = [];
+
+
+			profile.buffer.forEach(function(object) {
+
+				var identifier = object.identifier;
+
+				_cache[identifier] = {
+					port:  object.port,
+					hosts: object.hosts
+				};
+
+				options.push(identifier);
+
+			});
+
+
+			if (entity !== null && options.indexOf(entity.value) !== -1) {
+				entity.setOptions(options);
+				element.trigger('relayout');
+			}
+
+		}
+
+	};
+
+	var _save_profile = function(identifier, profile) {
+
+		var data = new Buffer(_JSON.encode(profile), 'utf8').toString('base64');
+
+		_helper.setValue('profile=' + identifier + '?data=' + data);
+		_helper.trigger('touch');
+
+	};
+
+	var _on_select = function(identifier) {
+
+		var profile = _cache[identifier] || null;
+		var entity  = null;
+		var value   = [];
+
+
+		if (profile !== null) {
+
+			for (var host in profile.hosts) {
+
+				var project = profile.hosts[host];
+
+				value.push({
+					host:    host,
+					project: project === null ? '*' : project,
+					action:  'remove'
+				});
+
+			}
+
+
+			entity = this.queryLayer('ui', 'profile > select > 2');
+			entity.setValue(profile.port);
+
+		}
+
+
+		entity = this.queryLayer('ui', 'profile > modify > 0');
+		entity.setValue(value);
+
+	};
 
 	var _on_relayout = function() {
 
@@ -32,8 +112,8 @@ lychee.define('app.state.Profile').includes([
 
 
 			entity = this.getLayer('ui');
-			entity.width      = width;
-			entity.height     = height;
+			entity.width  = width;
+			entity.height = height;
 
 
 			for (var e = 0, el = entity.entities.length; e < el; e++) {
@@ -50,6 +130,15 @@ lychee.define('app.state.Profile').includes([
 
 			}
 
+
+			var profile_h = 0;
+			entity        = this.queryLayer('ui', 'profile > modify > 2');
+			entity.height = 64;
+			bar_height    = entity.height;
+
+			entity        = this.queryLayer('ui', 'profile > modify > 0');
+			entity.height = height - 80 - 32 - profile_h;
+
 		}
 
 	};
@@ -61,9 +150,6 @@ lychee.define('app.state.Profile').includes([
 	 */
 
 	var Class = function(main) {
-
-		this.__interval = null;
-
 
 		lychee.app.State.call(this, main);
 
@@ -100,6 +186,8 @@ lychee.define('app.state.Profile').includes([
 			}
 
 
+
+			this.queryLayer('ui', 'profile > select > 0').bind('change', _on_select, this);
 			this.queryLayer('ui', 'profile > select').bind('change', function(value) {
 
 				if (value === 'save') {
@@ -110,39 +198,27 @@ lychee.define('app.state.Profile').includes([
 					};
 
 
-					var element = this.queryLayer('ui', 'profile > modify');
-					if (element !== null) {
+					var profile = this.queryLayer('ui', 'profile > select > 0');
+					var port    = this.queryLayer('ui', 'profile > select > 2');
+					var table   = this.queryLayer('ui', 'profile > modify > 0');
 
-						var hosts = element.__content[0].value;
-						if (hosts.length > 0) {
 
-							hosts.forEach(function(host) {
-								data[object.host] = object.project === '*' ? null : object.project;
-							});
+					if (port !== null) {
+						data.port = port.value;
+					}
 
-						}
+					if (table !== null) {
+
+						table.value.forEach(function(object) {
+							data.hosts[object.host] = object.project === '*' ? null : object.project;
+						});
 
 					}
 
-console.log('SAVING PROFILE', data);
 
-
-/*
-					var profile = lychee.deserialize({
-						constructor: 'Config',
-						arguments:   [ 'http://localhost:4848/api/Profile?timestamp=' + Date.now() ],
-						blob:        {
-							buffer: 'data:application/json;base64,' + new Buffer(JSON.stringify(data), 'utf8').toString('base64')
-						}
-					});
-
-					if (profile !== null) {
-
-						_helper.setValue('profile=' + identifier + '&data=' + JSON.encode(profile.buffer));
-						_helper.trigger('touch');
-
+					if (profile !== null && profile.value !== null) {
+						_save_profile(profile.value, data);
 					}
-*/
 
 				}
 
@@ -192,7 +268,17 @@ console.log('SAVING PROFILE', data);
 
 			} else {
 
+				_read_profile.call(this, profile);
+
+
 				this.queryLayer('ui', 'profile').setVisible(true);
+
+
+				var entity = this.queryLayer('ui', 'profile > select > 0');
+				if (entity !== null) {
+					entity.setValue('development');
+					entity.trigger('change', [ 'development' ]);
+				}
 
 			}
 

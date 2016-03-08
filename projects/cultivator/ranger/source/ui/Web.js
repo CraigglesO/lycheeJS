@@ -2,7 +2,7 @@
 lychee.define('app.ui.Web').includes([
 	'lychee.ui.Layer'
 ]).requires([
-	'lychee.ui.Helper'
+	'lychee.ui.entity.Helper'
 ]).exports(function(lychee, app, global, attachments) {
 
 
@@ -23,7 +23,7 @@ lychee.define('app.ui.Web').includes([
 				this.entities = [];
 
 				for (var l = 0, ll = label.length; l < ll; l++) {
-					this.entities.push(new lychee.ui.Helper());
+					this.entities.push(new lychee.ui.entity.Helper());
 				}
 
 			}

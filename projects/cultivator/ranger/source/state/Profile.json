@@ -19,16 +19,16 @@
 							}],
 							"blob": {
 								"entities": [{
-									"constructor": "lychee.ui.Select",
+									"constructor": "lychee.ui.entity.Select",
 									"arguments": [{
 										"options": [ "development", "production" ],
 										"value":   "development"
 									}]
 								}, {
-									"constructor": "lychee.ui.Input",
+									"constructor": "lychee.ui.entity.Input",
 									"arguments": [{
 										"type":  1,
-										"min":   1024,
+										"min":   1,
 										"max":   49151,
 										"value": 8080
 									}]
@@ -46,7 +46,7 @@
 							}],
 							"blob": {
 								"entities": [{
-									"constructor": "lychee.ui.Table",
+									"constructor": "lychee.ui.layer.Table",
 									"arguments": [{
 										"width":  448,
 										"height": 384
@@ -54,12 +54,18 @@
 									"blob": {
 										"model": {
 											"host": {
-												"constructor": "lychee.ui.Input",
+												"constructor": "lychee.ui.entity.Input",
 												"arguments": [{}]
 											},
 											"project": {
-												"constructor": "lychee.ui.Input",
+												"constructor": "lychee.ui.entity.Input",
 												"arguments": [{}]
+											},
+											"action": {
+												"constructor": "lychee.ui.entity.Button",
+												"arguments": [{
+													"label": "Remove"
+												}]
 											}
 										}
 									}

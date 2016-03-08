@@ -1,13 +1,13 @@
 
 lychee.define('app.ui.Status').includes([
-	'lychee.ui.Label'
+	'lychee.ui.entity.Label'
 ]).exports(function(lychee, app, global, attachments) {
 
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, data);
 
-		lychee.ui.Label.call(this, settings);
+		lychee.ui.entity.Label.call(this, settings);
 
 	};
 
@@ -20,7 +20,7 @@ lychee.define('app.ui.Status').includes([
 
 		serialize: function() {
 
-			var data = lychee.ui.Label.prototype.serialize.call(this);
+			var data = lychee.ui.entity.Label.prototype.serialize.call(this);
 			data['constructor'] = 'app.ui.Status';
 
 
