@@ -599,7 +599,7 @@ lychee.define('Renderer').tags({
 				var texture = font.texture;
 				if (texture !== null && texture.buffer !== null) {
 
-					for (t = 0, l = text.length; t < l; t++) {
+					for (var t = 0, l = text.length; t < l; t++) {
 
 						var chr = font.measure(text[t]);
 
