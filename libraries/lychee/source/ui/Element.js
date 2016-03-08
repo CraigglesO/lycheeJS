@@ -293,6 +293,50 @@ lychee.define('lychee.ui.Element').requires([
 
 		},
 
+		getEntity: function(id, position) {
+
+			id        = typeof id === 'string'    ? id       : null;
+			position = position instanceof Object ? position : null;
+
+
+			var found = null;
+
+
+			if (id !== null) {
+
+				var num = parseInt(id, 10);
+
+				if (this.__map[id] !== undefined) {
+					found = this.__map[id];
+				} else if (isNaN(num) === false) {
+					found = this.__content[num] || null;
+				}
+
+			} else if (position !== null) {
+
+				if (typeof position.x === 'number' && typeof position.y === 'number') {
+
+					for (var e = this.entities.length - 1; e >= 0; e--) {
+
+						var entity = this.entities[e];
+						if (entity.visible === false) continue;
+
+						if (entity.isAtPosition(position) === true) {
+							found = entity;
+							break;
+						}
+
+					}
+
+				}
+
+			}
+
+
+			return found;
+
+		},
+
 		setEntity: function(id, entity) {
 
 			var result = lychee.ui.Layer.prototype.setEntity.call(this, id, entity);

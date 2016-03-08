@@ -240,9 +240,20 @@ lychee.define('lychee.ui.State').requires([
 			var menu = this.queryLayer('ui', 'menu');
 			if (_MENU === null && menu !== null) {
 
+
 				_MENU = menu;
 
 			} else if (_MENU !== null && menu !== null) {
+
+				var welcome = this.queryLayer('ui', 'welcome');
+				if (welcome !== null) {
+					this.getLayer('ui').removeEntity(welcome);
+				}
+
+				var settings = this.queryLayer('ui', 'settings');
+				if (settings !== null) {
+					this.getLayer('ui').removeEntity(settings);
+				}
 
 				this.getLayer('ui').removeEntity(menu);
 				this.getLayer('ui').setEntity('menu', _MENU);

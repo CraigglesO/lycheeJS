@@ -663,8 +663,12 @@ lychee.define('lychee.app.Layer').requires([
 
 			if (id !== null) {
 
+				var num = parseInt(id, 10);
+
 				if (this.__map[id] !== undefined) {
 					found = this.__map[id];
+				} else if (isNaN(num) === false) {
+					found = this.entities[num] || null;
 				}
 
 			} else if (position !== null) {

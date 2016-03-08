@@ -73,7 +73,7 @@ _put_API_Project () {
 _put_API_Profile () {
 
 	identifier="$1";
-	data="$2";
+	data=$(echo $2 | base64 --decode);
 	apiurl="http://localhost:4848/api/Profile?identifier=$identifier";
 
 	curl -i -H "Content-Type: application/json" -X PUT -d "$data" $apiurl 2>&1;
@@ -123,7 +123,8 @@ if [ "$protocol" == "lycheejs" ]; then
 
 
 	if [ "$action" == "profile" ]; then
-		data=$(echo $1 | cut -d"=" -f 3);
+		# XXX: base64 encoded strings end with = (8 Bit) or == (16 Bit)
+		data=$(echo $1 | cut -d"=" -f 3-5);
 	elif [ "$action" == "unboot" ]; then
 		resource="DUMMY";
 	elif [ "$action" == "web" ]; then
@@ -152,8 +153,6 @@ if [ "$protocol" == "lycheejs" ]; then
 			profile)
 
 				cd $LYCHEEJS_ROOT;
-
-				profile=
 
 				_put_API_Profile "$resource" "$data";
 
