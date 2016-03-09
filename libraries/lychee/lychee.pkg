@@ -126,53 +126,7 @@
 				"variant": "library"
 			}
 		},
-		"files": {
-			"html": {
-				"core": [
-					"js"
-				],
-				"dist": {
-					"index": [
-						"js"
-					]
-				}
-			},
-			"html-nwjs": {
-				"core": [
-					"js"
-				],
-				"dist": {
-					"index": [
-						"js"
-					]
-				}
-			},
-			"html-webview": {
-				"core": [
-					"js"
-				],
-				"dist": {
-					"index": [
-						"js"
-					]
-				}
-			},
-			"node": {
-				"core": [
-					"js"
-				],
-				"dist": {
-					"index": [
-						"js"
-					]
-				}
-			},
-			"node-sdl": {
-				"core": [
-					"js"
-				]
-			}
-		}
+		"files": {}
 	},
 	"source": {
 		"environments": {},
@@ -451,7 +405,9 @@
 								"js"
 							],
 							"Helper": [
-								"js"
+								"js",
+								"json",
+								"png"
 							],
 							"Upload": [
 								"js"
@@ -472,7 +428,9 @@
 					"ui": {
 						"entity": {
 							"Helper": [
-								"js"
+								"js",
+								"json",
+								"png"
 							]
 						}
 					}

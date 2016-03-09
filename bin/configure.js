@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+
+
 (function() {
 
 	var _CORE      = '';
@@ -156,7 +158,7 @@
 
 	};
 
-	var _walk_directory = function(files, node, path) {
+	var _walk_directory = function(files, node, path, attachments) {
 
 		if (node instanceof Array) {
 
@@ -164,10 +166,22 @@
 				files.push(path + '.js');
 			}
 
+			if (attachments === true) {
+
+				if (node.indexOf('json') !== -1)  files.push(path + '.json');
+				if (node.indexOf('fnt') !== -1)   files.push(path + '.fnt');
+				if (node.indexOf('msc') !== -1)   files.push(path + '.msc');
+				if (node.indexOf('pkg') !== -1)   files.push(path + '.pkg');
+				if (node.indexOf('png') !== -1)   files.push(path + '.png');
+				if (node.indexOf('snd') !== -1)   files.push(path + '.snd');
+				if (node.indexOf('store') !== -1) files.push(path + '.store');
+
+			}
+
 		} else if (node instanceof Object) {
 
 			Object.keys(node).forEach(function(child) {
-				_walk_directory(files, node[child], path + '/' + child);
+				_walk_directory(files, node[child], path + '/' + child, attachments);
 			});
 
 		}
@@ -182,7 +196,7 @@
 
 			var root = json.source.files || null;
 			if (root !== null) {
-				_walk_directory(files, root, '');
+				_walk_directory(files, root, '', false);
 			}
 
 		}
@@ -200,6 +214,30 @@
 
 	};
 
+	var _package_assets = function(json) {
+
+		var files = [];
+
+		if (json !== null) {
+
+			var root = json.source.files || null;
+			if (root !== null) {
+				_walk_directory(files, root, '', true);
+			}
+
+		}
+
+
+		return files.map(function(value) {
+			return value.substr(1);
+		}).sort(function(a, b) {
+			if (a > b) return  1;
+			if (a < b) return -1;
+			return 0;
+		});
+
+	};
+
 	var _package_files = function(json) {
 
 		var files = [];
@@ -208,7 +246,7 @@
 
 			var root = json.source.files || null;
 			if (root !== null) {
-				_walk_directory(files, root, '');
+				_walk_directory(files, root, '', false);
 			}
 
 		}
@@ -266,6 +304,25 @@
 			errors++;
 		}
 
+
+		if (_is_file(_path.resolve(_root, './libraries/lychee/source/platform/node/bootstrap.js')) === true) {
+
+			global = {};
+			lychee = {
+				Environment: {},
+				ROOT: {
+					lychee:  _root,
+					project: _root
+				}
+			};
+
+			try {
+				require(_path.resolve(_root, './libraries/lychee/source/platform/node/bootstrap.js'));
+			} catch(e) {
+				errors++;
+			}
+
+		}
 
 
 		if (errors === 0) {
@@ -372,8 +429,11 @@
 
 	(function() {
 
-		var errors    = 0;
-		var files     = _package_files(_package).filter(function(value) {
+		var errors = 0;
+		var assets = _package_assets(_package).filter(function(value) {
+			return value.substr(0, 8) === 'platform' && value.indexOf('.js') === -1;
+		});
+		var files  = _package_files(_package).filter(function(value) {
 			return value.substr(0, 8) === 'platform' && value.indexOf('bootstrap.js') !== -1;
 		}).concat(_package_files(_package).filter(function(value) {
 			return value.substr(0, 8) === 'platform' && value.indexOf('bootstrap.js') === -1;
@@ -383,6 +443,12 @@
 			return 0;
 		}));
 
+
+		// TODO: Asset injection to the files' code
+
+console.log(assets, files);
+process.exit();
+return;
 
 		console.log('> Generating lycheeJS platform adapters');
 
