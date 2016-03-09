@@ -86,7 +86,7 @@ body {
 	margin: 0;
 	padding: 0;
 	color: #ffffff;
-	background: #404844;
+	background: #405050;
 	font-family: 'museo-sans-300';
 }
 
@@ -1026,6 +1026,6 @@ table.vertical ul.select {
 
 table.vertical tr:last-child th,
 table.vertical tr:last-child td {
-	border-bottom: 2px solid #404844;
+	border-bottom: 2px solid #405050;
 }
 
