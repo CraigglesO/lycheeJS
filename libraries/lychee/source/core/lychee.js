@@ -15,6 +15,36 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 	 * POLYFILLS
 	 */
 
+	if (typeof Array.prototype.fill !== 'function') {
+
+		Array.prototype.fill = function(value/*, start = 0, end = this.length */) {
+
+			if (this == null) {
+				throw new TypeError('Array.prototype.fill called on null or undefined');
+			}
+
+			var list      = Object(this);
+			var length    = list.length >>> 0;
+			var start     = arguments[1];
+			var end       = arguments[2];
+			var rel_start = start === undefined ?      0 : start >> 0;
+			var rel_end   = end === undefined   ? length : end >> 0;
+
+
+			var i_start = rel_start < 0 ? Math.max(len + rel_start, 0) : Math.min(rel_start, len);
+			var i_end   = rel_end < 0   ? Math.max(len + rel_end, 0)   : Math.min(rel_end, len);
+
+			for (var i = i_start; i < i_end; i++) {
+				O[i] = value;
+			}
+
+
+			return O;
+
+		};
+
+	}
+
 	if (typeof Array.prototype.find !== 'function') {
 
 		Array.prototype.find = function(predicate/*, thisArg */) {
@@ -26,6 +56,7 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 			if (typeof predicate !== 'function') {
 				throw new TypeError('predicate must be a function');
 			}
+
 
 			var list    = Object(this);
 			var length  = list.length >>> 0;
