@@ -569,7 +569,7 @@ lychee.define('lychee.ui.layer.Table').includes([
 								entity = new lychee.ui.entity.Label({
 									value: '(Invalid UI Entity)'
 								});
-							} else {
+							} else if (typeof entity.bind === 'function') {
 								entity.bind('#change', _on_change, this);
 							}
 
