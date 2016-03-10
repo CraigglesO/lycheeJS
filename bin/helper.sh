@@ -38,39 +38,40 @@ fi;
 
 _print_help() {
 
-	echo "                                                 ";
+	echo "                                                           ";
 	echo -e "\u001b[37m\u001b[42mlycheeJS Helper\u001b[49m\u001b[39m";
-	echo "                                                 ";
-	echo " Usage: lycheejs-helper [lycheejs://Action]      ";
-	echo "        lycheejs-helper [env:Platform]           ";
-	echo "                                                 ";
-	echo "                                                 ";
-	echo " Available Actions:                              ";
-	echo "                                                 ";
-	echo "    boot=[Profile]                               ";
-	echo "    profile=[Profile]&data=[JSON]                ";
-	echo "    unboot                                       ";
-	echo "                                                 ";
-	echo "    start=[Project]                              ";
-	echo "    stop=[Project]                               ";
-	echo "    file=[Project]                               ";
-	echo "    edit=[Project]                               ";
-	echo "    web=[Project]                                ";
-	echo "                                                 ";
-	echo "                                                 ";
-	echo " Available Platforms:                            ";
-	echo "                                                 ";
-	echo "    html, html-nwjs, node, node-sdl              ";
-	echo "                                                 ";
-	echo " Examples:                                       ";
-	echo "                                                 ";
-	echo "    lycheejs-helper lycheejs://start=boilerplate ";
-	echo "    lycheejs-helper env:node /path/to/program.js ";
-	echo "                                                 ";
-	echo " Notes:                                          ";
-	echo "                                                 ";
-	echo " The \"env:\" can be used as Shebang, like this: ";
-	echo " #!/usr/local/bin/lycheejs-helper env:node       ";
+	echo "                                                           ";
+	echo " Usage: lycheejs-helper [lycheejs://Action]                ";
+	echo "        lycheejs-helper [env:Platform]                     ";
+	echo "                                                           ";
+	echo "                                                           ";
+	echo " Available Actions:                                        ";
+	echo "                                                           ";
+	echo "    boot=[Profile]                                         ";
+	echo "    profile=[Profile]&data=[JSON]                          ";
+	echo "    unboot                                                 ";
+	echo "                                                           ";
+	echo "    start=[Library/Project]                                ";
+	echo "    stop=[Library/Project]                                 ";
+	echo "    file=[Library/Project]                                 ";
+	echo "    edit=[Library/Project]                                 ";
+	echo "    web=[Library/Project]                                  ";
+	echo "                                                           ";
+	echo "                                                           ";
+	echo " Available Platforms:                                      ";
+	echo "                                                           ";
+	echo "    html, html-nwjs, node, node-sdl                        ";
+	echo "                                                           ";
+	echo " Examples:                                                 ";
+	echo "                                                           ";
+	echo "    lycheejs-helper lycheejs://start=/projects/boilerplate ";
+	echo "    lycheejs-helper env:node /path/to/program.js           ";
+	echo "                                                           ";
+	echo " Notes:                                                    ";
+	echo "                                                           ";
+	echo " The \"env:\" can be used as Shebang, like this:           ";
+	echo " #!/usr/local/bin/lycheejs-helper env:node                 ";
+	echo "                                                           ";
 
 }
 
@@ -215,12 +216,12 @@ if [ "$protocol" == "lycheejs" ]; then
 
 				if [ "$OS" == "linux" ]; then
 
-					xdg-open "file://$LYCHEEJS_ROOT/projects/$resource" 2>&1;
+					xdg-open "file://$LYCHEEJS_ROOT/$resource" 2>&1;
 					exit 0;
 
 				elif [ "$OS" == "osx" ]; then
 
-					open "file://$LYCHEEJS_ROOT/projects/$resource" 2>&1;
+					open "file://$LYCHEEJS_ROOT/$resource" 2>&1;
 					exit 0;
 
 				fi;

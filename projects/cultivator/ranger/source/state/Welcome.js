@@ -61,7 +61,7 @@ lychee.define('app.state.Welcome').includes([
 
 						var val = 'http://' + obj.host;
 						if (obj.cultivator === true) {
-							val = 'http://' + obj.host + '/projects/' + project.identifier;
+							val = 'http://' + obj.host + project.identifier;
 						}
 
 						web.label.push('Web');
