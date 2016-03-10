@@ -38,7 +38,7 @@ fi;
 
 _print_help() {
 
-	echo "                                            ";
+	echo "                                                 ";
 	echo -e "\u001b[37m\u001b[42mlycheeJS Helper\u001b[49m\u001b[39m";
 	echo "                                                 ";
 	echo " Usage: lycheejs-helper [lycheejs://Action]      ";
