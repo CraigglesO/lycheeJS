@@ -152,7 +152,10 @@ lychee.define('lychee.ui.entity.Helper').tags({
 			if (this.visible === false) return;
 
 
+			var action   = this.__action;
 			var alpha    = this.alpha;
+			var font     = this.font;
+			var label    = this.label;
 			var position = this.position;
 			var x        = position.x + offsetX;
 			var y        = position.y + offsetY;
@@ -192,11 +195,6 @@ lychee.define('lychee.ui.entity.Helper').tags({
 				renderer.setAlpha(1.0);
 
 			}
-
-
-			var action = this.__action;
-			var label = this.label;
-			var font  = this.font;
 
 
 			if (action !== null) {

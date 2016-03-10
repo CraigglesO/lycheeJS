@@ -128,6 +128,11 @@ lychee.define('app.state.Welcome').includes([
 				'Settings'
 			]);
 
+			this.queryLayer('ui', 'menu').setHelpers([
+				'unboot',
+				'refresh'
+			]);
+
 
 			this.queryLayer('ui', 'welcome > dialog').bind('change', function(value) {
 

@@ -1,6 +1,6 @@
 
 lychee.define('lychee.ui.entity.Helper').tags({
-	platform: 'node'
+	platform: 'html-nwjs'
 }).includes([
 	'lychee.ui.entity.Button'
 ]).supports(function(lychee, global) {
@@ -98,31 +98,32 @@ lychee.define('lychee.ui.entity.Helper').tags({
 
 					stderr = (stderr.trim() || '').toString();
 
-
 					if (error !== null && error.signal !== 'SIGTERM') {
 
 						helper = null;
 
 					} else if (stderr !== '') {
 
-console.error(stderr);
+						if (lychee.debug === true) {
+
+							stderr.trim().split('\n').forEach(function(line) {
+								console.error('lychee.ui.entity.Helper: "' + line.trim() + '"');
+							});
+
+						}
 
 					}
 
 				});
 
-				helper.stdout.on('data', function(lines) {
-
-console.log('DATA', lines);
-
-				});
+				helper.stdout.on('data', function(lines) {});
+				helper.stderr.on('data', function(lines) {});
 
 				helper.on('error', function() {
 					this.kill('SIGTERM');
 				});
 
-				helper.on('exit', function() {
-				});
+				helper.on('exit', function(code) {});
 
 			} catch(e) {
 
@@ -148,6 +149,9 @@ console.log('DATA', lines);
 		var settings = lychee.extend({
 			label: 'HELPER'
 		}, data);
+
+
+		this.__action = null;
 
 
 		lychee.ui.entity.Button.call(this, settings);
@@ -199,7 +203,10 @@ console.log('DATA', lines);
 			if (this.visible === false) return;
 
 
+			var action   = this.__action;
 			var alpha    = this.alpha;
+			var font     = this.font;
+			var label    = this.label;
 			var position = this.position;
 			var x        = position.x + offsetX;
 			var y        = position.y + offsetY;
@@ -239,11 +246,6 @@ console.log('DATA', lines);
 				renderer.setAlpha(1.0);
 
 			}
-
-
-			var action = this.__action;
-			var label = this.label;
-			var font  = this.font;
 
 
 			if (action !== null) {
@@ -323,7 +325,8 @@ console.log('DATA', lines);
 
 			if (value !== null) {
 
-				this.value = value;
+				this.value    = value;
+				this.__action = value.split('=')[0] || null;
 
 				return true;
 
