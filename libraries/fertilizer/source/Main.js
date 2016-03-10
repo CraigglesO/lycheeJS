@@ -1,7 +1,5 @@
 
-lychee.define('fertilizer.Main').tags({
-	platform: 'node'
-}).requires([
+lychee.define('fertilizer.Main').requires([
 	'lychee.Input',
 	'lychee.data.JSON',
 	'fertilizer.data.Filesystem',
@@ -16,27 +14,9 @@ lychee.define('fertilizer.Main').tags({
 	'fertilizer.template.node.Library'
 ]).includes([
 	'lychee.event.Emitter'
-]).supports(function(lychee, global) {
-
-	if (typeof process !== 'undefined') {
-
-		try {
-
-			require('path');
-
-			return true;
-
-		} catch(e) {
-		}
-
-	}
-
-	return false;
-
-}).exports(function(lychee, fertilizer, global, attachments) {
+]).exports(function(lychee, fertilizer, global, attachments) {
 
 	var _lychee = lychee;
-	var _path   = require('path');
 	var _JSON   = lychee.data.JSON;
 
 
@@ -83,6 +63,10 @@ lychee.define('fertilizer.Main').tags({
 
 			if (identifier !== null && project !== null && data !== null) {
 
+
+				lychee.ROOT.project = project;
+
+
 				var platform = data.tags.platform[0] || null;
 				var variant  = data.variant || null;
 				var settings = _JSON.decode(_JSON.encode(lychee.extend({}, data, {
@@ -105,7 +89,7 @@ lychee.define('fertilizer.Main').tags({
 						settings.packages = settings.packages.map(function(pkg) {
 
 							var id   = pkg[0];
-							var path = _path.resolve(project, pkg[1]);
+							var path = lychee.environment.resolve(pkg[1]);
 
 							return [ id, path ];
 
