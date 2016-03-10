@@ -29,7 +29,7 @@ var _print_help = function() {
 	console.log('                                                   ');
 	console.log('Available Actions:                                 ');
 	console.log('                                                   ');
-	console.log('   init, pull, push                                ');
+	console.log('    init, pull, push                               ');
 	console.log('                                                   ');
 	console.log('Examples:                                          ');
 	console.log('                                                   ');

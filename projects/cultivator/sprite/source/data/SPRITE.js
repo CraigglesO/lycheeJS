@@ -386,7 +386,8 @@ lychee.define('tool.data.SPRITE').requires([
 			 * 4.2 Export Config
 			 */
 
-			var blob = 'data:application/json;base64,' + new Buffer(_JSON.encode(data), 'utf8').toString('base64');
+			// var blob = 'data:application/json;base64,' + new Buffer(_JSON.encode(data), 'utf8').toString('base64');
+			var blob = 'data:application/json;base64,' + new Buffer(JSON.stringify(data, null, '\t'), 'utf8').toString('base64');
 
 			config = new Config(blob);
 			config.deserialize({ buffer: blob });

@@ -36,6 +36,45 @@ fi;
 
 
 
+_print_help() {
+
+	echo "                                            ";
+	echo -e "\u001b[37m\u001b[42mlycheeJS Helper\u001b[49m\u001b[39m";
+	echo "                                                 ";
+	echo " Usage: lycheejs-helper [lycheejs://Action]      ";
+	echo "        lycheejs-helper [env:Platform]           ";
+	echo "                                                 ";
+	echo "                                                 ";
+	echo " Available Actions:                              ";
+	echo "                                                 ";
+	echo "    boot=[Profile]                               ";
+	echo "    profile=[Profile]&data=[JSON]                ";
+	echo "    unboot                                       ";
+	echo "                                                 ";
+	echo "    start=[Project]                              ";
+	echo "    stop=[Project]                               ";
+	echo "    file=[Project]                               ";
+	echo "    edit=[Project]                               ";
+	echo "    web=[Project]                                ";
+	echo "                                                 ";
+	echo "                                                 ";
+	echo " Available Platforms:                            ";
+	echo "                                                 ";
+	echo "    html, html-nwjs, node, node-sdl              ";
+	echo "                                                 ";
+	echo " Examples:                                       ";
+	echo "                                                 ";
+	echo "    lycheejs-helper lycheejs://start=boilerplate ";
+	echo "    lycheejs-helper env:node /path/to/program.js ";
+	echo "                                                 ";
+	echo " Notes:                                          ";
+	echo "                                                 ";
+	echo " The \"env:\" can be used as Shebang, like this: ";
+	echo " #!/usr/local/bin/lycheejs-helper env:node       ";
+
+}
+
+
 _handle_signal() {
 	kill -s "$1" "$CHILD_PID" 2>/dev/null;
 }
@@ -79,28 +118,6 @@ _put_API_Profile () {
 	curl -i -H "Content-Type: application/json" -X PUT -d "$data" $apiurl 2>&1;
 
 }
-
-
-
-#
-# USE CASES (ARGUMENTS LIST)
-#
-# lycheejs://boot=development
-# lycheejs://profile=development&data={"port":1337,"hosts":{"localhost":null}}
-# lycheejs://unboot
-#
-# lycheejs://start=boilerplate
-# lycheejs://stop=boilerplate
-# lycheejs://edit=boilerplate
-# lycheejs://file=boilerplate
-# lycheejs://web=boilerplate
-#
-# env:html /path/to/program.js
-# env:html-nwjs /path/to/program.js
-# env:node /path/to/program.js
-# env:node-sdl /path/to/program.js
-#
-
 
 
 
@@ -317,6 +334,8 @@ elif [ "$protocol" == "env" ]; then
 	exit 0;
 
 else
+
+	_print_help;
 
 	exit 1;
 
