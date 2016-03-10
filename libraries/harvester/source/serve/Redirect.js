@@ -45,8 +45,7 @@ lychee.define('harvester.serve.Redirect').exports(function(lychee, harvester, gl
 					path = '/' + url.split('/').slice(3).join('/');
 					info = project.filesystem.info(path);
 
-					var dir = '/projects/' + identifier;
-					if (path === dir || path === (dir + '/') || path === (dir + '/index.html')) {
+					if (path === identifier || path === (identifier + '/') || path === '/') {
 						return true;
 					}
 
@@ -83,13 +82,12 @@ lychee.define('harvester.serve.Redirect').exports(function(lychee, harvester, gl
 					path = '/' + url.split('/').slice(3).join('/');
 					info = project.filesystem.info(path);
 
-					var dir = '/projects/' + identifier;
-					if (path === dir || path === (dir + '/') || path === (dir + '/index.html')) {
+					if (path === identifier || path === (identifier + '/') || path === '/') {
 
 						if (project.filesystem.info('/index.html') !== null) {
 
 							ready({
-								headers: { 'status': 301, 'location': dir + '/index.html' },
+								headers: { 'status': 301, 'location': identifier + '/index.html' },
 								payload: ''
 							});
 
