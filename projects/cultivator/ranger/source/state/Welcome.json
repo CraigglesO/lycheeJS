@@ -71,8 +71,11 @@
 									"blob": {
 										"model": {
 											"identifier": {
-												"constructor": "lychee.ui.entity.Label",
-												"arguments": [{}]
+												"constructor": "app.ui.entity.Identifier",
+												"arguments": [{
+													"width": 224,
+													"height": 32
+												}]
 											},
 											"status": {
 												"constructor": "app.ui.entity.Status",

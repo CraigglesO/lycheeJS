@@ -7,7 +7,10 @@ lychee.define('app.ui.entity.Status').includes([
 
 		var settings = lychee.extend({}, data);
 
+
 		lychee.ui.entity.Label.call(this, settings);
+
+		settings = null;
 
 	};
 

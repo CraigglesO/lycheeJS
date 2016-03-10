@@ -27,8 +27,8 @@ lychee.define('lychee.ui.entity.Label').includes([
 		delete settings.value;
 
 
-		settings.width  = this.width;
-		settings.height = this.height;
+		settings.width  = typeof settings.width === 'number'  ? settings.width  : this.width;
+		settings.height = typeof settings.height === 'number' ? settings.height : this.height;
 		settings.shape  = lychee.ui.Entity.SHAPE.rectangle;
 
 

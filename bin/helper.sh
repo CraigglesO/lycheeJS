@@ -55,7 +55,7 @@ _print_help() {
 	echo "    stop=[Library/Project]                                 ";
 	echo "    file=[Library/Project]                                 ";
 	echo "    edit=[Library/Project]                                 ";
-	echo "    web=[Library/Project]                                  ";
+	echo "    web=[URL]                                              ";
 	echo "                                                           ";
 	echo "                                                           ";
 	echo " Available Platforms:                                      ";
@@ -65,6 +65,7 @@ _print_help() {
 	echo " Examples:                                                 ";
 	echo "                                                           ";
 	echo "    lycheejs-helper lycheejs://start=/projects/boilerplate ";
+	echo "    lycheejs-helper lycheejs://web=http://lycheejs.org     ";
 	echo "    lycheejs-helper env:node /path/to/program.js           ";
 	echo "                                                           ";
 	echo " Notes:                                                    ";

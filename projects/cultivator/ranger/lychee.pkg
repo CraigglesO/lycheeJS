@@ -78,6 +78,9 @@
 			},
 			"ui": {
 				"entity": {
+					"Identifier": [
+						"js"
+					],
 					"Status": [
 						"js"
 					]

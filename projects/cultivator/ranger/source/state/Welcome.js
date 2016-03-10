@@ -4,6 +4,7 @@ lychee.define('app.state.Welcome').includes([
 ]).requires([
 	'lychee.ui.entity.Helper',
 	'lychee.ui.entity.Label',
+	'app.ui.entity.Identifier',
 	'app.ui.entity.Status',
 	'app.ui.layer.Control',
 	'app.ui.layer.Web'

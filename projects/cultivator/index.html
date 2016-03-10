@@ -363,11 +363,12 @@
 						if (articles.length > 0) {
 
 							this.buffer.filter(function(project) {
-								return !project.identifier.match(/cultivator/);
+								return !project.identifier.match(/projects\/cultivator/);
 							}).forEach(function(project) {
 
-								var article = articles.find(function(node) {
-									return node.id === 'projects-' + project.identifier;
+								var identifier = project.identifier;
+								var article    = articles.find(function(node) {
+									return node.id === 'projects-' + identifier.split('/').pop();
 								}) || null;
 
 								if (article === null) {
@@ -375,9 +376,9 @@
 								}
 
 
-								article.id                            = 'projects-' + project.identifier;
-								article.querySelector('h3').innerHTML = project.identifier;
-								article.querySelector('img').src      = '/projects/' + project.identifier + '/icon.png';
+								article.id                            = 'projects-' + identifier.split('/').pop();
+								article.querySelector('h3').innerHTML = identifier.split('/').pop();
+								article.querySelector('img').src      = identifier + '/icon.png';
 								article.querySelector('img').onerror  = function() {
 									this.src = '/projects/cultivator/design/icon.png';
 								};
@@ -389,9 +390,9 @@
 
 										switch (index) {
 
-											case 0: button.setAttribute('onclick', 'window.open(\'/projects/' + project.identifier + '\');');       break;
-											case 1: button.setAttribute('onclick', 'window.open(\'lycheejs://edit=' + project.identifier + '\');'); break;
-											case 2: button.setAttribute('onclick', 'window.open(\'lycheejs://file=' + project.identifier + '\');'); break;
+											case 0: button.setAttribute('onclick', 'window.open(\'' + identifier + '\');');       break;
+											case 1: button.setAttribute('onclick', 'window.open(\'lycheejs://edit=' + identifier + '\');'); break;
+											case 2: button.setAttribute('onclick', 'window.open(\'lycheejs://file=' + identifier + '\');'); break;
 
 										}
 
@@ -453,12 +454,6 @@
 
 
 			global.open = function(url) {
-
-				var edit = 'lycheejs://edit=';
-				if (url.substr(0, edit.length) === edit) {
-					url = '/projects/cultivator/editor/index.html?/projects/' + url.substr(edit.length) + '/lychee.pkg';
-				}
-
 
 				if (url.substr(0, 11) === 'lycheejs://') {
 					location.href = url;
