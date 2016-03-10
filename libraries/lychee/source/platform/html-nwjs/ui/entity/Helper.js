@@ -7,13 +7,23 @@ lychee.define('lychee.ui.entity.Helper').tags({
 
 	var child_process = require('child_process');
 	if (typeof child_process.execFile === 'function') {
-		return true;
+
+		if (typeof global.document !== 'undefined' && typeof global.document.createElement === 'function') {
+
+			if (typeof global.location !== 'undefined' && typeof global.location.href === 'string') {
+				return true;
+			}
+
+		}
+
 	}
 
 	return false;
 
 }).exports(function(lychee, global, attachments) {
 
+	var _texture       = attachments["png"];
+	var _config        = attachments["json"].buffer;
 	var _child_process = require('child_process');
 	var _root          = lychee.ROOT.lychee;
 
@@ -51,6 +61,10 @@ lychee.define('lychee.ui.entity.Helper').tags({
 
 				return true;
 
+			} else if (action === 'refresh') {
+
+				return true;
+
 			}
 
 		}
@@ -62,47 +76,59 @@ lychee.define('lychee.ui.entity.Helper').tags({
 
 	var _help = function(value) {
 
+		var action = value.split('=')[0];
 		var helper = null;
 
-		try {
 
-			var helper = _child_process.execFile(_root + '/bin/helper.sh', [
-				'lycheejs://' + value
-			], {
-				cwd: _root
-			}, function(error, stdout, stderr) {
+		if (action === 'refresh') {
 
-				stderr = (stderr.trim() || '').toString();
+			helper      = global.document.createElement('a');
+			helper.href = './' + global.location.href.split('/').pop();
+			helper.click();
+
+		} else {
+
+			try {
+
+				var helper = _child_process.execFile(_root + '/bin/helper.sh', [
+					'lycheejs://' + value
+				], {
+					cwd: _root
+				}, function(error, stdout, stderr) {
+
+					stderr = (stderr.trim() || '').toString();
 
 
-				if (error !== null && error.signal !== 'SIGTERM') {
+					if (error !== null && error.signal !== 'SIGTERM') {
 
-					helper = null;
+						helper = null;
 
-				} else if (stderr !== '') {
+					} else if (stderr !== '') {
 
 console.error(stderr);
 
-				}
+					}
 
-			});
+				});
 
-			helper.stdout.on('data', function(lines) {
+				helper.stdout.on('data', function(lines) {
 
 console.log('DATA', lines);
 
-			});
+				});
 
-			helper.on('error', function() {
-				this.kill('SIGTERM');
-			});
+				helper.on('error', function() {
+					this.kill('SIGTERM');
+				});
 
-			helper.on('exit', function() {
-			});
+				helper.on('exit', function() {
+				});
 
-		} catch(e) {
+			} catch(e) {
 
-			helper = null;
+				helper = null;
+
+			}
 
 		}
 
@@ -153,6 +179,142 @@ console.log('DATA', lines);
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.ui.entity.Button.prototype.serialize.call(this);
+			data['constructor'] = 'lychee.ui.entity.Helper';
+
+
+			return data;
+
+		},
+
+		render: function(renderer, offsetX, offsetY) {
+
+			if (this.visible === false) return;
+
+
+			var alpha    = this.alpha;
+			var position = this.position;
+			var x        = position.x + offsetX;
+			var y        = position.y + offsetY;
+			var hwidth   = this.width  / 2;
+			var hheight  = this.height / 2;
+
+
+			if (alpha !== 1) {
+				renderer.setAlpha(alpha);
+			}
+
+
+			renderer.drawBox(
+				x - hwidth,
+				y - hheight,
+				x + hwidth,
+				y + hheight,
+				'#545454',
+				true
+			);
+
+
+			var pulse = this.__pulse;
+			if (pulse.active === true) {
+
+				renderer.setAlpha(pulse.alpha);
+
+				renderer.drawBox(
+					x - hwidth,
+					y - hheight,
+					x + hwidth,
+					y + hheight,
+					'#32afe5',
+					true
+				);
+
+				renderer.setAlpha(1.0);
+
+			}
+
+
+			var action = this.__action;
+			var label = this.label;
+			var font  = this.font;
+
+
+			if (action !== null) {
+
+				var map = _config.map[action] || null;
+				if (map !== null) {
+
+					if (this.width > 96) {
+
+						renderer.drawSprite(
+							x - hwidth,
+							y - hheight,
+							_texture,
+							map[0]
+						);
+
+						renderer.drawText(
+							x,
+							y,
+							label,
+							font,
+							true
+						);
+
+					} else {
+
+						renderer.drawSprite(
+							x - map[0].w / 2,
+							y - hheight,
+							_texture,
+							map[0]
+						);
+
+					}
+
+				} else if (label !== null && font !== null) {
+
+					renderer.drawText(
+						x,
+						y,
+						label,
+						font,
+						true
+					);
+
+				}
+
+			} else if (label !== null && font !== null) {
+
+				renderer.drawText(
+					x,
+					y,
+					label,
+					font,
+					true
+				);
+
+			}
+
+
+			if (alpha !== 1) {
+				renderer.setAlpha(1.0);
+			}
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
 
 		setValue: function(value) {
 

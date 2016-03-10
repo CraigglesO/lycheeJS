@@ -5,9 +5,9 @@ lychee.define('lychee.ui.entity.Helper').tags({
 	'lychee.ui.entity.Button'
 ]).supports(function(lychee, global) {
 
-	if (typeof global.document !== 'undefined') {
+	if (typeof global.document !== 'undefined' && typeof global.document.createElement === 'function') {
 
-		if (typeof global.document.createElement === 'function') {
+		if (typeof global.location !== 'undefined' && typeof global.location.href === 'string') {
 			return true;
 		}
 
@@ -19,11 +19,7 @@ lychee.define('lychee.ui.entity.Helper').tags({
 }).exports(function(lychee, global, attachments) {
 
 	var _texture = attachments["png"];
-//	var _config  = attachments["json"].buffer;
-
-	var _config = {map:{}};
-
-console.log(attachments);
+	var _config  = attachments["json"].buffer;
 
 
 
@@ -59,6 +55,10 @@ console.log(attachments);
 
 				return true;
 
+			} else if (action === 'refresh') {
+
+				return true;
+
 			}
 
 		}
@@ -70,9 +70,15 @@ console.log(attachments);
 
 	var _help = function(value) {
 
+		var action  = value.split('=')[0];
 		var element = global.document.createElement('a');
 
-		element.href = 'lycheejs://' + value;
+
+		if (action === 'refresh') {
+			element.href = './' + global.location.href.split('/').pop();
+		} else {
+			element.href = 'lycheejs://' + value;
+		}
 
 		element.click();
 
@@ -131,6 +137,16 @@ console.log(attachments);
 		 * ENTITY API
 		 */
 
+		serialize: function() {
+
+			var data = lychee.ui.entity.Button.prototype.serialize.call(this);
+			data['constructor'] = 'lychee.ui.entity.Helper';
+
+
+			return data;
+
+		},
+
 		render: function(renderer, offsetX, offsetY) {
 
 			if (this.visible === false) return;
@@ -179,27 +195,56 @@ console.log(attachments);
 
 
 			var action = this.__action;
+			var label = this.label;
+			var font  = this.font;
+
+
 			if (action !== null) {
 
 				var map = _config.map[action] || null;
 				if (map !== null) {
 
-					renderer.drawSprite(
-						x - hwidth,
-						y - hheight,
-						_texture,
-						map
+					if (this.width > 96) {
+
+						renderer.drawSprite(
+							x - hwidth,
+							y - hheight,
+							_texture,
+							map[0]
+						);
+
+						renderer.drawText(
+							x,
+							y,
+							label,
+							font,
+							true
+						);
+
+					} else {
+
+						renderer.drawSprite(
+							x - map[0].w / 2,
+							y - hheight,
+							_texture,
+							map[0]
+						);
+
+					}
+
+				} else if (label !== null && font !== null) {
+
+					renderer.drawText(
+						x,
+						y,
+						label,
+						font,
+						true
 					);
 
 				}
 
-			}
-
-
-			var label = this.label;
-			var font  = this.font;
-
-			if (label !== null && font !== null) {
+			} else if (label !== null && font !== null) {
 
 				renderer.drawText(
 					x,
