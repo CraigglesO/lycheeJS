@@ -16,7 +16,6 @@ lychee.define('app.Main').requires([
 
 		var settings = lychee.extend({
 
-			// Is configured by Sorbet API
 			client: null,
 			server: null
 

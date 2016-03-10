@@ -19,7 +19,11 @@
 						"html"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": "/api/Server?identifier=/projects/blitzkrieg",
+					"server": "/api/Server?identifier=/projects/blitzkrieg"
+				}
 			},
 			"node/main": {
 				"build": "game.Main",

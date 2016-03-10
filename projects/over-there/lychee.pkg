@@ -20,7 +20,11 @@
 						"html"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": "/api/Server?identifier=/projects/over-there",
+					"server": "/api/Server?identifier=/projects/over-there"
+				}
 			},
 			"html/main": {
 				"build": "app.Main",
@@ -37,7 +41,11 @@
 						"html"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": "/api/Server?identifier=/projects/over-there",
+					"server": "/api/Server?identifier=/projects/over-there"
+				}
 			},
 			"node/main": {
 				"build": "app.Main",

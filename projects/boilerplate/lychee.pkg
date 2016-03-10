@@ -20,7 +20,10 @@
 						"html"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": "/api/Server?identifier=/projects/boilerplate"
+				}
 			},
 			"html-webview/main": {
 				"build": "app.Main",
@@ -38,7 +41,10 @@
 						"html"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": "/api/Server?identifier=/projects/boilerplate"
+				}
 			},
 			"html/main": {
 				"build": "app.Main",
@@ -55,7 +61,10 @@
 						"html"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": "/api/Server?identifier=/projects/boilerplate"
+				}
 			},
 			"node/main": {
 				"build": "app.Main",
@@ -72,7 +81,10 @@
 						"node"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": null
+				}
 			}
 		},
 		"files": {}

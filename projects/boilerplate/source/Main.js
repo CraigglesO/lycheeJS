@@ -15,8 +15,8 @@ lychee.define('app.Main').requires([
 
 		var settings = lychee.extend({
 
-			// Is configured by Sorbet API
-			client: '/api/Server?identifier=boilerplate',
+			// Is configured in lychee.pkg
+			// client: '/api/Server?identifier=/projects/boilerplate',
 
 			input: {
 				delay:       0,

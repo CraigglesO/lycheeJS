@@ -11,8 +11,8 @@ lychee.define('game.Main').requires([
 
 		var settings = lychee.extend({
 
-			// Is configured by Sorbet API
-			client: '/api/Server?identifier=lethalmaze',
+			// Is configured in lychee.pkg
+			// client: '/api/Server?identifier=/projects/lethalmaze',
 
 			input: {
 				delay:       0,

@@ -14,8 +14,8 @@ lychee.define('game.Main').requires([
 
 			title: 'Blitzkrieg',
 
-			// Is configured by Sorbet API
-			client: '/api/Server?identifier=blitzkrieg',
+			// Is configured in lychee.pkg
+			// client: '/api/Server?identifier=/projects/blitzkrieg',
 
 			input: {
 				delay:       0,
