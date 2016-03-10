@@ -20,7 +20,11 @@
 						"html"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": "/api/Server?identifier=/projects/${id}",
+					"server": "/api/Server?identifier=/projects/${id}"
+				}
 			},
 			"html-webview/main": {
 				"build": "app.Main",
@@ -38,7 +42,11 @@
 						"html"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": "/api/Server?identifier=/projects/${id}",
+					"server": "/api/Server?identifier=/projects/${id}"
+				}
 			},
 			"html/main": {
 				"build": "app.Main",
@@ -55,7 +63,11 @@
 						"html"
 					]
 				},
-				"variant": "application"
+				"variant": "application",
+				"profile": {
+					"client": "/api/Server?identifier=/projects/${id}",
+					"server": "/api/Server?identifier=/projects/${id}"
+				}
 			},
 			"node/main": {
 				"build": "app.Main",

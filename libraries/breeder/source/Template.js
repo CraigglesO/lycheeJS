@@ -101,7 +101,7 @@ lychee.define('breeder.Template').requires([
 			var fs = this.filesystem;
 			if (fs !== null) {
 
-				_TPL.copy(fs, '/lychee.pkg');
+				// _TPL.copy(fs, '/lychee.pkg');
 				_TPL.copy(fs, '/harvester.js');
 				fs.chmod('/harvester.js', '775');
 
@@ -115,7 +115,6 @@ lychee.define('breeder.Template').requires([
 				// _TPL.copy(fs, '/source/Main.js');
 				// _TPL.copy(fs, '/source/net/Server.js');
 				// _TPL.copy(fs, '/source/net/Client.js');
-
 				_TPL.copy(fs, '/source/net/client/Ping.js');
 				_TPL.copy(fs, '/source/net/remote/Ping.js');
 				_TPL.copy(fs, '/source/state/Welcome.js');
@@ -127,15 +126,18 @@ lychee.define('breeder.Template').requires([
 
 
 				var id     = fs.root.split('/').pop();
+				var pkg    = _TPL.read('/lychee.pkg');
 				var main   = _TPL.read('/source/Main.js');
 				var client = _TPL.read('/source/net/Client.js');
 				var server = _TPL.read('/source/net/Server.js');
 
+				pkg    = this.replace(pkg,    { id: id });
 				main   = this.replace(main,   { id: id });
 				client = this.replace(client, { id: id });
 				server = this.replace(server, { id: id });
 
 
+				fs.write('/lychee.pkg',           pkg);
 				fs.write('/source/Main.js',       main);
 				fs.write('/source/net/Client.js', client);
 				fs.write('/source/net/Server.js', server);
