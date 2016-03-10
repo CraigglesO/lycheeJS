@@ -7,8 +7,8 @@ lychee.define('app.state.Chat').requires([
 	'lychee.ui.entity.Slider',
 	'lychee.ui.entity.Textarea',
 	'lychee.ui.sprite.Background',
-	'app.ui.Avatar',
-	'app.ui.Messages'
+	'app.ui.entity.Messages',
+	'app.ui.sprite.Avatar'
 ]).includes([
 	'lychee.app.State'
 ]).exports(function(lychee, app, global, attachments) {

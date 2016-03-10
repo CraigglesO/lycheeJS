@@ -49,7 +49,7 @@
 						}
 					}]
 				}, {
-					"constructor": "app.ui.Avatar",
+					"constructor": "app.ui.sprite.Avatar",
 					"arguments": [{
 						"position": {
 							"x": 256,
@@ -68,7 +68,7 @@
 						}
 					}]
 				}, {
-					"constructor": "app.ui.Messages",
+					"constructor": "app.ui.entity.Messages",
 					"arguments": [{
 						"width":  640,
 						"height": 480,

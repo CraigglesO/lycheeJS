@@ -1,6 +1,6 @@
 
-lychee.define('app.ui.Messages').requires([
-	'app.ui.Avatar'
+lychee.define('app.ui.entity.Messages').requires([
+	'app.ui.sprite.Avatar'
 ]).includes([
 	'lychee.ui.Entity'
 ]).exports(function(lychee, app, global, attachments) {
@@ -155,7 +155,7 @@ lychee.define('app.ui.Messages').requires([
 		serialize: function() {
 
 			var data = lychee.app.Sprite.prototype.serialize.call(this);
-			data['constructor'] = 'app.ui.Messages';
+			data['constructor'] = 'app.ui.entity.Messages';
 
 
 			return data;
@@ -208,7 +208,7 @@ lychee.define('app.ui.Messages').requires([
 
 		setAvatar: function(avatar) {
 
-			avatar = lychee.interfaceof(app.ui.Avatar, avatar) ? avatar : null;
+			avatar = lychee.interfaceof(app.ui.sprite.Avatar, avatar) ? avatar : null;
 
 
 			if (avatar !== null) {

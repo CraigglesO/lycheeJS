@@ -1,5 +1,5 @@
 
-lychee.define('app.ui.Avatar').includes([
+lychee.define('app.ui.sprite.Avatar').includes([
 	'lychee.ui.Sprite'
 ]).exports(function(lychee, app, global, attachments) {
 
@@ -100,7 +100,7 @@ lychee.define('app.ui.Avatar').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Sprite.prototype.serialize.call(this);
-			data['constructor'] = 'app.ui.Avatar';
+			data['constructor'] = 'app.ui.sprite.Avatar';
 
 			var settings = data['arguments'][0] || {};
 			var blob     = data['blob'] || {};

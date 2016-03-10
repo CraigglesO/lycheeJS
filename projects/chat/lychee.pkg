@@ -91,14 +91,18 @@
 				]
 			},
 			"ui": {
-				"Avatar": [
-					"js",
-					"png"
-				],
-				"Messages": [
-					"fnt",
-					"js"
-				]
+				"entity": {
+					"Messages": [
+						"fnt",
+						"js"
+					]
+				},
+				"sprite": {
+					"Avatar": [
+						"js",
+						"png"
+					]
+				}
 			}
 		},
 		"tags": {}
