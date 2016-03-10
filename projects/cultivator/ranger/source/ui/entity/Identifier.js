@@ -39,12 +39,15 @@ lychee.define('app.ui.entity.Identifier').includes([
 			var alpha    = this.alpha;
 			var position = this.position;
 
-			var x1 = position.x + offsetX - this.width  / 2;
-			var y1 = position.y + offsetY - this.height / 2;
+
+			var x = position.x + offsetX;
+			var y = position.y + offsetY;
 
 
-			var font  = this.font;
-			var value = this.value;
+			var font    = this.font;
+			var value   = this.value;
+			var hwidth  = this.width  / 2;
+			var hheight = this.height / 2;
 
 
 			if (alpha !== 1) {
@@ -55,8 +58,8 @@ lychee.define('app.ui.entity.Identifier').includes([
 			if (font !== null) {
 
 				renderer.drawText(
-					x1,
-					y1,
+					x - hwidth,
+					y - (hheight - font.lineheight / 2),
 					value,
 					font,
 					false
