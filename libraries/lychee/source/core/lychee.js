@@ -803,10 +803,10 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 			profile     = profile instanceof Object                 ? profile     : {};
 
 
+			_bootstrap_environment.call(this);
+
+
 			if (environment !== null) {
-
-				_bootstrap_environment.call(this);
-
 
 				var code        = '\n';
 				var id          = lychee.ROOT.project.substr(lychee.ROOT.lychee.length) + '/custom';
@@ -863,10 +863,10 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 			profile    = profile instanceof Object      ? profile    : {};
 
 
+			_bootstrap_environment.call(this);
+
+
 			if (identifier !== null) {
-
-				_bootstrap_environment.call(this);
-
 
 				var config = new Config('./lychee.pkg');
 
@@ -940,10 +940,10 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 			environment = environment instanceof lychee.Environment ? environment : null;
 
 
+			_bootstrap_environment.call(this);
+
+
 			if (environment !== null) {
-
-				_bootstrap_environment.call(this);
-
 
 				if (this.environment !== null) {
 

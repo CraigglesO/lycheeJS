@@ -126,7 +126,53 @@
 				"variant": "library"
 			}
 		},
-		"files": {}
+		"files": {
+			"html": {
+				"core": [
+					"js"
+				],
+				"dist": {
+					"index": [
+						"js"
+					]
+				}
+			},
+			"html-nwjs": {
+				"core": [
+					"js"
+				],
+				"dist": {
+					"index": [
+						"js"
+					]
+				}
+			},
+			"html-webview": {
+				"core": [
+					"js"
+				],
+				"dist": {
+					"index": [
+						"js"
+					]
+				}
+			},
+			"node": {
+				"core": [
+					"js"
+				],
+				"dist": {
+					"index": [
+						"js"
+					]
+				}
+			},
+			"node-sdl": {
+				"core": [
+					"js"
+				]
+			}
+		}
 	},
 	"source": {
 		"environments": {},
