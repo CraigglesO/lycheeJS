@@ -75,18 +75,18 @@
 												"arguments": [{}]
 											},
 											"status": {
-												"constructor": "app.ui.Status",
+												"constructor": "app.ui.entity.Status",
 												"arguments": [{}]
 											},
 											"control": {
-												"constructor": "app.ui.Control",
+												"constructor": "app.ui.layer.Control",
 												"arguments": [{
 													"width": 224,
 													"height": 32
 												}]
 											},
 											"web": {
-												"constructor": "app.ui.Web",
+												"constructor": "app.ui.layer.Web",
 												"arguments": [{
 													"width": 224,
 													"height": 32

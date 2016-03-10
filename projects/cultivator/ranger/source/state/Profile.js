@@ -9,7 +9,7 @@ lychee.define('app.state.Profile').includes([
 	'lychee.ui.entity.Input',
 	'lychee.ui.entity.Select',
 	'lychee.ui.layer.Table',
-	'app.ui.Profile'
+	'app.ui.layer.Profile'
 ]).exports(function(lychee, app, global, attachments) {
 
 	var _blob   = attachments["json"].buffer;
@@ -67,9 +67,67 @@ lychee.define('app.state.Profile').includes([
 
 	};
 
+	var _on_add = function(value) {
+
+		var entity     = this.queryLayer('ui', 'profile > select > 2');
+		var identifier = this.queryLayer('ui', 'profile > select > 0').value;
+
+		if (identifier !== null) {
+
+			var profile = _cache[identifier] || null;
+			if (profile !== null) {
+
+				if (profile.hosts instanceof Object) {
+
+					profile.hosts[value.host] = value.project;
+					_on_select.call(this, identifier);
+
+				}
+
+			}
+
+		}
+
+	};
+
+	var _on_remove = function(entity, value) {
+
+		var table      = this.queryLayer('ui', 'profile > select > 2');
+		var identifier = this.queryLayer('ui', 'profile > select > 0').value;
+
+		if (identifier !== null) {
+
+			var profile = _cache[identifier] || null;
+			if (profile !== null) {
+
+				if (profile.hosts instanceof Object) {
+
+					for (var host in profile.hosts) {
+
+						if (host === value.host) {
+							profile.hosts[host] = value.project;
+						}
+
+					}
+
+
+					if (entity.value === 'remove') {
+						delete profile.hosts[value.host];
+						_on_select.call(this, identifier);
+					}
+
+				}
+
+			}
+
+		}
+
+	};
+
 	var _on_select = function(identifier) {
 
 		var profile = _cache[identifier] || null;
+		var table   = null;
 		var entity  = null;
 		var value   = [];
 
@@ -95,8 +153,8 @@ lychee.define('app.state.Profile').includes([
 		}
 
 
-		entity = this.queryLayer('ui', 'profile > modify > 0');
-		entity.setValue(value);
+		table = this.queryLayer('ui', 'profile > modify > 0');
+		table.setValue(value);
 
 	};
 
@@ -132,9 +190,10 @@ lychee.define('app.state.Profile').includes([
 
 
 			var profile_h = 0;
+
 			entity        = this.queryLayer('ui', 'profile > modify > 2');
 			entity.height = 64;
-			bar_height    = entity.height;
+			profile_h     = entity.height;
 
 			entity        = this.queryLayer('ui', 'profile > modify > 0');
 			entity.height = height - 80 - 32 - profile_h;
@@ -188,6 +247,9 @@ lychee.define('app.state.Profile').includes([
 
 
 			this.queryLayer('ui', 'profile > select > 0').bind('change', _on_select, this);
+			this.queryLayer('ui', 'profile > modify > 0').bind('change', _on_remove, this);
+			this.queryLayer('ui', 'profile > modify > 2').bind('change', _on_add,    this);
+
 			this.queryLayer('ui', 'profile > select').bind('change', function(value) {
 
 				if (value === 'save') {

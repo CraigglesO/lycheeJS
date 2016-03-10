@@ -4,9 +4,9 @@ lychee.define('app.state.Welcome').includes([
 ]).requires([
 	'lychee.ui.entity.Helper',
 	'lychee.ui.entity.Label',
-	'app.ui.Control',
-	'app.ui.Status',
-	'app.ui.Web'
+	'app.ui.entity.Status',
+	'app.ui.layer.Control',
+	'app.ui.layer.Web'
 ]).exports(function(lychee, app, global, attachments) {
 
 	var _blob   = attachments["json"].buffer;

@@ -1,5 +1,5 @@
 
-lychee.define('app.ui.Control').includes([
+lychee.define('app.ui.layer.Control').includes([
 	'lychee.ui.Layer'
 ]).requires([
 	'lychee.ui.entity.Helper'
@@ -138,7 +138,7 @@ lychee.define('app.ui.Control').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Layer.prototype.serialize.call(this);
-			data['constructor'] = 'app.ui.Control';
+			data['constructor'] = 'app.ui.layer.Control';
 
 
 			return data;

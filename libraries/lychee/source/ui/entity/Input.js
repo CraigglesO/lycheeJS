@@ -43,7 +43,7 @@ lychee.define('lychee.ui.entity.Input').includes([
 					false
 				);
 
-				cur.x = buffer.width;
+				cur.x = buffer.width + cur.w / 2;
 
 			} else {
 
@@ -395,7 +395,7 @@ lychee.define('lychee.ui.entity.Input').includes([
 			if (cursor.active === true) {
 
 				var map = cursor.map;
-				var cx1 = x - hwidth  + map.x + 8;
+				var cx1 = x - hwidth  + map.x + map.w / 2;
 				var cy1 = y - hheight + 8;
 
 

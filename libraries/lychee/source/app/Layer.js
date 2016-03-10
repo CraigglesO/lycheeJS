@@ -615,7 +615,11 @@ lychee.define('lychee.app.Layer').requires([
 				if (index === -1) {
 
 					this.entities.push(entity);
-					this.trigger('relayout', []);
+
+					if (this.__relayout === true) {
+						this.trigger('relayout', []);
+					}
+
 
 					return true;
 
@@ -727,7 +731,11 @@ lychee.define('lychee.app.Layer').requires([
 
 
 				if (found === true) {
-					this.trigger('relayout', []);
+
+					if (this.__relayout === true) {
+						this.trigger('relayout', []);
+					}
+
 				}
 
 
@@ -803,6 +811,11 @@ lychee.define('lychee.app.Layer').requires([
 				this.offset.x = typeof offset.x === 'number' ? offset.x : this.offset.x;
 				this.offset.y = typeof offset.y === 'number' ? offset.y : this.offset.y;
 				this.offset.z = typeof offset.z === 'number' ? offset.z : this.offset.z;
+
+				if (this.__relayout === true) {
+					this.trigger('relayout');
+				}
+
 
 				return true;
 

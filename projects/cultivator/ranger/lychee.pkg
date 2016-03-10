@@ -77,18 +77,22 @@
 				]
 			},
 			"ui": {
-				"Control": [
-					"js"
-				],
-				"Profile": [
-					"js"
-				],
-				"Status": [
-					"js"
-				],
-				"Web": [
-					"js"
-				]
+				"entity": {
+					"Status": [
+						"js"
+					]
+				},
+				"layer": {
+					"Control": [
+						"js"
+					],
+					"Profile": [
+						"js"
+					],
+					"Web": [
+						"js"
+					]
+				}
 			}
 		},
 		"tags": {}

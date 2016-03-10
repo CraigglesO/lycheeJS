@@ -14,6 +14,32 @@ lychee.define('lychee.app.layer.Table').includes([
 	 * HELPERS
 	 */
 
+	var _on_change = function(entity) {
+
+		var index = this.entities.indexOf(entity);
+		if (index !== -1) {
+
+			var label  = Object.keys(this.model);
+			var object = {};
+
+			for (var e = Math.floor(index / label.length) * label.length, el = e + label.length; e < el; e++) {
+
+				var property = label[e % label.length];
+				var value    = this.entities[e].value;
+
+				object[property] = value;
+
+			}
+
+
+			if (Object.keys(object).length > 0) {
+				this.trigger('change', [ entity, object ]);
+			}
+
+		}
+
+	};
+
 	var _on_relayout = function() {
 
 		var entities = this.entities;
@@ -543,7 +569,10 @@ lychee.define('lychee.app.layer.Table').includes([
 								entity = new lychee.app.entity.Label({
 									value: '(Invalid APP Entity)'
 								});
+							} else {
+								entity.bind('#change', _on_change, this);
 							}
+
 
 							this.__cache.push(entity);
 
