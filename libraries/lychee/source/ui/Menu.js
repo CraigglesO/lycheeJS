@@ -5,6 +5,7 @@ lychee.define('lychee.ui.Menu').requires([
 	'lychee.effect.Position',
 	'lychee.effect.Visible',
 	'lychee.effect.Width',
+	'lychee.ui.entity.Helper',
 	'lychee.ui.entity.Label',
 	'lychee.ui.entity.Select'
 ]).includes([
@@ -27,10 +28,12 @@ lychee.define('lychee.ui.Menu').requires([
 		this.font    = _font;
 		this.label   = 'MENU';
 		this.options = [ 'Welcome', 'Settings', 'About' ];
+		this.helpers = [];
 		this.state   = 'default';
 		this.value   = 'Welcome';
 
 		this.__boundary = 0;
+		this.__helpers  = [];
 		this.__states   = { 'default': null, 'active': null };
 
 
@@ -66,6 +69,30 @@ lychee.define('lychee.ui.Menu').requires([
 					this.trigger('focus');
 				}
 
+			} else {
+
+				var args = [ id, {
+					x: 0,
+					y: 0
+				}, delta ];
+
+
+				for (var h = 0, hl = this.__helpers.length; h < hl; h++) {
+
+					var helper = this.__helpers[h];
+					if (helper.visible === false) continue;
+
+					if (helper.isAtPosition(position) === true) {
+
+						args[1].x = position.x - helper.position.x;
+						args[1].y = position.y - helper.position.y;
+
+						helper.trigger('touch', args);
+
+					}
+
+				}
+
 			}
 
 		}, this);
@@ -98,6 +125,8 @@ lychee.define('lychee.ui.Menu').requires([
 				var entity = null;
 				var x1     = -1/2 * this.width;
 				var y1     = -1/2 * this.height;
+				var x2     =  1/2 * this.width;
+				var y2     =  1/2 * this.height;
 
 
 				entity = this.getEntity('@label');
@@ -107,6 +136,15 @@ lychee.define('lychee.ui.Menu').requires([
 				entity = this.getEntity('@select');
 				entity.position.x = 8;
 				entity.position.y = y1 + 64 + entity.height / 2;
+
+
+				for (var h = 0, hl = this.__helpers.length; h < hl; h++) {
+
+					entity = this.__helpers[h];
+					entity.position.x = 0;
+					entity.position.y = y2 - 32 - 32 * h - 16 * h;
+
+				}
 
 			}
 
@@ -134,10 +172,12 @@ lychee.define('lychee.ui.Menu').requires([
 
 
 		this.setFont(settings.font);
+		this.setHelpers(settings.helpers);
 		this.setLabel(settings.label);
 		this.setOptions(settings.options);
 
 		delete settings.font;
+		delete settings.helpers;
 		delete settings.label;
 		delete settings.options;
 
@@ -170,9 +210,10 @@ lychee.define('lychee.ui.Menu').requires([
 			var blob     = (data['blob'] || {});
 
 
-			if (this.label !== 'MENU')    settings.label = this.label;
-			if (this.state !== 'default') settings.state = this.state;
-			if (this.value !== 'Welcome') settings.value = this.value;
+			if (this.label !== 'MENU')     settings.label   = this.label;
+			if (this.helpers.length !== 0) settings.helpers = this.helpers.slice(0, this.helpers.length);
+			if (this.state !== 'default')  settings.state   = this.state;
+			if (this.value !== 'Welcome')  settings.value   = this.value;
 
 			if (this.options.join(',') !== 'Welcome,Settings,About') settings.options = this.options.slice(0, this.options.length);
 
@@ -193,13 +234,16 @@ lychee.define('lychee.ui.Menu').requires([
 
 
 			var alpha    = this.alpha;
+			var helpers  = this.__helpers;
 			var position = this.position;
 
 
-			var x1 = position.x + offsetX - this.width  / 2;
-			var y1 = position.y + offsetY - this.height / 2;
-			var x2 = x1 + this.width;
-			var y2 = y1 + this.height;
+			var x  = position.x + offsetX;
+			var y  = position.y + offsetY;
+			var x1 = x - this.width  / 2;
+			var y1 = y - this.height / 2;
+			var x2 = x + this.width  / 2;
+			var y2 = y + this.height / 2;
 
 
 			renderer.drawBox(
@@ -239,13 +283,26 @@ lychee.define('lychee.ui.Menu').requires([
 			);
 
 
+			for (var h = 0, hl = helpers.length; h < hl; h++) {
+
+				helpers[h].render(
+					renderer,
+					x,
+					y
+				);
+
+			}
+
+
 			if (alpha !== 1) {
 				renderer.setAlpha(alpha);
 			}
 
+
 			if (alpha !== 0) {
 				lychee.ui.Layer.prototype.render.call(this, renderer, offsetX, offsetY);
 			}
+
 
 			if (alpha !== 1) {
 				renderer.setAlpha(1.0);
@@ -268,6 +325,45 @@ lychee.define('lychee.ui.Menu').requires([
 
 				this.getEntity('@label').setFont(font);
 				this.font = font;
+
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
+		setHelpers: function(helpers) {
+
+			helpers = helpers instanceof Array ? helpers : null;
+
+
+			if (helpers !== null) {
+
+				this.helpers = helpers.map(function(helper) {
+					return '' + helper;
+				});
+
+
+				this.__helpers = [];
+
+				for (var h = 0, hl = this.helpers.length; h < hl; h++) {
+
+					this.__helpers.push(new lychee.ui.entity.Helper({
+						width:  32,
+						height: 32,
+						label:  null,
+						value:  this.helpers[h],
+						position: {
+							x: 0,
+							y: (this.height / 2) - 32 - 32 * h - 16 * h
+						}
+					}));
+
+				}
 
 
 				return true;
