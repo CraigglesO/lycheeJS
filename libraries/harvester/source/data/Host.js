@@ -51,8 +51,22 @@ lychee.define('harvester.data.Host').requires([
 
 		deserialize: function(blob) {
 
-			if (blob.projects) {
-				this.projects = blob.projects.map(lychee.deserialize);
+			if (blob.libraries instanceof Array) {
+
+				var libraries = blob.libraries.map(lychee.deserialize);
+				if (libraries.length > 0) {
+					this.setLibraries(libraries);
+				}
+
+			}
+
+			if (blob.projects instanceof Array) {
+
+				var projects = blob.projects.map(lychee.deserialize);
+				if (projects.length > 0) {
+					this.setProjects(projects);
+				}
+
 			}
 
 		},
@@ -65,6 +79,13 @@ lychee.define('harvester.data.Host').requires([
 			var settings = {};
 			var blob     = (data['blob'] || {});
 
+
+			if (this.cultivator !== false) settings.cultivator = this.cultivator;
+
+
+			if (this.libraries.length > 0) {
+				blob.libraries = this.libraries.map(lychee.serialize);
+			}
 
 			if (this.projects.length > 0) {
 				blob.projects = this.projects.map(lychee.serialize);
