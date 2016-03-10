@@ -13,14 +13,13 @@ lychee.define('harvester.data.Project').requires([
 	 * IMPLEMENTATION
 	 */
 
-	var Class = function(identifier, root) {
+	var Class = function(identifier) {
 
 		identifier = typeof identifier === 'string' ? identifier : null;
-		root       = typeof root === 'string'       ? root       : ('/projects/' + identifier);
 
 
 		this.identifier = identifier;
-		this.filesystem = new harvester.data.Filesystem(root);
+		this.filesystem = new harvester.data.Filesystem(identifier);
 		this.package    = new harvester.data.Package(this.filesystem.read('/lychee.pkg'));
 		this.server     = null;
 		this.harvester  = this.filesystem.info('/harvester.js') !== null;
@@ -56,7 +55,7 @@ lychee.define('harvester.data.Project').requires([
 			if (this.server !== null)     blob.server     = lychee.serialize(this.server);
 
 
-			data['arguments'] = [ this.identifier, this.filesystem.root ];
+			data['arguments'] = [ this.identifier ];
 			data['blob']      = Object.keys(blob).length > 0 ? blob : null;
 
 

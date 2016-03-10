@@ -171,10 +171,8 @@ lychee.define('harvester.mod.Fertilizer').tags({
 						var targets = Object.keys(environments);
 						if (targets.length > 0) {
 
-							var root = project.filesystem.root.substr(_root.length);
-
 							targets = targets.filter(function(target) {
-								return _is_queue(root, target) === false;
+								return _is_queue(project.identifier, target) === false;
 							});
 
 							if (targets.length > 0) {
@@ -182,7 +180,7 @@ lychee.define('harvester.mod.Fertilizer').tags({
 								targets.forEach(function(target) {
 
 									_CACHE.queue.push({
-										project: root,
+										project: project.identifier,
 										target:  target
 									});
 

@@ -104,6 +104,25 @@ lychee.define('harvester.serve.api.Server').requires([
 
 	var Module = {
 
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			return {
+				'reference': 'harvester.serve.api.Server',
+				'arguments': []
+			};
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
 		process: function(host, url, data, ready) {
 
 			var identifier = null;
@@ -159,7 +178,7 @@ lychee.define('harvester.serve.api.Server').requires([
 				} else {
 
 					var projects = host.projects.filter(function(project) {
-						return !project.identifier.match(/cultivator/);
+						return !project.identifier.match(/projects\/cultivator/);
 					}).map(_serialize);
 
 

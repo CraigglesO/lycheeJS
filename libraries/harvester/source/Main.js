@@ -17,6 +17,7 @@ lychee.define('harvester.Main').requires([
 	var _JSON = lychee.data.JSON;
 
 
+
 	/*
 	 * HELPERS
 	 */
@@ -228,35 +229,41 @@ lychee.define('harvester.Main').requires([
 
 		filesystem.dir('/libraries').filter(function(value) {
 			return !value.match(/README\.md/);
-		}).forEach(function(id) {
+		}).map(function(value) {
+			return '/libraries/' + value;
+		}).forEach(function(identifier) {
 
-			var info1 = filesystem.info('/libraries/' + id + '/lychee.pkg');
+			var info1 = filesystem.info(identifier + '/lychee.pkg');
 			if ((info1 !== null && info1.type === 'file')) {
-				libraries[id] = new harvester.data.Project(id, '/libraries/' + id);
+				libraries[identifier] = new harvester.data.Project(identifier);
 			}
 
 		});
 
 		filesystem.dir('/projects').filter(function(value) {
 			return !value.match(/cultivator|README\.md/);
-		}).forEach(function(id) {
+		}).map(function(value) {
+			return '/projects/' + value;
+		}).forEach(function(identifier) {
 
-			var info1 = filesystem.info('/projects/' + id + '/index.html');
-			var info2 = filesystem.info('/projects/' + id + '/lychee.pkg');
+			var info1 = filesystem.info(identifier + '/index.html');
+			var info2 = filesystem.info(identifier + '/lychee.pkg');
 			if ((info1 !== null && info1.type === 'file') || (info2 !== null && info2.type === 'file')) {
-				projects[id] = new harvester.data.Project(id, '/projects/' + id);
+				projects[identifier] = new harvester.data.Project(identifier);
 			}
 
 		});
 
 		filesystem.dir('/projects/cultivator').filter(function(value) {
 			return !value.match(/design|index\.html|robots\.txt/);
-		}).forEach(function(id) {
+		}).map(function(value) {
+			return '/projects/cultivator/' + value;
+		}).forEach(function(identifier) {
 
-			var info1 = filesystem.info('/projects/cultivator/' + id + '/index.html');
-			var info2 = filesystem.info('/projects/cultivator/' + id + '/lychee.pkg');
+			var info1 = filesystem.info(identifier + '/index.html');
+			var info2 = filesystem.info(identifier + '/lychee.pkg');
 			if ((info1 !== null && info1.type === 'file') || (info2 !== null && info2.type === 'file')) {
-				projects['cultivator/' + id] = new harvester.data.Project('cultivator/' + id, '/projects/cultivator/' + id);
+				projects[identifier] = new harvester.data.Project(identifier);
 			}
 
 		});
@@ -560,9 +567,9 @@ lychee.define('harvester.Main').requires([
 
 		destroy: function() {
 
-			for (var id in _PROJECTS) {
+			for (var identifier in _PROJECTS) {
 
-				var project = _PROJECTS[id];
+				var project = _PROJECTS[identifier];
 				if (project.server !== null) {
 
 					if (typeof project.server.destroy === 'function') {

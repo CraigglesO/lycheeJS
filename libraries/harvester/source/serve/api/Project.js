@@ -8,7 +8,6 @@ lychee.define('harvester.serve.api.Project').requires([
 		encode: JSON.stringify,
 		decode: JSON.parse
 	};
-	var _Server = harvester.mod.Server;
 
 
 
@@ -106,6 +105,25 @@ lychee.define('harvester.serve.api.Project').requires([
 	 */
 
 	var Module = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			return {
+				'reference': 'harvester.serve.api.Project',
+				'arguments': []
+			};
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
 
 		process: function(host, url, data, ready) {
 
@@ -209,7 +227,7 @@ lychee.define('harvester.serve.api.Project').requires([
 						var server = project.server;
 						if (server === null && action === 'start') {
 
-							_Server.process(project);
+							harvester.mod.Server.process(project);
 
 							ready({
 								headers: _HEADER,

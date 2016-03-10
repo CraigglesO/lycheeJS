@@ -1,7 +1,30 @@
 
 lychee.define('harvester.serve.Redirect').exports(function(lychee, harvester, global, attachments) {
 
+	/*
+	 * IMPLEMENTATION
+	 */
+
 	var Module = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			return {
+				'reference': 'harvester.serve.Redirect',
+				'arguments': []
+			};
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
 
 		can: function(host, url) {
 
@@ -11,15 +34,15 @@ lychee.define('harvester.serve.Redirect').exports(function(lychee, harvester, gl
 			var info       = null;
 
 
-			// lychee + <a> + <b> + <c>
+			// <a> + <b> + <c>
 			if (url.substr(0, 9) === '/projects') {
 
-				identifier = url.split('/')[2];
+				identifier = url.split('/').slice(0, 3).join('/');
 				project    = host.getProject(identifier);
 
 				if (project !== null) {
 
-					path = '/' + url.split('/').slice(1).join('/');
+					path = '/' + url.split('/').slice(3).join('/');
 					info = project.filesystem.info(path);
 
 					var dir = '/projects/' + identifier;
@@ -52,12 +75,12 @@ lychee.define('harvester.serve.Redirect').exports(function(lychee, harvester, gl
 			// /projects/*
 			if (url.substr(0, 9) === '/projects') {
 
-				identifier = url.split('/')[2];
+				identifier = url.split('/').slice(0, 3).join('/');
 				project    = host.getProject(identifier);
 
 				if (project !== null) {
 
-					path = '/' + url.split('/').slice(1).join('/');
+					path = '/' + url.split('/').slice(3).join('/');
 					info = project.filesystem.info(path);
 
 					var dir = '/projects/' + identifier;
@@ -83,7 +106,7 @@ lychee.define('harvester.serve.Redirect').exports(function(lychee, harvester, gl
 				if (host.cultivator === true) {
 
 					ready({
-						headers: { 'status': 301, location: '/projects/cultivator/index.html' },
+						headers: { 'status': 301, 'location': '/projects/cultivator/index.html' },
 						payload: ''
 					});
 

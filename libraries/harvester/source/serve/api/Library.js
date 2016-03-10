@@ -52,6 +52,26 @@ lychee.define('harvester.serve.api.Library').requires([
 
 	var Module = {
 
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			return {
+				'reference': 'harvester.serve.api.Library',
+				'arguments': []
+			};
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
+
 		process: function(host, url, data, ready) {
 
 			var method     = data.headers.method;

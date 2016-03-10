@@ -1,7 +1,6 @@
 
 lychee.define('harvester.serve.API').requires([
 	'lychee.data.JSON',
-	'harvester.serve.api.Asset',
 //	'harvester.serve.api.Console',
 	'harvester.serve.api.Library',
 	'harvester.serve.api.Profile',
@@ -12,7 +11,6 @@ lychee.define('harvester.serve.API').requires([
 	var _JSON   = lychee.data.JSON;
 
 	var _ADMIN  = {
-		'Asset':   harvester.serve.api.Asset,
 		'Console': harvester.serve.api.Console,
 		'Library': harvester.serve.api.Library,
 		'Profile': harvester.serve.api.Profile,

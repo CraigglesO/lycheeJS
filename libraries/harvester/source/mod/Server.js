@@ -7,11 +7,11 @@ lychee.define('harvester.mod.Server').requires([
 	var _MIN_PORT      = 49152;
 	var _MAX_PORT      = 65534;
 	var _LOG_PROJECT   = null;
+	var _ROOT          = lychee.ROOT.lychee;
 
 	var _child_process = require('child_process');
 	var _net           = require('net');
 	var _port          = _MIN_PORT;
-	var _root          = new harvester.data.Filesystem().root;
 
 
 
@@ -121,12 +121,12 @@ lychee.define('harvester.mod.Server').requires([
 
 		try {
 
-			server = _child_process.execFile(_root + project + '/harvester.js', [
-				_root,
+			server = _child_process.execFile(_ROOT + project + '/harvester.js', [
+				_ROOT,
 				port,
 				host
 			], {
-				cwd: _root + project
+				cwd: _ROOT + project
 			}, function(error, stdout, stderr) {
 
 				stderr = (stderr.trim() || '').toString();
@@ -301,8 +301,7 @@ lychee.define('harvester.mod.Server').requires([
 
 						if (port >= _MIN_PORT && port <= _MAX_PORT) {
 
-							var root   = project.filesystem.root.substr(_root.length);
-							var server = _serve(root, null, port);
+							var server = _serve(project.identifier, null, port);
 							if (server !== null) {
 
 								project.setServer(new harvester.data.Server({
@@ -313,7 +312,7 @@ lychee.define('harvester.mod.Server').requires([
 
 							} else {
 
-								console.error('harvester.mod.Server: FAILURE ("' + root + ' | null:' + port + '") (chmod +x missing?)');
+								console.error('harvester.mod.Server: FAILURE ("' + project.identifier + ' | null:' + port + '") (chmod +x missing?)');
 
 							}
 

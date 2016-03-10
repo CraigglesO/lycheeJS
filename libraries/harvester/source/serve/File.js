@@ -134,6 +134,25 @@ lychee.define('harvester.serve.File').requires([
 
 	var Module = {
 
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			return {
+				'reference': 'harvester.serve.File',
+				'arguments': []
+			};
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
 		can: function(host, url) {
 
 			var project = null;
@@ -144,7 +163,7 @@ lychee.define('harvester.serve.File').requires([
 			// /libraries/breeder
 			if (url.substr(0, 10) === '/libraries') {
 
-				project = host.getLibrary(url.split('/')[2]);
+				project = host.getLibrary(url.split('/').slice(0, 3).join('/'));
 
 				if (project !== null) {
 
@@ -172,7 +191,7 @@ lychee.define('harvester.serve.File').requires([
 			// /projects/*
 			} else if (url.substr(0, 9) === '/projects') {
 
-				project = host.getProject(url.split('/')[2]);
+				project = host.getProject(url.split('/').slice(0, 3).join('/'));
 
 				if (project !== null) {
 
@@ -189,12 +208,7 @@ lychee.define('harvester.serve.File').requires([
 			// /*
 			} else if (host.cultivator === false) {
 
-				project = host.projects.filter(function(object) {
-
-					var suffix = '/projects/' + object.identifier;
-					return object.filesystem.root.substr(-1 * suffix.length) === suffix;
-
-				})[0] || null;
+				project = host.projects[0] || null;
 
 				if (project !== null) {
 
@@ -231,7 +245,7 @@ lychee.define('harvester.serve.File').requires([
 			// /libraries/breeder
 			if (url.substr(0, 10) === '/libraries') {
 
-				identifier = url.split('/')[2];
+				identifier = url.split('/').slice(0, 3).join('/');
 				path       = '/' + url.split('/').slice(3).join('/');
 				project    = host.getLibrary(identifier);
 
@@ -239,7 +253,7 @@ lychee.define('harvester.serve.File').requires([
 			// /projects/*
 			} else if (url.substr(0, 9) === '/projects') {
 
-				identifier = url.split('/')[2];
+				identifier = url.split('/').slice(0, 3).join('/');
 				path       = '/' + url.split('/').slice(3).join('/');
 				project    = host.getProject(identifier);
 
@@ -247,12 +261,7 @@ lychee.define('harvester.serve.File').requires([
 			// /*
 			} else if (host.cultivator === false) {
 
-				project = host.projects.filter(function(object) {
-
-					var suffix = '/projects/' + object.identifier;
-					return object.filesystem.root.substr(-1 * suffix.length) === suffix;
-
-				})[0] || null;
+				project = host.projects[0] || null;
 
 				if (project !== null) {
 					identifier = project.identifier;
