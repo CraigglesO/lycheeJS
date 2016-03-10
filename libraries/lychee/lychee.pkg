@@ -510,6 +510,15 @@
 						"Server": [
 							"js"
 						]
+					},
+					"ui": {
+						"entity": {
+							"Helper": [
+								"js",
+								"json",
+								"png"
+							]
+						}
 					}
 				}
 			},
