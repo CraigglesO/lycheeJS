@@ -2,24 +2,6 @@
 lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments) {
 
 	/*
-	 * HELPERS
-	 */
-
-	var _refresh_channels = function(amount) {
-
-		var sounds = [];
-
-		for (var a = 0; a < amount; a++) {
-			sounds.push(null);
-		}
-
-		this.__sounds = sounds;
-
-	};
-
-
-
-	/*
 	 * IMPLEMENTATION
 	 */
 
@@ -31,6 +13,7 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 		this.channels = 8;
 		this.music    = true;
 		this.sound    = true;
+		this.volume   = 1.0;
 
 		this.__music  = null;
 		this.__sounds = [
@@ -44,6 +27,8 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 		this.setChannels(settings.channels);
 		this.setMusic(settings.music);
 		this.setSound(settings.sound);
+		this.setVolume(settings.volume);
+
 
 		settings = null;
 
@@ -66,6 +51,7 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 			if (this.channels !== 8) settings.channels = this.channels;
 			if (this.music !== true) settings.music    = this.music;
 			if (this.sound !== true) settings.sound    = this.sound;
+			if (this.volume !== 1.0) settings.volume   = this.volume;
 
 
 			return {
@@ -84,6 +70,9 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 
 		play: function(track) {
 
+			var volume = this.volume;
+
+
 			if (track instanceof Music && this.music === true) {
 
 				var music = this.__music;
@@ -93,6 +82,7 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 
 
 				this.__music = track;
+				this.__music.setVolume(this.volume);
 				this.__music.play();
 
 
@@ -107,6 +97,7 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 					if (sound === null) {
 
 						sounds[s] = track.clone();
+						sounds[s].setVolume(volume);
 						sounds[s].play();
 
 						break;
@@ -114,9 +105,11 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 					} else if (sound.isIdle === true) {
 
 						if (sound.url === track.url) {
+							sound.setVolume(volume);
 							sound.play();
 						} else {
 							sounds[s] = track.clone();
+							sounds[s].setVolume(volume);
 							sounds[s].play();
 						}
 
@@ -211,8 +204,8 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 			if (channels !== null) {
 
 				this.channels = channels;
+				this.__sounds.fill(null);
 
-				_refresh_channels.call(this, channels);
 
 				return true;
 
@@ -229,6 +222,7 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 
 				this.music = music;
 
+
 				return true;
 
 			}
@@ -243,6 +237,43 @@ lychee.define('lychee.app.Jukebox').exports(function(lychee, global, attachments
 			if (sound === true || sound === false) {
 
 				this.sound = sound;
+
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
+		setVolume: function(volume) {
+
+			volume = typeof volume === 'number' ? volume : null;
+
+
+			if (volume !== null) {
+
+				this.volume = Math.min(Math.max(0, volume), 1);
+
+
+				var music = this.__music;
+				if (music !== null) {
+					music.setVolume(this.volume);
+				}
+
+
+				var sounds = this.__sounds;
+				for (var s = 0, sl = sounds.length; s < sl; s++) {
+
+					var sound = sounds[s];
+					if (sound !== null) {
+						sound.setVolume(this.volume);
+					}
+
+				}
+
 
 				return true;
 

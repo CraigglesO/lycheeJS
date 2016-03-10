@@ -150,6 +150,7 @@ lychee.define('lychee.ui.entity.Slider').includes([
 		this.bind('swipe', function(id, state, position, delta, swipe) {
 
 			var val  = null;
+			var step = this.step;
 			var type = this.type;
 
 			if (type === Class.TYPE.horizontal) {
@@ -157,14 +158,14 @@ lychee.define('lychee.ui.entity.Slider').includes([
 				var qx = Math.max(-0.5, Math.min(0.5, position.x / (this.width - 44))) + 0.5;
 				var vx = (this.min + qx * (this.max - this.min)) | 0;
 
-				val = ((vx / this.step) | 0) * this.step;
+				val = ((vx / step) | 0) * step;
 
 			} else if (type === Class.TYPE.vertical) {
 
 				var qy = Math.max(-0.5, Math.min(0.5, position.y / (this.height - 44))) + 0.5;
 				var vy = (this.min + qy * (this.max - this.min)) | 0;
 
-				val = ((vy / this.step) | 0) * this.step;
+				val = ((vy / step) | 0) * step;
 
 			}
 
@@ -179,17 +180,18 @@ lychee.define('lychee.ui.entity.Slider').includes([
 		this.bind('key', function(key, name, delta) {
 
 			var val  = this.value;
+			var step = this.step;
 			var type = this.type;
 
 			if (type === Class.TYPE.horizontal) {
 
-				if (key === 'arrow-left')  val -= this.step;
-				if (key === 'arrow-right') val += this.step;
+				if (key === 'arrow-left')  val -= step;
+				if (key === 'arrow-right') val += step;
 
 			} else if (type === Class.TYPE.vertical) {
 
-				if (key === 'arrow-up')    val -= this.step;
-				if (key === 'arrow-down')  val += this.step;
+				if (key === 'arrow-up')    val -= step;
+				if (key === 'arrow-down')  val += step;
 
 			}
 

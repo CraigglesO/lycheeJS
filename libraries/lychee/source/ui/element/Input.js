@@ -137,7 +137,7 @@ lychee.define('lychee.ui.element.Input').requires([
 		serialize: function() {
 
 			var data = lychee.ui.Element.prototype.serialize.call(this);
-			data['constructor'] = 'lychee.ui.element.Network';
+			data['constructor'] = 'lychee.ui.element.Input';
 
 
 			return data;

@@ -22,11 +22,13 @@ lychee.define('lychee.ui.element.Jukebox').requires([
 				var channels = jukebox.channels;
 				var music    = jukebox.music;
 				var sound    = jukebox.sound;
+				var volume   = jukebox.volume;
 
 
 				this.getEntity('channels').setValue(channels);
 				this.getEntity('music').setValue(music === true ? 'on' : 'off');
 				this.getEntity('sound').setValue(sound === true ? 'on' : 'off');
+				this.getEntity('volume').setValue(volume * 10);
 
 			}
 
@@ -45,11 +47,13 @@ lychee.define('lychee.ui.element.Jukebox').requires([
 				var channels = this.getEntity('channels').value;
 				var music    = this.getEntity('music').value;
 				var sound    = this.getEntity('sound').value;
+				var volume   = this.getEntity('volume').value;
 
 
 				jukebox.setChannels(channels);
 				jukebox.setMusic(music === 'on' ? true : false);
 				jukebox.setSound(sound === 'on' ? true : false);
+				jukebox.setVolume(volume / 10);
 
 			}
 
@@ -96,6 +100,14 @@ lychee.define('lychee.ui.element.Jukebox').requires([
 			value: 8
 		}));
 
+		this.setEntity('volume', new lychee.ui.entity.Slider({
+			type:  lychee.ui.entity.Slider.TYPE.horizontal,
+			min:    0,
+			max:   10,
+			step:   1,
+			value: 10
+		}));
+
 		this.bind('change', function(action) {
 
 			if (action === 'save') {
@@ -121,7 +133,7 @@ lychee.define('lychee.ui.element.Jukebox').requires([
 		serialize: function() {
 
 			var data = lychee.ui.Element.prototype.serialize.call(this);
-			data['constructor'] = 'lychee.ui.element.Network';
+			data['constructor'] = 'lychee.ui.element.Jukebox';
 
 
 			return data;
