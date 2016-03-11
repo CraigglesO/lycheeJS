@@ -34,31 +34,37 @@ var _print_help = function() {
 	});
 
 
-	console.log('                                             ');
+	console.log('                                                    ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Strainer');
-	console.log('                                             ');
-	console.log('Usage: lycheejs-strainer [Library/Project]   ');
-	console.log('                                             ');
-	console.log('                                             ');
-	console.log('Available Libraries:                         ');
-	console.log('                                             ');
+	console.log('                                                    ');
+	console.log('Usage: lycheejs-strainer [Action] [Library/Project] ');
+	console.log('                                                    ');
+	console.log('                                                    ');
+	console.log('Available Actions:                                  ');
+	console.log('                                                    ');
+	console.log('    init, stash                                     ');
+	console.log('                                                    ');
+	console.log('Available Libraries:                                ');
+	console.log('                                                    ');
 	libraries.forEach(function(library) {
-		var diff = ('                                         ').substr(library.length);
+		var diff = ('                                                ').substr(library.length);
 		console.log('    ' + library + diff);
 	});
-	console.log('                                             ');
-	console.log('Available Projects:                          ');
-	console.log('                                             ');
+	console.log('                                                    ');
+	console.log('Available Projects:                                 ');
+	console.log('                                                    ');
 	projects.forEach(function(project) {
-		var diff = ('                                         ').substr(project.length);
+		var diff = ('                                                ').substr(project.length);
 		console.log('    ' + project + diff);
 	});
-	console.log('                                             ');
-	console.log('Examples:                                    ');
-	console.log('                                             ');
-	console.log('    lycheejs-strainer /libraries/lychee;     ');
-	console.log('    lycheejs-strainer /projects/boilerplate; ');
-	console.log('                                             ');
+	console.log('                                                    ');
+	console.log('Examples:                                           ');
+	console.log('                                                    ');
+	console.log('    lycheejs-strainer init /libraries/lychee;       ');
+	console.log('    lycheejs-strainer stash /libraries/lychee;      ');
+	console.log('    lycheejs-strainer init /projects/boilerplate;   ');
+	console.log('    lycheejs-strainer stash /projects/boilerplate;  ');
+	console.log('                                                    ');
 
 };
 
@@ -67,8 +73,8 @@ var _print_help = function() {
 var _settings = (function() {
 
 	var settings = {
-		project: null,
-		package: null
+		action:  null,
+		project: null
 	};
 
 
@@ -76,28 +82,20 @@ var _settings = (function() {
 	var raw_arg1 = process.argv[3] || '';
 
 
-	var pkg_path = root + raw_arg0 + '/lychee.pkg';
+	var pkg_path = root + raw_arg1 + '/lychee.pkg';
 	if (fs.existsSync(pkg_path) === true) {
-
-		settings.project = raw_arg0;
-
-
-		var json = null;
-
-		try {
-			json = JSON.parse(fs.readFileSync(pkg_path, 'utf8'));
-		} catch(e) {
-			json = null;
-		}
+		settings.project = raw_arg1;
+	}
 
 
-		if (json !== null) {
+	// init /projects/boilerplate
+	if (raw_arg0 === 'init') {
 
-			if (json.build instanceof Object && json.source instanceof Object) {
-				settings.package = json;
-			}
+		settings.action = 'init';
 
-		}
+	} else if (raw_arg0 === 'stash') {
+
+		settings.action = 'stash';
 
 	}
 
@@ -184,21 +182,21 @@ var _bootup = function(settings) {
 
 
 
-(function(project, package) {
+(function(action, project) {
 
 	/*
 	 * IMPLEMENTATION
 	 */
 
+	var has_action  = action !== null;
 	var has_project = project !== null;
-	var has_package = package !== null;
 
 
-	if (has_project && has_package) {
+	if (has_action && has_project) {
 
 		_bootup({
-			project: project,
-			package: package
+			action:  action,
+			project: project
 		});
 
 	} else {
@@ -211,5 +209,5 @@ var _bootup = function(settings) {
 
 	}
 
-})(_settings.project, _settings.package);
+})(_settings.action, _settings.project);
 

@@ -51,10 +51,10 @@ fi;
 
 
 
-if [ -d "$LYCHEEJS_ROOT/$1" ]; then
+if [ -d "$LYCHEEJS_ROOT/$2" ]; then
 
 	cd $LYCHEEJS_ROOT;
-	$LYCHEEJS_NODE ./bin/strainer.js "$1";
+	$LYCHEEJS_NODE ./bin/strainer.js "$1" "$2";
 
 	exit 0;
 

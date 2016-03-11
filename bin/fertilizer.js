@@ -21,6 +21,8 @@ var lychee = require(root + '/libraries/lychee/build/node/core.js')(root);
 
 var _print_help = function() {
 
+	var targets = fs.readdirSync(root + '/libraries/lychee/build').sort();
+
 	var libraries = fs.readdirSync(root + '/libraries').sort().filter(function(value) {
 		return fs.existsSync(root + '/libraries/' + value + '/lychee.pkg');
 	}).map(function(value) {
@@ -42,7 +44,10 @@ var _print_help = function() {
 	console.log('                                                              ');
 	console.log('Available Fertilizers:                                        ');
 	console.log('                                                              ');
-	console.log('   html, html-nwjs, html-webview, node, node-sdl              ');
+	targets.forEach(function(target) {
+		var diff = ('                                                          ').substr(target.length);
+		console.log('    ' + target + diff);
+	});
 	console.log('                                                              ');
 	console.log('Available Libraries:                                          ');
 	console.log('                                                              ');
@@ -61,7 +66,7 @@ var _print_help = function() {
 	console.log('Examples:                                                     ');
 	console.log('                                                              ');
 	console.log('    lycheejs-fertilizer html-nwjs/main /projects/boilerplate; ');
-	console.log('    lycheejs-fertilizer node/server /projects/boilerplate;    ');
+	console.log('    lycheejs-fertilizer node/main /projects/boilerplate;      ');
 	console.log('                                                              ');
 
 };

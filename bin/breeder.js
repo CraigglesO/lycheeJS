@@ -21,6 +21,19 @@ var lychee = require(root + '/libraries/lychee/build/node/core.js')(root);
 
 var _print_help = function() {
 
+	var libraries = fs.readdirSync(root + '/libraries').sort().filter(function(value) {
+		return fs.existsSync(root + '/libraries/' + value + '/lychee.pkg');
+	}).map(function(value) {
+		return '/libraries/' + value;
+	});
+
+	var projects = fs.readdirSync(root + '/projects').sort().filter(function(value) {
+		return fs.existsSync(root + '/projects/' + value + '/lychee.pkg');
+	}).map(function(value) {
+		return '/projects/' + value;
+	});
+
+
 	console.log('                                                   ');
 	console.info('lycheeJS ' + lychee.VERSION + ' Breeder');
 	console.log('                                                   ');
@@ -30,6 +43,20 @@ var _print_help = function() {
 	console.log('Available Actions:                                 ');
 	console.log('                                                   ');
 	console.log('    init, pull, push                               ');
+	console.log('                                                   ');
+	console.log('Available Libraries:                                ');
+	console.log('                                                    ');
+	libraries.forEach(function(library) {
+		var diff = ('                                                ').substr(library.length);
+		console.log('    ' + library + diff);
+	});
+	console.log('                                                    ');
+	console.log('Available Projects:                                 ');
+	console.log('                                                    ');
+	projects.forEach(function(project) {
+		var diff = ('                                                ').substr(project.length);
+		console.log('    ' + project + diff);
+	});
 	console.log('                                                   ');
 	console.log('Examples:                                          ');
 	console.log('                                                   ');
@@ -47,8 +74,8 @@ var _print_help = function() {
 var _settings = (function() {
 
 	var settings = {
-		project:  null,
 		action:   null,
+		project:  null,
 		library:  null
 	};
 
