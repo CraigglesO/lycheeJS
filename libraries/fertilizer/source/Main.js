@@ -53,9 +53,6 @@ lychee.define('fertilizer.Main').requires([
 		 * INITIALIZATION
 		 */
 
-		var that = this;
-
-
 		this.bind('load', function() {
 
 			var identifier = this.settings.identifier || null;

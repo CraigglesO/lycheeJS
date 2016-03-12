@@ -27,7 +27,7 @@
 
 
 			if (cwd !== '') {
-				lychee.ROOT.project = cwd;
+				lychee.ROOT.project = cwd === '/' ? '' : cwd;
 			}
 
 		} else if (proto.match(/app|file/g) !== null) {

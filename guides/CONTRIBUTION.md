@@ -36,18 +36,18 @@ already.
 ## Find an Issue
 
 After you have forked the project you can start picking some issues you
-want to help us on. Our management tool is [ZenHub](https://www.zenhub.io/)
-because it is a Scrum Board that is directly integrated with the issues
-and milestones of GitHub. It allows us to reference the issues in the git
-commit messages via their identifier.
+want to help us on.
 
-For example, you can write `Fixes #1337` or `Further work on issue #1337`
-in order to reference your git commits to the relevant Scrum Board Card.
+We use internally our own [GitHub Scrum Board extension](https://github.com/Artificial-Engineering/AE-github),
+but that's not required for contributors. This extension just shows you
+a neat Scrum Board with easier-to-use Issue Cards and the typical Scrum
+columns with `backlog` (open and unlabeled), `todo`, `in-progress`,
+`in-testing` and `done` (closed).
 
-If you have installed ZenHub, you can access the Scrum Board by clicking
-on the *Boards* menu that the extension injects to the GitHub website.
+In any case, you can find all open issues in the Issues overview in
+this repository.
 
-![How to find the Scrum Board](./asset/contribution-zenhub.png)
+![How to find Issues](./asset/contributon-issues.png)
 
 
 
@@ -67,16 +67,9 @@ the `.editorconfig` file. We use this in order to prevent unnecessary
 merge conflicts. For further information on how to setup your IDE with
 it, please read the instructions at [http://editorconfig.org/#download](http://editorconfig.org/#download).
 
-If you are working on an Issue make sure you keep track of the Task on the
-`Boards` Menu Entry (added by the ZenHub Extension). Select an Issue from
-`Backlog` and switch the progress state of your Issue by dragging and
-dropping it onto the `In Progress` column.
-
-![How to assign an Issue](./asset/contribution-progressboard.png)
-
 This example shows how the feature branches work. Replace `YourName`
 accordingly with your GitHub username and `fancy-feature` accordingly with
-a better description for your feature that you are working on. The best
+a better description for the feature that you are working on. The best
 name for a feature is the name of the equivalent issue title or its title
 shrinked down to the minimum quintessence.
 
@@ -142,7 +135,7 @@ button appearing with the label `Compare & pull request`.
 
 Click on it, now you have to fill out the form with the description.
 When you've finished your Issue and have created your pull request you have
-to drag the Issue on the ZenHub Board to `Done`.
+to drag the Issue on the Scrum Board to `Done`.
 
 After that we can now automatically merge in your implemented features.
 If the merge was successful, the Issue is `Closed`.

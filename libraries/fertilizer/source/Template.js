@@ -37,6 +37,8 @@ lychee.define('fertilizer.Template').requires([
 
 		lychee.event.Flow.call(this);
 
+		settings = null;
+
 	};
 
 
@@ -113,7 +115,6 @@ lychee.define('fertilizer.Template').requires([
 
 
 				keys.forEach(function(key, k) {
-
 
 					var value    = values[k];
 					var pointers = [];

@@ -34,8 +34,8 @@ lychee.define('breeder.Main').requires([
 
 		var project  = settings.project;
 		var template = new breeder.Template({
-			filesystem: new fertilizer.data.Filesystem(settings.project),
-			shell:      new fertilizer.data.Filesystem(settings.project),
+			filesystem: new fertilizer.data.Filesystem(project),
+			shell:      new fertilizer.data.Shell(project),
 			settings:   settings
 		});
 
@@ -84,8 +84,16 @@ lychee.define('breeder.Main').requires([
 		 * INITIALIZATION
 		 */
 
-		var that = this;
+		this.bind('load', function() {
 
+			var project = this.settings.project || null;
+			if (project !== null) {
+
+				lychee.ROOT.project = project;
+
+			}
+
+		}, this, true);
 
 		this.bind('init', function() {
 
@@ -147,6 +155,7 @@ lychee.define('breeder.Main').requires([
 
 		init: function() {
 
+			this.trigger('load', []);
 			this.trigger('init', []);
 
 		},

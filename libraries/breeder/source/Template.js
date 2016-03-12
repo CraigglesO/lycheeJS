@@ -126,10 +126,11 @@ lychee.define('breeder.Template').requires([
 
 
 				var id     = fs.root.split('/').pop();
-				var pkg    = _TPL.read('/lychee.pkg');
-				var main   = _TPL.read('/source/Main.js');
-				var client = _TPL.read('/source/net/Client.js');
-				var server = _TPL.read('/source/net/Server.js');
+				var pkg    = _TPL.read('/lychee.pkg').toString();
+				var main   = _TPL.read('/source/Main.js').toString();
+				var client = _TPL.read('/source/net/Client.js').toString();
+				var server = _TPL.read('/source/net/Server.js').toString();
+
 
 				pkg    = this.replace(pkg,    { id: id });
 				main   = this.replace(main,   { id: id });

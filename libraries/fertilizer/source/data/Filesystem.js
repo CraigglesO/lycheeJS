@@ -21,9 +21,9 @@ lychee.define('fertilizer.data.Filesystem').tags({
 
 }).exports(function(lychee, fertilizer, global, attachments) {
 
+	var _ROOT = lychee.ROOT.lychee;
 	var _fs   = require('fs');
 	var _path = require('path');
-	var _root = _path.resolve(__dirname + '/../../../../');
 
 
 
@@ -122,7 +122,7 @@ lychee.define('fertilizer.data.Filesystem').tags({
 
 			var resolved = _path.normalize(this.root + path);
 			if (this.mode === Class.MODE.sandbox) {
-				resolved = _root + resolved;
+				resolved = _ROOT + resolved;
 			}
 
 			if (callback !== null) {
@@ -156,7 +156,7 @@ lychee.define('fertilizer.data.Filesystem').tags({
 
 			var resolved = _path.normalize(this.root + path);
 			if (this.mode === Class.MODE.sandbox) {
-				resolved = _root + resolved;
+				resolved = _ROOT + resolved;
 			}
 
 
@@ -215,7 +215,7 @@ lychee.define('fertilizer.data.Filesystem').tags({
 
 			var resolved = _path.normalize(this.root + path);
 			if (this.mode === Class.MODE.sandbox) {
-				resolved = _root + resolved;
+				resolved = _ROOT + resolved;
 			}
 
 			if (callback !== null) {
@@ -261,7 +261,7 @@ lychee.define('fertilizer.data.Filesystem').tags({
 
 
 			if (this.mode === Class.MODE.sandbox) {
-				_create_directory(_root + this.root + _path.dirname(path));
+				_create_directory(_ROOT + this.root + _path.dirname(path));
 			} else {
 				_create_directory(this.root + _path.dirname(path));
 			}
@@ -270,7 +270,7 @@ lychee.define('fertilizer.data.Filesystem').tags({
 			var info     = this.info(_path.dirname(path));
 			var resolved = _path.normalize(this.root + path);
 			if (this.mode === Class.MODE.sandbox) {
-				resolved = _root + resolved;
+				resolved = _ROOT + resolved;
 			}
 
 			if (resolved !== null && info !== null && info.type === 'directory') {
@@ -323,7 +323,7 @@ lychee.define('fertilizer.data.Filesystem').tags({
 
 			var resolved = _path.normalize(this.root + path);
 			if (this.mode === Class.MODE.sandbox) {
-				resolved = _path.normalize(_root + resolved);
+				resolved = _ROOT + resolved;
 			}
 
 			if (resolved !== null) {
