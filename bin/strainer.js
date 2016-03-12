@@ -93,6 +93,7 @@ var _settings = (function() {
 
 		settings.action = 'init';
 
+	// stash /projects/boilerplate
 	} else if (raw_arg0 === 'stash') {
 
 		settings.action = 'stash';
