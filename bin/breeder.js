@@ -156,8 +156,8 @@ var _bootup = function(settings) {
 		timeout: 1000,
 		packages: [
 			new lychee.Package('lychee',     '/libraries/lychee/lychee.pkg'),
-			new lychee.Package('breeder',    '/libraries/breeder/lychee.pkg'),
-			new lychee.Package('fertilizer', '/libraries/fertilizer/lychee.pkg')
+			new lychee.Package('fertilizer', '/libraries/fertilizer/lychee.pkg'),
+			new lychee.Package('breeder',    '/libraries/breeder/lychee.pkg')
 		],
 		tags:     {
 			platform: [ 'node' ]
