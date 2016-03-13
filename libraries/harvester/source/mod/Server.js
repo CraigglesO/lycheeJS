@@ -163,12 +163,12 @@ lychee.define('harvester.mod.Server').requires([
 				if (lines.length > 0) {
 
 					if (_LOG_PROJECT !== project) {
-						console.log('harvester.mod.Server: LOG (' + project + ')');
+						console.log('harvester.mod.Server: LOG ("' + project + '")');
 						_LOG_PROJECT = project;
 					}
 
 					lines.forEach(function(message) {
-						console.log('                      "' + message.trim() + '"');
+						console.log('                      ' + message.trim());
 					});
 
 				}
@@ -204,12 +204,12 @@ lychee.define('harvester.mod.Server').requires([
 				if (lines.length > 0) {
 
 					if (_LOG_PROJECT !== project) {
-						console.error('harvester.mod.Server: ERROR (' + project + ')');
+						console.error('harvester.mod.Server: ERROR ("' + project + '")');
 						_LOG_PROJECT = project;
 					}
 
 					lines.forEach(function(message) {
-						console.error('                      "' + message.trim() + '"');
+						console.error('                      ' + message.trim());
 					});
 
 				}
