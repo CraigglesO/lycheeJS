@@ -18,7 +18,6 @@
 # Whitelisted git-tracked projects
 !/projects/emoji-chat
 !/projects/text-chat
-!/projects/blitzkrieg
 !/projects/boilerplate
 !/projects/cultivator
 !/projects/mode7
