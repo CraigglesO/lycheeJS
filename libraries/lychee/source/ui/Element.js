@@ -26,8 +26,8 @@ lychee.define('lychee.ui.Element').requires([
 		var layout  = [
 			this.getEntity('@order'),
 			this.getEntity('@label'),
-			this.getEntity('@options-next'),
-			this.getEntity('@options-prev')
+			this.getEntity('@options-prev'),
+			this.getEntity('@options-next')
 		];
 
 
@@ -97,26 +97,41 @@ lychee.define('lychee.ui.Element').requires([
 		}
 
 
-		var order_width = 0;
+		var entities = this.entities;
+		var index    = -1;
+		var order_w  = 0;
 
-		entity      = layout[0];
-		order_width = entity.width;
-		entity.position.x = x1 + 16 + order_width / 2;
+
+		entity            = layout[0];
+		order_w           = entity.width;
+		entity.position.x = x1 + 16 + order_w / 2;
 		entity.position.y = y1 + 32 - 1;
 
-		entity = layout[1];
-		entity.position.x = x1 + 32 + order_width + entity.width / 2;
+		entity            = layout[1];
+		entity.position.x = x1 + 32 + order_w + entity.width / 2;
 		entity.position.y = y1 + 32;
 
-		entity = layout[2];
+		entity            = layout[2];
+		entity.width      = 96;
+		entity.position.x = x1 + 16 + entity.width / 2;
+		entity.position.y = y2 - 32;
+
+		var index = entities.indexOf(entity);
+		if (index !== -1) {
+			entities.splice(index, 1);
+			entities.push(entity);
+		}
+
+		entity = layout[3];
 		entity.width      = 96;
 		entity.position.x = x2 - 16 - entity.width / 2;
 		entity.position.y = y2 - 32;
 
-		entity = layout[3];
-		entity.width      = 96;
-		entity.position.x = x1 + 16 + entity.width / 2;
-		entity.position.y = y2 - 32;
+		var index = entities.indexOf(entity);
+		if (index !== -1) {
+			entities.splice(index, 1);
+			entities.push(entity);
+		}
 
 	};
 
