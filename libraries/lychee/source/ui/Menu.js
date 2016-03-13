@@ -109,6 +109,10 @@ lychee.define('lychee.ui.Menu').requires([
 
 				if (name === 'tab') {
 
+					if (focus !== null) {
+						focus.trigger('blur');
+					}
+
 					index += 1;
 					index %= entities.length;
 					focus  = entities[index];
@@ -120,6 +124,10 @@ lychee.define('lychee.ui.Menu').requires([
 					return true;
 
 				} else if (name === 'shift-tab') {
+
+					if (focus !== null) {
+						focus.trigger('blur');
+					}
 
 					index -= 1;
 					index  = index < 0 ? 0 : index;

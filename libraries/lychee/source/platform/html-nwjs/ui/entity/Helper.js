@@ -164,19 +164,8 @@ lychee.define('lychee.ui.entity.Helper').tags({
 		 * INITIALIZATION
 		 */
 
-		this.unbind('touch');
-		this.bind('touch', function() {
-
-			var value = this.value;
-			if (value !== null) {
-
-				var result = _help(this.value);
-				if (result === true) {
-					this.trigger('change', [ this.value ]);
-				}
-
-			}
-
+		this.bind('change', function(value) {
+			return _help(value);
 		}, this);
 
 	};
