@@ -115,7 +115,7 @@ lychee.define('lychee.net.Client').tags({
 				this.__socket = new WebSocket(url, [ 'lycheejs' ]);
 
 				this.__socket.onopen = function() {
-					that.trigger('connect', []);
+					that.trigger('connect');
 				};
 
 				this.__socket.onmessage = function(event) {
@@ -124,7 +124,7 @@ lychee.define('lychee.net.Client').tags({
 
 				this.__socket.onclose = function() {
 					that.__socket = null;
-					that.trigger('disconnect', []);
+					that.trigger('disconnect');
 				};
 
 				this.__socket.ontimeout = function() {
@@ -167,7 +167,7 @@ lychee.define('lychee.net.Client').tags({
 
 				} else {
 
-					this.trigger('disconnect', []);
+					this.trigger('disconnect');
 					this.__isConnected = false;
 
 				}

@@ -150,7 +150,7 @@ lychee.define('lychee.ui.Layer').requires([
 
 				var entity = this.entities[e];
 				if (typeof entity.trigger === 'function') {
-					entity.trigger('relayout', []);
+					entity.trigger('relayout');
 				}
 
 
@@ -648,7 +648,7 @@ lychee.define('lychee.ui.Layer').requires([
 					this.entities.push(entity);
 
 					if (this.__relayout === true) {
-						this.trigger('relayout', []);
+						this.trigger('relayout');
 					}
 
 					return true;
@@ -764,7 +764,7 @@ lychee.define('lychee.ui.Layer').requires([
 				if (found === true) {
 
 					if (this.__relayout === true) {
-						this.trigger('relayout', []);
+						this.trigger('relayout');
 					}
 
 				}
@@ -846,7 +846,7 @@ lychee.define('lychee.ui.Layer').requires([
 				this.offset.z = typeof offset.z === 'number' ? offset.z : this.offset.z;
 
 				if (this.__relayout === true) {
-					this.trigger('relayout', []);
+					this.trigger('relayout');
 				}
 
 

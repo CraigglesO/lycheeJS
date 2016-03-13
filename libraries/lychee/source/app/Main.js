@@ -450,7 +450,7 @@ lychee.define('lychee.app.Main').requires([
 			}, this);
 
 			flow.bind('complete', function() {
-				this.trigger('init', []);
+				this.trigger('init');
 			}, this);
 
 			flow.bind('error', function() {

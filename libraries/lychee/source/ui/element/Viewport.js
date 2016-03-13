@@ -170,7 +170,7 @@ lychee.define('lychee.ui.element.Viewport').requires([
 			}
 
 
-			this.trigger('relayout', []);
+			this.trigger('relayout');
 
 		}, this);
 

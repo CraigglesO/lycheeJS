@@ -246,7 +246,7 @@ lychee.define('lychee.net.Server').tags({
 						}, remote);
 
 						remote.connect(socket);
-						remote.trigger('connect', []);
+						remote.trigger('connect');
 
 					}
 

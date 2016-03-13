@@ -61,7 +61,7 @@ lychee.define('lychee.ui.Element').requires([
 						entity.position.x =  1/4 * (this.width - 32);
 						entity.position.y =   y1 + offset + entity.height / 2;
 						entity.visible    = true;
-						entity.trigger('relayout', []);
+						entity.trigger('relayout');
 
 						boundary = Math.max(label.height, entity.height);
 						label.position.y  = y1 + offset + boundary / 2;
@@ -75,7 +75,7 @@ lychee.define('lychee.ui.Element').requires([
 						entity.position.x = 0;
 						entity.position.y = y1 + offset + entity.height / 2;
 						entity.visible    = true;
-						entity.trigger('relayout', []);
+						entity.trigger('relayout');
 
 						boundary = entity.height;
 						entity.position.y = y1 + offset + boundary / 2;

@@ -155,14 +155,14 @@ lychee.define('breeder.Main').requires([
 
 		init: function() {
 
-			this.trigger('load', []);
-			this.trigger('init', []);
+			this.trigger('load');
+			this.trigger('init');
 
 		},
 
 		destroy: function() {
 
-			this.trigger('destroy', []);
+			this.trigger('destroy');
 
 		}
 

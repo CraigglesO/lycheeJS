@@ -168,7 +168,7 @@ lychee.define('lychee.ui.entity.Input').includes([
 
 			} else if (key === 'enter') {
 
-				this.trigger('blur', []);
+				this.trigger('blur');
 
 				return;
 

@@ -560,8 +560,8 @@ lychee.define('harvester.Main').requires([
 
 		init: function() {
 
-			this.trigger('load', []);
-			this.trigger('init', []);
+			this.trigger('load');
+			this.trigger('init');
 
 		},
 
@@ -587,7 +587,7 @@ lychee.define('harvester.Main').requires([
 			}
 
 
-			this.trigger('destroy', []);
+			this.trigger('destroy');
 
 		},
 

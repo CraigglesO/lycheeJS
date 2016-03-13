@@ -85,7 +85,7 @@ lychee.define('lychee.app.State').requires([
 
 			for (var id in this.__layers) {
 				this.__layers[id].setPosition(position);
-				this.__layers[id].trigger('relayout', []);
+				this.__layers[id].trigger('relayout');
 			}
 
 		}

@@ -150,7 +150,7 @@ lychee.define('lychee.app.Layer').requires([
 
 				var entity = this.entities[e];
 				if (typeof entity.trigger === 'function') {
-					entity.trigger('relayout', []);
+					entity.trigger('relayout');
 				}
 
 
@@ -617,7 +617,7 @@ lychee.define('lychee.app.Layer').requires([
 					this.entities.push(entity);
 
 					if (this.__relayout === true) {
-						this.trigger('relayout', []);
+						this.trigger('relayout');
 					}
 
 
@@ -733,7 +733,7 @@ lychee.define('lychee.app.Layer').requires([
 				if (found === true) {
 
 					if (this.__relayout === true) {
-						this.trigger('relayout', []);
+						this.trigger('relayout');
 					}
 
 				}

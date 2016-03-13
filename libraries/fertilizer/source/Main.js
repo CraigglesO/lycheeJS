@@ -249,13 +249,13 @@ lychee.define('fertilizer.Main').requires([
 
 		init: function() {
 
-			this.trigger('load', []);
+			this.trigger('load');
 
 		},
 
 		destroy: function() {
 
-			this.trigger('destroy', []);
+			this.trigger('destroy');
 
 		}
 

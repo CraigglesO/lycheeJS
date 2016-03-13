@@ -49,6 +49,19 @@ lychee.define('lychee.ui.entity.Button').includes([
 			this.trigger('change', [ this.value ]);
 		}, this);
 
+		this.bind('key', function(key, name, delta) {
+
+			if (key === 'enter' || key === 'space') {
+
+				this.trigger('blur');
+				this.trigger('change', [ this.value ]);
+
+				return;
+
+			}
+
+		}, this);
+
 		this.bind('focus', function() {
 			this.setState('active');
 		}, this);

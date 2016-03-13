@@ -205,10 +205,10 @@ lychee.define('lychee.net.Client').tags({
 
 						that.__socket.onclose = function() {
 							that.__socket = null;
-							that.trigger('disconnect', []);
+							that.trigger('disconnect');
 						};
 
-						that.trigger('connect', []);
+						that.trigger('connect');
 
 					}
 

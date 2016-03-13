@@ -254,13 +254,13 @@ lychee.define('Viewport').tags({
 
 	var _process_show = function() {
 
-		return this.trigger('show', []);
+		return this.trigger('show');
 
 	};
 
 	var _process_hide = function() {
 
-		return this.trigger('hide', []);
+		return this.trigger('hide');
 
 	};
 

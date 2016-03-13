@@ -218,7 +218,7 @@ lychee.define('lychee.ui.element.Network').requires([
 			}
 
 
-			this.trigger('relayout', []);
+			this.trigger('relayout');
 
 		}, this);
 
