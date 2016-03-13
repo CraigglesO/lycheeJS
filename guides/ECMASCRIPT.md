@@ -1,18 +1,10 @@
 
 # TODO
 
-- Expressions and Statements
-- Branches
-  - if / else
-  - switch / case
-- Loops
-  - for / while
-  - for in / for of
-- Garbage Collection
-  - Runtime Memory
-  - Heap Memory
-  - Garbage Creation and Deletion
-  - Fragmentation
+- Expressions
+- Statements (if/else, switch/case, for, for/in, for/of, while, do/while)
+-- Declarations (var, let, const)
+-- Others (debugger, export, import, label)
 
 
 # ECMAScript Guide for lycheeJS Developers
@@ -569,13 +561,49 @@ foo; // { x: 3, y: 1 }
 bar; // { x: 0, y: 1 }
 ```
 
+Variable declarations, whereever they occur, are processed before
+any code is executed. The scope of a variable declared with var
+is its current `execution context` which is either the enclosing
+function or, for variables declared any function, global.
+
+```javascript
+var foo = 3;
+
+(function() {
+
+	bar; // undefined
+	foo++;
+
+	var bar = 1;
+	for (var x = 0; x < 10; x++) {
+		bar++;
+	}
+
+	x;   // 9
+	bar; // 10
+
+	foo;   // 4
+	bar++; // 11
+
+})();
+```
+
 
 
 ### Block Scopes
 
-In ES6, there are Block Scopes available using the `let` keyword.
-Each variable is available only to its Definition Scope and cannot
-be resolved outside its own Block Scope.
+In ES6, there are Block Scopes available using the `let` or `const`
+keyword. Each variable is available only to its Definition Scope
+and cannot be resolved outside its own Block Scope.
+
+The `let` statement declares a block scope local variable,
+optionally initializing it to a value. It allows to declare
+variables that are limited to the block, statement or
+expression on which it is used.
+
+This behaviour is unlike the `var` keyword, which defines
+a variable globally, or locally to an entire function
+regardless of the block scope.
 
 ```javascript
 var outer = function() {
@@ -599,6 +627,29 @@ var outer = function() {
 };
 
 outer();
+```
+
+The `const` statement creates a read-only reference to a value.
+That means the value it holds cannot be reassigned, the value
+itself can still be mutable. It creates a constant that can
+either be global or local to the function in which it is
+declared.
+
+An initializer for a constant is required. That means it is
+necessary to specify the value in the same statement in which
+it was declared. Constants are block-scoped like variables defined
+using the `let` statement.
+
+```javascript
+const MY_FOO = 1337;
+const MY_BAR = { qux: 13, doo: 37 };
+
+MY_FOO = 13.37;       // This fails silently
+MY_BAR = { qux: 13 }; // This fails silently
+
+
+const MY_FOO = 13.37; // throws an Error
+MY_BAR.qux   = 13.37; // Object properties are not protected, so this works
 ```
 
 
@@ -769,15 +820,4 @@ for (var a = 0, al = array.length; a < al; a++) {
 
 }
 ```
-
-
-
-## Expressions and Statements
-
-In ES5, all expressions produce a value and can be written whereever
-a value is expected.
-
-
-
-### Expressions
 

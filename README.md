@@ -137,6 +137,7 @@ Please let us know if we can improve anything in these documents [by opening an 
 
 - [Contribution Guide](./guides/CONTRIBUTION.md)
 - [Codestyle Guide](./guides/CODESTYLE.md)
+- [ECMAScript Guide](./guides/ECMASCRIPT.md)
 - [Release Guide](./guides/RELEASE.md)
 
 
