@@ -117,9 +117,9 @@ lychee.define('breeder.Template').requires([
 				_LIB.copy(fs, '/libraries/lychee/build/node-sdl/core.js');
 
 
-				// _TPL.copy(fs, '/source/Main.js');
-				// _TPL.copy(fs, '/source/net/Server.js');
-				// _TPL.copy(fs, '/source/net/Client.js');
+				_TPL.copy(fs, '/source/Main.js');
+				_TPL.copy(fs, '/source/net/Server.js');
+				_TPL.copy(fs, '/source/net/Client.js');
 				_TPL.copy(fs, '/source/net/client/Ping.js');
 				_TPL.copy(fs, '/source/net/remote/Ping.js');
 				_TPL.copy(fs, '/source/state/Welcome.js');
@@ -130,23 +130,12 @@ lychee.define('breeder.Template').requires([
 				_TPL.copy(fs, '/index.html');
 
 
-				var id     = fs.root.split('/').pop();
-				var pkg    = _TPL.read('/lychee.pkg').toString();
-				var main   = _TPL.read('/source/Main.js').toString();
-				var client = _TPL.read('/source/net/Client.js').toString();
-				var server = _TPL.read('/source/net/Server.js').toString();
+				var id  = fs.root.split('/').pop();
+				var pkg = _TPL.read('/lychee.pkg').toString();
 
+				pkg = this.replace(pkg, { id: id });
 
-				pkg    = this.replace(pkg,    { id: id });
-				main   = this.replace(main,   { id: id });
-				client = this.replace(client, { id: id });
-				server = this.replace(server, { id: id });
-
-
-				fs.write('/lychee.pkg',           pkg);
-				fs.write('/source/Main.js',       main);
-				fs.write('/source/net/Client.js', client);
-				fs.write('/source/net/Server.js', server);
+				fs.write('/lychee.pkg', pkg);
 
 
 				oncomplete(true);

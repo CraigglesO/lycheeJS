@@ -31,13 +31,13 @@ lychee.define('app.net.Server').requires([
 				limit: 64
 			}));
 
-			console.log('(Chat) app.net.Server: Remote connected (' + remote.host + ':' + remote.port + ')');
+			console.log('app.net.Server: Remote connected (' + remote.host + ':' + remote.port + ')');
 
 		}, this);
 
 		this.bind('disconnect', function(remote) {
 
-			console.log('(Chat) app.net.Server: Remote disconnected (' + remote.host + ':' + remote.port + ')');
+			console.log('app.net.Server: Remote disconnected (' + remote.host + ':' + remote.port + ')');
 
 		}, this);
 

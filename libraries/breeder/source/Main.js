@@ -18,9 +18,9 @@ lychee.define('breeder.Main').requires([
 
 	var _defaults = {
 
-		action:   null,
-		project:  null,
-		library:  null
+		action:  null,
+		project: null,
+		library: null
 
 	};
 

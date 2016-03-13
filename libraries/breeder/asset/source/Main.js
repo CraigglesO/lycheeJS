@@ -15,9 +15,6 @@ lychee.define('app.Main').requires([
 
 		var settings = lychee.extend({
 
-			// Is configured in lychee.pkg
-			// client: '/api/Server?identifier=/projects/${id}',
-
 			input: {
 				delay:       0,
 				key:         true,
@@ -32,7 +29,7 @@ lychee.define('app.Main').requires([
 			},
 
 			renderer: {
-				id:     '${id}',
+				id:     'app',
 				width:  null,
 				height: null
 			},
