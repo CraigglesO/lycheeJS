@@ -31,7 +31,7 @@ lychee.define('app.net.Client').requires([
 			this.addService(new _Chat('chat', this));
 
 			if (lychee.debug === true) {
-				console.log('(Chat) app.net.Client: Remote connected');
+				console.log('app.net.Client: Remote connected');
 			}
 
 		}, this);
@@ -39,7 +39,7 @@ lychee.define('app.net.Client').requires([
 		this.bind('disconnect', function(code) {
 
 			if (lychee.debug === true) {
-				console.log('(Chat) app.net.Client: Remote disconnected (' + code + ')');
+				console.log('app.net.Client: Remote disconnected (' + code + ')');
 			}
 
 		}, this);

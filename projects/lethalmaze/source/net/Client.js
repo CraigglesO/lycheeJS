@@ -31,7 +31,7 @@ lychee.define('game.net.Client').requires([
 			this.addService(new _Controller(this));
 
 			if (lychee.debug === true) {
-				console.log('(Lethal Maze) game.net.Client: Remote connected');
+				console.log('game.net.Client: Remote connected');
 			}
 
 		}, this);
@@ -39,7 +39,7 @@ lychee.define('game.net.Client').requires([
 		this.bind('disconnect', function(code) {
 
 			if (lychee.debug === true) {
-				console.log('(Lethal Maze) game.net.Client: Remote disconnected (' + code + ')');
+				console.log('game.net.Client: Remote disconnected (' + code + ')');
 			}
 
 		}, this);
