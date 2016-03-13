@@ -33,6 +33,7 @@ lychee.define('lychee.ui.Menu').requires([
 		this.value   = 'Welcome';
 
 		this.__boundary = 0;
+		this.__focus    = null;
 		this.__helpers  = [];
 		this.__states   = { 'default': null, 'active': null };
 
@@ -94,6 +95,56 @@ lychee.define('lychee.ui.Menu').requires([
 				}
 
 			}
+
+		}, this);
+
+		this.bind('key', function(key, name, delta) {
+
+			if (this.state === 'active') {
+
+				var entities = [ this.getEntity('@select') ].concat(this.__helpers);
+				var focus    = this.__focus;
+				var index    = entities.indexOf(focus);
+
+
+				if (name === 'tab') {
+
+					index += 1;
+					index %= entities.length;
+					focus  = entities[index];
+					focus.trigger('focus');
+
+					this.__focus = focus;
+
+
+					return true;
+
+				} else if (name === 'shift-tab') {
+
+					index -= 1;
+					index  = index < 0 ? 0 : index;
+					focus  = entities[index];
+					focus.trigger('focus');
+
+					this.__focus = focus;
+
+
+					return true;
+
+				} else if (focus !== null) {
+
+					focus.trigger('key', [ key, name, delta ]);
+
+
+					return true;
+
+				}
+
+
+			}
+
+
+			return false;
 
 		}, this);
 
@@ -171,6 +222,9 @@ lychee.define('lychee.ui.Menu').requires([
 		}, this);
 
 
+		this.__focus = this.getEntity('@select');
+
+
 		this.setFont(settings.font);
 		this.setHelpers(settings.helpers);
 		this.setLabel(settings.label);
@@ -225,6 +279,18 @@ lychee.define('lychee.ui.Menu').requires([
 
 
 			return data;
+
+		},
+
+		update: function(clock, delta) {
+
+			var helpers = this.__helpers;
+			for (var h = 0, hl = helpers.length; h < hl; h++) {
+				helpers[h].update(clock, delta);
+			}
+
+
+			lychee.ui.Layer.prototype.update.call(this, clock, delta);
 
 		},
 

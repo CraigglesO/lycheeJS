@@ -163,25 +163,25 @@ lychee.define('lychee.ui.State').requires([
 
 			input.bind('escape', function(delta) {
 
-				var entity = this.queryLayer('ui', 'menu');
-				if (entity !== null) {
+				var menu = this.queryLayer('ui', 'menu');
+				if (menu !== null) {
 
-					if (entity.state === 'active') {
-
-						entity.trigger('blur');
+					if (menu.state === 'active') {
 
 						if (this.__focus !== null) {
 							this.__focus.trigger('blur');
 						}
 
-						this.__focus = this.queryLayer('ui', entity.value.toLowerCase());
+						this.__focus = this.queryLayer('ui', menu.value.toLowerCase());
 						this.__focus.trigger('focus');
 
 					} else {
 
-						entity.trigger('focus');
+						if (this.__focus !== null) {
+							this.__focus.trigger('blur');
+						}
 
-						this.__focus = entity.getEntity('select');
+						this.__focus = menu;
 						this.__focus.trigger('focus');
 
 					}
@@ -240,7 +240,6 @@ lychee.define('lychee.ui.State').requires([
 			var menu = this.queryLayer('ui', 'menu');
 			if (_MENU === null && menu !== null) {
 
-
 				_MENU = menu;
 
 			} else if (_MENU !== null && menu !== null) {
@@ -265,7 +264,22 @@ lychee.define('lychee.ui.State').requires([
 
 				var entity = this.queryLayer('ui', value.toLowerCase());
 				if (entity !== null) {
+
 					_on_fade.call(this, value.toLowerCase());
+
+
+					var menu = this.queryLayer('ui', 'menu');
+					if (menu.state === 'default') {
+
+						if (this.__focus !== null) {
+							this.__focus.trigger('blur');
+						}
+
+						this.__focus = this.queryLayer('ui', menu.value.toLowerCase());
+						this.__focus.trigger('focus');
+
+					}
+
 				}
 
 			}, this);
@@ -284,6 +298,15 @@ lychee.define('lychee.ui.State').requires([
 				_on_fade.call(this, data);
 			} else {
 				_on_fade.call(this, 'welcome');
+			}
+
+
+			var menu = this.queryLayer('ui', 'menu');
+			if (menu !== null) {
+
+				this.__focus = this.queryLayer('ui', menu.value.toLowerCase());
+				this.__focus.trigger('focus');
+
 			}
 
 

@@ -241,13 +241,12 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 			if (name === 'tab') {
 
-				var e = focus.entity !== null ? focus.entity : 0;
+				var e = focus.entity !== null ? entities.indexOf(focus.entity) : 0;
 
 				for (var el = entities.length; e < el; e++) {
 
 					var entity = entities[e];
-
-					if (e === focus.entity) {
+					if (entity === focus.entity) {
 
 						entity.trigger('blur');
 
@@ -255,7 +254,7 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 						var result = entity.trigger('focus');
 						if (result === true && entity.state === 'active') {
-							triggered = e;
+							triggered = entity;
 							break;
 						}
 
@@ -278,13 +277,12 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 			} else if (name === 'shift-tab') {
 
-				var e = focus.entity !== null ? focus.entity : entities.length - 1;
+				var e = focus.entity !== null ? entities.indexOf(focus.entity) : entities.length - 1;
 
 				for (var el = entities.length; e >= 0; e--) {
 
 					var entity = entities[e];
-
-					if (e === focus.entity) {
+					if (entity === focus.entity) {
 
 						entity.trigger('blur');
 
@@ -292,7 +290,7 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 						var result = entity.trigger('focus');
 						if (result === true && entity.state === 'active') {
-							triggered = e;
+							triggered = entity;
 							break;
 						}
 
@@ -528,9 +526,15 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 		this.bind('key', function(key, name, delta) {
 
+			var focus = this.__focus;
+
+
 			if (key === 'tab') {
 
 				_on_tab.call(this, name);
+
+
+				return true;
 
 			} else if (key === 'page-up') {
 
@@ -539,6 +543,9 @@ lychee.define('lychee.ui.Blueprint').requires([
 					y: 128
 				});
 
+
+				return true;
+
 			} else if (key === 'page-down') {
 
 				_on_swipe.call(this, null, 'start');
@@ -546,7 +553,23 @@ lychee.define('lychee.ui.Blueprint').requires([
 					y: -128
 				});
 
+
+				return true;
+
+			} else if (focus.element !== null) {
+
+				var entity = focus.entity;
+				if (entity !== null) {
+					entity.trigger('key', [ key, name, delta ]);
+				}
+
+
+				return true;
+
 			}
+
+
+			return false;
 
 		}, this);
 

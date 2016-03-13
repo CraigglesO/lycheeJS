@@ -45,6 +45,11 @@ lychee.define('app.state.Welcome').includes([
 			lychee.app.State.prototype.deserialize.call(this, _blob);
 
 
+			this.queryLayer('ui', 'menu').setHelpers([
+				'refresh'
+			]);
+
+
 			this.queryLayer('ui', 'welcome > dialog').bind('change', function(value) {
 
 				if (this.main.getState(value) !== null) {

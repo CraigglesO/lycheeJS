@@ -51,14 +51,20 @@ lychee.define('lychee.ui.entity.Button').includes([
 
 		this.bind('key', function(key, name, delta) {
 
-			if (key === 'enter' || key === 'space') {
+			if (this.state === 'active') {
 
-				this.trigger('blur');
-				this.trigger('change', [ this.value ]);
+				if (key === 'enter' || key === 'space') {
 
-				return;
+					this.trigger('change', [ this.value ]);
+
+					return true;
+
+				}
 
 			}
+
+
+			return false;
 
 		}, this);
 
