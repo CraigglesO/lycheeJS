@@ -16,7 +16,8 @@
 
 
 # Whitelisted git-tracked projects
-!/projects/chat
+!/projects/emoji-chat
+!/projects/text-chat
 !/projects/blitzkrieg
 !/projects/boilerplate
 !/projects/cultivator
