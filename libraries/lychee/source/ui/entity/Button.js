@@ -15,7 +15,14 @@ lychee.define('lychee.ui.entity.Button').includes([
 		this.font  = _font;
 		this.value = null;
 
-		this.__pulse = {
+		this.__cursor = {
+			active:   false,
+			alpha:    0.0,
+			duration: 600,
+			start:    null,
+			pingpong: false
+		};
+		this.__pulse  = {
 			active:   false,
 			duration: 300,
 			start:    null,
@@ -140,6 +147,25 @@ lychee.define('lychee.ui.entity.Button').includes([
 			}
 
 
+			var cursor = this.__cursor;
+			if (cursor.active === true) {
+
+				if (cursor.start === null) {
+					cursor.start = clock;
+				}
+
+
+				var ct = (clock - cursor.start) / cursor.duration;
+				if (ct <= 1) {
+					cursor.alpha = cursor.pingpong === true ? (1 - ct) : ct;
+				} else {
+					cursor.start    = clock;
+					cursor.pingpong = !cursor.pingpong;
+				}
+
+			}
+
+
 			lychee.ui.Entity.prototype.update.call(this, clock, delta);
 
 		},
@@ -161,7 +187,6 @@ lychee.define('lychee.ui.entity.Button').includes([
 				renderer.setAlpha(alpha);
 			}
 
-
 			renderer.drawBox(
 				x - hwidth,
 				y - hheight,
@@ -170,6 +195,35 @@ lychee.define('lychee.ui.entity.Button').includes([
 				'#545454',
 				true
 			);
+
+
+			var cursor = this.__cursor;
+			if (cursor.active === true) {
+
+				renderer.drawBox(
+					x - hwidth,
+					y - hheight,
+					x + hwidth,
+					y + hheight,
+					'#32afe5',
+					false,
+					2
+				);
+
+				renderer.setAlpha(cursor.alpha);
+
+				renderer.drawBox(
+					x - hwidth,
+					y - hheight,
+					x + hwidth,
+					y + hheight,
+					'#32afe5',
+					true
+				);
+
+				renderer.setAlpha(alpha);
+
+			}
 
 
 			var pulse = this.__pulse;
@@ -186,8 +240,13 @@ lychee.define('lychee.ui.entity.Button').includes([
 					true
 				);
 
-				renderer.setAlpha(1.0);
+				renderer.setAlpha(alpha);
 
+			}
+
+
+			if (alpha !== 1) {
+				renderer.setAlpha(alpha);
 			}
 
 
@@ -260,13 +319,22 @@ lychee.define('lychee.ui.entity.Button').includes([
 			var result = lychee.ui.Entity.prototype.setState.call(this, id);
 			if (result === true) {
 
-				var pulse = this.__pulse;
+				var cursor = this.__cursor;
+				var pulse  = this.__pulse;
+
 
 				if (id === 'active') {
 
-					pulse.alpha  = 1.0;
-					pulse.start  = null;
-					pulse.active = true;
+					cursor.start  = null;
+					cursor.active = true;
+
+					pulse.alpha   = 1.0;
+					pulse.start   = null;
+					pulse.active  = true;
+
+				} else {
+
+					cursor.active = false;
 
 				}
 
