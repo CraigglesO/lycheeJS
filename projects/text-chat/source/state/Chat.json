@@ -7,7 +7,7 @@
 				"entities": [{
 					"constructor": "lychee.ui.sprite.Background",
 					"arguments": [{
-						"color": "#404844"
+						"color": "#405050"
 					}]
 				}],
 				"map": {
@@ -22,7 +22,7 @@
 				"entities": [{
 					"constructor": "lychee.ui.sprite.Background",
 					"arguments": [{
-						"color": "#2f3736",
+						"color": "#363f3e",
 						"width": 640,
 						"height": 192
 					}]

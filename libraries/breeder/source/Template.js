@@ -20,6 +20,7 @@ lychee.define('breeder.Template').requires([
 		var tmp   = path.split('/');
 		var tmp_s = '';
 		var tmp_c = '';
+		var tmp_i = '';
 
 		var code  = ('' + this).toString().split('\n');
 		var id    = tmp.slice(0, 3).join('/') + '/' + tmp.slice(5, 6).join('/');
@@ -29,28 +30,31 @@ lychee.define('breeder.Template').requires([
 
 		if (platform === 'html') {
 			tmp_s = '\t<script src="/libraries/';
-			tmp_c = '\t<script src="%path%"></script>';
+			tmp_c = '\t<script src="' + path + '"></script>';
+			tmp_i = '\t\tlychee.inject(lychee.ENVIRONMENTS[\'' + id + '\']);';
 		} else if (platform === 'node') {
 			tmp_s = 'require(_root + \'/libraries/';
-			tmp_c = 'require(_root + \'%path%\');';
+			tmp_c = 'require(_root + \'' + path + '\');';
+			tmp_i = '\tlychee.inject(lychee.ENVIRONMENTS[\'' + id + '\']);';
 		}
 
 
 		code.forEach(function(line, i) {
 
 			var str = line.trim();
-			if (str.substr(0, tmp_s.length) === tmp_s) {
+			var cmp = tmp_s.trim();
+			if (str.substr(0, cmp.length) === cmp) {
 				index.include = i;
 			}
 
-			if (str === tmp_c.trim().replace('%path%', path)) {
+			if (str === tmp_c.trim()) {
 				found.include = true;
 			}
 
 		});
 
-		if (found.include === false) {
-			code.splice(index.include + 1, 0, tmp_c.replace('%path%', path));
+		if (found.include === false && index.include >= 0) {
+			code.splice(index.include + 1, 0, tmp_c);
 		}
 
 
@@ -60,19 +64,19 @@ lychee.define('breeder.Template').requires([
 			if (str.substr(0, 14) === 'lychee.inject(') {
 				index.inject = i;
 			} else if (str.substr(0, 15) === 'lychee.envinit(' && index.inject === -1) {
-				index.inject = i;
+				index.inject = i - 1;
 			} else if (str.substr(0, 15) === 'lychee.pkginit(' && index.inject === -1) {
-				index.inject = i;
+				index.inject = i - 1;
 			}
 
-			if (str === 'lychee.inject(lychee.ENVIRONMENTS[\'' + id + '\']);') {
+			if (str === tmp_i.trim()) {
 				found.inject = true;
 			}
 
 		});
 
-		if (found.inject === false) {
-			code.splice(index.inject + 1, 0, '\tlychee.inject(lychee.ENVIRONMENTS[\'' + id + '\']);');
+		if (found.inject === false && index.inject >= 0) {
+			code.splice(index.inject + 1, 0, tmp_i);
 		}
 
 
@@ -106,11 +110,12 @@ lychee.define('breeder.Template').requires([
 				fs.chmod('/harvester.js', '775');
 
 
-				_LIB.copy(fs, '/libraries/lychee/build/node/core.js');
-				_LIB.copy(fs, '/libraries/lychee/build/node/dist/index.js');
-
 				_LIB.copy(fs, '/libraries/lychee/build/html/core.js');
-				_LIB.copy(fs, '/libraries/lychee/build/html/dist/index.js');
+				_LIB.copy(fs, '/libraries/lychee/build/html-nwjs/core.js');
+				_LIB.copy(fs, '/libraries/lychee/build/html-webview/core.js');
+				_LIB.copy(fs, '/libraries/lychee/build/node/core.js');
+				_LIB.copy(fs, '/libraries/lychee/build/node-sdl/core.js');
+
 
 				// _TPL.copy(fs, '/source/Main.js');
 				// _TPL.copy(fs, '/source/net/Server.js');
@@ -178,6 +183,24 @@ lychee.define('breeder.Template').requires([
 				};
 
 
+				tmp = fs.read('/index.html');
+				_LIB.dir(lib + '/build/html').forEach(function(target) {
+					copy('html', target);
+				});
+
+				if (tmp !== null) {
+					fs.write('/index.html', tmp);
+				}
+
+				_LIB.dir(lib + '/build/html-nwjs').forEach(function(target) {
+					copy('html-nwjs', target);
+				});
+
+				_LIB.dir(lib + '/build/html-webview').forEach(function(target) {
+					copy('html-webview', target);
+				});
+
+
 				tmp = fs.read('/harvester.js');
 				_LIB.dir(lib + '/build/node').forEach(function(target) {
 					copy('node', target);
@@ -187,15 +210,9 @@ lychee.define('breeder.Template').requires([
 					fs.write('/harvester.js', tmp);
 				}
 
-
-				tmp = fs.read('/index.html');
-				_LIB.dir(lib + '/build/html').forEach(function(target) {
-					copy('html', target);
+				_LIB.dir(lib + '/build/node-sdl').forEach(function(target) {
+					copy('node-sdl', target);
 				});
-
-				if (tmp !== null) {
-					fs.write('/index.html', tmp);
-				}
 
 
 				oncomplete(true);

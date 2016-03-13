@@ -2,17 +2,21 @@
 lychee.define('app.Main').requires([
 	'app.net.Client',
 	'app.net.Server',
-	'app.state.Chat'
+	'app.state.Welcome'
 ]).includes([
 	'lychee.app.Main'
 ]).exports(function(lychee, app, global, attachments) {
+
+	/*
+	 * IMPLEMENTATION
+	 */
 
 	var Class = function(data) {
 
 		var settings = lychee.extend({
 
 			// Is configured in lychee.pkg
-			// client: '/api/Server?identifier=/projects/text-chat',
+			// client: '/api/Server?identifier=/projects/emoji-chat',
 
 			input: {
 				delay:       0,
@@ -23,13 +27,12 @@ lychee.define('app.Main').requires([
 			},
 
 			jukebox: {
-				channels: 2,
-				music:    false,
-				sound:    true
+				music: true,
+				sound: true
 			},
 
 			renderer: {
-				id:     'text-chat',
+				id:     'emoji-chat',
 				width:  null,
 				height: null
 			},
@@ -65,12 +68,7 @@ lychee.define('app.Main').requires([
 
 			var appclient = this.settings.appclient || null;
 			if (appclient !== null) {
-
 				this.client = new app.net.Client(appclient, this);
-				this.client.bind('connect', function() {
-					this.changeState('chat');
-				}, this);
-
 			}
 
 			var appserver = this.settings.appserver || null;
@@ -79,7 +77,10 @@ lychee.define('app.Main').requires([
 			}
 
 
-			this.setState('chat', new app.state.Chat(this));
+			this.setState('welcome', new app.state.Welcome(this));
+
+
+			this.changeState('welcome');
 
 		}, this, true);
 

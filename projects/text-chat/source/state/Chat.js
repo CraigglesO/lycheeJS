@@ -43,27 +43,6 @@ lychee.define('app.state.Chat').requires([
 
 	};
 
-	var _get_message_diff = function(messages) {
-
-		var raw = this.__cache.messages.map(function(obj) {
-			return obj.message;
-		});
-
-
-		return messages.map(function(obj) {
-			return obj.message;
-		}).filter(function(msg) {
-
-			if (raw.indexOf(msg) !== -1) {
-				return false;
-			}
-
-			return true;
-
-		});
-
-	};
-
 	var _on_sync = function(room) {
 
 		var background = this.queryLayer('background', 'background');
@@ -75,7 +54,7 @@ lychee.define('app.state.Chat').requires([
 				background.addEffect(new lychee.effect.Color({
 					type:     lychee.effect.Color.TYPE.easeout,
 					duration: 300,
-					color:    '#404844'
+					color:    '#405050'
 				}));
 
 			}
@@ -119,31 +98,11 @@ lychee.define('app.state.Chat').requires([
 		}
 
 
-		var message_diff = _get_message_diff.call(this, room.messages);
-		if (message_diff.length > 0) {
+		room.messages.forEach(function(obj) {
+			this.__cache.messages.push(obj);
+		}.bind(this));
 
-			var found = false;
-
-			room.messages.forEach(function(obj) {
-
-				var index = this.__cache.messages.map(function(o) {
-					return o.message;
-				}).indexOf(obj.message);
-
-				if (index === -1) {
-					this.__cache.messages.push(obj);
-					found = true;
-				}
-
-			}.bind(this));
-
-
-			if (found === true) {
-				this.jukebox.play(_sounds.message);
-			}
-
-		}
-
+		this.jukebox.play(_sounds.message);
 
 		entity = this.queryLayer('ui', 'messages');
 		entity.trigger('relayout');
@@ -300,8 +259,13 @@ lychee.define('app.state.Chat').requires([
 				var service = this.client.getService('chat');
 
 				if (message !== null && service !== null) {
-					service.message(message.value);
+
+					message.value.split('\n').forEach(function(val) {
+						service.message(val);
+					});
+
 					message.setValue('');
+
 				}
 
 			}, this);
