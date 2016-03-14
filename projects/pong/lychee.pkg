@@ -73,15 +73,17 @@
 				]
 			},
 			"ui": {
-				"Background": [
-					"js",
-					"json",
-					"png"
-				],
-				"Welcome": [
-					"js",
-					"png"
-				]
+				"sprite": {
+					"Background": [
+						"js",
+						"json",
+						"png"
+					],
+					"Welcome": [
+						"js",
+						"png"
+					]
+				}
 			}
 		},
 		"tags": {}

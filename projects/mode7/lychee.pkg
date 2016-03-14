@@ -63,10 +63,6 @@
 					"js",
 					"png"
 				],
-				"Emblem": [
-					"js",
-					"png"
-				],
 				"Track": [
 					"circuit.json",
 					"js",

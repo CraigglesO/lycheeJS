@@ -1,10 +1,10 @@
 
-lychee.define('game.ui.Background').includes([
+lychee.define('game.ui.sprite.Background').includes([
 	'lychee.ui.sprite.Background'
 ]).exports(function(lychee, game, global, attachments) {
 
-	var _texture = attachments["png"];
-	var _config  = attachments["json"].buffer;
+	var _TEXTURE = attachments["png"];
+	var _CONFIG  = attachments["json"].buffer;
 
 
 
@@ -18,9 +18,9 @@ lychee.define('game.ui.Background').includes([
 
 
 		settings.color   = '#050a0d';
-		settings.texture = _texture;
-		settings.map     = _config.map;
-		settings.states  = _config.states;
+		settings.texture = _TEXTURE;
+		settings.map     = _CONFIG.map;
+		settings.states  = _CONFIG.states;
 		settings.state   = 'default';
 
 
@@ -40,7 +40,7 @@ lychee.define('game.ui.Background').includes([
 		serialize: function() {
 
 			var data = lychee.ui.sprite.Background.prototype.serialize.call(this);
-			data['constructor'] = 'game.ui.Background';
+			data['constructor'] = 'game.ui.sprite.Background';
 
 
 			return data;

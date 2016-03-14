@@ -1,11 +1,11 @@
 {
 	"layers": {
-		"background": {
+		"bg": {
 			"constructor": "lychee.app.Layer",
 			"arguments": [{}],
 			"blob": {
 				"entities": [{
-					"constructor": "game.ui.Background",
+					"constructor": "game.ui.sprite.Background",
 					"arguments": [{}]
 				}],
 				"map": {
@@ -65,7 +65,7 @@
 						}
 					}]
 				}, {
-					"constructor": "game.ui.Welcome",
+					"constructor": "game.ui.sprite.Welcome",
 					"arguments": [{
 						"position": {
 							"x": 0,

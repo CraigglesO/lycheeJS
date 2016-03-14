@@ -2,11 +2,11 @@
 lychee.define('game.state.Game').requires([
 	'lychee.effect.Color',
 	'lychee.effect.Shake',
+	'lychee.ui.entity.Label',
 	'game.entity.Ball',
 	'game.entity.Paddle',
-	'game.ui.Background',
-	'game.ui.Welcome',
-	'lychee.ui.entity.Label'
+	'game.ui.sprite.Background',
+	'game.ui.sprite.Welcome'
 ]).includes([
 	'lychee.app.State'
 ]).exports(function(lychee, game, global, attachments) {
@@ -139,7 +139,7 @@ lychee.define('game.state.Game').requires([
 					var height = renderer.height;
 
 
-					entity = this.queryLayer('background', 'background');
+					entity = this.queryLayer('bg', 'background');
 					entity.width  = width;
 					entity.height = height;
 
@@ -247,7 +247,7 @@ lychee.define('game.state.Game').requires([
 
 			var jukebox    = this.jukebox;
 			var renderer   = this.renderer;
-			var background = this.queryLayer('background', 'background');
+			var background = this.queryLayer('bg', 'background');
 			var gamelayer  = this.getLayer('game');
 			var uilayer    = this.getLayer('ui');
 
