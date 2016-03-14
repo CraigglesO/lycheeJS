@@ -18,7 +18,7 @@ lychee.define('lychee.ui.State').requires([
 	'lychee.app.State'
 ]).exports(function(lychee, global, attachments) {
 
-	var _blob = attachments["json"].buffer;
+	var _BLOB = attachments["json"].buffer;
 	var _MENU = null;
 
 
@@ -150,7 +150,7 @@ lychee.define('lychee.ui.State').requires([
 		lychee.app.State.call(this, main);
 
 
-		this.deserialize(_blob);
+		this.deserialize(_BLOB);
 
 
 

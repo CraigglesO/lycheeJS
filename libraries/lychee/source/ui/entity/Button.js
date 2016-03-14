@@ -3,7 +3,7 @@ lychee.define('lychee.ui.entity.Button').includes([
 	'lychee.ui.Entity'
 ]).exports(function(lychee, global, attachments) {
 
-	var _font = attachments["fnt"];
+	var _FONT = attachments["fnt"];
 
 
 	var Class = function(data) {
@@ -12,7 +12,7 @@ lychee.define('lychee.ui.entity.Button').includes([
 
 
 		this.label = null;
-		this.font  = _font;
+		this.font  = _FONT;
 		this.value = null;
 
 		this.__cursor = {

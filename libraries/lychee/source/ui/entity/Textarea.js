@@ -3,7 +3,7 @@ lychee.define('lychee.ui.entity.Textarea').includes([
 	'lychee.ui.Entity'
 ]).exports(function(lychee, global, attachments) {
 
-	var _font = attachments["fnt"];
+	var _FONT = attachments["fnt"];
 
 
 
@@ -90,7 +90,7 @@ lychee.define('lychee.ui.entity.Textarea').includes([
 		var settings = lychee.extend({}, data);
 
 
-		this.font  = _font;
+		this.font  = _FONT;
 		this.value = '';
 
 		this.__buffer  = null;

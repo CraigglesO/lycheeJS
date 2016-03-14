@@ -3,7 +3,7 @@ lychee.define('lychee.ui.entity.Slider').includes([
 	'lychee.ui.Entity'
 ]).exports(function(lychee, global, attachments) {
 
-	var _font = attachments["fnt"];
+	var _FONT = attachments["fnt"];
 
 
 
@@ -55,7 +55,7 @@ lychee.define('lychee.ui.entity.Slider').includes([
 		var settings = lychee.extend({}, data);
 
 
-		this.font  = _font;
+		this.font  = _FONT;
 		this.max   = 128;
 		this.min   = 0;
 		this.step  = 1;

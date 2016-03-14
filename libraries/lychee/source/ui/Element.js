@@ -7,7 +7,7 @@ lychee.define('lychee.ui.Element').requires([
 	'lychee.ui.Layer'
 ]).exports(function(lychee, global, attachments) {
 
-	var _fonts = {
+	var _FONTS = {
 		label: attachments["label.fnt"],
 		order: attachments["order.fnt"]
 	};
@@ -167,12 +167,12 @@ lychee.define('lychee.ui.Element').requires([
 		 */
 
 		lychee.ui.Layer.prototype.setEntity.call(this, '@order', new lychee.ui.entity.Label({
-			font:  _fonts.order,
+			font:  _FONTS.order,
 			value: '' + this.order
 		}));
 
 		lychee.ui.Layer.prototype.setEntity.call(this, '@label', new lychee.ui.entity.Label({
-			font:  _fonts.label,
+			font:  _FONTS.label,
 			value: this.label
 		}));
 

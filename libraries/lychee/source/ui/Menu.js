@@ -12,7 +12,7 @@ lychee.define('lychee.ui.Menu').requires([
 	'lychee.ui.Layer'
 ]).exports(function(lychee, global, attachments) {
 
-	var _font = attachments["fnt"];
+	var _FONT = attachments["fnt"];
 
 
 
@@ -25,7 +25,7 @@ lychee.define('lychee.ui.Menu').requires([
 		var settings = lychee.extend({}, data);
 
 
-		this.font    = _font;
+		this.font    = _FONT;
 		this.label   = 'MENU';
 		this.options = [ 'Welcome', 'Settings', 'About' ];
 		this.helpers = [];

@@ -6,7 +6,7 @@ lychee.define('lychee.ui.layer.Table').includes([
 	'lychee.ui.entity.Label'
 ]).exports(function(lychee, global, attachments) {
 
-	var _font = attachments["fnt"];
+	var _FONT = attachments["fnt"];
 
 
 
@@ -192,7 +192,7 @@ lychee.define('lychee.ui.layer.Table').includes([
 		var settings = lychee.extend({}, data);
 
 
-		this.font  = _font;
+		this.font  = _FONT;
 		this.model = {};
 		this.type  = Class.TYPE.horizontal;
 		this.value = [];

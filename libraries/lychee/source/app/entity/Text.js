@@ -3,7 +3,7 @@ lychee.define('lychee.app.entity.Text').includes([
 	'lychee.app.Entity'
 ]).exports(function(lychee, global, attachments) {
 
-	var _font = attachments["fnt"];
+	var _FONT = attachments["fnt"];
 
 
 
@@ -66,7 +66,7 @@ lychee.define('lychee.app.entity.Text').includes([
 		var settings = lychee.extend({}, data);
 
 
-		this.font  = _font;
+		this.font  = _FONT;
 		this.value = '';
 
 		this.__buffer  = null;
