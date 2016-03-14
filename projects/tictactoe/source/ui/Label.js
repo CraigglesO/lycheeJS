@@ -3,15 +3,20 @@ lychee.define('game.ui.Label').includes([
 	'lychee.ui.entity.Label'
 ]).exports(function(lychee, game, global, attachments) {
 
-	var _font = attachments["fnt"];
+	var _FONT = attachments["fnt"];
 
+
+
+	/*
+	 * IMPLEMENTATION
+	 */
 
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, data);
 
 
-		settings.font = _font;
+		settings.font = _FONT;
 
 
 		lychee.ui.entity.Label.call(this, settings);

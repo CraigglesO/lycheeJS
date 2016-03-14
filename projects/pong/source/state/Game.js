@@ -11,13 +11,14 @@ lychee.define('game.state.Game').requires([
 	'lychee.app.State'
 ]).exports(function(lychee, game, global, attachments) {
 
-	var _blob  = attachments["json"].buffer;
-
-	var _boo   = attachments["boo.snd"];
-	var _cheer = attachments["cheer.snd"];
-	var _music = attachments["music.msc"];
-	var _ping  = attachments["ping.snd"];
-	var _pong  = attachments["pong.snd"];
+	var _BLOB   = attachments["json"].buffer;
+	var _MUSIC  = attachments["music.msc"];
+	var _SOUNDS = {
+		boo:   attachments["boo.snd"],
+		cheer: attachments["cheer.snd"],
+		ping:  attachments["ping.snd"],
+		pong:  attachments["pong.snd"]
+	};
 
 
 
@@ -73,9 +74,9 @@ lychee.define('game.state.Game').requires([
 
 
 		if (winner === 'player') {
-			this.jukebox.play(_cheer);
+			this.jukebox.play(_SOUNDS.cheer);
 		} else if (winner === 'enemy') {
-			this.jukebox.play(_boo);
+			this.jukebox.play(_SOUNDS.boo);
 		}
 
 
@@ -117,7 +118,7 @@ lychee.define('game.state.Game').requires([
 		};
 
 
-		this.deserialize(_blob);
+		this.deserialize(_BLOB);
 
 
 
@@ -214,7 +215,10 @@ lychee.define('game.state.Game').requires([
 			}
 
 
-			this.jukebox.play(_music);
+			var jukebox = this.jukebox;
+			if (jukebox !== null) {
+				jukebox.play(_MUSIC);
+			}
 
 
 			lychee.app.State.prototype.enter.call(this, oncomplete);
@@ -224,6 +228,12 @@ lychee.define('game.state.Game').requires([
 		leave: function(oncomplete) {
 
 			this.input.unbind('touch', _on_touch, this);
+
+
+			var jukebox = this.jukebox;
+			if (jukebox !== null) {
+				jukebox.stop(_MUSIC);
+			}
 
 
 			lychee.app.State.prototype.leave.call(this, oncomplete);
@@ -285,7 +295,7 @@ lychee.define('game.state.Game').requires([
 
 				position.x = player.position.x + 24;
 				velocity.x = Math.abs(velocity.x);
-				jukebox.play(_ping);
+				jukebox.play(_SOUNDS.ping);
 
 				gamelayer.addEffect(new lychee.effect.Shake({
 					type:     lychee.effect.Shake.TYPE.bounceeaseout,
@@ -316,7 +326,7 @@ lychee.define('game.state.Game').requires([
 
 				position.x = enemy.position.x - 24;
 				velocity.x = -1 * Math.abs(velocity.x);
-				jukebox.play(_pong);
+				jukebox.play(_SOUNDS.pong);
 
 				gamelayer.addEffect(new lychee.effect.Shake({
 					type:     lychee.effect.Shake.TYPE.bounceeaseout,

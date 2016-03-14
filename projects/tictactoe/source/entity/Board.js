@@ -5,20 +5,25 @@ lychee.define('game.entity.Board').requires([
 	'lychee.ui.Layer'
 ]).exports(function(lychee, game, global, attachments) {
 
-	var _texture = attachments["png"];
-	var _config  = attachments["json"].buffer;
+	var _TEXTURE = attachments["png"];
+	var _CONFIG  = attachments["json"].buffer;
 
+
+
+	/*
+	 * IMPLEMENTATION
+	 */
 
 	var Class = function(data) {
 
 		var settings = lychee.extend({}, data);
 
 
-		this.__statemap = _config.map['default'][0];
+		this.__statemap = _CONFIG.map['default'][0];
 
 
-		settings.width  = _config.width;
-		settings.height = _config.height;
+		settings.width  = _CONFIG.width;
+		settings.height = _CONFIG.height;
 
 
 
@@ -86,7 +91,7 @@ lychee.define('game.entity.Board').requires([
 			}
 
 
-			var texture = _texture || null;
+			var texture = _TEXTURE || null;
 			if (texture !== null) {
 
 				var map = this.__statemap || null;
