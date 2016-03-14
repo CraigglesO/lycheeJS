@@ -5,7 +5,7 @@ lychee.define('app.ui.entity.Messages').requires([
 	'lychee.ui.Entity'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _font = attachments["fnt"];
+	var _FONT = attachments["fnt"];
 
 
 
@@ -15,7 +15,7 @@ lychee.define('app.ui.entity.Messages').requires([
 
 	var _render_buffer = function(renderer) {
 
-		var font = _font;
+		var font = _FONT;
 		if (font !== null && font.texture !== null) {
 
 			if (this.__buffer !== null) {

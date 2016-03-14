@@ -8,7 +8,7 @@ lychee.define('app.state.Welcome').includes([
 	'lychee.ui.entity.Text'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _blob = attachments["json"].buffer;
+	var _BLOB = attachments["json"].buffer;
 
 
 
@@ -42,7 +42,7 @@ lychee.define('app.state.Welcome').includes([
 		deserialize: function(blob) {
 
 			lychee.ui.State.prototype.deserialize.call(this, blob);
-			lychee.app.State.prototype.deserialize.call(this, _blob);
+			lychee.app.State.prototype.deserialize.call(this, _BLOB);
 
 
 			this.queryLayer('ui', 'menu').setHelpers([

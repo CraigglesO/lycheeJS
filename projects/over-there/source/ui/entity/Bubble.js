@@ -1,13 +1,15 @@
 
-lychee.define('app.ui.Bubble').includes([
+lychee.define('app.ui.entity.Bubble').includes([
 	'lychee.ui.Entity'
 ]).exports(function(lychee, global, app, attachments) {
 
-	var _font           = attachments["fnt"];
-	var _config         = attachments["json"].buffer;
-	var _texture        = attachments["png"];
-	var _avatar_config  = attachments["avatar.json"].buffer;
-	var _avatar_texture = attachments["avatar.png"];
+	var _CONFIG  = attachments["json"].buffer;
+	var _FONT    = attachments["fnt"];
+	var _TEXTURE = attachments["png"];
+	var _AVATAR  = {
+		config:  attachments["avatar.json"].buffer,
+		texture: attachments["avatar.png"]
+	};
 
 
 
@@ -53,7 +55,7 @@ lychee.define('app.ui.Bubble').includes([
 		serialize: function() {
 
 			var data = lychee.ui.Entity.prototype.serialize.call(this);
-			data['constructor'] = 'app.ui.Bubble';
+			data['constructor'] = 'app.ui.entity.Bubble';
 
 
 			var settings = data['arguments'][0] || {};
@@ -104,14 +106,14 @@ lychee.define('app.ui.Bubble').includes([
 
 			if (this.key === 'avatar') {
 
-				map = _avatar_config.map[this.value] || null;
+				map = _AVATAR.config.map[this.value] || null;
 
 				if (map !== null) {
 
 					renderer.drawSprite(
 						position.x + offsetX - 24,
 						position.y + offsetY - 24,
-						_avatar_texture,
+						_AVATAR.texture,
 						map[0]
 					);
 
@@ -119,14 +121,14 @@ lychee.define('app.ui.Bubble').includes([
 
 			} else {
 
-				map = _config.map[this.key] || _config.map[this.value] || null;
+				map = _CONFIG.map[this.key] || _CONFIG.map[this.value] || null;
 
 				if (map !== null) {
 
 					renderer.drawSprite(
 						position.x + offsetX - 16,
 						position.y + offsetY - 30,
-						_texture,
+						_TEXTURE,
 						map[0]
 					);
 
@@ -134,7 +136,7 @@ lychee.define('app.ui.Bubble').includes([
 						position.x + offsetX,
 						position.y + offsetY + 12,
 						this.value,
-						_font,
+						_FONT,
 						true
 					);
 
@@ -144,7 +146,7 @@ lychee.define('app.ui.Bubble').includes([
 						position.x + offsetX,
 						position.y + offsetY + 2,
 						this.value,
-						_font,
+						_FONT,
 						true
 					);
 

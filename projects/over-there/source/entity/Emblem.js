@@ -3,8 +3,8 @@ lychee.define('app.entity.Emblem').includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _texture = attachments["png"];
-	var _config  = {
+	var _TEXTURE = attachments["png"];
+	var _CONFIG  = {
 		width:  256,
 		height: 64
 	};
@@ -20,9 +20,9 @@ lychee.define('app.entity.Emblem').includes([
 		var settings = lychee.extend({}, data);
 
 
-		settings.texture = _texture;
-		settings.width   = _config.width;
-		settings.height  = _config.height;
+		settings.texture = _TEXTURE;
+		settings.width   = _CONFIG.width;
+		settings.height  = _CONFIG.height;
 
 
 		lychee.app.Sprite.call(this, settings);

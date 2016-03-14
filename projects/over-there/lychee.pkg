@@ -120,24 +120,26 @@
 			},
 			"state": {
 				"App": [
-					"fnt",
 					"js",
 					"json"
 				]
 			},
 			"ui": {
-				"Bubble": [
-					"avatar.json",
-					"avatar.png",
-					"fnt",
-					"js",
-					"json",
-					"png"
-				],
-				"Overlay": [
-					"fnt",
-					"js"
-				]
+				"entity": {
+					"Bubble": [
+						"avatar.json",
+						"avatar.png",
+						"fnt",
+						"js",
+						"json",
+						"png"
+					]
+				},
+				"layer": {
+					"Overlay": [
+						"js"
+					]
+				}
 			}
 		},
 		"tags": {}

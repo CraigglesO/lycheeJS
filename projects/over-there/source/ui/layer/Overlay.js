@@ -1,14 +1,10 @@
 
-lychee.define('app.ui.Overlay').requires([
+lychee.define('app.ui.layer.Overlay').requires([
 	'lychee.effect.Alpha',
-	'app.ui.Bubble'
+	'app.ui.entity.Bubble'
 ]).includes([
 	'lychee.ui.Layer'
 ]).exports(function(lychee, app, global, attachments) {
-
-	var _font = attachments["fnt"];
-
-
 
 	/*
 	 * IMPLEMENTATION
@@ -39,7 +35,7 @@ lychee.define('app.ui.Overlay').requires([
 		serialize: function() {
 
 			var data = lychee.ui.Layer.prototype.serialize.call(this);
-			data['constructor'] = 'app.ui.Overlay';
+			data['constructor'] = 'app.ui.layer.Overlay';
 
 
 			return data;
@@ -125,7 +121,7 @@ lychee.define('app.ui.Overlay').requires([
 
 					for (var key in properties) {
 
-						var bubble = new app.ui.Bubble({
+						var bubble = new app.ui.entity.Bubble({
 							key:   key,
 							value: properties[key]
 						});

@@ -8,13 +8,12 @@ lychee.define('app.state.App').requires([
 	'app.entity.Midground',
 	'app.entity.Airlock',
 	'app.entity.Room',
-	'app.ui.Overlay'
+	'app.ui.layer.Overlay'
 ]).includes([
 	'lychee.app.State'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _blob = attachments["json"].buffer;
-	var _font = attachments["fnt"];
+	var _BLOB = attachments["json"].buffer;
 
 
 
@@ -93,7 +92,7 @@ lychee.define('app.state.App').requires([
 		this.__entity = null;
 
 
-		this.deserialize(_blob);
+		this.deserialize(_BLOB);
 
 		/*
 		 * INITIALIZATION

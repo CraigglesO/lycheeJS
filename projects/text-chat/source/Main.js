@@ -7,6 +7,10 @@ lychee.define('app.Main').requires([
 	'lychee.app.Main'
 ]).exports(function(lychee, app, global, attachments) {
 
+	/*
+	 * IMPLEMENTATION
+	 */
+
 	var Class = function(data) {
 
 		var settings = lychee.extend({

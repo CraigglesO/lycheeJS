@@ -5,13 +5,14 @@ lychee.define('app.net.Server').requires([
 	'lychee.net.Server'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _BitON = lychee.data.BitON;
-
+	/*
+	 * IMPLEMENTATION
+	 */
 
 	var Class = function(data) {
 
 		var settings = lychee.extend({
-			codec: _BitON
+			codec: lychee.data.BitON
 		}, data);
 
 

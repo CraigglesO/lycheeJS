@@ -15,9 +15,6 @@ lychee.define('app.Main').requires([
 
 		var settings = lychee.extend({
 
-			// Is configured in lychee.pkg
-			// client: '/api/Server?identifier=/projects/emoji-chat',
-
 			input: {
 				delay:       0,
 				key:         true,

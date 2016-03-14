@@ -3,9 +3,9 @@ lychee.define('app.entity.Astronaut').includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _config   = attachments["json"].buffer;
 	var _id       = 0;
-	var _textures = [
+	var _CONFIG   = attachments["json"].buffer;
+	var _TEXTURES = [
 		attachments["blue.png"],
 		attachments["light.png"],
 		attachments["green.png"],
@@ -30,13 +30,13 @@ lychee.define('app.entity.Astronaut').includes([
 		this.properties = {};
 
 
-		settings.texture = _textures[_id++];
 		settings.width   = 32;
 		settings.height  = 32;
-		settings.map     = _config.map;
+		settings.map     = _CONFIG.map;
 		settings.shape   = lychee.app.Entity.SHAPE.rectangle;
-		settings.states  = _config.states;
-		settings.state   = settings.state || _config.state;
+		settings.states  = _CONFIG.states;
+		settings.state   = settings.state || _CONFIG.state;
+		settings.texture = _TEXTURES[_id++];
 
 
 		this.setProperties(settings.properties);

@@ -3,8 +3,8 @@ lychee.define('app.entity.Midground').includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _texture = attachments["png"];
-	var _config  = {
+	var _TEXTURE = attachments["png"];
+	var _CONFIG  = {
 		states: { 'default': 0 },
 		map:    { 'default': [{ x: 0, y: 0, w: 2048, h: 2048 }] }
 	};
@@ -21,9 +21,9 @@ lychee.define('app.entity.Midground').includes([
 
 
 		settings.repeat  = false;
-		settings.states  = _config.states;
-		settings.texture = _texture;
-		settings.map     = _config.map;
+		settings.states  = _CONFIG.states;
+		settings.texture = _TEXTURE;
+		settings.map     = _CONFIG.map;
 		settings.position = { x: 0, y: 0};
 
 

@@ -3,8 +3,8 @@ lychee.define('app.entity.Airlock').includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _config  = attachments["json"].buffer;
-	var _texture = attachments["png"];
+	var _CONFIG  = attachments["json"].buffer;
+	var _TEXTURE = attachments["png"];
 
 
 
@@ -17,12 +17,12 @@ lychee.define('app.entity.Airlock').includes([
 		var settings = lychee.extend({}, data);
 
 
-		settings.texture = _texture;
 		settings.width   = 0;
 		settings.height  = 0;
-		settings.map     = _config.map;
+		settings.map     = _CONFIG.map;
 		settings.state   = settings.state || 'horizontal-big';
-		settings.states  = _config.states;
+		settings.states  = _CONFIG.states;
+		settings.texture = _TEXTURE;
 
 
 		lychee.app.Sprite.call(this, settings);

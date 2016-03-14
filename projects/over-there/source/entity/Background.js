@@ -3,8 +3,8 @@ lychee.define('app.entity.Background').includes([
 	'lychee.app.sprite.Background'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _texture = attachments["png"];
-	var _config  = {
+	var _TEXTURE = attachments["png"];
+	var _CONFIG  = {
 		repeat: true,
 		states: { 'default': 0 },
 		map:    { 'default': [{ x: 0, y: 0, w: 512, h: 512 }] }
@@ -21,10 +21,10 @@ lychee.define('app.entity.Background').includes([
 		var settings = lychee.extend({}, data);
 
 
-		settings.texture = _texture;
-		settings.repeat  = _config.repeat;
-		settings.states  = _config.states;
-		settings.map     = _config.map;
+		settings.map     = _CONFIG.map;
+		settings.repeat  = _CONFIG.repeat;
+		settings.states  = _CONFIG.states;
+		settings.texture = _TEXTURE;
 
 
 		lychee.app.sprite.Background.call(this, settings);

@@ -3,8 +3,8 @@ lychee.define('app.ui.sprite.Avatar').includes([
 	'lychee.ui.Sprite'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _texture = attachments["png"];
-	var _config  = {
+	var _TEXTURE = attachments["png"];
+	var _CONFIG  = {
 		width:  128,
 		height: 128
 	};
@@ -63,9 +63,9 @@ lychee.define('app.ui.sprite.Avatar').includes([
 		delete settings.value;
 
 
-		settings.texture = _texture;
-		settings.width   = _config.width;
-		settings.height  = _config.height;
+		settings.texture = _TEXTURE;
+		settings.width   = _CONFIG.width;
+		settings.height  = _CONFIG.height;
 
 
 		lychee.ui.Sprite.call(this, settings);

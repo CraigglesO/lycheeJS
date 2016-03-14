@@ -259,7 +259,7 @@
 			"arguments": [{}],
 			"blob": {
 				"entities": [{
-					"constructor": "app.ui.Overlay",
+					"constructor": "app.ui.layer.Overlay",
 					"arguments": [{}]
 				}],
 				"map": {

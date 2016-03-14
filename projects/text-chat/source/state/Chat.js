@@ -13,8 +13,8 @@ lychee.define('app.state.Chat').requires([
 	'lychee.app.State'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _blob   = attachments["json"].buffer;
-	var _sounds = {
+	var _BLOB   = attachments["json"].buffer;
+	var _SOUNDS = {
 		join_empty: attachments["join_empty.snd"],
 		join_full:  attachments["join_full.snd"],
 		message:    attachments["message.snd"]
@@ -84,9 +84,9 @@ lychee.define('app.state.Chat').requires([
 
 
 			if (room.users.length > 1) {
-				this.jukebox.play(_sounds.join_full);
+				this.jukebox.play(_SOUNDS.join_full);
 			} else {
-				this.jukebox.play(_sounds.join_empty);
+				this.jukebox.play(_SOUNDS.join_empty);
 			}
 
 		}
@@ -102,7 +102,9 @@ lychee.define('app.state.Chat').requires([
 			this.__cache.messages.push(obj);
 		}.bind(this));
 
-		this.jukebox.play(_sounds.message);
+
+		this.jukebox.play(_SOUNDS.message);
+
 
 		entity = this.queryLayer('ui', 'messages');
 		entity.trigger('relayout');
@@ -133,7 +135,7 @@ lychee.define('app.state.Chat').requires([
 		};
 
 
-		this.deserialize(_blob);
+		this.deserialize(_BLOB);
 
 
 
