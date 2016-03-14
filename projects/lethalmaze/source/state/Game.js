@@ -49,6 +49,10 @@ lychee.define('game.state.Game').requires([
 					entity.offset.x = -1/2 * width;
 					entity.offset.y = -1/2 * height;
 
+					entity = this.queryLayer('ui', 'timeout');
+					entity.width  = width;
+					entity.height = height;
+
 				}
 
 			}, this);
@@ -80,12 +84,6 @@ lychee.define('game.state.Game').requires([
 		 * CUSTOM API
 		 */
 
-		update: function(clock, delta) {
-
-			lychee.app.State.prototype.update.call(this, clock, delta);
-
-		},
-
 		enter: function(oncomplete, data) {
 
 			data = data instanceof Object ? data : { level: 'intro' };
@@ -109,12 +107,7 @@ lychee.define('game.state.Game').requires([
 
 						service.bind('init', function(data) {
 
-							if (data.tid >= 0) {
-								console.log('WAITING');
-							}
-
-
-							console.log('INIT EVENT', data.tid, data.timeout);
+							console.log('SERVICE INIT', data.tid, data);
 
 
 							var control = this.queryLayer('ui', 'control');
@@ -129,6 +122,8 @@ lychee.define('game.state.Game').requires([
 
 								timeout.setTimeout(data.timeout);
 								timeout.bind('init', function() {
+
+									this.jukebox.setVolume(0.5);
 
 									control.setVisible(true);
 									timeout.setVisible(false);
@@ -157,6 +152,7 @@ lychee.define('game.state.Game').requires([
 
 			var jukebox = this.jukebox;
 			if (jukebox !== null) {
+				jukebox.setVolume(0.25);
 				jukebox.play(_MUSIC);
 			}
 

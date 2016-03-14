@@ -46,6 +46,8 @@ lychee.define('lychee.ui.entity.Button').includes([
 
 		lychee.ui.Entity.call(this, settings);
 
+		settings = null;
+
 
 
 		/*
@@ -82,9 +84,6 @@ lychee.define('lychee.ui.entity.Button').includes([
 		this.bind('blur', function() {
 			this.setState('default');
 		}, this);
-
-
-		settings = null;
 
 	};
 

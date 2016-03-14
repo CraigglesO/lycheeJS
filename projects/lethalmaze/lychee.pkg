@@ -130,7 +130,8 @@
 				"entity": {
 					"Timeout": [
 						"fnt",
-						"js"
+						"js",
+						"snd"
 					]
 				},
 				"layer": {

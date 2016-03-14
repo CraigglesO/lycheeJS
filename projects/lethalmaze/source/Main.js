@@ -20,8 +20,9 @@ lychee.define('game.Main').requires([
 			},
 
 			jukebox: {
-				music: true,
-				sound: true
+				music:  true,
+				sound:  true,
+				volume: 0.25
 			},
 
 			renderer: {
@@ -71,6 +72,10 @@ lychee.define('game.Main').requires([
 			}
 
 
+			this.viewport.unbind('show');
+			this.viewport.unbind('hide');
+
+
 			this.setState('game', new game.state.Game(this));
 
 		}, this, true);
@@ -105,22 +110,7 @@ lychee.define('game.Main').requires([
 
 			return data;
 
-		},
-
-
-
-		/*
-		 * CUSTOM API
-		 */
-
-		reshape: function(orientation, rotation) {
-
-			lychee.app.Main.prototype.reshape.call(this, orientation, rotation);
-
-		},
-
-		show: function() {},
-		hide: function() {}
+		}
 
 	};
 
