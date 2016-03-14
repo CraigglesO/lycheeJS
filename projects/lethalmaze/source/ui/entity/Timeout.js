@@ -24,11 +24,11 @@ lychee.define('game.ui.entity.Timeout').requires([
 		this.timeout = 30000;
 
 
-		this.__timeout = {
-			active: false,
-			value:  30000,
-			number: 30,
-			start:  null
+		this.__pulse = {
+			active:   false,
+			duration: 500,
+			start:    null,
+			alpha:    0.0
 		};
 
 
@@ -52,7 +52,11 @@ lychee.define('game.ui.entity.Timeout').requires([
 		 * INITIALIZATION
 		 */
 
-		this.bind('touch', function() {}, this);
+		this.bind('touch', function() {
+
+console.log('touch on timeout');
+
+		}, this);
 
 		this.bind('key', function(key, name, delta) {
 
@@ -105,24 +109,29 @@ console.log(key, name, delta);
 			}
 
 
-			renderer.drawBox(
-				x - hwidth,
-				y - hheight,
-				x + hwidth,
-				y + hheight,
-				'#32afe5',
-				true
-			);
+			var pulse = this.__pulse;
+			if (pulse.active === true) {
 
+				renderer.setAlpha(pulse.alpha);
 
-			var number = this.__timeout.number;
-			var label  = '';
-			if (number <= 0) {
-				label = 'Fight!';
-			} else {
-				label = '' + number;
+				renderer.drawBox(
+					x - hwidth,
+					y - hheight,
+					x + hwidth,
+					y + hheight,
+					'#32afe5',
+					true
+				);
+
+				renderer.setAlpha(alpha);
+
 			}
 
+
+			var label = '' + ((this.timeout / 1000) | 0);
+			if (label === '0') {
+				label = 'Fight!';
+			}
 
 			renderer.drawText(
 				x,
@@ -141,47 +150,19 @@ console.log(key, name, delta);
 
 		update: function(clock, delta) {
 
+			var pulse = this.__pulse;
+			if (pulse.active === true) {
 
-			var timeout = this.__timeout;
-			if (timeout.active === true) {
-
-				if (timeout.start === null) {
-					timeout.start = clock;
+				if (pulse.start === null) {
+					pulse.start = clock;
 				}
 
-				var t = (clock - timeout.start) / this.timeout;
+				var t = (clock - pulse.start) / pulse.duration;
 				if (t <= 1) {
-
-					timeout.value = (1 - t) * this.timeout;
-
-
-					var number = Math.round(timeout.value / 1000);
-					if (number < timeout.number) {
-
-						timeout.number = number;
-						this.alpha     = 1.0;
-
-						_SOUND.play();
-
-						this.addEffect(new lychee.effect.Alpha({
-							type:     lychee.effect.Alpha.TYPE.easeout,
-							alpha:    0.0,
-							duration: 800
-						}));
-
-					}
-
+					pulse.alpha = (1 - t);
 				} else {
-
-					timeout.number = 0;
-					timeout.value  = 0;
-					timeout.active = false;
-
-				}
-
-
-				if (timeout.value <= 0) {
-					this.trigger('init');
+					pulse.alpha  = 0.0;
+					pulse.active = false;
 				}
 
 			}
@@ -197,23 +178,22 @@ console.log(key, name, delta);
 		 * CUSTOM API
 		 */
 
-		setTimeout: function(value) {
+		setTimeout: function(timeout) {
 
-			value = typeof value === 'number' ? (value | 0) : null;
-
-
-			if (value !== null) {
-
-				var timeout = this.__timeout;
+			timeout = typeof timeout === 'number' ? (timeout | 0) : null;
 
 
-				timeout.value  = value;
-				timeout.number = Math.round(value / 1000);
-				timeout.start  = null;
-				timeout.active = true;
+			if (timeout !== null) {
+
+				var pulse = this.__pulse;
 
 
-				this.timeout = value;
+				pulse.alpha  = 1.0;
+				pulse.start  = null;
+				pulse.active = true;
+
+
+				this.timeout = timeout;
 
 
 				return true;
@@ -232,11 +212,11 @@ console.log(key, name, delta);
 				this.addEffect(new lychee.effect.Alpha({
 					type:     lychee.effect.Alpha.TYPE.easeout,
 					alpha:    1.0,
-					duration: 300
+					duration: 500
 				}));
 
 				this.addEffect(new lychee.effect.Visible({
-					delay:   300,
+					delay:   500,
 					visible: true
 				}));
 
@@ -248,12 +228,12 @@ console.log(key, name, delta);
 				this.addEffect(new lychee.effect.Alpha({
 					type:     lychee.effect.Alpha.TYPE.easeout,
 					alpha:    0.0,
-					duration: 300
+					duration: 500
 				}));
 
 				this.addEffect(new lychee.effect.Visible({
-					delay:   300,
-					visible: true
+					delay:   500,
+					visible: false
 				}));
 
 

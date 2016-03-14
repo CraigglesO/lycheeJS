@@ -37,6 +37,12 @@ lychee.define('game.ui.layer.Control').requires([
 
 		}, this);
 
+		this.bind('touch', function() {
+
+console.log('touch on control');
+
+		}, this);
+
 	};
 
 

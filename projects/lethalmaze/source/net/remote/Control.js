@@ -26,6 +26,7 @@ lychee.define('game.net.remote.Control').includes([
 
 		if (found !== null) {
 
+			found.players.push(this.tunnel.host + ':' + this.tunnel.port);
 			found.tunnels.push(this.tunnel);
 
 		} else {
@@ -37,7 +38,8 @@ lychee.define('game.net.remote.Control').includes([
 				id:      id,
 				active:  false,
 				timeout: 10000,
-				tunnels: [ this.tunnel ]
+				players: [ this.tunnel.host + ':' + this.tunnel.port ],
+				tunnels: [ this.tunnel    ]
 			};
 
 
@@ -48,12 +50,42 @@ lychee.define('game.net.remote.Control').includes([
 
 					this.timeout -= 1000;
 
+
+					for (var t = 0, tl = this.tunnels.length; t < tl; t++) {
+
+						this.tunnels[t].send({
+							sid:     this.id,
+							tid:     t,
+							players: this.players,
+							timeout: this.timeout
+						}, {
+							id:    'control',
+							event: 'update'
+						});
+
+					}
+
 				} else {
 
 					clearInterval(handle);
 
 					this.active  = true;
 					this.timeout = 0;
+
+
+					for (var t = 0, tl = this.tunnels.length; t < tl; t++) {
+
+						this.tunnels[t].send({
+							sid:     this.id,
+							tid:     t,
+							players: this.players,
+							timeout: this.timeout
+						}, {
+							id:    'control',
+							event: 'start'
+						});
+
+					}
 
 				}
 
@@ -67,15 +99,15 @@ lychee.define('game.net.remote.Control').includes([
 
 			tunnel.send({
 				sid:     found.id,
-				tid:     found.tunnels.indexOf(this.tunnel),
+				tid:     found.tunnels.indexOf(tunnel),
+				players: found.players,
 				timeout: found.timeout
 			}, {
-				id:    this.id,
+				id:    'control',
 				event: 'init'
 			});
 
 		}
-
 
 	};
 
@@ -84,38 +116,35 @@ lychee.define('game.net.remote.Control').includes([
 		var that = this;
 
 
-		_sessions = Object.filter(_sessions, function(value, key) {
+		_sessions = Object.filter(_sessions, function(session, key) {
 
-			var index = value.tunnels.indexOf(that.tunnel);
+			var index = session.tunnels.indexOf(that.tunnel);
 			if (index !== -1) {
-				value.tunnels.splice(index, 1);
-			}
+
+				session.players.splice(index, 1);
+				session.tunnels.splice(index, 1);
 
 
-			if (value.tunnels.length !== 0) {
+				for (var t = 0, tl = session.tunnels.length; t < tl; t++) {
 
-				if (index !== -1) {
-
-					value.tunnels.forEach(function(remote) {
-
-						remote.send({
-							id: index
-						}, {
-							id:    that.id,
-							event: 'destroy'
-						});
-
+					session.tunnels[t].send({
+						sid:     session.id,
+						tid:     t,
+						players: session.players
+					}, {
+						id:    'control',
+						event: 'update'
 					});
 
 				}
 
+
 				return true;
 
-			} else {
-
-				return false;
-
 			}
+
+
+			return false;
 
 		});
 
