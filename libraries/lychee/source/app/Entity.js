@@ -198,7 +198,6 @@ lychee.define('lychee.app.Entity').exports(function(lychee, global, attachments)
 
 		},
 
-		// HINT: Renderer skips if no render() method exists
 		render: function(renderer, offsetX, offsetY) {
 
 			var effects = this.effects;
