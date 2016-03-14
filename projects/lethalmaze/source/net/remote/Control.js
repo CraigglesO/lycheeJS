@@ -1,5 +1,5 @@
 
-lychee.define('game.net.remote.Controller').includes([
+lychee.define('game.net.remote.Control').includes([
 	'lychee.net.remote.Session'
 ]).exports(function(lychee, game, global, attachments) {
 
@@ -36,7 +36,7 @@ lychee.define('game.net.remote.Controller').includes([
 			found = _sessions[id] = {
 				id:      id,
 				active:  false,
-				timeout: 30000,
+				timeout: 10000,
 				tunnels: [ this.tunnel ]
 			};
 
@@ -132,7 +132,7 @@ lychee.define('game.net.remote.Controller').includes([
 		var settings = {};
 
 
-		lychee.net.remote.Session.call(this, 'controller', remote, settings);
+		lychee.net.remote.Session.call(this, 'control', remote, settings);
 
 
 		this.bind('plug',   _on_plug,   this);
@@ -142,6 +142,20 @@ lychee.define('game.net.remote.Controller').includes([
 
 
 	Class.prototype = {
+
+		/*
+		 * ENTITY API
+		 */
+
+		serialize: function() {
+
+			var data = lychee.net.remote.Session.prototype.serialize.call(this);
+			data['constructor'] = 'app.net.remote.Control';
+
+
+			return data;
+
+		}
 
 	};
 

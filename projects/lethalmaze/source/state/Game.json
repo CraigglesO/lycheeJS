@@ -16,6 +16,23 @@
 					"objects": 1
 				}
 			}
+		},
+		"ui": {
+			"constructor": "lychee.ui.Layer",
+			"arguments": [{}],
+			"blob": {
+				"entities": [{
+					"constructor": "game.ui.layer.Control",
+					"arguments": [{}]
+				}, {
+					"constructor": "game.ui.entity.Timeout",
+					"arguments": [{}]
+				}],
+				"map": {
+					"control": 0,
+					"timeout": 1
+				}
+			}
 		}
 	}
 }

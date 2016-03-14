@@ -1,5 +1,5 @@
 
-lychee.define('game.entity.Tank').includes([
+lychee.define('game.app.sprite.Tank').includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, game, global, attachments) {
 
@@ -18,7 +18,7 @@ lychee.define('game.entity.Tank').includes([
 
 		this.main = main || null;
 
-		this.id        = _IDS[_id++];
+		this.id        = _IDS[(_id++ % _IDS.length)];
 		this.direction = 'top';
 		this.ammo      = 4;
 		this.life      = 4;

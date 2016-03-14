@@ -1,19 +1,19 @@
 
 lychee.define('game.net.Server').requires([
 	'lychee.data.BitON',
-	'game.net.remote.Controller'
+	'game.net.remote.Control'
 ]).includes([
 	'lychee.net.Server'
 ]).exports(function(lychee, game, global, attachments) {
 
-	var _BitON      = lychee.data.BitON;
-	var _Controller = game.net.remote.Controller;
-
+	/*
+	 * IMPLEMENTATION
+	 */
 
 	var Class = function(data) {
 
 		var settings = lychee.extend({
-			codec: _BitON
+			codec: lychee.data.BitON
 		}, data);
 
 
@@ -29,7 +29,7 @@ lychee.define('game.net.Server').requires([
 
 			console.log('game.net.Server: Remote connected (' + remote.host + ':' + remote.port + ')');
 
-			remote.addService(new _Controller(remote));
+			remote.addService(new game.net.remote.Control(remote));
 
 		}, this);
 

@@ -1,5 +1,5 @@
 
-lychee.define('game.entity.Wall').includes([
+lychee.define('game.app.sprite.Item').includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, game, global, attachments) {
 
@@ -7,7 +7,7 @@ lychee.define('game.entity.Wall').includes([
 	var _config  = attachments["json"].buffer;
 
 
-	var Class = function(data) {
+	var Class = function(data, main) {
 
 		var settings = lychee.extend({}, data);
 
@@ -15,8 +15,8 @@ lychee.define('game.entity.Wall').includes([
 		settings.collision = lychee.app.Entity.COLLISION.A;
 		settings.texture   = _texture;
 		settings.map       = _config.map;
-		settings.width     = _config.width;
-		settings.height    = _config.height;
+		settings.width     = _config.width  - 4;
+		settings.height    = _config.height - 4;
 		settings.shape     = lychee.app.Entity.SHAPE.rectangle;
 		settings.states    = _config.states;
 		settings.state     = 'default';
@@ -31,16 +31,6 @@ lychee.define('game.entity.Wall').includes([
 
 
 	Class.prototype = {
-
-		toggleAlpha: function() {
-
-			if (this.alpha === 0) {
-				this.alpha = 1;
-			} else {
-				this.alpha = 0;
-			}
-
-		}
 
 	};
 

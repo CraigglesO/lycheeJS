@@ -11,9 +11,6 @@ lychee.define('game.Main').requires([
 
 		var settings = lychee.extend({
 
-			// Is configured in lychee.pkg
-			// client: '/api/Server?identifier=/projects/lethalmaze',
-
 			input: {
 				delay:       0,
 				key:         true,
@@ -23,7 +20,7 @@ lychee.define('game.Main').requires([
 			},
 
 			jukebox: {
-				music: false,
+				music: true,
 				sound: true
 			},
 
@@ -46,10 +43,10 @@ lychee.define('game.Main').requires([
 
 		this.bind('load', function(oncomplete) {
 
-			this.settings.gameclient = this.settings.client;
+			this.settings.gameclient = this.settings.client || null;
 			this.settings.client     = null;
 
-			this.settings.gameserver = this.settings.server;
+			this.settings.gameserver = this.settings.server || null;
 			this.settings.server     = null;
 
 			oncomplete(true);
@@ -58,7 +55,7 @@ lychee.define('game.Main').requires([
 
 		this.bind('init', function() {
 
-			var gameclient = this.settings.gameclient || null;
+			var gameclient = this.settings.gameclient;
 			if (gameclient !== null) {
 
 				this.client = new game.net.Client(gameclient, this);
@@ -68,7 +65,7 @@ lychee.define('game.Main').requires([
 
 			}
 
-			var gameserver = this.settings.gameserver || null;
+			var gameserver = this.settings.gameserver;
 			if (gameserver !== null) {
 				this.server = new game.net.Server(gameserver, this);
 			}
@@ -98,7 +95,8 @@ lychee.define('game.Main').requires([
 			var blob     = data['blob'] || {};
 
 
-			if (this.defaults.client !== null) { settings.client = this.defaults.client; }
+			if (this.settings.gameclient !== null) { settings.client = this.defaults.client; }
+			if (this.settings.gameserver !== null) { settings.server = this.defaults.server; }
 
 
 			data['arguments'][0] = settings;

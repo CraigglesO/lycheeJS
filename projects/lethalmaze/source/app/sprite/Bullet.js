@@ -1,5 +1,5 @@
 
-lychee.define('game.entity.Bullet').includes([
+lychee.define('game.app.sprite.Bullet').includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, game, global, attachments) {
 

@@ -1,14 +1,17 @@
 
 lychee.define('game.state.Game').requires([
 	'lychee.app.Layer',
+	'game.app.sprite.Tank',
 	'game.data.Level',
-	'game.Controller'
+	'game.ui.entity.Timeout',
+	'game.ui.layer.Control'
 ]).includes([
 	'lychee.app.State'
 ]).exports(function(lychee, game, global, attachments) {
 
-	var _blob   = attachments["json"].buffer;
+	var _BLOB   = attachments["json"].buffer;
 	var _LEVELS = attachments["levels.json"].buffer;
+	var _MUSIC  = attachments["msc"];
 
 
 
@@ -21,12 +24,7 @@ lychee.define('game.state.Game').requires([
 		lychee.app.State.call(this, main);
 
 
-		this.controller = new game.Controller({
-			type: game.Controller.TYPE.client
-		});
-
-
-		this.deserialize(_blob);
+		this.deserialize(_BLOB);
 
 
 
@@ -76,21 +74,6 @@ lychee.define('game.state.Game').requires([
 
 		},
 
-		deserialize: function(blob) {
-
-			lychee.app.State.prototype.deserialize.call(this, blob);
-
-
-			var entity = null;
-
-
-
-			/*
-			 * HELP LAYER
-			 */
-
-		},
-
 
 
 		/*
@@ -114,19 +97,6 @@ lychee.define('game.state.Game').requires([
 			var level = game.data.Level.decode(_LEVELS[data.level] || null) || null;
 			if (level !== null) {
 
-
-				level.objects.sort(function(a, b) {
-
-					var atank = a instanceof game.entity.Tank;
-					var btank = b instanceof game.entity.Tank;
-
-					if (!atank && btank) return -1;
-					if (atank && !btank) return  1;
-					return 0;
-
-				});
-
-
 				this.queryLayer('game', 'terrain').setEntities(level.terrain);
 				this.queryLayer('game', 'objects').setEntities(level.objects);
 
@@ -134,7 +104,7 @@ lychee.define('game.state.Game').requires([
 				var client = this.client;
 				if (client !== null) {
 
-					var service = client.getService('controller');
+					var service = client.getService('control');
 					if (service !== null) {
 
 						service.bind('init', function(data) {
@@ -143,7 +113,29 @@ lychee.define('game.state.Game').requires([
 								console.log('WAITING');
 							}
 
+
 							console.log('INIT EVENT', data.tid, data.timeout);
+
+
+							var control = this.queryLayer('ui', 'control');
+							var timeout = this.queryLayer('ui', 'timeout');
+
+							if (control !== null && timeout !== null) {
+
+								timeout.setVisible(true);
+								control.setVisible(false);
+								control.setTank(this.__tanks[data.tid] || null);
+
+
+								timeout.setTimeout(data.timeout);
+								timeout.bind('init', function() {
+
+									control.setVisible(true);
+									timeout.setVisible(false);
+
+								}, this, true);
+
+							}
 
 						}, this);
 
@@ -152,10 +144,20 @@ lychee.define('game.state.Game').requires([
 				}
 
 
+				this.queryLayer('ui', 'control').setVisible(false);
+				this.queryLayer('ui', 'timeout').setVisible(true);
+
+
 				this.__tanks = level.objects.filter(function(obj) {
-					return obj instanceof game.entity.Tank;
+					return obj instanceof game.app.sprite.Tank;
 				});
 
+			}
+
+
+			var jukebox = this.jukebox;
+			if (jukebox !== null) {
+				jukebox.play(_MUSIC);
 			}
 
 		},
@@ -164,6 +166,12 @@ lychee.define('game.state.Game').requires([
 
 			this.queryLayer('game', 'terrain').setEntities([]);
 			this.queryLayer('game', 'objects').setEntities([]);
+
+
+			var jukebox = this.jukebox;
+			if (jukebox !== null) {
+				jukebox.stop(_MUSIC);
+			}
 
 
 			lychee.app.State.prototype.leave.call(this, oncomplete);
