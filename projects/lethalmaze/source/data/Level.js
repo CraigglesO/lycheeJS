@@ -110,18 +110,6 @@ lychee.define('game.data.Level').requires([
 				});
 
 
-				cache.objects.sort(function(a, b) {
-
-					var atank = a instanceof game.app.sprite.Tank;
-					var btank = b instanceof game.app.sprite.Tank;
-
-					if (!atank && btank) return -1;
-					if (atank && !btank) return  1;
-					return 0;
-
-				});
-
-
 				return cache;
 
 			}

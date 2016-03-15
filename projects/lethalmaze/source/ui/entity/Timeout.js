@@ -192,6 +192,8 @@ console.log(key, name, delta);
 				pulse.start  = null;
 				pulse.active = true;
 
+				_SOUND.play();
+
 
 				this.timeout = timeout;
 

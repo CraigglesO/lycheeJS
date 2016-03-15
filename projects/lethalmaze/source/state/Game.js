@@ -21,11 +21,67 @@ lychee.define('game.state.Game').requires([
 	 * HELPERS
 	 */
 
+	var _spawn = function(tank) {
+
+		if (tank.effects.length === 0) {
+
+			tank.addEffect(new lychee.effect.Lightning({
+				type:     lychee.effect.Lightning.TYPE.easeout,
+				duration: 3000,
+				position: {
+					x: this.__origin.x,
+					y: this.__origin.y
+				}
+			}));
+
+		}
+
+
+		var objects = this.queryLayer('game', 'objects');
+		if (objects.entities.indexOf(tank) === -1) {
+			objects.addEntity(tank);
+		}
+
+		if (this.__players.indexOf(tank) === -1) {
+			this.__players.push(tank);
+		}
+
+	};
+
+	var _kill = function(tank) {
+
+		if (tank.effects.length === 0) {
+
+			tank.addEffect(new lychee.effect.Lightning({
+				type:     lychee.effect.Lightning.TYPE.easeout,
+				duration: 1000,
+				position: {
+					x: this.__origin.x,
+					y: this.__origin.y
+				}
+			}));
+
+		}
+
+
+		var objects = this.queryLayer('game', 'objects');
+		if (objects.entities.indexOf(tank) !== -1) {
+			objects.removeEntity(tank);
+		}
+
+		var index = this.__players.indexOf(tank);
+		if (index !== -1) {
+			this.__players.splice(index, 1);
+		}
+
+	};
+
 	var _on_init = function(data) {
+
+console.log('INIT', data.sid);
 
 		var control = this.queryLayer('ui', 'control');
 		var timeout = this.queryLayer('ui', 'timeout');
-		var objects = this.queryLayer('game', 'objects');
 
 		if (control !== null && timeout !== null) {
 
@@ -35,29 +91,10 @@ lychee.define('game.state.Game').requires([
 				if (tank !== null) {
 
 					if (data.tid === p) {
-
-						tank.addEffect(new lychee.effect.Lightning({
-							type:     lychee.effect.Lightning.TYPE.easeout,
-							duration: 3000,
-							origin:   this.__origin
-						}));
-
 						control.setTank(tank);
-						objects.addEntity(tank);
-						this.__players.push(tank);
-
-					} else {
-
-						tank.addEffect(new lychee.effect.Lightning({
-							type:     lychee.effect.Lightning.TYPE.easeout,
-							duration: 3000,
-							origin:   this.__origin
-						}));
-
-						objects.addEntity(tank);
-						this.__players.push(tank);
-
 					}
+
+					_spawn.call(this, tank);
 
 				}
 
@@ -77,71 +114,49 @@ lychee.define('game.state.Game').requires([
 		if (data.players === undefined) return;
 
 
+		var control = this.queryLayer('ui', 'control');
 		var timeout = this.queryLayer('ui', 'timeout');
+
+
 		if (timeout !== null) {
 			timeout.setTimeout(data.timeout);
 		}
 
 
-		var objects = this.queryLayer('game', 'objects');
-		if (objects !== null) {
+		if (this.__players.length < data.players.length) {
 
-			if (this.__players.length < data.players.length) {
+			for (var p = this.__players.length, pl = data.players.length; p < pl; p++) {
 
-				for (var p = this.__players.length, pl = data.players.length; p < pl; p++) {
+				var tank = this.__tanks[p] || null;
+				if (tank !== null) {
 
-					var tank = this.__tanks[p] || null;
-					if (tank !== null) {
-
-						if (data.tid === p) {
-
-							tank.addEffect(new lychee.effect.Lightning({
-								type:     lychee.effect.Lightning.TYPE.easeout,
-								duration: 3000,
-								origin:   this.__origin
-							}));
-
-							control.setTank(tank);
-							objects.addEntity(tank);
-							this.__players.push(tank);
-
-						} else {
-
-							tank.addEffect(new lychee.effect.Lightning({
-								type:     lychee.effect.Lightning.TYPE.easeout,
-								duration: 3000,
-								origin:   this.__origin
-							}));
-
-							objects.addEntity(tank);
-							this.__players.push(tank);
-
-						}
-
+					if (data.tid === p) {
+						control.setTank(tank);
 					}
+
+					_spawn.call(this, tank);
 
 				}
 
-			} else if (this.__players.length > data.players.length) {
+			}
 
-				for (var p = 0, pl = this.__players.length; p < pl; p++) {
+		} else if (this.__players.length > data.players.length) {
 
-					var tank = this.__tanks[p] || null;
-					if (tank !== null) {
+			for (var p = 0, pl = this.__players.length; p < pl; p++) {
 
-						if (p >= data.players.length) {
+				var tank = this.__tanks[p] || null;
+				if (tank !== null) {
 
-							objects.removeEntity(tank);
-							this.__players.splice(p, 1);
-							pl--;
-							p--;
+					if (p >= data.players.length) {
 
-						} else {
+						_kill.call(this, tank);
+						pl--;
+						p--;
 
-							if (data.tid === p) {
-								control.setTank(tank);
-							}
+					} else {
 
+						if (data.tid === p) {
+							control.setTank(tank);
 						}
 
 					}
@@ -299,17 +314,6 @@ console.log('START', this.__players);
 
 				this.queryLayer('ui', 'control').setVisible(false);
 				this.queryLayer('ui', 'timeout').setVisible(true);
-
-
-				this.__tanks.forEach(function(tank) {
-
-					tank.addEffect(new lychee.effect.Lightning({
-						type:     lychee.effect.Lightning.TYPE.easeout,
-						duration: 5000,
-						position: this.__origin
-					}));
-
-				}.bind(this));
 
 			}
 

@@ -113,16 +113,18 @@ lychee.define('game.net.remote.Control').includes([
 
 	var _on_unplug = function() {
 
-		var that = this;
+		var found = false;
 
 
-		_sessions = Object.filter(_sessions, function(session, key) {
+		for (var id in _sessions) {
 
-			var index = session.tunnels.indexOf(that.tunnel);
+			var session = _sessions[id];
+			var index   = session.tunnels.indexOf(this.tunnel);
 			if (index !== -1) {
 
 				session.players.splice(index, 1);
 				session.tunnels.splice(index, 1);
+				found = true;
 
 
 				for (var t = 0, tl = session.tunnels.length; t < tl; t++) {
@@ -138,15 +140,22 @@ lychee.define('game.net.remote.Control').includes([
 
 				}
 
-
-				return true;
-
 			}
 
+		}
 
-			return false;
 
-		});
+		for (var id in _sessions) {
+
+			var session = _sessions[id];
+			if (session.tunnels.length === 0) {
+				delete _sessions[id];
+			}
+
+		}
+
+
+		return true;
 
 	};
 
