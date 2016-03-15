@@ -1,5 +1,7 @@
 
 lychee.define('game.ui.layer.Control').requires([
+	'lychee.ui.entity.Button',
+	'lychee.ui.entity.Joystick',
 	'game.app.sprite.Tank'
 ]).includes([
 	'lychee.ui.Layer'
@@ -29,17 +31,217 @@ lychee.define('game.ui.layer.Control').requires([
 		 * INITIALIZATION
 		 */
 
-		this.unbind('relayout');
-		this.bind('relayout', function() {
+		this.unbind('touch');
+		this.bind('touch', function(id, position, delta) {
+
+			if (this.visible === false) return null;
 
 
-// TODO: Move @joystick and @buttons-fire and @buttons-mine around
+			var triggered = null;
+			var args      = [ id, {
+				x: position.x - this.offset.x,
+				y: position.y - this.offset.y
+			}, delta ];
+
+
+			var entity = this.getEntity(null, args[1]);
+			if (entity !== null) {
+
+				if (typeof entity.trigger === 'function') {
+
+					args[1].x -= entity.position.x;
+					args[1].y -= entity.position.y;
+
+					var result = entity.trigger('touch', args);
+					if (result === true) {
+						triggered = entity;
+					} else if (result !== false) {
+						triggered = result;
+					}
+
+				}
+
+			}
+
+
+			if (triggered !== null) {
+
+				if (triggered === this.getEntity('@joystick')) {
+
+					triggered.trigger('focus');
+
+					this.state = 'active';
+
+					return this;
+
+				} else if (triggered === this.getEntity('@button')) {
+
+					triggered.trigger('focus');
+					triggered.trigger('blur');
+
+					return this;
+
+				}
+
+			} else {
+
+				this.state = 'default';
+
+				return null;
+
+			}
 
 		}, this);
 
-		this.bind('touch', function() {
+		this.unbind('swipe');
+		this.bind('swipe', function(id, state, position, delta, swipe) {
 
-console.log('touch on control');
+			if (this.visible === false) return null;
+
+
+			var triggered = null;
+			var args      = [ id, state, {
+				x: position.x - this.offset.x,
+				y: position.y - this.offset.y
+			}, delta, swipe ];
+
+
+			var entity = this.getEntity(null, args[2]);
+			if (entity !== null) {
+
+				if (typeof entity.trigger === 'function') {
+
+					args[2].x -= entity.position.x;
+					args[2].y -= entity.position.y;
+
+					var result = entity.trigger('swipe', args);
+					if (result === true) {
+						triggered = entity;
+					} else if (result !== false) {
+						triggered = result;
+					}
+
+				}
+
+			}
+
+
+			if (triggered !== null) {
+
+				this.state = 'active';
+
+				return this;
+
+			} else {
+
+				this.getEntity('@joystick').trigger('blur');
+
+				this.state = 'default';
+
+				return false;
+
+			}
+
+		}, this);
+
+		this.unbind('relayout');
+		this.bind('relayout', function() {
+
+			var entity = null;
+			var x1     = -1/2 * this.width;
+			var y1     = -1/2 * this.height;
+			var x2     =  1/2 * this.width;
+			var y2     =  1/2 * this.height;
+
+
+			var joystick_w = 0;
+			var joystick_h = 0;
+
+			entity            = this.getEntity('@joystick');
+			joystick_w        = entity.width;
+			joystick_h        = entity.height;
+			entity.position.x = x1 + 16 + entity.width  / 2;
+			entity.position.y = y2 - 16 - entity.height / 2;
+
+			entity = this.getEntity('@button');
+			entity.position.x = x2 - 16 - joystick_w / 2;
+			entity.position.y = y2 - 16 - joystick_h / 2;
+
+		}, this);
+
+
+		this.bind('key', function(key, name, delta) {
+			this.getEntity('@joystick').trigger('key', [ key, name, delta ]);
+		}, this);
+
+		this.bind('reshape', function(orientation, rotation, width, height) {
+
+			if (typeof width === 'number' && typeof height === 'number') {
+
+				this.width  = width;
+				this.height = height;
+
+				this.trigger('relayout');
+
+			}
+
+		}, this);
+
+
+		this.setEntity('@joystick', new lychee.ui.entity.Joystick({
+			width:  128,
+			height: 128
+		}));
+
+		this.getEntity('@joystick').bind('change', function(value) {
+
+			var direction = null;
+
+			if (Math.abs(value.y) < 0.5) {
+
+				if (Math.abs(value.x) > 0.5) {
+
+					if (value.x > 0) direction = 'right';
+					if (value.x < 0) direction = 'left';
+
+				}
+
+			} else {
+
+				if (Math.abs(value.y) > 0.5) {
+
+					if (value.y > 0) direction = 'bottom';
+					if (value.y < 0) direction = 'top';
+
+				}
+
+			}
+
+
+			if (direction !== null) {
+
+				this.trigger('change', [{
+					action:    'move',
+					direction: direction
+				}]);
+
+			}
+
+		}, this);
+
+		this.setEntity('@button', new lychee.ui.entity.Button({
+			label:  'Shoot',
+			value:  'shoot',
+			width:  96,
+			height: 64
+		}));
+
+		this.getEntity('@button').bind('change', function(value) {
+
+			this.trigger('change', [{
+				action:    'shoot',
+				direction: null
+			}]);
 
 		}, this);
 
@@ -59,18 +261,6 @@ console.log('touch on control');
 
 
 			return data;
-
-		},
-
-
-
-		/*
-		 * CUSTOM API
-		 */
-
-		setTank: function(tank) {
-
-console.log('setting tank to control', tank);
 
 		}
 

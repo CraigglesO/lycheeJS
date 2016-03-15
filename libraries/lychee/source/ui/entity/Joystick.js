@@ -114,10 +114,10 @@ lychee.define('lychee.ui.entity.Joystick').includes([
 
 			var val = { x: this.value.x, y: this.value.y };
 
-			if (key === 'arrow-left')  val.x = -1.0;
-			if (key === 'arrow-right') val.x =  1.0;
-			if (key === 'arrow-up')    val.y = -1.0;
-			if (key === 'arrow-down')  val.y =  1.0;
+			if (key === 'arrow-left')  { val.x = -1.0; val.y = 0.0; }
+			if (key === 'arrow-right') { val.x =  1.0; val.y = 0.0; }
+			if (key === 'arrow-up')    { val.y = -1.0; val.x = 0.0; }
+			if (key === 'arrow-down')  { val.y =  1.0; val.x = 0.0; }
 
 			if (key === 'space') {
 				val.x = 0;
@@ -137,7 +137,10 @@ lychee.define('lychee.ui.entity.Joystick').includes([
 		}, this);
 
 		this.bind('blur', function() {
+
+			this.setValue({ x: 0, y: 0 });
 			this.setState('default');
+
 		}, this);
 
 

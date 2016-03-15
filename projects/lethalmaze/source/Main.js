@@ -16,7 +16,7 @@ lychee.define('game.Main').requires([
 				key:         true,
 				keymodifier: false,
 				touch:       true,
-				swipe:       false
+				swipe:       true
 			},
 
 			jukebox: {

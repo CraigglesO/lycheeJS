@@ -91,7 +91,7 @@ console.log('INIT', data.sid);
 				if (tank !== null) {
 
 					if (data.tid === p) {
-						control.setTank(tank);
+						this.__player = tank;
 					}
 
 					_spawn.call(this, tank);
@@ -131,7 +131,7 @@ console.log('INIT', data.sid);
 				if (tank !== null) {
 
 					if (data.tid === p) {
-						control.setTank(tank);
+						this.__player = tank;
 					}
 
 					_spawn.call(this, tank);
@@ -156,7 +156,7 @@ console.log('INIT', data.sid);
 					} else {
 
 						if (data.tid === p) {
-							control.setTank(tank);
+							this.__player = tank;
 						}
 
 					}
@@ -187,7 +187,9 @@ console.log('INIT', data.sid);
 		}
 
 
-console.log('START', this.__players);
+console.log('START', this.__players.map(function(tank) {
+	return tank.id;
+}));
 
 	};
 
@@ -202,6 +204,7 @@ console.log('START', this.__players);
 		lychee.app.State.call(this, main);
 
 
+		this.__player  = null;
 		this.__players = [];
 		this.__origin  = {
 			x: 384,
@@ -234,9 +237,15 @@ console.log('START', this.__players);
 					entity.offset.x = -1/2 * width;
 					entity.offset.y = -1/2 * height;
 
+					entity = this.queryLayer('ui', 'control');
+					entity.width  = width;
+					entity.height = height;
+					entity.trigger('relayout');
+
 					entity = this.queryLayer('ui', 'timeout');
 					entity.width  = width;
 					entity.height = height;
+					entity.trigger('relayout');
 
 
 					this.__origin.x = width  / 2;
@@ -264,6 +273,20 @@ console.log('START', this.__players);
 
 
 			return data;
+
+		},
+
+		deserialize: function(blob) {
+
+			lychee.app.State.prototype.deserialize.call(this, blob);
+
+
+			this.queryLayer('ui', 'control').bind('change', function(data) {
+
+				console.log('control', data);
+
+			}, this);
+
 
 		},
 

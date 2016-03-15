@@ -3,20 +3,27 @@ lychee.define('game.app.sprite.Tank').includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, game, global, attachments) {
 
-	var _texture = attachments["png"];
-	var _config  = attachments["json"].buffer;
-	var _sound   = attachments["snd"];
+	var _TEXTURE = attachments["png"];
+	var _CONFIG  = attachments["json"].buffer;
+	var _SOUNDS  = {
+		powerup: attachments["powerup.snd"],
+		shoot:   attachments["shoot.snd"]
+	};
 
 
 	var _id  = 0;
 	var _IDS = [ 'rainbow', 'red', 'green', 'blue', 'black', 'white' ];
 
 
-	var Class = function(data, main) {
+
+	/*
+	 * IMPLEMENTATION
+	 */
+
+	var Class = function(data) {
 
 		var settings = lychee.extend({}, data);
 
-		this.main = main || null;
 
 		this.id        = _IDS[(_id++ % _IDS.length)];
 		this.direction = 'top';
@@ -29,17 +36,34 @@ lychee.define('game.app.sprite.Tank').includes([
 		this.__lifeclock = null;
 
 
+		this.setAmmo(settings.ammo);
+		this.setLife(settings.life);
+
+
+		delete settings.ammo;
+		delete settings.life;
+
+
 		settings.collision = lychee.app.Entity.COLLISION.A;
-		settings.texture   = _texture;
-		settings.map       = _config.map;
-		settings.width     = _config.width;
-		settings.height    = _config.height;
+		settings.texture   = _TEXTURE;
+		settings.map       = _CONFIG.map;
+		settings.width     = _CONFIG.width;
+		settings.height    = _CONFIG.height;
 		settings.shape     = lychee.app.Entity.SHAPE.rectangle;
-		settings.states    = _config.states;
+		settings.states    = _CONFIG.states;
 		settings.state     = this.id + '-' + this.direction;
 
 
 		lychee.app.Sprite.call(this, settings);
+
+
+
+		/*
+		 * INITIALIZATION
+		 */
+
+		this.setDirection(settings.direction);
+
 
 		settings = null;
 
@@ -48,17 +72,32 @@ lychee.define('game.app.sprite.Tank').includes([
 
 	Class.prototype = {
 
+		/*
+		 * ENTITY API
+		 */
+
 		destroy: function() {
 
 			_id--;
 
 		},
 
-		update: function(clock, delta) {
+		serialize: function() {
 
-			this.__clock = clock;
+			var data = lychee.app.Sprite.prototype.serialize.call(this);
+			data['constructor'] = 'game.app.sprite.Tank';
 
-			lychee.app.Sprite.prototype.update.call(this, clock, delta);
+
+			var settings = data['arguments'][0] || {};
+			var blob     = data['blob'] || {};
+
+
+			if (this.ammo !== 4)          settings.ammo      = this.ammo;
+			if (this.direction !== 'top') settings.direction = this.direction;
+			if (this.life !== 4)          settings.life      = this.life;
+
+
+			return data;
 
 		},
 
@@ -104,13 +143,61 @@ lychee.define('game.app.sprite.Tank').includes([
 
 		},
 
+		update: function(clock, delta) {
+
+			this.__clock = clock;
+
+			lychee.app.Sprite.prototype.update.call(this, clock, delta);
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
+		move: function(direction) {
+
+			direction = typeof direction === 'string' ? direction : null;
+
+
+			if (direction !== null) {
+
+				var position = {
+					x: this.position.x,
+					y: this.position.y
+				};
+
+
+				switch(direction) {
+
+					case 'top':    position.y -= height; break;
+					case 'right':  position.x += width;  break;
+					case 'bottom': position.y += height; break;
+					case 'left':   position.x -= width;  break;
+					default:                             break;
+
+				}
+
+
+console.log(direction, position);
+
+			}
+
+
+			return false;
+
+		},
+
 		shoot: function() {
 
 			if (this.ammo > 0) {
 
-				this.main.jukebox.play(_sound);
+				_SOUNDS.shoot.play();
 				this.__ammoclock = this.__clock + 2000;
 				this.ammo--;
+
 
 				return true;
 
@@ -146,15 +233,34 @@ lychee.define('game.app.sprite.Tank').includes([
 
 			if (this.ammo < 4) {
 
-				this.__ammoclock = this.__clock + 2000;
-				this.ammo = 4;
-
-				return true;
+				return this.setAmmo(4);
 
 			} else if (this.life < 4) {
 
-				this.__lifeclock = this.__clock + 2000;
-				this.life++;
+				return this.setLife(4);
+
+			}
+
+
+			return false;
+
+		},
+
+		setAmmo: function(ammo) {
+
+			ammo = typeof ammo === 'number' ? (ammo | 0) : null;
+
+
+			if (ammo !== null) {
+
+				if (this.ammo !== ammo) {
+
+					_SOUNDS.powerup.play();
+					this.__ammoclock = this.__clock + 2000;
+					this.ammo = ammo;
+
+				}
+
 
 				return true;
 
@@ -171,6 +277,32 @@ lychee.define('game.app.sprite.Tank').includes([
 			if (result === true) {
 
 				this.direction = direction;
+
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
+		setLife: function(life) {
+
+			life = typeof life === 'number' ? (life | 0) : null;
+
+
+			if (life !== null) {
+
+				if (this.life !== life) {
+
+					_SOUNDS.powerup.play();
+					this.__lifeclock = this.__clock + 2000;
+					this.life = life;
+
+				}
+
 
 				return true;
 
