@@ -109,6 +109,27 @@ console.log('INIT', data.sid);
 
 	};
 
+	var _on_control = function(data) {
+
+		var player = this.__player;
+		var tid    = data.tid || null;
+		if (tid !== null) {
+			player = this.__players[tid] || null;
+		}
+
+
+		if (player !== null) {
+
+			if (data.action === 'move') {
+				player.move(data.direction);
+			} else if (data.action === 'shoot') {
+				player.shoot();
+			}
+
+		}
+
+	};
+
 	var _on_update = function(data) {
 
 		if (data.players === undefined) return;
@@ -183,6 +204,8 @@ console.log('INIT', data.sid);
 
 			control.setVisible(true);
 			timeout.setVisible(false);
+
+			this.__focus = control;
 
 		}
 
@@ -281,12 +304,7 @@ console.log('START', this.__players.map(function(tank) {
 			lychee.app.State.prototype.deserialize.call(this, blob);
 
 
-			this.queryLayer('ui', 'control').bind('change', function(data) {
-
-				console.log('control', data);
-
-			}, this);
-
+			this.queryLayer('ui', 'control').bind('change', _on_control, this);
 
 		},
 
@@ -326,9 +344,10 @@ console.log('START', this.__players.map(function(tank) {
 					var service = client.getService('control');
 					if (service !== null) {
 
-						service.bind('init',   _on_init,   this);
-						service.bind('update', _on_update, this);
-						service.bind('start',  _on_start,  this);
+						service.bind('init',    _on_init,    this);
+						service.bind('update',  _on_update,  this);
+						service.bind('start',   _on_start,   this);
+						service.bind('control', _on_control, this);
 
 					}
 
@@ -367,9 +386,10 @@ console.log('START', this.__players.map(function(tank) {
 				var service = client.getService('control');
 				if (service !== null) {
 
-					service.unbind('init',   _on_init,   this);
-					service.unbind('update', _on_update, this);
-					service.unbind('start',  _on_start,  this);
+					service.unbind('init',    _on_init,    this);
+					service.unbind('update',  _on_update,  this);
+					service.unbind('start',   _on_start,   this);
+					service.unbind('control', _on_control, this);
 
 				}
 

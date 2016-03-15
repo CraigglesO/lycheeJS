@@ -1,5 +1,7 @@
 
-lychee.define('game.app.sprite.Tank').includes([
+lychee.define('game.app.sprite.Tank').requires([
+	'lychee.effect.Position'
+]).includes([
 	'lychee.app.Sprite'
 ]).exports(function(lychee, game, global, attachments) {
 
@@ -164,6 +166,8 @@ lychee.define('game.app.sprite.Tank').includes([
 
 			if (direction !== null) {
 
+				var width    = this.width;
+				var height   = this.height;
 				var position = {
 					x: this.position.x,
 					y: this.position.y
@@ -181,7 +185,17 @@ lychee.define('game.app.sprite.Tank').includes([
 				}
 
 
-console.log(direction, position);
+				if (this.effects.length === 0) {
+
+					this.setDirection(direction);
+
+					this.addEffect(new lychee.effect.Position({
+						type:     lychee.effect.Position.TYPE.easeout,
+						duration: 300,
+						position: position
+					}));
+
+				}
 
 			}
 

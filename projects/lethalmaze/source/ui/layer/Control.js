@@ -171,7 +171,29 @@ lychee.define('game.ui.layer.Control').requires([
 
 
 		this.bind('key', function(key, name, delta) {
-			this.getEntity('@joystick').trigger('key', [ key, name, delta ]);
+
+			var args = [ key, name, delta ];
+
+			if (key.match(/w|a|s|d/g) || key.substr(0, 5) === 'arrow') {
+
+				var joystick = this.getEntity('@joystick');
+
+				joystick.trigger('focus');
+				joystick.trigger('key', args);
+				joystick.trigger('blur');
+
+			} else {
+
+// TODO: Figure out why space and enter don't work
+
+				var button = this.getEntity('@button');
+
+				button.trigger('focus');
+				button.trigger('key', args);
+				button.trigger('blur');
+
+			}
+
 		}, this);
 
 		this.bind('reshape', function(orientation, rotation, width, height) {
