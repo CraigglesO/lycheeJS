@@ -112,22 +112,26 @@ lychee.define('lychee.ui.entity.Joystick').includes([
 
 		this.bind('key', function(key, name, delta) {
 
-			var val = { x: this.value.x, y: this.value.y };
+			if (this.state === 'active') {
 
-			if (key === 'arrow-left')  { val.x = -1.0; val.y = 0.0; }
-			if (key === 'arrow-right') { val.x =  1.0; val.y = 0.0; }
-			if (key === 'arrow-up')    { val.y = -1.0; val.x = 0.0; }
-			if (key === 'arrow-down')  { val.y =  1.0; val.x = 0.0; }
+				var val = { x: this.value.x, y: this.value.y };
 
-			if (key === 'space') {
-				val.x = 0;
-				val.y = 0;
-			}
+				if (key === 'a' || key === 'arrow-left')  { val.x = -1.0; val.y = 0.0; }
+				if (key === 'd' || key === 'arrow-right') { val.x =  1.0; val.y = 0.0; }
+				if (key === 'w' || key === 'arrow-up')    { val.y = -1.0; val.x = 0.0; }
+				if (key === 's' || key === 'arrow-down')  { val.y =  1.0; val.x = 0.0; }
+
+				if (key === 'enter' || key === 'space') {
+					val.x = 0;
+					val.y = 0;
+				}
 
 
-			var result = this.setValue(val);
-			if (result === true) {
-				this.trigger('change', [ val ]);
+				var result = this.setValue(val);
+				if (result === true) {
+					this.trigger('change', [ val ]);
+				}
+
 			}
 
 		}, this);

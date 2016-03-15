@@ -93,16 +93,24 @@ lychee.define('lychee.ui.entity.Select').includes([
 			if (this.options.length === 0) return;
 
 
-			var val = null;
-			var q   = this.options.indexOf(this.value);
+			if (this.state === 'active') {
 
-			if (key === 'arrow-up')   val = this.options[q - 1] || null;
-			if (key === 'arrow-down') val = this.options[q + 1] || null;
+				var val = null;
+				var q   = this.options.indexOf(this.value);
+
+				if (key === 'w' || key === 'arrow-up')   val = this.options[q - 1] || null;
+				if (key === 's' || key === 'arrow-down') val = this.options[q + 1] || null;
 
 
-			var result = this.setValue(val);
-			if (result === true) {
-				this.trigger('change', [ val ]);
+				if (key === 'space') val = this.options[0];
+				if (key === 'enter') val = this.options[this.options.length - 1];
+
+
+				var result = this.setValue(val);
+				if (result === true) {
+					this.trigger('change', [ val ]);
+				}
+
 			}
 
 		}, this);

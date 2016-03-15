@@ -141,62 +141,66 @@ lychee.define('lychee.ui.entity.Input').includes([
 
 		this.bind('key', function(key, name, delta) {
 
-			var type = this.type;
+			if (this.state === 'active') {
 
-			if (key === 'backspace') {
+				var type = this.type;
 
-				var raw = this.__value.substr(0, this.__value.length - 1);
+				if (key === 'backspace') {
 
-				if (type === Class.TYPE.text) {
+					var raw = this.__value.substr(0, this.__value.length - 1);
 
-					this.__value = raw;
+					if (type === Class.TYPE.text) {
 
-				} else if (type === Class.TYPE.number) {
+						this.__value = raw;
 
-					var bsvalue = parseInt(raw, 10);
-					if (!isNaN(bsvalue)) {
-						this.__value = bsvalue + '';
-					} else {
-						this.__value = '';
+					} else if (type === Class.TYPE.number) {
+
+						var bsvalue = parseInt(raw, 10);
+						if (!isNaN(bsvalue)) {
+							this.__value = bsvalue + '';
+						} else {
+							this.__value = '';
+						}
+
 					}
+
+					this.__isDirty = true;
+
+					return;
+
+				} else if (key === 'enter') {
+
+					this.trigger('blur');
+
+					return;
+
+				} else if (key === 'space') {
+
+					key = ' ';
 
 				}
 
-				this.__isDirty = true;
 
-				return;
+				if (key.length === 1) {
 
-			} else if (key === 'enter') {
+					if (type === Class.TYPE.text && key.match(/([A-Za-z0-9\s+=-_#@$%*:.\(\)?!]+)/)) {
 
-				this.trigger('blur');
+						this.__value = this.__value + key;
 
-				return;
+					} else if (type === Class.TYPE.number && key.match(/[0-9-+]/)) {
 
-			} else if (key === 'space') {
+						var value = parseInt('' + this.__value + key, 10);
+						if (!isNaN(value)) {
+							this.__value = value + '';
+						} else {
+							this.__value = '';
+						}
 
-				key = ' ';
-
-			}
-
-
-			if (key.length === 1) {
-
-				if (type === Class.TYPE.text && key.match(/([A-Za-z0-9\s+=-_#@$%*:.\(\)?!]+)/)) {
-
-					this.__value = this.__value + key;
-
-				} else if (type === Class.TYPE.number && key.match(/[0-9-+]/)) {
-
-					var value = parseInt('' + this.__value + key, 10);
-					if (!isNaN(value)) {
-						this.__value = value + '';
-					} else {
-						this.__value = '';
 					}
 
-				}
+					this.__isDirty = true;
 
-				this.__isDirty = true;
+				}
 
 			}
 

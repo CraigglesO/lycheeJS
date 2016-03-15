@@ -179,26 +179,34 @@ lychee.define('lychee.ui.entity.Slider').includes([
 
 		this.bind('key', function(key, name, delta) {
 
-			var val  = this.value;
-			var step = this.step;
-			var type = this.type;
+			if (this.state === 'active') {
 
-			if (type === Class.TYPE.horizontal) {
+				var val  = this.value;
+				var step = this.step;
+				var type = this.type;
 
-				if (key === 'arrow-left')  val -= step;
-				if (key === 'arrow-right') val += step;
+				if (type === Class.TYPE.horizontal) {
 
-			} else if (type === Class.TYPE.vertical) {
+					if (key === 'a' || key === 'arrow-left')  val -= step;
+					if (key === 'd' || key === 'arrow-right') val += step;
 
-				if (key === 'arrow-up')    val -= step;
-				if (key === 'arrow-down')  val += step;
+				} else if (type === Class.TYPE.vertical) {
 
-			}
+					if (key === 'w' || key === 'arrow-up')    val -= step;
+					if (key === 's' || key === 'arrow-down')  val += step;
+
+				}
 
 
-			var result = this.setValue(val);
-			if (result === true) {
-				this.trigger('change', [ val ]);
+				if (key === 'space') val = this.min;
+				if (key === 'enter') val = this.max;
+
+
+				var result = this.setValue(val);
+				if (result === true) {
+					this.trigger('change', [ val ]);
+				}
+
 			}
 
 		}, this);

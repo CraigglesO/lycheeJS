@@ -72,19 +72,27 @@ lychee.define('lychee.ui.entity.Switch').includes([
 
 		this.bind('key', function(key, name, delta) {
 
-			var val = null;
-			var q   = this.options.indexOf(this.value);
+			if (this.state === 'active') {
 
-			if (key === 'arrow-left')  val = this.options[0];
-			if (key === 'arrow-right') val = this.options[1];
-			if (key === 'arrow-up')    val = this.options[0];
-			if (key === 'arrow-down')  val = this.options[1];
-			if (key === 'space')       val = this.options[q === 0 ? 1 : 0];
+				var val = null;
+				var q   = this.options.indexOf(this.value);
+
+				if (key === 'a' || key === 'arrow-left')  val = this.options[0];
+				if (key === 'd' || key === 'arrow-right') val = this.options[1];
+				if (key === 'w' || key === 'arrow-up')    val = this.options[0];
+				if (key === 's' || key === 'arrow-down')  val = this.options[1];
 
 
-			var result = this.setValue(val);
-			if (result === true) {
-				this.trigger('change', [ val ]);
+				if (key === 'enter' || key === 'space') {
+					val = this.options[q === 0 ? 1 : 0];
+				}
+
+
+				var result = this.setValue(val);
+				if (result === true) {
+					this.trigger('change', [ val ]);
+				}
+
 			}
 
 		}, this);
