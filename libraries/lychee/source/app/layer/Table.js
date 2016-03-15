@@ -1,9 +1,9 @@
 
-lychee.define('lychee.app.layer.Table').includes([
-	'lychee.app.Layer'
-]).requires([
+lychee.define('lychee.app.layer.Table').requires([
 	'lychee.effect.Alpha',
 	'lychee.app.entity.Label'
+]).includes([
+	'lychee.app.Layer'
 ]).exports(function(lychee, global, attachments) {
 
 	var _FONT = attachments["fnt"];
