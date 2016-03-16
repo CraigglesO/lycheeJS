@@ -58,18 +58,17 @@ lychee.define('game.net.client.Control').includes([
 
 			if (data instanceof Object) {
 
-				if (typeof data.player === 'string' && typeof data.action === 'string' && data.position instanceof Object) {
+				this.tunnel.send({
+					tid:       data.tid,
+					action:    data.action,
+					direction: data.direction
+				}, {
+					id:    this.id,
+					event: 'control'
+				});
 
-					this.multicast({
-						player:   data.player,
-						action:   data.action,
-						position: data.position
-					});
 
-
-					return true;
-
-				}
+				return true;
 
 			}
 

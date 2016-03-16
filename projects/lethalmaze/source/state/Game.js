@@ -2,9 +2,13 @@
 lychee.define('game.state.Game').requires([
 	'lychee.app.Layer',
 	'lychee.effect.Lightning',
+	'lychee.effect.Shake',
 	'lychee.ui.Layer',
+	'game.app.sprite.Bullet',
+	'game.app.sprite.Item',
 	'game.app.sprite.Tank',
 	'game.data.Level',
+	'game.effect.Explosion',
 	'game.ui.entity.Timeout',
 	'game.ui.layer.Control'
 ]).includes([
@@ -14,6 +18,10 @@ lychee.define('game.state.Game').requires([
 	var _BLOB   = attachments["json"].buffer;
 	var _LEVELS = attachments["levels.json"].buffer;
 	var _MUSIC  = attachments["msc"];
+	var _SOUNDS = {
+		kill:  attachments["kill.snd"],
+		spawn: attachments["spawn.snd"]
+	};
 
 
 
@@ -21,10 +29,43 @@ lychee.define('game.state.Game').requires([
 	 * HELPERS
 	 */
 
+	var _explode = function(position) {
+
+		var objects = this.queryLayer('game', 'objects');
+		if (objects !== null) {
+
+			if (objects.effects.length === 0) {
+
+				objects.addEffect(new lychee.effect.Shake({
+					duration: 300,
+					shake:    {
+						x: Math.random() > 0.5 ? -16 : 16,
+						y: Math.random() > 0.5 ? -16 : 16
+					}
+				}));
+
+			}
+
+			objects.addEffect(new game.effect.Explosion({
+				duration: 500,
+				position: {
+					x: position.x,
+					y: position.y
+				}
+			}));
+
+		}
+
+	};
+
 	var _spawn = function(tank) {
 
-		if (tank.effects.length === 0) {
+console.log('spawn', tank.id);
 
+		var objects = this.queryLayer('game', 'objects');
+		if (objects.entities.indexOf(tank) === -1) {
+
+			tank.removeEffects();
 			tank.addEffect(new lychee.effect.Lightning({
 				type:     lychee.effect.Lightning.TYPE.easeout,
 				duration: 3000,
@@ -34,12 +75,10 @@ lychee.define('game.state.Game').requires([
 				}
 			}));
 
-		}
 
-
-		var objects = this.queryLayer('game', 'objects');
-		if (objects.entities.indexOf(tank) === -1) {
 			objects.addEntity(tank);
+			_SOUNDS.spawn.play();
+
 		}
 
 		if (this.__players.indexOf(tank) === -1) {
@@ -50,23 +89,16 @@ lychee.define('game.state.Game').requires([
 
 	var _kill = function(tank) {
 
-		if (tank.effects.length === 0) {
-
-			tank.addEffect(new lychee.effect.Lightning({
-				type:     lychee.effect.Lightning.TYPE.easeout,
-				duration: 1000,
-				position: {
-					x: this.__origin.x,
-					y: this.__origin.y
-				}
-			}));
-
-		}
-
+console.log('kill', tank.id);
 
 		var objects = this.queryLayer('game', 'objects');
 		if (objects.entities.indexOf(tank) !== -1) {
+
+			tank.removeEffects();
+
 			objects.removeEntity(tank);
+			_SOUNDS.kill.play();
+
 		}
 
 		var index = this.__players.indexOf(tank);
@@ -78,8 +110,6 @@ lychee.define('game.state.Game').requires([
 
 	var _on_init = function(data) {
 
-console.log('INIT', data.sid);
-
 		var control = this.queryLayer('ui', 'control');
 		var timeout = this.queryLayer('ui', 'timeout');
 
@@ -87,7 +117,7 @@ console.log('INIT', data.sid);
 
 			for (var p = 0, pl = data.players.length; p < pl; p++) {
 
-				var tank = this.__tanks[p] || null;
+				var tank = this.__players[p] || null;
 				if (tank !== null) {
 
 					if (data.tid === p) {
@@ -112,7 +142,9 @@ console.log('INIT', data.sid);
 	var _on_control = function(data) {
 
 		var player = this.__player;
-		var tid    = data.tid || null;
+		var result = false;
+		var tid    = data.tid;
+
 		if (tid !== null) {
 			player = this.__players[tid] || null;
 		}
@@ -120,13 +152,80 @@ console.log('INIT', data.sid);
 
 		if (player !== null) {
 
+			var bullets  = this.queryLayer('game', 'bullets');
+			var objects  = this.queryLayer('game', 'objects');
+			var entity   = null;
+			var position = {
+				x: player.position.x,
+				y: player.position.y
+			};
+
+			var velocity = {
+				x: 0,
+				y: 0
+			};
+
+
 			if (data.action === 'move') {
-				player.move(data.direction);
+
+				if (data.direction === 'top')    position.y -= player.height;
+				if (data.direction === 'right')  position.x += player.width;
+				if (data.direction === 'bottom') position.y += player.height;
+				if (data.direction === 'left')   position.x -= player.width;
+
+
+				entity = objects.getEntity(null, position);
+
+				if (entity === null || entity instanceof game.app.sprite.Item) {
+					result = player.move(data.direction);
+				}
+
 			} else if (data.action === 'shoot') {
-				player.shoot();
+
+				result = player.shoot();
+
+				if (result === true) {
+
+					data.direction = player.direction;
+
+
+					if (player.direction === 'top') {
+						position.y -= player.height / 2;
+						velocity.y -= player.height * 5;
+					}
+
+					if (player.direction === 'right') {
+						position.x += player.width / 2;
+						velocity.x += player.width * 5;
+					}
+
+					if (player.direction === 'bottom') {
+						position.y += player.height / 2;
+						velocity.y += player.height * 5;
+					}
+
+					if (player.direction === 'left') {
+						position.x -= player.width / 2;
+						velocity.x -= player.width * 5;
+					}
+
+
+					entity = new game.app.sprite.Bullet({
+						position: position,
+						velocity: velocity
+					});
+
+					this.__bullets[data.tid || 0].push(entity);
+					bullets.addEntity(entity);
+
+				}
+
 			}
 
 		}
+
+
+		return result;
 
 	};
 
@@ -146,7 +245,7 @@ console.log('INIT', data.sid);
 
 		if (this.__players.length < data.players.length) {
 
-			for (var p = this.__players.length, pl = data.players.length; p < pl; p++) {
+			for (var p = 0, pl = data.players.length; p < pl; p++) {
 
 				var tank = this.__tanks[p] || null;
 				if (tank !== null) {
@@ -195,7 +294,7 @@ console.log('INIT', data.sid);
 
 	};
 
-	var _on_start = function() {
+	var _on_start = function(data) {
 
 		var control = this.queryLayer('ui', 'control');
 		var timeout = this.queryLayer('ui', 'timeout');
@@ -210,7 +309,7 @@ console.log('INIT', data.sid);
 		}
 
 
-console.log('START', this.__players.map(function(tank) {
+console.log('START', data.sid, this.__players.map(function(tank) {
 	return tank.id;
 }));
 
@@ -227,6 +326,9 @@ console.log('START', this.__players.map(function(tank) {
 		lychee.app.State.call(this, main);
 
 
+		this.__bullets = [[], [], [], []];
+		this.__items   = [];
+		this.__tanks   = [];
 		this.__player  = null;
 		this.__players = [];
 		this.__origin  = {
@@ -303,8 +405,84 @@ console.log('START', this.__players.map(function(tank) {
 
 			lychee.app.State.prototype.deserialize.call(this, blob);
 
+		},
 
-			this.queryLayer('ui', 'control').bind('change', _on_control, this);
+		update: function(clock, delta) {
+
+			var bullets = this.queryLayer('game', 'bullets');
+			var objects = this.queryLayer('game', 'objects');
+
+			if (bullets !== null && objects !== null) {
+
+				var entities = objects.entities;
+				var players  = this.__players;
+
+
+				for (var p = 0, pl = players.length; p < pl; p++) {
+
+					var player = players[p];
+
+					for (var e = 0, el = entities.length; e < el; e++) {
+
+						var entity = entities[e];
+						if (entity === player) continue;
+
+						if (entity.collidesWith(player)) {
+
+							if (entity instanceof game.app.sprite.Item) {
+
+								player.powerup();
+
+								entities.splice(e, 1);
+								el--;
+								e--;
+
+							}
+
+						}
+
+					}
+
+				}
+
+
+				for (var p = 0, pl = players.length; p < pl; p++) {
+
+					var player = players[p];
+
+					for (var b = 0, bl = this.__bullets[p].length; b < bl; b++) {
+
+						var bullet = this.__bullets[p][b];
+						var entity = objects.getEntity(null, bullet.position);
+						if (entity !== null && entity !== player) {
+
+							if (entity instanceof game.app.sprite.Tank) {
+								entity.hit();
+							}
+
+
+							_explode.call(this, bullet.position);
+
+							this.__bullets[p].splice(b, 1);
+							bullets.removeEntity(bullet);
+							bl--;
+							b--;
+
+						}
+
+					}
+
+
+					if (player.life <= 0) {
+// TODO: Kill Player and respawn player later
+					}
+
+				}
+
+			}
+
+
+			lychee.app.State.prototype.update.call(this, clock, delta);
 
 		},
 
@@ -329,6 +507,7 @@ console.log('START', this.__players.map(function(tank) {
 					return entity instanceof game.app.sprite.Tank;
 				});
 
+
 				level.objects = level.objects.filter(function(entity) {
 					return !(entity instanceof game.app.sprite.Tank);
 				});
@@ -348,6 +527,24 @@ console.log('START', this.__players.map(function(tank) {
 						service.bind('update',  _on_update,  this);
 						service.bind('start',   _on_start,   this);
 						service.bind('control', _on_control, this);
+
+
+						var control = this.queryLayer('ui', 'control');
+						if (control !== null) {
+
+							control.bind('change', function(data) {
+
+								data.tid = this.__players.indexOf(this.__player);
+
+
+								var result = _on_control.call(this, data);
+								if (result === true) {
+									service.control(data);
+								}
+
+							}, this);
+
+						}
 
 					}
 
@@ -386,10 +583,10 @@ console.log('START', this.__players.map(function(tank) {
 				var service = client.getService('control');
 				if (service !== null) {
 
-					service.unbind('init',    _on_init,    this);
-					service.unbind('update',  _on_update,  this);
-					service.unbind('start',   _on_start,   this);
-					service.unbind('control', _on_control, this);
+					service.unbind('init',      _on_init,    this);
+					service.unbind('update',    _on_update,  this);
+					service.unbind('start',     _on_start,   this);
+					service.unbind('multicast', _on_control, this);
 
 				}
 

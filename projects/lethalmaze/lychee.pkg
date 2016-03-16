@@ -91,7 +91,8 @@
 				"Explosion": [
 					"js",
 					"json",
-					"png"
+					"png",
+					"snd"
 				]
 			},
 			"net": {
@@ -114,13 +115,13 @@
 			},
 			"state": {
 				"Game": [
-					"death.snd",
-					"explosion.snd",
 					"fnt",
 					"js",
 					"json",
+					"kill.snd",
 					"levels.json",
-					"msc"
+					"msc",
+					"spawn.snd"
 				],
 				"Game___OLD": [
 					"js"

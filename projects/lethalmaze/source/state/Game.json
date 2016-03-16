@@ -10,10 +10,14 @@
 				}, {
 					"constructor": "lychee.app.Layer",
 					"arguments": [{}]
+				}, {
+					"constructor": "lychee.app.Layer",
+					"arguments": [{}]
 				}],
 				"map": {
 					"terrain": 0,
-					"objects": 1
+					"objects": 1,
+					"bullets": 2
 				}
 			}
 		},
