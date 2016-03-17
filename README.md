@@ -1,5 +1,5 @@
 
-# lycheeJS (2015-Q4)
+# lycheeJS (2016-Q1)
 
 brought to you as libre software with joy and pride by [Artificial Engineering](http://artificial.engineering).
 
@@ -83,7 +83,7 @@ are installed among typical GNU systems. We don't need any compiler
 here as we ship our own runtimes as binaries.
 
 ```bash
-sudo bash -c "$(wget -q -O - http://lycheejs.org/download/lycheejs-2015-Q4-netinstall.sh)";
+sudo bash -c "$(wget -q -O - http://lycheejs.org/download/lycheejs-2016-Q1-netinstall.sh)";
 ```
 
 The above commands will look similar to this if everything went fine.
