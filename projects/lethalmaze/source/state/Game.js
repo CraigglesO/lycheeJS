@@ -628,7 +628,7 @@ lychee.define('game.state.Game').requires([
 					for (var pe = 0, pel = portal.effects.length; pe < pel; pe++) {
 
 						var effect = portal.effects[pe];
-						if (effect instanceof game.effect.Lightning) {
+						if (effect instanceof game.effect.Lightning && effect.__start !== null && effect.__start < clock) {
 
 							var entity = objects.getEntity(null, effect.position);
 							if (entity !== null && entity instanceof game.app.sprite.Wall) {
