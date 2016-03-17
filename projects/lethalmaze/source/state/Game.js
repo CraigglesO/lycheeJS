@@ -1,14 +1,15 @@
 
 lychee.define('game.state.Game').requires([
 	'lychee.app.Layer',
-	'lychee.effect.Lightning',
 	'lychee.effect.Shake',
 	'lychee.ui.Layer',
 	'game.app.sprite.Bullet',
 	'game.app.sprite.Item',
+	'game.app.sprite.Portal',
 	'game.app.sprite.Tank',
 	'game.data.Level',
 	'game.effect.Explosion',
+	'game.effect.Lightning',
 	'game.ui.entity.Timeout',
 	'game.ui.layer.Control'
 ]).includes([
@@ -28,6 +29,26 @@ lychee.define('game.state.Game').requires([
 	/*
 	 * HELPERS
 	 */
+
+	var _lightning = function(position) {
+
+		position = position instanceof Object ? position : null;
+
+
+		var portal = this.queryLayer('game', 'portals > portal');
+		if (portal !== null) {
+
+			portal.addEffect(new game.effect.Lightning({
+				type:     game.effect.Lightning.TYPE.bounceeaseout,
+				duration: 2000,
+				position: position
+			}));
+
+			_SOUNDS.spawn.play();
+
+		}
+
+	};
 
 	var _explode = function(position) {
 
@@ -115,8 +136,8 @@ lychee.define('game.state.Game').requires([
 		if (objects.entities.indexOf(tank) === -1) {
 
 			tank.removeEffects();
-			tank.addEffect(new lychee.effect.Lightning({
-				type:     lychee.effect.Lightning.TYPE.easeout,
+			tank.addEffect(new game.effect.Lightning({
+				type:     game.effect.Lightning.TYPE.bounceeaseout,
 				duration: 3000
 			}));
 
@@ -433,6 +454,11 @@ lychee.define('game.state.Game').requires([
 					entity.height = height;
 					entity.trigger('relayout');
 
+					entity = this.queryLayer('game', 'portals');
+					entity.width  = width;
+					entity.height = height;
+					entity.trigger('relayout');
+
 				}
 
 			}, this);
@@ -468,6 +494,7 @@ lychee.define('game.state.Game').requires([
 
 			var bullets = this.queryLayer('game', 'bullets');
 			var objects = this.queryLayer('game', 'objects');
+			var portal  = this.queryLayer('game', 'portals > portal');
 
 			if (bullets !== null && objects !== null) {
 
@@ -515,20 +542,32 @@ lychee.define('game.state.Game').requires([
 					for (var b = 0, bl = this.__bullets[p].length; b < bl; b++) {
 
 						var bullet = this.__bullets[p][b];
-						var entity = objects.getEntity(null, bullet.position);
-						if (entity !== null && entity !== player) {
 
-							if (entity instanceof game.app.sprite.Tank) {
-								entity.hit();
+						if (bullet.collidesWith(portal)) {
+
+							bullet.velocity.x *= Math.abs(bullet.velocity.x) > 0 ? -1 : 1;
+							bullet.velocity.y *= Math.abs(bullet.velocity.y) > 0 ? -1 : 1;
+
+						} else {
+
+							var entity = objects.getEntity(null, bullet.position);
+							if (entity !== null && entity !== player) {
+
+								if (entity instanceof game.app.sprite.Tank) {
+									entity.hit();
+								} else if (entity instanceof game.app.sprite.Wall) {
+									entity.hit();
+								}
+
+
+								_explode.call(this, bullet.position);
+
+								this.__bullets[p].splice(b, 1);
+								bullets.removeEntity(bullet);
+								bl--;
+								b--;
+
 							}
-
-
-							_explode.call(this, bullet.position);
-
-							this.__bullets[p].splice(b, 1);
-							bullets.removeEntity(bullet);
-							bl--;
-							b--;
 
 						}
 
@@ -542,6 +581,8 @@ lychee.define('game.state.Game').requires([
 				}
 
 
+
+
 				if (items.length >= 5) {
 
 					// XXX: Don't spawn the latest collected item again (player still above it)
@@ -549,6 +590,7 @@ lychee.define('game.state.Game').requires([
 					for (var i = 0, il = 4; i < il; i++) {
 
 						objects.addEntity(items[i]);
+						_lightning.call(this, items[i].position);
 
 						items.splice(i, 1);
 						il--;

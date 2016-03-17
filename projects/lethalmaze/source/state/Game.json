@@ -25,11 +25,26 @@
 						"width": 768,
 						"height": 768
 					}]
+				}, {
+					"constructor": "lychee.app.Layer",
+					"arguments": [{
+						"relayout": false
+					}],
+					"blob": {
+						"entities": [{
+							"constructor": "game.app.sprite.Portal",
+							"arguments": [{}]
+						}],
+						"map": {
+							"portal": 0
+						}
+					}
 				}],
 				"map": {
 					"terrain": 0,
 					"objects": 1,
-					"bullets": 2
+					"bullets": 2,
+					"portals": 3
 				}
 			}
 		},

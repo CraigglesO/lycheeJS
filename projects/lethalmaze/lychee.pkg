@@ -63,6 +63,12 @@
 						"json",
 						"png"
 					],
+					"Portal": [
+						"js",
+						"json",
+						"png",
+						"snd"
+					],
 					"Tank": [
 						"js",
 						"json",
@@ -93,6 +99,9 @@
 					"json",
 					"png",
 					"snd"
+				],
+				"Lightning": [
+					"js"
 				]
 			},
 			"net": {

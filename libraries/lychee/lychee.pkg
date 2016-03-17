@@ -311,9 +311,6 @@
 				"Height": [
 					"js"
 				],
-				"Lightning": [
-					"js"
-				],
 				"Offset": [
 					"js"
 				],
@@ -324,6 +321,9 @@
 					"js"
 				],
 				"Shake": [
+					"js"
+				],
+				"Sound": [
 					"js"
 				],
 				"Velocity": [
