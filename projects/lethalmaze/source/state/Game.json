@@ -6,13 +6,25 @@
 			"blob": {
 				"entities": [{
 					"constructor": "lychee.app.Layer",
-					"arguments": [{}]
+					"arguments": [{
+						"relayout": false,
+						"width": 768,
+						"height": 768
+					}]
 				}, {
 					"constructor": "lychee.app.Layer",
-					"arguments": [{}]
+					"arguments": [{
+						"relayout": false,
+						"width": 768,
+						"height": 768
+					}]
 				}, {
 					"constructor": "lychee.app.Layer",
-					"arguments": [{}]
+					"arguments": [{
+						"relayout": false,
+						"width": 768,
+						"height": 768
+					}]
 				}],
 				"map": {
 					"terrain": 0,

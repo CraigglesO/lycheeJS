@@ -27,8 +27,8 @@ lychee.define('game.Main').requires([
 
 			renderer: {
 				id:         'lethalmaze',
-				width:      768,
-				height:     768,
+				width:      null,
+				height:     null,
 				background: '#67b843'
 			},
 

@@ -58,14 +58,32 @@ lychee.define('game.state.Game').requires([
 
 	};
 
+	var _get_respawn_position = function() {
+
+		var objects  = this.queryLayer('game', 'objects');
+		var position = {
+			x: Math.random() * objects.width,
+			y: Math.random() * objects.height
+		};
+
+
+// TODO: Return position
+
+	};
+
 	var _respawn = function(tank) {
 
-		var objects = this.queryLayer('game', 'objects');
-		if (objects.entities.indexOf(tank) !== -1) {
+		_kill.call(this, tank);
 
-console.log('RESPAWN');
+		this.loop.setTimeout(1000, function() {
 
-		}
+			tank.position = _get_respawn_position();
+			tank.ammo     = 16;
+			tank.life     =  4;
+
+			_spawn.call(this, tank);
+
+		}, this);
 
 	};
 
@@ -77,11 +95,7 @@ console.log('RESPAWN');
 			tank.removeEffects();
 			tank.addEffect(new lychee.effect.Lightning({
 				type:     lychee.effect.Lightning.TYPE.easeout,
-				duration: 3000,
-				position: {
-					x: this.__origin.x,
-					y: this.__origin.y
-				}
+				duration: 3000
 			}));
 
 
@@ -362,10 +376,6 @@ console.log('RESPAWN');
 		this.__tanks   = [];
 		this.__player  = null;
 		this.__players = [];
-		this.__origin  = {
-			x: 384,
-			y: 384
-		};
 
 
 		this.deserialize(_BLOB);
@@ -389,10 +399,6 @@ console.log('RESPAWN');
 					var height = renderer.height;
 
 
-					entity = this.getLayer('game');
-					entity.offset.x = -1/2 * width;
-					entity.offset.y = -1/2 * height;
-
 					entity = this.queryLayer('ui', 'control');
 					entity.width  = width;
 					entity.height = height;
@@ -402,10 +408,6 @@ console.log('RESPAWN');
 					entity.width  = width;
 					entity.height = height;
 					entity.trigger('relayout');
-
-
-					this.__origin.x = width  / 2;
-					this.__origin.y = height / 2;
 
 				}
 
@@ -510,9 +512,7 @@ console.log('RESPAWN');
 
 
 					if (player.life <= 0) {
-
 						_respawn.call(this, player);
-
 					}
 
 				}
@@ -558,25 +558,65 @@ console.log('RESPAWN');
 			var level = game.data.Level.decode(_LEVELS[data.level] || null) || null;
 			if (level !== null) {
 
-				this.__tanks = level.objects.filter(function(entity) {
-					return entity instanceof game.app.sprite.Tank;
-				});
+				this.__bullets = [];
+				this.__items   = [];
+				this.__tanks   = [];
+				this.__player  = null;
+				this.__players = [];
 
 
-				level.objects = level.objects.filter(function(entity) {
-					return !(entity instanceof game.app.sprite.Tank);
-				});
+				var objects = this.queryLayer('game', 'objects');
+				if (objects !== null) {
+
+					objects.entities = [];
+
+					for (var o = 0, ol = level.objects.length; o < ol; o++) {
+
+						var object = level.objects[o];
+
+						object.position.x -= objects.width  / 2;
+						object.position.y -= objects.height / 2;
 
 
-				this.queryLayer('game', 'terrain').setEntities(level.terrain);
-				this.queryLayer('game', 'objects').setEntities(level.objects);
+						if (object instanceof game.app.sprite.Tank) {
+							this.__bullets.push([]);
+							this.__tanks.push(object);
+						} else {
+							objects.addEntity(object);
+						}
+
+					}
+
+				}
+
+
+				var terrain = this.queryLayer('game', 'terrain');
+				if (terrain !== null) {
+
+					terrain.entities = [];
+
+					for (var t = 0, tl = level.terrain.length; t < tl; t++) {
+
+						var obj = level.terrain[t];
+
+						obj.position.x -= terrain.width  / 2;
+						obj.position.y -= terrain.height / 2;
+
+
+						terrain.addEntity(obj);
+
+					}
+
+				}
 
 
 				var client = this.client;
 				if (client !== null) {
 
+					var control = this.queryLayer('ui', 'control');
 					var service = client.getService('control');
-					if (service !== null) {
+
+					if (control !== null && service !== null) {
 
 						service.bind('init',    _on_init,    this);
 						service.bind('update',  _on_update,  this);
@@ -584,7 +624,6 @@ console.log('RESPAWN');
 						service.bind('control', _on_control, this);
 
 
-						var control = this.queryLayer('ui', 'control');
 						if (control !== null) {
 
 							control.bind('change', function(data) {
@@ -616,6 +655,39 @@ console.log('RESPAWN');
 			}
 
 
+			var input = this.input;
+			if (input !== null) {
+
+				input.unbind('key');
+				input.bind('key', function(key, name, delta) {
+
+					var control = this.queryLayer('ui', 'control');
+					if (control !== null && control.visible === true) {
+						control.trigger('key', [ key, name, delta ]);
+					}
+
+				}, this);
+
+				input.unbind('touch', null, this);
+				input.bind('touch', function(id, position, delta) {
+
+					var control = this.queryLayer('ui', 'control');
+					if (control !== null && control.visible === true) {
+						control.trigger('touch', [ id, position, delta ]);
+					}
+
+				}, this);
+
+				input.unbind('swipe', null, this);
+				input.bind('swipe', function(id, state, position, delta, swipe) {
+
+// TODO: Swipe event
+
+				}, this);
+
+			}
+
+
 			var jukebox = this.jukebox;
 			if (jukebox !== null) {
 				jukebox.setVolume(0.25);
@@ -633,6 +705,32 @@ console.log('RESPAWN');
 			var jukebox = this.jukebox;
 			if (jukebox !== null) {
 				jukebox.stop(_MUSIC);
+				jukebox.setVolume(1.0);
+			}
+
+
+			var input = this.input;
+			if (input !== null) {
+
+				input.unbind('key',   null, this);
+				input.unbind('touch', null, this);
+				input.unbind('swipe', null, this);
+
+			}
+
+
+			var control = this.queryLayer('ui', 'control');
+			if (control !== null) {
+
+				control.unbind('change', null, this);
+				control.setVisible(false);
+
+			}
+
+
+			var timeout = this.queryLayer('ui', 'timeout');
+			if (timeout !== null) {
+				timeout.setVisible(true);
 			}
 
 
@@ -642,10 +740,10 @@ console.log('RESPAWN');
 				var service = client.getService('control');
 				if (service !== null) {
 
-					service.unbind('init',      _on_init,    this);
-					service.unbind('update',    _on_update,  this);
-					service.unbind('start',     _on_start,   this);
-					service.unbind('multicast', _on_control, this);
+					service.unbind('init',    _on_init,    this);
+					service.unbind('update',  _on_update,  this);
+					service.unbind('start',   _on_start,   this);
+					service.unbind('control', _on_control, this);
 
 				}
 
