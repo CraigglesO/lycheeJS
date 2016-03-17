@@ -31,28 +31,50 @@ lychee.define('game.state.Game').requires([
 
 	var _explode = function(position) {
 
-		var objects = this.queryLayer('game', 'objects');
-		if (objects !== null) {
+		position = position instanceof Object ? position : null;
 
-			if (objects.effects.length === 0) {
+
+		var objects = this.queryLayer('game', 'objects');
+		var terrain = this.queryLayer('game', 'terrain');
+
+		if (objects !== null && terrain !== null) {
+
+			if (objects.effects.length === 0 && terrain.effects.length === 0) {
+
+				var diff_x = Math.random() > 0.5 ? -8 : 8;
+				var diff_y = Math.random() > 0.5 ? -8 : 8;
+
 
 				objects.addEffect(new lychee.effect.Shake({
 					duration: 300,
 					shake:    {
-						x: Math.random() > 0.5 ? -16 : 16,
-						y: Math.random() > 0.5 ? -16 : 16
+						x: diff_x,
+						y: diff_y
+					}
+				}));
+
+				terrain.addEffect(new lychee.effect.Shake({
+					duration: 400,
+					shake:    {
+						x: diff_x / 2,
+						y: diff_y / 2
+					}
+				}))
+
+			}
+
+
+			if (position !== null) {
+
+				objects.addEffect(new game.effect.Explosion({
+					duration: 500,
+					position: {
+						x: position.x,
+						y: position.y
 					}
 				}));
 
 			}
-
-			objects.addEffect(new game.effect.Explosion({
-				duration: 500,
-				position: {
-					x: position.x,
-					y: position.y
-				}
-			}));
 
 		}
 
@@ -237,6 +259,8 @@ lychee.define('game.state.Game').requires([
 				if (result === true) {
 
 					data.direction = player.direction;
+
+					_explode.call(this, null);
 
 
 					if (player.direction === 'top') {
@@ -681,7 +705,10 @@ lychee.define('game.state.Game').requires([
 				input.unbind('swipe', null, this);
 				input.bind('swipe', function(id, state, position, delta, swipe) {
 
-// TODO: Swipe event
+					var control = this.queryLayer('ui', 'control');
+					if (control !== null && control.visible === true) {
+						control.trigger('swipe', [ id, state, position, delta, swipe ]);
+					}
 
 				}, this);
 
