@@ -344,11 +344,6 @@ console.log('RESPAWN');
 
 		}
 
-
-console.log('START', data.sid, this.__players.map(function(tank) {
-	return tank.id;
-}));
-
 	};
 
 
@@ -451,6 +446,7 @@ console.log('START', data.sid, this.__players.map(function(tank) {
 			if (bullets !== null && objects !== null) {
 
 				var entities = objects.entities;
+				var items    = this.__items;
 				var players  = this.__players;
 
 
@@ -467,11 +463,15 @@ console.log('START', data.sid, this.__players.map(function(tank) {
 
 							if (entity instanceof game.app.sprite.Item) {
 
-								player.powerup();
+								var result = player.powerup();
+								if (result === true) {
 
-								entities.splice(e, 1);
-								el--;
-								e--;
+									items.push(entity);
+									entities.splice(e, 1);
+									el--;
+									e--;
+
+								}
 
 							}
 
@@ -512,6 +512,23 @@ console.log('START', data.sid, this.__players.map(function(tank) {
 					if (player.life <= 0) {
 
 						_respawn.call(this, player);
+
+					}
+
+				}
+
+
+				if (items.length >= 5) {
+
+					// XXX: Don't spawn the latest collected item again (player still above it)
+
+					for (var i = 0, il = 4; i < il; i++) {
+
+						objects.addEntity(items[i]);
+
+						items.splice(i, 1);
+						il--;
+						i--;
 
 					}
 

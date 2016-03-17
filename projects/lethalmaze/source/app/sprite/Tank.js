@@ -29,7 +29,7 @@ lychee.define('game.app.sprite.Tank').requires([
 
 		this.id        = _IDS[(_id++ % _IDS.length)];
 		this.direction = 'top';
-		this.ammo      = 4;
+		this.ammo      = 16;
 		this.life      = 4;
 
 
@@ -94,7 +94,7 @@ lychee.define('game.app.sprite.Tank').requires([
 			var blob     = data['blob'] || {};
 
 
-			if (this.ammo !== 4)          settings.ammo      = this.ammo;
+			if (this.ammo !== 16)         settings.ammo      = this.ammo;
 			if (this.direction !== 'top') settings.direction = this.direction;
 			if (this.life !== 4)          settings.life      = this.life;
 
@@ -129,7 +129,7 @@ lychee.define('game.app.sprite.Tank').requires([
 
 			} else if (clock < this.__ammoclock) {
 
-				var ammo_map = this.__map['ammo'][this.ammo - 1] || null;
+				var ammo_map = this.__map['ammo'][(this.ammo / 16 * 4 - 1) | 0] || null;
 				if (ammo_map !== null) {
 
 					renderer.drawSprite(
@@ -249,9 +249,9 @@ lychee.define('game.app.sprite.Tank').requires([
 
 		powerup: function() {
 
-			if (this.ammo < 4) {
+			if (this.ammo < 16) {
 
-				return this.setAmmo(4);
+				return this.setAmmo(16);
 
 			} else if (this.life < 4) {
 
