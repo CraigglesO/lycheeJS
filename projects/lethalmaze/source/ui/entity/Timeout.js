@@ -57,9 +57,7 @@ lychee.define('game.ui.entity.Timeout').requires([
 		}, this);
 
 		this.bind('key', function(key, name, delta) {
-
-console.log(key, name, delta);
-
+			return false;
 		}, this);
 
 		this.bind('focus', function() {
