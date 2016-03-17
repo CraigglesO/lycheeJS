@@ -19,7 +19,7 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 		Array.prototype.fill = function(value/*, start = 0, end = this.length */) {
 
-			if (this == null) {
+			if (this === null || this === undefined) {
 				throw new TypeError('Array.prototype.fill called on null or undefined');
 			}
 
@@ -31,15 +31,15 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 			var rel_end   = end === undefined   ? length : end >> 0;
 
 
-			var i_start = rel_start < 0 ? Math.max(len + rel_start, 0) : Math.min(rel_start, len);
-			var i_end   = rel_end < 0   ? Math.max(len + rel_end, 0)   : Math.min(rel_end, len);
+			var i_start = rel_start < 0 ? Math.max(length + rel_start, 0) : Math.min(rel_start, length);
+			var i_end   = rel_end < 0   ? Math.max(length + rel_end, 0)   : Math.min(rel_end, length);
 
 			for (var i = i_start; i < i_end; i++) {
-				O[i] = value;
+				list[i] = value;
 			}
 
 
-			return O;
+			return list;
 
 		};
 
