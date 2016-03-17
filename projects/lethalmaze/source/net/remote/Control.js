@@ -27,6 +27,7 @@ lychee.define('game.net.remote.Control').includes([
 		if (found !== null) {
 
 			found.players.push(this.tunnel.host + ':' + this.tunnel.port);
+			found.positions.push({ x: -1, y: -1 });
 			found.tunnels.push(this.tunnel);
 
 		} else {
@@ -35,11 +36,12 @@ lychee.define('game.net.remote.Control').includes([
 
 
 			found = _sessions[id] = {
-				id:      id,
-				active:  false,
-				timeout: 10000,
-				players: [ this.tunnel.host + ':' + this.tunnel.port ],
-				tunnels: [ this.tunnel    ]
+				id:        id,
+				active:    false,
+				timeout:   10000,
+				players:   [ this.tunnel.host + ':' + this.tunnel.port ],
+				positions: [ { x: -1, y: -1 }],
+				tunnels:   [ this.tunnel    ]
 			};
 
 
@@ -76,10 +78,10 @@ lychee.define('game.net.remote.Control').includes([
 					for (var t = 0, tl = this.tunnels.length; t < tl; t++) {
 
 						this.tunnels[t].send({
-							sid:     this.id,
-							tid:     t,
-							players: this.players,
-							timeout: this.timeout
+							sid:       this.id,
+							tid:       t,
+							players:   this.players,
+							timeout:   this.timeout
 						}, {
 							id:    'control',
 							event: 'start'
@@ -98,10 +100,10 @@ lychee.define('game.net.remote.Control').includes([
 		if (tunnel !== null) {
 
 			tunnel.send({
-				sid:     found.id,
-				tid:     found.tunnels.indexOf(tunnel),
-				players: found.players,
-				timeout: found.timeout
+				sid:       found.id,
+				tid:       found.tunnels.indexOf(tunnel),
+				players:   found.players,
+				timeout:   found.timeout
 			}, {
 				id:    'control',
 				event: 'init'
@@ -119,21 +121,30 @@ lychee.define('game.net.remote.Control').includes([
 			var tid     = session.tunnels.indexOf(this.tunnel);
 			if (tid !== -1) {
 
+				if (data.position instanceof Object) {
+					session.positions[tid].x = data.position.x || 0;
+					session.positions[tid].y = data.position.y || 0;
+				}
+
+
 				for (var t = 0, tl = session.tunnels.length; t < tl; t++) {
 
 					var tunnel = session.tunnels[t];
-					if (tunnel === this.tunnel) continue;
+					if (tunnel !== this.tunnel) {
 
-					tunnel.send({
-						sid:       session.id,
-						tid:       tid,
-						players:   session.players,
-						action:    data.action,
-						direction: data.direction
-					}, {
-						id:    'control',
-						event: 'control'
-					});
+						tunnel.send({
+							sid:       session.id,
+							tid:       tid,
+							players:   session.players,
+							positions: session.positions,
+							action:    data.action,
+							direction: data.direction
+						}, {
+							id:    'control',
+							event: 'control'
+						});
+
+					}
 
 				}
 
@@ -155,6 +166,7 @@ lychee.define('game.net.remote.Control').includes([
 			if (index !== -1) {
 
 				session.players.splice(index, 1);
+				session.positions.splice(index, 1);
 				session.tunnels.splice(index, 1);
 				found = true;
 

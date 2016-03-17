@@ -185,20 +185,21 @@ lychee.define('game.app.sprite.Tank').requires([
 				}
 
 
-				if (this.effects.length === 0) {
+				this.setDirection(direction);
 
-					this.setDirection(direction);
+
+				if (this.effects.length === 0) {
 
 					this.addEffect(new lychee.effect.Position({
 						type:     lychee.effect.Position.TYPE.easeout,
-						duration: 200,
+						duration: 300,
 						position: position
 					}));
 
+
+					return true;
+
 				}
-
-
-				return true;
 
 			}
 

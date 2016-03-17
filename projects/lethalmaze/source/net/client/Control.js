@@ -60,6 +60,7 @@ lychee.define('game.net.client.Control').includes([
 
 				this.tunnel.send({
 					tid:       data.tid,
+					position:  data.position,
 					action:    data.action,
 					direction: data.direction
 				}, {

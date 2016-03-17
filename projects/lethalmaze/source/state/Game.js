@@ -58,9 +58,18 @@ lychee.define('game.state.Game').requires([
 
 	};
 
-	var _spawn = function(tank) {
+	var _respawn = function(tank) {
 
-console.log('spawn', tank.id);
+		var objects = this.queryLayer('game', 'objects');
+		if (objects.entities.indexOf(tank) !== -1) {
+
+console.log('RESPAWN');
+
+		}
+
+	};
+
+	var _spawn = function(tank) {
 
 		var objects = this.queryLayer('game', 'objects');
 		if (objects.entities.indexOf(tank) === -1) {
@@ -88,8 +97,6 @@ console.log('spawn', tank.id);
 	};
 
 	var _kill = function(tank) {
-
-console.log('kill', tank.id);
 
 		var objects = this.queryLayer('game', 'objects');
 		if (objects.entities.indexOf(tank) !== -1) {
@@ -150,7 +157,33 @@ console.log('kill', tank.id);
 		}
 
 
+		if (data.positions !== undefined) {
+
+			for (var p = 0, pl = data.positions.length; p < pl; p++) {
+
+				var pos   = data.positions[p] || null;
+				var other = this.__players[p] || null;
+				if (pos !== null && other !== null) {
+
+					if (pos.x !== -1 && pos.y !== -1) {
+						other.removeEffects();
+						other.position.x = data.positions[p].x;
+						other.position.y = data.positions[p].y;
+					}
+
+				}
+
+			}
+
+		}
+
+
 		if (player !== null) {
+
+			if (player.visible === false) {
+				return false;
+			}
+
 
 			var bullets  = this.queryLayer('game', 'bullets');
 			var objects  = this.queryLayer('game', 'objects');
@@ -178,7 +211,10 @@ console.log('kill', tank.id);
 
 				if (entity === null || entity instanceof game.app.sprite.Item) {
 					result = player.move(data.direction);
+				} else {
+					player.setDirection(data.direction);
 				}
+
 
 			} else if (data.action === 'shoot') {
 
@@ -474,7 +510,9 @@ console.log('START', data.sid, this.__players.map(function(tank) {
 
 
 					if (player.life <= 0) {
-// TODO: Kill Player and respawn player later
+
+						_respawn.call(this, player);
+
 					}
 
 				}
@@ -534,7 +572,11 @@ console.log('START', data.sid, this.__players.map(function(tank) {
 
 							control.bind('change', function(data) {
 
-								data.tid = this.__players.indexOf(this.__player);
+								data.tid      = this.__players.indexOf(this.__player);
+								data.position = {
+									x: this.__player.position.x,
+									y: this.__player.position.y
+								};
 
 
 								var result = _on_control.call(this, data);
