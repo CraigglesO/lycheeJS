@@ -21,20 +21,23 @@ lychee.define('game.app.sprite.Portal').requires([
 		for (var e = 0; e < 8; e++) {
 
 			var delay    = (e * Math.random() * 2000) | 0;
-			var duration = (e * 2000 + Math.random() * 5000) | 0;
+			var duration = (e * 2000 + Math.random() * 1000) | 0;
 			var f        = Math.random() * 2 * Math.PI;
-			var position = { x: Math.sin(f) * 32, y: Math.cos(f) * 32 };
+			var position = { x: Math.sin(f) * 64, y: Math.cos(f) * 64 };
 
 
-			position.x *= Math.random() * 6;
-			position.y *= Math.random() * 6;
+			position.x *= Math.random() * 5;
+			position.y *= Math.random() * 5;
 
 			if (Math.random() > 0.5) position.x *= -1;
 			if (Math.random() > 0.5) position.y *= -1;
 
+			position.x = ((position.x / 32) | 0) * 32 + 16;
+			position.y = ((position.y / 32) | 0) * 32 + 16;
+
 
 			this.addEffect(new game.effect.Lightning({
-				type:     game.effect.Lightning.TYPE.bounceeaseout,
+				type:     game.effect.Lightning.TYPE.linear,
 				duration: duration,
 				delay:    delay,
 				position: position

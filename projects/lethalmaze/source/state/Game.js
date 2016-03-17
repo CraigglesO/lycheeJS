@@ -101,32 +101,60 @@ lychee.define('game.state.Game').requires([
 
 	};
 
-	var _get_respawn_position = function() {
-
-		var objects  = this.queryLayer('game', 'objects');
-		var position = {
-			x: Math.random() * objects.width,
-			y: Math.random() * objects.height
-		};
-
-
-// TODO: Return position
-
-	};
-
-	var _respawn = function(tank) {
+	global.__RESPAWN = _respawn = function(tank) {
 
 		_kill.call(this, tank);
 
-		this.loop.setTimeout(1000, function() {
 
-			tank.position = _get_respawn_position();
-			tank.ammo     = 16;
-			tank.life     =  4;
+		var objects = this.queryLayer('game', 'objects');
+		var portal  = this.queryLayer('game', 'portals > portal');
 
-			_spawn.call(this, tank);
+		if (objects !== null && portal.effects.length > 0) {
 
-		}, this);
+			for (var pe = 0, pel = portal.effects.length; pe < pel; pe++) {
+
+				var effect   = portal.effects[pe];
+				var position = effect.position;
+
+				if (effect instanceof game.effect.Lightning) {
+
+					var valid = Math.abs(position.x) > portal.width || Math.abs(position.y) > portal.height;
+					if (valid === true && effect.__alpha < 0.5) {
+
+						position.x = ((position.x / tank.width)  | 0) * tank.width  + tank.width  / 2;
+						position.y = ((position.y / tank.height) | 0) * tank.height + tank.height / 2;
+
+
+						var entity = objects.getEntity(null, position);
+						if (entity === null) {
+
+							tank.position.x = position.x;
+							tank.position.y = position.y;
+
+							_spawn.call(this, tank);
+
+							return true;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+
+		if (objects !== null) {
+
+			this.loop.setTimeout(2000, function() {
+				_respawn.call(this, tank);
+			}, this);
+
+			return true;
+
+		}
 
 	};
 
@@ -578,9 +606,41 @@ lychee.define('game.state.Game').requires([
 						_respawn.call(this, player);
 					}
 
+
+					for (var pe = 0, pel = portal.effects.length; pe < pel; pe++) {
+
+						var effect = portal.effects[pe];
+						if (effect.__alpha > 0.5) {
+
+							if (player.isAtPosition(effect.position)) {
+								_respawn.call(this, player);
+							}
+
+						}
+
+					}
+
 				}
 
 
+				if (portal.effects.length > 0) {
+
+					for (var pe = 0, pel = portal.effects.length; pe < pel; pe++) {
+
+						var effect = portal.effects[pe];
+						if (effect instanceof game.effect.Lightning) {
+
+							var entity = objects.getEntity(null, effect.position);
+							if (entity !== null && entity instanceof game.app.sprite.Wall) {
+								_explode.call(this, effect.position);
+								objects.removeEntity(entity);
+							}
+
+						}
+
+					}
+
+				}
 
 
 				if (items.length >= 5) {
