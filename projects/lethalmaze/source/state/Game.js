@@ -101,7 +101,7 @@ lychee.define('game.state.Game').requires([
 
 	};
 
-	global.__RESPAWN = _respawn = function(tank) {
+	var _respawn = function(tank) {
 
 		_kill.call(this, tank);
 
