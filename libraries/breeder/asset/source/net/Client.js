@@ -6,11 +6,6 @@ lychee.define('app.net.Client').requires([
 	'lychee.net.Client'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _BitON = lychee.data.BitON;
-	var _Ping  = app.net.client.Ping;
-
-
-
 	/*
 	 * IMPLEMENTATION
 	 */
@@ -18,7 +13,7 @@ lychee.define('app.net.Client').requires([
 	var Class = function(data) {
 
 		var settings = lychee.extend({
-			codec:     _BitON,
+			codec:     lychee.data.BitON,
 			reconnect: 10000
 		}, data);
 
@@ -33,7 +28,7 @@ lychee.define('app.net.Client').requires([
 
 		this.bind('connect', function() {
 
-			this.addService(new _Ping(this));
+			this.addService(new app.net.client.Ping(this));
 
 			if (lychee.debug === true) {
 				console.log('app.net.Client: Remote connected');

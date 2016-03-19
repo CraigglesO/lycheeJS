@@ -138,7 +138,7 @@ lychee.define('app.ui.sprite.Avatar').includes([
 			var y1 = y - this.height / 2;
 
 
-			renderer.drawSprite(x1, y1, _texture);
+			renderer.drawSprite(x1, y1, _TEXTURE);
 
 			renderer.drawBox(x - 13, y - 13, x + 13, y - 2, value, true);
 			renderer.drawBox(x - 10, y - 12, x + 10, y - 1, value, true);
