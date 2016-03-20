@@ -56,7 +56,7 @@ if [ -d "$LYCHEEJS_ROOT/$2" ]; then
 	cd $LYCHEEJS_ROOT;
 	$LYCHEEJS_NODE ./bin/fertilizer.js "$1" "$2";
 
-	exit 0;
+	exit $?;
 
 else
 

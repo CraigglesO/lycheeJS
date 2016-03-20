@@ -2111,6 +2111,48 @@
 
 	};
 
+	var _execute_stuff = function(callback, stuff) {
+
+		var type = stuff.url.split('/').pop().split('.').pop();
+		if (type === 'js' && stuff.__ignore === false) {
+
+			var tmp = document.createElement('script');
+
+
+			tmp._filename = stuff.url;
+			tmp.async     = true;
+
+			tmp.onload = function() {
+
+				callback.call(stuff, true);
+
+				// XXX: Don't move, it's causing serious bugs in Blink
+				document.body.removeChild(this);
+
+			};
+			tmp.onerror = function() {
+
+				callback.call(stuff, false);
+
+				// XXX: Don't move, it's causing serious bugs in Blink
+				document.body.removeChild(this);
+
+			};
+			tmp.src = lychee.environment.resolve(stuff.url);
+
+			document.body.appendChild(tmp);
+
+		} else {
+
+			callback.call(stuff, true);
+
+		}
+
+
+		return false;
+
+	};
+
 
 	var Stuff = function(url, ignore) {
 
@@ -2179,71 +2221,43 @@
 
 			if (this.__load === false) {
 
-				if (this.onload instanceof Function) {
-					this.onload(true);
-					this.onload = null;
-				}
+				_execute_stuff(function(result) {
+
+					if (this.onload instanceof Function) {
+						this.onload(result);
+						this.onload = null;
+					}
+
+				}, this);
+
 
 				return;
 
 			}
 
 
-			var that = this;
-			var url  = this.url;
-			var type = url.split('/').pop().split('.').pop();
-			if (type === 'js' && this.__ignore === false) {
+			_load_asset({
+				url: this.url
+			}, function(raw) {
 
-				this.buffer           = document.createElement('script');
-				this.buffer._filename = this.url;
-				this.buffer.async     = true;
-
-				this.buffer.onload = function() {
-
-					that.buffer = '';
-
-					if (that.onload instanceof Function) {
-						that.onload(true);
-						that.onload = null;
-					}
-
-					// Don't move this, it's causing serious bugs in Blink
-					document.body.removeChild(this);
-
-				};
-				this.buffer.onerror = function() {
-
-					that.buffer = '';
-
-					if (that.onload instanceof Function) {
-						that.onload(false);
-						that.onload = null;
-					}
-
-					// Don't move this, it's causing serious bugs in Blink
-					document.body.removeChild(this);
-
-				};
-				this.buffer.src = lychee.environment.resolve(url);
-
-				document.body.appendChild(this.buffer);
-
-			} else {
-
-				_load_asset({
-					url: this.url
-				}, function(raw) {
-
+				if (raw !== null) {
+					// this.buffer = raw.toString('utf8');
 					this.buffer = raw;
+				} else {
+					this.buffer = '';
+				}
+
+
+				_execute_stuff(function(result) {
 
 					if (this.onload instanceof Function) {
-						this.onload(raw !== null);
+						this.onload(result);
 						this.onload = null;
 					}
 
 				}, this);
 
-			}
+			}, this);
 
 		}
 

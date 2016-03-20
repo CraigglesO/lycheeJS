@@ -1336,6 +1336,32 @@
 
 	};
 
+	var _execute_stuff = function(callback, stuff) {
+
+		var type = stuff.url.split('/').pop().split('.').pop();
+		if (type === 'js' && stuff.__ignore === false) {
+
+			_filename = stuff.url;
+
+			var cid = lychee.environment.resolve(stuff.url);
+			if (require.cache[cid] !== undefined) {
+				delete require.cache[cid];
+			}
+
+			require(cid);
+			_filename = null;
+
+
+			callback.call(stuff, true);
+
+		} else {
+
+			callback.call(stuff, true);
+
+		}
+
+	};
+
 
 	var Stuff = function(url, ignore) {
 
@@ -1404,72 +1430,43 @@
 
 			if (this.__load === false) {
 
-				if (this.onload instanceof Function) {
-					this.onload(true);
-					this.onload = null;
-				}
+				_execute_stuff(function(result) {
+
+					if (this.onload instanceof Function) {
+						this.onload(result);
+						this.onload = null;
+					}
+
+				}, this);
+
 
 				return;
 
 			}
 
 
-			var that = this;
-			var type = this.url.split('/').pop().split('.').pop();
-			if (type === 'js' && this.__ignore === false) {
+			_load_asset({
+				url:      this.url,
+				encoding: 'utf8'
+			}, function(raw) {
 
-				_load_asset({
-					url:      this.url,
-					encoding: 'utf8'
-				}, function(raw) {
+				if (raw !== null) {
+					this.buffer = raw.toString('utf8');
+				} else {
+					this.buffer = '';
+				}
 
-					if (raw !== null) {
-						that.buffer = raw.toString('utf8');
-					} else {
-						that.buffer = '';
+
+				_execute_stuff(function(result) {
+
+					if (this.onload instanceof Function) {
+						this.onload(result);
+						this.onload = null;
 					}
 
+				}, this);
 
-					_filename = that.url;
-
-					var cid = lychee.environment.resolve(that.url);
-					if (require.cache[cid] !== undefined) {
-						delete require.cache[cid];
-					}
-
-					require(cid);
-					_filename = null;
-
-
-					if (that.onload instanceof Function) {
-						that.onload(raw !== null);
-						that.onload = null;
-					}
-
-				});
-
-			} else {
-
-				_load_asset({
-					url:      this.url,
-					encoding: 'utf8'
-				}, function(raw) {
-
-					if (raw !== null) {
-						that.buffer = raw.toString('utf8');
-					} else {
-						that.buffer = '';
-					}
-
-
-					if (that.onload instanceof Function) {
-						that.onload(raw !== null);
-						that.onload = null;
-					}
-
-				});
-
-			}
+			}, this);
 
 		}
 

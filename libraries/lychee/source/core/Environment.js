@@ -575,13 +575,15 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 
 
 		this.lychee              = {};
+		this.lychee.environment  = null;
 		this.lychee.ENVIRONMENTS = global.lychee.ENVIRONMENTS;
 		this.lychee.VERSION      = global.lychee.VERSION;
-		this.lychee.ROOT         = global.lychee.ROOT;
+		this.lychee.ROOT         = {};
+		this.lychee.ROOT.lychee  = global.lychee.ROOT.lychee;
+		this.lychee.ROOT.project = global.lychee.ROOT.project;
 
 		[
 			'debug',
-			'environment',
 			'diff',
 			'enumof',
 			'extend',
@@ -701,9 +703,9 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 		this.build       = 'app.Main';
 		this.debug       = true;
 		this.definitions = {};
-		this.global      = new _Sandbox();
+		this.global      = global;
 		this.packages    = [];
-		this.sandbox     = true;
+		this.sandbox     = false;
 		this.tags        = {};
 		this.timeout     = 10000;
 		this.type        = 'source';
@@ -1098,11 +1100,6 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 						}
 
 
-						if (this.sandbox === true) {
-							this.global.lychee.environment = this;
-						}
-
-
 						if (this.debug === true) {
 
 							try {
@@ -1341,13 +1338,23 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 
 			if (sandbox === true || sandbox === false) {
 
-				this.sandbox = sandbox;
+
+				if (sandbox !== this.sandbox) {
+
+					this.sandbox = sandbox;
 
 
-				if (sandbox === true) {
-					this.global = new _Sandbox();
-				} else {
-					this.global = global;
+					if (sandbox === true) {
+
+						this.global = new _Sandbox();
+						this.global.lychee.setEnvironment(this);
+
+					} else {
+
+						this.global = global;
+
+					}
+
 				}
 
 

@@ -128,7 +128,7 @@ var _bootup = function(settings) {
 	var environment = new lychee.Environment({
 		id:      'fertilizer',
 		debug:   false,
-		sandbox: false,
+		sandbox: true,
 		build:   'fertilizer.Main',
 		timeout: 1000,
 		packages: [
@@ -159,8 +159,8 @@ var _bootup = function(settings) {
 			// This allows using #MAIN in JSON files
 			sandbox.MAIN = new fertilizer.Main(settings);
 
-			sandbox.MAIN.bind('destroy', function() {
-				process.exit(0);
+			sandbox.MAIN.bind('destroy', function(code) {
+				process.exit(code);
 			});
 
 			sandbox.MAIN.init();

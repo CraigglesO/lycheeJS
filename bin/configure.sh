@@ -45,6 +45,18 @@ elif [ "$OS" == "linux" ]; then
 fi;
 
 
+_fertilize() {
+
+	cd $LYCHEEJS_ROOT;
+
+	./bin/fertilizer.sh $1 $2;
+
+	if [ "$?" != "0" ]; then
+		exit 1;
+	fi;
+
+}
+
 
 if [ "$USER" != "root" ]; then
 
@@ -63,17 +75,25 @@ else
 
 		$LYCHEEJS_NODE ./bin/configure.js;
 
-		./bin/fertilizer.sh html/dist /libraries/lychee;
-		./bin/fertilizer.sh html-nwjs/dist /libraries/lychee;
-		./bin/fertilizer.sh html-webview/dist /libraries/lychee;
-		./bin/fertilizer.sh node/dist /libraries/lychee;
-		./bin/fertilizer.sh node-sdl/dist /libraries/lychee;
+		if [ "$?" == "0" ]; then
 
-		./bin/fertilizer.sh node/dist /libraries/harvester;
-		./bin/fertilizer.sh node-sdl/dist /libraries/harvester;
+			_fertilize html/dist /libraries/lychee;
+			_fertilize html-nwjs/dist /libraries/lychee;
+			_fertilize html-webview/dist /libraries/lychee;
+			_fertilize node/dist /libraries/lychee;
+			# _fertilize node-sdl/dist /libraries/lychee;
 
+			_fertilize node/dist /libraries/harvester;
+			# _fertilize node-sdl/dist /libraries/harvester;
 
-		echo "> DONE";
+			echo "> DONE";
+
+		else
+
+			echo "> FAIL";
+			exit 1;
+
+		fi;
 
 	fi;
 

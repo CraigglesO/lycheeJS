@@ -362,7 +362,7 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 		if (_environment === null) {
 
 			_environment = new lychee.Environment({
-				debug: true
+				debug: false
 			});
 
 		}
@@ -811,12 +811,25 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 				_bootstrap_environment.call(this);
 
 
-				var definition  = new lychee.Definition(identifier);
-				var environment = this.environment;
+				var definition = new lychee.Definition(identifier);
+				var that       = this;
+
+				// XXX: First sandboxed hierarchy
+				if (that.environment.sandbox === true) {
+					that = that.environment.global.lychee;
+				}
+
+				// XXX: Second sandboxed hierarchy
+				if (that.environment.sandbox === true) {
+					that = that.environment.global.lychee;
+				}
+
 
 				definition.exports = function(callback) {
+
 					lychee.Definition.prototype.exports.call(this, callback);
-					environment.define(this);
+					that.environment.define(this);
+
 				};
 
 				return definition;
@@ -1008,16 +1021,6 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 
 			if (environment !== null) {
-
-				if (this.environment !== null && environment.sandbox === true) {
-
-					Object.values(this.environment.definitions).filter(function(definition) {
-						return definition.id.substr(0, 6) === 'lychee';
-					}).forEach(function(definition) {
-						environment.define(definition);
-					});
-
-				}
 
 				this.environment = environment;
 				this.debug       = this.environment.debug;
