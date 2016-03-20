@@ -21,9 +21,9 @@ lychee.define('fertilizer.data.Shell').tags({
 
 }).exports(function(lychee, fertilizer, global, attachments) {
 
+	var _ROOT          = lychee.ROOT.lychee;
 	var _child_process = require('child_process');
 	var _path          = require('path');
-	var _root          = _path.resolve(__dirname + '/../../../../');
 
 
 
@@ -33,7 +33,7 @@ lychee.define('fertilizer.data.Shell').tags({
 
 	var Class = function(root) {
 
-		this.root = _root + _path.normalize(root);
+		this.root = _ROOT + _path.normalize(root);
 
 		this.__stack = [];
 
@@ -52,7 +52,7 @@ lychee.define('fertilizer.data.Shell').tags({
 
 			return {
 				'constructor': 'fertilizer.data.Shell',
-				'arguments':   [ this.root.substr(_root.length) ]
+				'arguments':   [ this.root.substr(_ROOT.length) ]
 			};
 
 		},

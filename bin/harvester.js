@@ -168,11 +168,11 @@ var _bootup = function(settings) {
 	console.info('BOOTUP (' + process.pid + ')');
 
 	var environment = new lychee.Environment({
-		id:      'harvester',
-		debug:   false,
-		sandbox: false,
-		build:   'harvester.Main',
-		timeout: 10000, // for really slow hosts
+		id:       'harvester',
+		debug:    false,
+		sandbox:  true,
+		build:    'harvester.Main',
+		timeout:  3000,
 		packages: [
 			new lychee.Package('lychee',    '/libraries/lychee/lychee.pkg'),
 			new lychee.Package('harvester', '/libraries/harvester/lychee.pkg')

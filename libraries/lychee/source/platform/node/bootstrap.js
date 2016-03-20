@@ -19,6 +19,13 @@
 			lychee.ROOT.lychee = selfpath.substr(0, tmp1);
 		}
 
+
+		var tmp2 = selfpath.split('/').slice(0, 3).join('/');
+		if (tmp2.substr(0, 13) === '/opt/lycheejs') {
+			lychee.ROOT.lychee = tmp2;
+		}
+
+
 		if (cwd !== '') {
 			lychee.ROOT.project = cwd;
 		}

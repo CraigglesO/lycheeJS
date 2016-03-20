@@ -40,7 +40,7 @@ lychee.define('fertilizer.template.node.Application').requires([
 				console.log('fertilizer: BUILD ' + env.id);
 
 				var id      = env.id;
-				var profile = this.profile;
+				var profile = _JSON.encode(this.profile);
 				var blob    = _JSON.encode(env.serialize());
 				var core    = this.getCore('node');
 				var info    = this.getInfo(true);
@@ -51,7 +51,7 @@ lychee.define('fertilizer.template.node.Application').requires([
 				index = this.replace(index, {
 					blob:    blob,
 					core:    core,
-					id:      id,
+					info:    info,
 					profile: profile
 				});
 

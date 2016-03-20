@@ -95,6 +95,7 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 				index = this.replace(index, {
 					blob:    blob,
 					id:      id,
+					info:    info,
 					profile: profile
 				});
 
