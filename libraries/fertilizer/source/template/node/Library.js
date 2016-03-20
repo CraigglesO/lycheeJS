@@ -37,24 +37,18 @@ lychee.define('fertilizer.template.node.Library').requires([
 
 				console.log('fertilizer: BUILD ' + env.id);
 
-				var id      = env.id;
-				var version = ('' + lychee.VERSION);
-
-				var profile = this.profile;
-				var blob    = _JSON.encode(env.serialize());
-				var info    = this.getInfo(true);
-
-				var index   = _template.toString();
+				var id    = env.id;
+				var blob  = _JSON.encode(env.serialize());
+				var info  = this.getInfo(true);
+				var index = _template.toString();
 
 
-				index = this.replace(index, {
+				fs.write('/index.js', this.replace(index, {
 					blob: blob,
 					id:   id,
 					info: info
-				});
+				}));
 
-
-				fs.write('/index.js', index);
 
 				oncomplete(true);
 

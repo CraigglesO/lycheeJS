@@ -38,13 +38,10 @@ lychee.define('fertilizer.template.html.Application').requires([
 				console.log('fertilizer: BUILD ' + env.id);
 
 				var id      = env.id;
-				var version = ('' + lychee.VERSION);
-
 				var profile = _JSON.encode(this.profile);
 				var blob    = _JSON.encode(env.serialize());
 				var core    = this.getCore('html');
 				var info    = this.getInfo(true);
-
 				var index   = _template.toString();
 
 
@@ -56,9 +53,9 @@ lychee.define('fertilizer.template.html.Application').requires([
 					profile: profile
 				});
 
-
 				fs.write('/core.js',    core);
 				fs.write('/index.html', index);
+
 
 				oncomplete(true);
 

@@ -83,13 +83,10 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 				console.log('fertilizer: BUILD ' + env.id);
 
 				var id      = env.id;
-				var version = ('' + lychee.VERSION);
-
 				var profile = _JSON.encode(this.profile);
 				var blob    = _JSON.encode(env.serialize());
 				var core    = this.getCore('html-nwjs');
 				var info    = this.getInfo(true);
-
 				var icon    = this.__icon;
 				var index   = this.__index;
 
@@ -98,14 +95,13 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 				index = this.replace(index, {
 					blob:    blob,
 					id:      id,
-					init:    init,
 					profile: profile
 				});
-
 
 				fs.write('/icon.png',   icon);
 				fs.write('/core.js',    core);
 				fs.write('/index.html', index);
+
 
 				oncomplete(true);
 
