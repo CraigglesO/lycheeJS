@@ -1,13 +1,15 @@
 
 lychee.define('breeder.Template').requires([
-	'lychee.data.JSON'
+	'lychee.data.JSON',
+	'fertilizer.data.Filesystem'
 ]).includes([
 	'fertilizer.Template'
 ]).exports(function(lychee, breeder, global, attachments) {
 
-	var _JSON = lychee.data.JSON;
-	var _LIB  = new fertilizer.data.Filesystem('/');
-	var _TPL  = new fertilizer.data.Filesystem('/libraries/breeder/asset');
+	var _JSON      = lychee.data.JSON;
+	var fertilizer = lychee.environment.global.fertilizer;
+	var _LIB       = new fertilizer.data.Filesystem('/');
+	var _TPL       = new fertilizer.data.Filesystem('/libraries/breeder/asset');
 
 
 

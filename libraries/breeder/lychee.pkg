@@ -3,7 +3,29 @@
 		"files": {}
 	},
 	"build": {
-		"environments": {},
+		"environments": {
+			"node/main": {
+				"build": "breeder.Main",
+				"debug": false,
+				"sandbox": false,
+				"packages": [
+					[
+						"breeder",
+						"./lychee.pkg"
+					],
+					[
+						"fertilizer",
+						"/libraries/fertilizer/lychee.pkg"
+					]
+				],
+				"tags": {
+					"platform": [
+						"node"
+					]
+				},
+				"variant": "application"
+			}
+		},
 		"files": {}
 	},
 	"source": {

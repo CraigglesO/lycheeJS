@@ -211,8 +211,9 @@ lychee.define('harvester.Main').requires([
 
 	var _defaults = {
 
-		port:   null,
-		hosts:  null,
+		port:        null,
+		hosts:       null,
+		integration: false,
 
 		server: {
 			host: null,
@@ -281,9 +282,10 @@ lychee.define('harvester.Main').requires([
 		this.settings = lychee.extendunlink({}, _defaults, settings);
 		this.defaults = lychee.extendunlink({}, this.settings);
 
-		this.hosts     = {};
-		this.modules   = {};
-		this.server    = null;
+
+		this.hosts   = {};
+		this.modules = {};
+		this.server  = null;
 
 
 		if (settings.hosts instanceof Object) {
