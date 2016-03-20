@@ -37,6 +37,52 @@
 					]
 				},
 				"variant": "library"
+			},
+			"node-sdl/main": {
+				"build": "harvester.Main",
+				"debug": false,
+				"packages": [
+					[
+						"harvester",
+						"./lychee.pkg"
+					]
+				],
+				"sandbox": false,
+				"tags": {
+					"platform": [
+						"node"
+					]
+				},
+				"variant": "application",
+				"profile": {
+					"port": 8080,
+					"hosts": {
+						"localhost": null
+					}
+				}
+			},
+			"node/main": {
+				"build": "harvester.Main",
+				"debug": false,
+				"packages": [
+					[
+						"harvester",
+						"./lychee.pkg"
+					]
+				],
+				"sandbox": false,
+				"tags": {
+					"platform": [
+						"node"
+					]
+				},
+				"variant": "application",
+				"profile": {
+					"port": 8080,
+					"hosts": {
+						"localhost": null
+					}
+				}
 			}
 		},
 		"files": {
