@@ -33,6 +33,9 @@ lychee.define('fertilizer.data.Shell').tags({
 
 	var Class = function(root) {
 
+		root = typeof root === 'string' ? root : ('' + lychee.ROOT.project);
+
+
 		this.root = _ROOT + _path.normalize(root);
 
 		this.__stack = [];

@@ -75,6 +75,9 @@ lychee.define('fertilizer.data.Filesystem').tags({
 
 	var Class = function(root) {
 
+		root = typeof root === 'string' ? root : ('' + lychee.ROOT.project);
+
+
 		this.root = _path.normalize(root);
 		this.mode = Class.MODE.sandbox;
 
