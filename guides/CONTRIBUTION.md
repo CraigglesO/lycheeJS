@@ -47,7 +47,7 @@ columns with `backlog` (open and unlabeled), `todo`, `in-progress`,
 In any case, you can find all open issues in the Issues overview in
 this repository.
 
-![How to find Issues](./asset/contributon-issues.png)
+![How to find Issues](./asset/contribution-issues.png)
 
 
 
