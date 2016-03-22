@@ -20,6 +20,9 @@ lychee.define('app.state.Welcome').includes([
 
 		lychee.ui.State.call(this, main);
 
+
+		this.deserialize(_BLOB);
+
 	};
 
 
@@ -42,7 +45,6 @@ lychee.define('app.state.Welcome').includes([
 		deserialize: function(blob) {
 
 			lychee.ui.State.prototype.deserialize.call(this, blob);
-			lychee.app.State.prototype.deserialize.call(this, _BLOB);
 
 
 			this.queryLayer('ui', 'welcome > dialog').bind('change', function(value) {

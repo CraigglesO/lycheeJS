@@ -20,6 +20,9 @@ lychee.define('app.state.Welcome').includes([
 
 		lychee.ui.State.call(this, main);
 
+
+		this.deserialize(_BLOB);
+
 	};
 
 
@@ -42,7 +45,6 @@ lychee.define('app.state.Welcome').includes([
 		deserialize: function(blob) {
 
 			lychee.ui.State.prototype.deserialize.call(this, blob);
-			lychee.app.State.prototype.deserialize.call(this, _BLOB);
 
 
 			this.queryLayer('ui', 'menu').setHelpers([
@@ -52,16 +54,11 @@ lychee.define('app.state.Welcome').includes([
 
 			this.queryLayer('ui', 'welcome > dialog').bind('change', function(value) {
 
-				if (this.main.getState(value) !== null) {
+				var menu = this.queryLayer('ui', 'menu');
+				if (menu !== null) {
 
-					this.main.changeState(value);
-
-				} else if (this.queryLayer('ui', value) !== null) {
-
-					var val = value.charAt(0).toUpperCase() + value.substr(1);
-
-					this.queryLayer('ui', 'menu').setValue(val);
-					this.queryLayer('ui', 'menu').trigger('change', [ value ]);
+					menu.setValue(value);
+					menu.trigger('change', [ value ]);
 
 				}
 
