@@ -50,25 +50,6 @@ lychee.define('app.Main').requires([
 			// this.setState('remote',  new app.state.Remote(this));
 
 
-			var state = this.getState('welcome');
-			if (state !== null) {
-
-				state.queryLayer('ui', 'menu').bind('#change', function(menu, value) {
-
-					var layer = this.queryLayer('ui', value.toLowerCase());
-					var state = this.main.getState(value.toLowerCase());
-
-					if (layer !== null && this.main.state !== this) {
-						this.main.changeState('welcome', value.toLowerCase());
-					} else if (state !== null) {
-						this.main.changeState(value.toLowerCase());
-					}
-
-				}, state);
-
-			}
-
-
 			this.changeState('welcome', 'welcome');
 
 		}, this, true);

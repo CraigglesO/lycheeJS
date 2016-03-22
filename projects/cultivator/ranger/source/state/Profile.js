@@ -1,6 +1,6 @@
 
 lychee.define('app.state.Profile').includes([
-	'lychee.app.State'
+	'lychee.ui.State'
 ]).requires([
 	'lychee.data.JSON',
 	'lychee.ui.Blueprint',
@@ -12,7 +12,7 @@ lychee.define('app.state.Profile').includes([
 	'app.ui.layer.Profile'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _blob   = attachments["json"].buffer;
+	var _BLOB   = attachments["json"].buffer;
 	var _cache  = {};
 	var _helper = new lychee.ui.entity.Helper();
 	var _JSON   = lychee.data.JSON;
@@ -163,32 +163,9 @@ lychee.define('app.state.Profile').includes([
 		var viewport = this.viewport;
 		if (viewport !== null) {
 
-			var entity = null;
-			var width  = viewport.width;
-			var height = viewport.height;
-			var menu   = this.queryLayer('ui', 'menu');
-
-
-			entity = this.getLayer('ui');
-			entity.width  = width;
-			entity.height = height;
-
-
-			for (var e = 0, el = entity.entities.length; e < el; e++) {
-
-				var blueprint = entity.entities[e];
-				if (blueprint !== menu) {
-
-					blueprint.width      = width - menu.width;
-					blueprint.height     = height;
-					blueprint.position.x = menu.width / 2;
-					blueprint.trigger('relayout');
-
-				}
-
-			}
-
-
+			var entity    = null;
+			var width     = viewport.width;
+			var height    = viewport.height;
 			var profile_h = 0;
 
 			entity        = this.queryLayer('ui', 'profile > modify > 2');
@@ -210,9 +187,10 @@ lychee.define('app.state.Profile').includes([
 
 	var Class = function(main) {
 
-		lychee.app.State.call(this, main);
+		lychee.ui.State.call(this, main);
 
-		this.deserialize(_blob);
+
+		this.deserialize(_BLOB);
 
 	};
 
@@ -225,25 +203,17 @@ lychee.define('app.state.Profile').includes([
 
 		deserialize: function(blob) {
 
-			lychee.app.State.prototype.deserialize.call(this, blob);
+			lychee.ui.State.prototype.deserialize.call(this, blob);
 
 
-			var state = this.main.getState('welcome');
-			if (state !== null) {
+			var menu = this.queryLayer('ui', 'menu');
+			if (menu !== null) {
 
-				var menu = state.queryLayer('ui', 'menu');
-				if (menu !== null) {
-
-					this.getLayer('ui').setEntity('menu', menu);
-
-					menu.bind('relayout', function() {
-						_on_relayout.call(this);
-					}, this);
-
-				}
+				menu.bind('relayout', function() {
+					_on_relayout.call(this);
+				}, this);
 
 			}
-
 
 
 			this.queryLayer('ui', 'profile > select > 0').bind('change', _on_select, this);
@@ -300,7 +270,7 @@ lychee.define('app.state.Profile').includes([
 
 		serialize: function() {
 
-			var data = lychee.app.State.prototype.serialize.call(this);
+			var data = lychee.ui.State.prototype.serialize.call(this);
 			data['constructor'] = 'app.state.Profile';
 
 
@@ -324,16 +294,9 @@ lychee.define('app.state.Profile').includes([
 		enter: function(oncomplete, data) {
 
 			var profile = this.main.profile;
-			if (profile === null || profile.buffer === null) {
-
-				this.queryLayer('ui', 'profile').setVisible(false);
-
-			} else {
+			if (profile !== null && profile.buffer !== null) {
 
 				_read_profile.call(this, profile);
-
-
-				this.queryLayer('ui', 'profile').setVisible(true);
 
 
 				var entity = this.queryLayer('ui', 'profile > select > 0');
@@ -345,13 +308,13 @@ lychee.define('app.state.Profile').includes([
 			}
 
 
-			lychee.app.State.prototype.enter.call(this, oncomplete);
+			lychee.ui.State.prototype.enter.call(this, oncomplete, data);
 
 		},
 
 		leave: function(oncomplete, data) {
 
-			lychee.app.State.prototype.leave.call(this, oncomplete);
+			lychee.ui.State.prototype.leave.call(this, oncomplete, data);
 
 		}
 

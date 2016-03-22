@@ -10,7 +10,7 @@ lychee.define('app.state.Welcome').includes([
 	'app.ui.layer.Web'
 ]).exports(function(lychee, app, global, attachments) {
 
-	var _blob   = attachments["json"].buffer;
+	var _BLOB   = attachments["json"].buffer;
 	var _helper = new lychee.ui.entity.Helper();
 
 
@@ -106,6 +106,9 @@ lychee.define('app.state.Welcome').includes([
 
 		lychee.ui.State.call(this, main);
 
+
+		this.deserialize(_BLOB);
+
 	};
 
 
@@ -118,20 +121,11 @@ lychee.define('app.state.Welcome').includes([
 		deserialize: function(blob) {
 
 			lychee.ui.State.prototype.deserialize.call(this, blob);
-			lychee.app.State.prototype.deserialize.call(this, _blob);
 
-
-			this.queryLayer('ui', 'menu').setOptions([
-				'Welcome',
-				'Profile',
-				'Console',
-				'Remote',
-				'Settings'
-			]);
 
 			this.queryLayer('ui', 'menu').setHelpers([
-				'unboot',
-				'refresh'
+				'refresh',
+				'unboot'
 			]);
 
 
