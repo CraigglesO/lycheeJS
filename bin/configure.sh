@@ -168,7 +168,17 @@ else
 				sed -i 's|__ROOT__|'$LYCHEEJS_ROOT'|g' "/usr/share/applications/lycheejs-ranger.desktop";
 
 
-				update-desktop-database;
+				update_desktop=`which update-desktop-database`;
+
+				if [ "$update_desktop" != "" ]; then
+					$update_desktop;
+				fi;
+
+				update_desktop=`which xdg-desktop-menu`;
+
+				if [ "$update_desktop" != "" ]; then
+					$update_desktop forceupdate;
+				fi;
 
 
 				echo "> DONE";
