@@ -56,14 +56,52 @@ lychee.define('Stash').tags({
 
 	(function() {
 
-		var _fs       = require('fs');
-		var _encoding = {
+		var _ENCODING = {
 			'Config':  'utf8',
 			'Font':    'utf8',
 			'Music':   'binary',
 			'Sound':   'binary',
 			'Texture': 'binary',
 			'Stuff':   'utf8'
+		};
+
+
+		var _fs      = require('fs');
+		var _path    = require('path');
+		var _mkdir_p = function(path, mode) {
+
+			if (mode === undefined) {
+				mode = 0777 & (~process.umask());
+			}
+
+
+			var is_directory = false;
+
+			try {
+
+				is_directory = _fs.lstatSync(path).isDirectory();
+
+			} catch(err) {
+
+				if (err.code === 'ENOENT') {
+
+					if (_mkdir_p(_path.dirname(path), mode) === true) {
+						_fs.mkdirSync(path, mode);
+					}
+
+					try {
+						is_directory = _fs.lstatSync(path).isDirectory();
+					} catch(err) {
+					}
+
+				}
+
+			} finally {
+
+				return is_directory;
+
+			}
+
 		};
 
 
@@ -81,10 +119,16 @@ lychee.define('Stash').tags({
 
 					if (asset !== null) {
 
+						var dir = path.split('/').slice(0, -1).join('/');
+						if (dir.substr(0, lychee.ROOT.project.length) === lychee.ROOT.project) {
+							_mkdir_p(dir);
+						}
+
+
 						var data = lychee.serialize(asset);
 						if (data !== null && data.blob !== null && typeof data.blob.buffer === 'string') {
 
-							var encoding = _encoding[data.constructor] || _encoding['Stuff'];
+							var encoding = _ENCODING[data.constructor] || _ENCODING['Stuff'];
 							var index    = data.blob.buffer.indexOf('base64,') + 7;
 							if (index > 7) {
 
@@ -209,6 +253,8 @@ lychee.define('Stash').tags({
 
 
 		var operations = this.__operations;
+		var filtered   = {};
+
 		if (operations.length !== 0) {
 
 			while (operations.length > 0) {
@@ -216,11 +262,15 @@ lychee.define('Stash').tags({
 				var operation = operations.shift();
 				if (operation.type === 'update') {
 
+					filtered[operation.id] = operation.asset;
+
 					if (this.__assets[operation.id] !== operation.asset) {
 						this.__assets[operation.id] = operation.asset;
 					}
 
 				} else if (operation.type === 'remove') {
+
+					filtered[operation.id] = null;
 
 					if (this.__assets[operation.id] !== null) {
 						this.__assets[operation.id] = null;
@@ -234,14 +284,14 @@ lychee.define('Stash').tags({
 			var type = this.type;
 			if (type === Class.TYPE.persistent) {
 
-				for (var id in this.__assets) {
-					_PERSISTENT.write(id, this.__assets[id]);
+				for (var id in filtered) {
+					_PERSISTENT.write(id, filtered[id]);
 				}
 
 			} else if (type === Class.TYPE.temporary) {
 
-				for (var id in this.__assets) {
-					_TEMPORARY.write(id, this.__assets[id]);
+				for (var id in filtered) {
+					_TEMPORARY.write(id, filtered[id]);
 				}
 
 			}
@@ -429,7 +479,6 @@ lychee.define('Stash').tags({
 				});
 
 
-				this.__assets[id] = null;
 				_write_stash.call(this);
 
 
@@ -457,7 +506,6 @@ lychee.define('Stash').tags({
 				});
 
 
-				this.__assets[id] = asset;
 				_write_stash.call(this);
 
 

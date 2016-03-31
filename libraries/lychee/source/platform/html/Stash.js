@@ -239,6 +239,8 @@ lychee.define('Stash').tags({
 
 
 		var operations = this.__operations;
+		var filtered   = {};
+
 		if (operations.length !== 0) {
 
 			while (operations.length > 0) {
@@ -246,11 +248,15 @@ lychee.define('Stash').tags({
 				var operation = operations.shift();
 				if (operation.type === 'update') {
 
+					filtered[operation.id] = operation.asset;
+
 					if (this.__assets[operation.id] !== operation.asset) {
 						this.__assets[operation.id] = operation.asset;
 					}
 
 				} else if (operation.type === 'remove') {
+
+					filtered[operation.id] = null;
 
 					if (this.__assets[operation.id] !== null) {
 						this.__assets[operation.id] = null;
@@ -264,14 +270,14 @@ lychee.define('Stash').tags({
 			var type = this.type;
 			if (type === Class.TYPE.persistent) {
 
-				for (var id in this.__assets) {
-					_PERSISTENT.write(id, this.__assets[id]);
+				for (var id in filtered) {
+					_PERSISTENT.write(id, filtered[id]);
 				}
 
 			} else if (type === Class.TYPE.temporary) {
 
-				for (var id in this.__assets) {
-					_TEMPORARY.write(id, this.__assets[id]);
+				for (var id in filtered) {
+					_PERSISTENT.write(id, filtered[id]);
 				}
 
 			}
@@ -459,7 +465,6 @@ lychee.define('Stash').tags({
 				});
 
 
-				this.__assets[id] = null;
 				_write_stash.call(this);
 
 
@@ -487,7 +492,6 @@ lychee.define('Stash').tags({
 				});
 
 
-				this.__assets[id] = asset;
 				_write_stash.call(this);
 
 
