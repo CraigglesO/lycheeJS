@@ -23,6 +23,7 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 
 		fertilizer.Template.call(this, data);
 
+
 		this.__config = lychee.deserialize(lychee.serialize(_TEMPLATES.config));
 		this.__core   = lychee.deserialize(lychee.serialize(_TEMPLATES.core));
 		this.__icon   = lychee.deserialize(lychee.serialize(_TEMPLATES.icon));

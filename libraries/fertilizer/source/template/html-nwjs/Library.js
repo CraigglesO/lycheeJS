@@ -19,6 +19,9 @@ lychee.define('fertilizer.template.html-nwjs.Library').requires([
 		fertilizer.Template.call(this, data);
 
 
+		this.__index = lychee.deserialize(lychee.serialize(_TEMPLATE));
+
+
 
 		/*
 		 * INITIALIZATION
