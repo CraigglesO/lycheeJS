@@ -5,8 +5,11 @@ lychee.define('fertilizer.template.html.Application').requires([
 	'fertilizer.Template'
 ]).exports(function(lychee, fertilizer, global, attachments) {
 
-	var _JSON     = lychee.data.JSON;
-	var _template = attachments["tpl"].buffer;
+	var _JSON      = lychee.data.JSON;
+	var _TEMPLATES = {
+		core:  null,
+		index: attachments["index.tpl"]
+	};
 
 
 
@@ -19,42 +22,73 @@ lychee.define('fertilizer.template.html.Application').requires([
 		fertilizer.Template.call(this, data);
 
 
+		this.__core  = lychee.deserialize(lychee.serialize(_TEMPLATES.core));
+		this.__index = lychee.deserialize(lychee.serialize(_TEMPLATES.index));
+
+
 
 		/*
 		 * INITIALIZATION
 		 */
 
 		this.bind('configure', function(oncomplete) {
-			oncomplete(true);
+
+			console.log('fertilizer: CONFIGURE');
+
+
+			var that = this;
+			var load = 1;
+			var core = this.stash.read('/libraries/lychee/build/html/core.js');
+
+			if (core !== null) {
+
+				core.onload = function(result) {
+
+					if (result === true) {
+						that.__core = this;
+					}
+
+					if ((--load) === 0) {
+						oncomplete(true);
+					}
+
+				};
+
+				core.load();
+
+			}
+
+
+			if (core === null) {
+				oncomplete(false);
+			}
+
 		}, this);
 
 		this.bind('build', function(oncomplete) {
 
-			var env = this.environment;
-			var fs  = this.filesystem;
+			var env   = this.environment;
+			var stash = this.stash;
 
-			if (env !== null && fs !== null) {
+			if (env !== null && stash !== null) {
 
 				console.log('fertilizer: BUILD ' + env.id);
 
-				var id      = env.id;
-				var profile = _JSON.encode(this.profile);
-				var blob    = _JSON.encode(env.serialize());
-				var core    = this.getCore('html');
-				var info    = this.getInfo(true);
-				var index   = _template.toString();
+
+				var sandbox = this.sandbox;
+				var core    = this.__core;
+				var index   = this.__index;
 
 
-				core  = this.getInfo(false) + '\n\n' + core;
-				index = this.replace(index, {
-					blob:    blob,
-					id:      id,
-					info:    info,
-					profile: profile
+				index.buffer = index.buffer.replaceObject({
+					blob:    env.serialize(),
+					id:      env.id,
+					profile: this.profile
 				});
 
-				fs.write('/core.js',    core);
-				fs.write('/index.html', index);
+
+				stash.write(sandbox + '/core.js',    core);
+				stash.write(sandbox + '/index.html', index);
 
 
 				oncomplete(true);

@@ -39,12 +39,11 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 
 			console.log('fertilizer: CONFIGURE');
 
-			var that    = this;
-			var load    = 4;
-			var config  = this.stash.read('./package.json');
-			var core    = this.stash.read('/libraries/lychee/build/html-nwjs/core.js');
-			var icon    = this.stash.read('./icon.png');
-			var index   = this.stash.read('./index.html');
+			var that   = this;
+			var load   = 3;
+			var config = this.stash.read('./package.json');
+			var core   = this.stash.read('/libraries/lychee/build/html-nwjs/core.js');
+			var icon   = this.stash.read('./icon.png');
 
 			if (config !== null) {
 
@@ -100,43 +99,8 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 
 			}
 
-			if (index !== null) {
 
-				index.onload = function(result) {
-
-					if (result === true) {
-
-						this.buffer = this.buffer.replace('/libraries/lychee/build/html/core.js', './core.js');
-
-
-						var i1 = this.buffer.indexOf('<script>');
-						var i2 = this.buffer.indexOf('</script>', i1);
-						var i3 = _TEMPLATES.index.buffer.indexOf('<script>');
-						var i4 = _TEMPLATES.index.buffer.indexOf('</script>', i3);
-
-						if (i1 !== -1 && i2 !== -1 && i3 !== -1 && i4 !== -1) {
-							var inject  = _TEMPLATES.index.buffer.substr(i3, i4 - i3 + 9);
-							this.buffer = this.buffer.substr(0, i1) + inject + this.buffer.substr(i2 + 9);
-						}
-
-
-						that.__index = this;
-
-					}
-
-
-					if ((--load) === 0) {
-						oncomplete(true);
-					}
-
-				};
-
-				index.load();
-
-			}
-
-
-			if (config === null && core === null && icon === null && index === null) {
+			if (config === null && core === null && icon === null) {
 				oncomplete(false);
 			}
 
