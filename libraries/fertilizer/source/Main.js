@@ -1,17 +1,17 @@
 
 lychee.define('fertilizer.Main').requires([
 	'lychee.Input',
+	'lychee.Stash',
 	'lychee.data.JSON',
-	'fertilizer.data.Filesystem',
 	'fertilizer.data.Shell',
-	'fertilizer.template.html.Application',
-	'fertilizer.template.html.Library',
+//	'fertilizer.template.html.Application',
+//	'fertilizer.template.html.Library',
 	'fertilizer.template.html-nwjs.Application',
 	'fertilizer.template.html-nwjs.Library',
-	'fertilizer.template.html-webview.Application',
-	'fertilizer.template.html-webview.Library',
-	'fertilizer.template.node.Application',
-	'fertilizer.template.node.Library'
+//	'fertilizer.template.html-webview.Application',
+//	'fertilizer.template.html-webview.Library',
+//	'fertilizer.template.node.Application',
+//	'fertilizer.template.node.Library'
 ]).includes([
 	'lychee.event.Emitter'
 ]).exports(function(lychee, fertilizer, global, attachments) {
@@ -183,12 +183,16 @@ lychee.define('fertilizer.Main').requires([
 				var construct = fertilizer.template[platform][variant.charAt(0).toUpperCase() + variant.substr(1).toLowerCase()] || null;
 				if (construct !== null) {
 
+					lychee.ROOT.project                           = lychee.ROOT.lychee + project;
+					lychee.environment.global.lychee.ROOT.project = lychee.ROOT.lychee + project;
+
+
 					var template = new construct({
 						environment: environment,
 						profile:     profile,
-						filesystem:  new fertilizer.data.Filesystem(project + '/build/' + identifier),
-						shell:       new fertilizer.data.Shell(project + '/build/' + identifier)
+						sandbox:     project + '/build/' + identifier
 					});
+
 
 					template.then('configure');
 					template.then('build');

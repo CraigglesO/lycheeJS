@@ -400,7 +400,7 @@ lychee.define('Stash').tags({
 
 			if (id !== null) {
 
-				var asset = new lychee.Asset(id, true);
+				var asset = new lychee.Asset(id, null, true);
 				if (asset !== null) {
 
 					this.__assets[id] = asset;

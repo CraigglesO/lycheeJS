@@ -333,6 +333,63 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 	}
 
+	if (typeof String.prototype.replaceObject !== 'function') {
+
+		String.prototype.replaceObject = function(object) {
+
+			if (object !== Object(object)) {
+				throw new TypeError('String.prototype.replaceObject called on a non-object');
+			}
+
+
+			var clone  = '' + this;
+			var keys   = Object.keys(object);
+			var values = Object.values(object);
+
+
+			for (var k = 0, kl = keys.length; k < kl; k++) {
+
+				var key   = keys[k];
+				var value = values[k];
+
+				if (value instanceof Array) {
+					value = JSON.stringify(value);
+				} else if (value instanceof Object) {
+					value = JSON.stringify(value);
+				} else if (typeof value !== 'string') {
+					value = '' + value;
+				}
+
+
+				var pointers = [];
+				var pointer  = clone.indexOf('${' + key + '}');
+
+				while (pointer !== -1) {
+					pointers.push(pointer);
+					pointer = clone.indexOf('${' + key + '}', pointer + 1);
+				}
+
+
+				var offset = 0;
+
+				for (var p = 0, pl = pointers.length; p < pl; p++) {
+
+					var index = pointers[p];
+
+					clone   = clone.substr(0, index + offset) + value + clone.substr(index + offset + key.length + 3);
+					offset += (value.length - (key.length + 3));
+
+				}
+
+			}
+
+
+			return clone;
+
+		};
+
+	}
+
 	if (typeof String.prototype.toJSON !== 'function') {
 
 		String.prototype.toJSON = function() {
