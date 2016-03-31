@@ -42,7 +42,6 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 			var load    = 4;
 			var config  = this.stash.read('./package.json');
 			var core    = this.stash.read('/libraries/lychee/build/html-nwjs/core.js');
-console.log(core);
 			var icon    = this.stash.read('./icon.png');
 			var index   = this.stash.read('./index.html');
 
@@ -152,17 +151,12 @@ console.log(core);
 
 				console.log('fertilizer: BUILD ' + env.id);
 
+
 				var sandbox = this.sandbox;
 				var config  = this.__config;
 				var core    = this.__core;
 				var icon    = this.__icon;
 				var index   = this.__index;
-
-
-				config.url = sandbox + '/package.json';
-				core.url   = sandbox + '/core.js';
-				icon.url   = sandbox + '/icon.png';
-				index.url  = sandbox + '/index.html';
 
 
 				config.buffer = config.buffer.replaceObject({
@@ -178,10 +172,10 @@ console.log(core);
 				});
 
 
-				stash.write(config);
-				stash.write(core);
-				stash.write(icon);
-				stash.write(index);
+				stash.write(sandbox + '/package.json', config);
+				stash.write(sandbox + '/core.js',      core);
+				stash.write(sandbox + '/icon.png',     icon);
+				stash.write(sandbox + '/index.html',   index);
 
 
 				oncomplete(true);
@@ -196,35 +190,23 @@ console.log(core);
 
 		this.bind('package', function(oncomplete) {
 
-console.log('WOOP WOOP');
-oncomplete(true);
-return;
+			var name    = this.environment.id.split('/')[2];
+			var shell   = new fertilizer.data.Shell('/bin/runtime/html-nwjs');
+			var sandbox = this.sandbox;
 
-			var runtime_fs = new fertilizer.data.Filesystem('/bin/runtime/html-nwjs');
-			var runtime_sh = new fertilizer.data.Shell('/bin/runtime/html-nwjs');
-			var project_fs = this.filesystem;
-			var project_id = this.environment.id.split('/').pop();
+			if (sandbox !== '') {
 
-			if (project_fs !== null) {
+				console.log('fertilizer: PACKAGE ' + sandbox + ' ' + name);
 
-				console.log('fertilizer: PACKAGE ' + project_fs.root + ' ' + project_id);
 
-				if (runtime_fs.info('/package.sh') !== null) {
+				var result = shell.exec('/package.sh ' + sandbox + ' ' + name);
+				if (result === true) {
 
-					var result = runtime_sh.exec('/package.sh ' + project_fs.root + ' ' + project_id);
-					if (result === true) {
-
-						oncomplete(true);
-
-					} else {
-
-						runtime_sh.trace();
-						oncomplete(false);
-
-					}
+					oncomplete(true);
 
 				} else {
 
+					shell.trace();
 					oncomplete(false);
 
 				}

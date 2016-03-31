@@ -6,7 +6,7 @@ lychee.define('fertilizer.template.html-nwjs.Library').requires([
 ]).exports(function(lychee, fertilizer, global, attachments) {
 
 	var _JSON     = lychee.data.JSON;
-	var _template = attachments["tpl"].buffer;
+	var _TEMPLATE = attachments["tpl"];
 
 
 
@@ -30,24 +30,25 @@ lychee.define('fertilizer.template.html-nwjs.Library').requires([
 
 		this.bind('build', function(oncomplete) {
 
-			var env = this.environment;
-			var fs  = this.filesystem;
+			var env   = this.environment;
+			var stash = this.stash;
 
-			if (env !== null && fs !== null) {
+			if (env !== null && stash !== null) {
 
 				console.log('fertilizer: BUILD ' + env.id);
 
-				var id    = env.id;
-				var blob  = _JSON.encode(env.serialize());
-				var info  = this.getInfo(true);
-				var index = _template.toString();
+
+				var sandbox = this.sandbox;
+				var index   = this.__index;
 
 
-				fs.write('/index.js', this.replace(index, {
-					blob: blob,
-					id:   id,
-					info: info
+				index.buffer = index.buffer.replaceObject({
+					blob: env.serialize(),
+					id:   env.id
 				}));
+
+
+				stash.write(sandbox + '/index.js', index);
 
 
 				oncomplete(true);
