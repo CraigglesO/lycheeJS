@@ -62,6 +62,7 @@ var _print_help = function() {
 	console.log('                                                    ');
 	console.log('    lycheejs-strainer init /libraries/lychee;       ');
 	console.log('    lycheejs-strainer stash /libraries/lychee;      ');
+	console.log('                                                    ');
 	console.log('    lycheejs-strainer init /projects/boilerplate;   ');
 	console.log('    lycheejs-strainer stash /projects/boilerplate;  ');
 	console.log('                                                    ');
@@ -110,11 +111,11 @@ var _bootup = function(settings) {
 	console.info('BOOTUP (' + process.pid + ')');
 
 	var environment = new lychee.Environment({
-		id:      'strainer',
-		debug:   false,
-		sandbox: false,
-		build:   'strainer.Main',
-		timeout: 1000,
+		id:       'strainer',
+		debug:    false,
+		sandbox:  true,
+		build:    'strainer.Main',
+		timeout:  3000,
 		packages: [
 			new lychee.Package('lychee',     '/libraries/lychee/lychee.pkg'),
 			new lychee.Package('fertilizer', '/libraries/fertilizer/lychee.pkg'),
