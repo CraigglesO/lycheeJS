@@ -48,7 +48,7 @@ lychee.define('fertilizer.template.html-nwjs.Library').requires([
 				index.buffer = index.buffer.replaceObject({
 					blob: env.serialize(),
 					id:   env.id
-				}));
+				});
 
 
 				stash.write(sandbox + '/index.js', index);

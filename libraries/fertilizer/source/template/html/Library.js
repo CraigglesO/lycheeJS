@@ -6,7 +6,7 @@ lychee.define('fertilizer.template.html.Library').requires([
 ]).exports(function(lychee, fertilizer, global, attachments) {
 
 	var _JSON     = lychee.data.JSON;
-	var _TEMPLATE = attachments["tpl"].buffer;
+	var _TEMPLATE = attachments["tpl"];
 
 
 
@@ -48,7 +48,7 @@ lychee.define('fertilizer.template.html.Library').requires([
 				index.buffer = index.buffer.replaceObject({
 					blob: env.serialize(),
 					id:   env.id
-				}));
+				});
 
 
 				stash.write(sandbox + '/index.js', index);

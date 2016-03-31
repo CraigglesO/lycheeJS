@@ -1,6 +1,7 @@
 
 lychee.define('fertilizer.template.html-nwjs.Application').requires([
-	'lychee.data.JSON'
+	'lychee.data.JSON',
+	'fertilizer.data.Shell'
 ]).includes([
 	'fertilizer.Template'
 ]).exports(function(lychee, fertilizer, global, attachments) {

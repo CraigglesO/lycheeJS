@@ -1355,7 +1355,14 @@
 				delete require.cache[cid];
 			}
 
-			require(cid);
+
+			try {
+				require(cid);
+			} catch(err) {
+				lychee.Debugger.report(lychee.environment, err, stuff);
+			}
+
+
 			_filename = null;
 
 
