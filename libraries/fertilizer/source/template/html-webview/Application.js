@@ -1,15 +1,16 @@
 
 lychee.define('fertilizer.template.html-webview.Application').requires([
 	'lychee.data.JSON',
-	'fertilizer.data.Filesystem'
+	'fertilizer.data.Shell'
 ]).includes([
 	'fertilizer.Template'
 ]).exports(function(lychee, fertilizer, global, attachments) {
 
 	var _JSON      = lychee.data.JSON;
-	var _templates = {
-		icon:  attachments["icon.png"].buffer,
-		index: attachments["index.tpl"].buffer
+	var _TEMPLATES = {
+		core:  null,
+		icon:  attachments["icon.png"],
+		index: attachments["index.tpl"]
 	};
 
 
@@ -22,8 +23,10 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 
 		fertilizer.Template.call(this, data);
 
-		this.__icon  = _templates['icon'];
-		this.__index = _templates['index'].toString();
+
+		this.__core  = lychee.deserialize(lychee.serialize(_TEMPLATES.core));
+		this.__icon  = lychee.deserialize(lychee.serialize(_TEMPLATES.icon));
+		this.__index = lychee.deserialize(lychee.serialize(_TEMPLATES.index));
 
 
 
@@ -33,75 +36,83 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 
 		this.bind('configure', function(oncomplete) {
 
-			var env = this.environment;
-			var fs  = this.filesystem;
+			console.log('fertilizer: CONFIGURE');
 
-			if (env !== null && fs !== null) {
+			var that = this;
+			var load = 2;
+			var core = this.stash.read('/libraries/lychee/build/html-webview/core.js');
+			var icon = this.stash.read('./icon.png');
 
-				console.log('fertilizer: CONFIGURE');
+			if (core !== null) {
 
-				env.setPackages([]);
+				core.onload = function(result) {
 
-				var tmp       = new fertilizer.data.Filesystem(fs.root + '/../../../source');
-				var has_icon  = tmp.info('/icon.png');
-				var has_index = tmp.info('/index.html');
-
-				if (has_icon !== null) {
-					this.__icon = tmp.read('/icon.png');
-				}
-
-				if (has_index !== null) {
-
-					this.__index = tmp.read('/index.html').toString();
-					this.__index = this.__index.replace('/libraries/lychee/build/html/core.js', './core.js');
-
-					var tmp1 = this.__index.indexOf('<script>');
-					var tmp2 = this.__index.indexOf('</script>', tmp1);
-					var tmp3 = _templates['index'].indexOf('<script>');
-					var tmp4 = _templates['index'].indexOf('</script>', tmp3);
-
-					if (tmp1 !== -1 && tmp2 !== -1 && tmp3 !== -1 && tmp4 !== -1) {
-						var inject   = _templates['index'].substr(tmp3, tmp4 - tmp3 + 9);
-						this.__index = this.__index.substr(0, tmp1) + inject + this.__index.substr(tmp2 + 9);
+					if (result === true) {
+						that.__core = this;
 					}
 
-				}
+					if ((--load) === 0) {
+						oncomplete(true);
+					}
+
+				};
+
+				core.load();
 
 			}
 
-			oncomplete(true);
+			if (icon !== null) {
+
+				icon.onload = function(result) {
+
+					if (result === true) {
+						that.__icon = this;
+					}
+
+					if ((--load) === 0) {
+						oncomplete(true);
+					}
+
+				};
+
+				icon.load();
+
+			}
+
+
+			if (core === null && icon === null) {
+				oncomplete(false);
+			}
 
 		}, this);
 
 		this.bind('build', function(oncomplete) {
 
-			var env = this.environment;
-			var fs  = this.filesystem;
+			var env   = this.environment;
+			var stash = this.stash;
 
-			if (env !== null && fs !== null) {
+
+			if (env !== null && stash !== null) {
 
 				console.log('fertilizer: BUILD ' + env.id);
 
-				var id      = env.id;
-				var profile = _JSON.encode(this.profile);
-				var blob    = _JSON.encode(env.serialize());
-				var core    = this.getCore('html-nwjs');
-				var info    = this.getInfo(true);
+
+				var sandbox = this.sandbox;
+				var core    = this.__core;
 				var icon    = this.__icon;
 				var index   = this.__index;
 
 
-				core  = this.getInfo(false) + '\n\n' + core;
-				index = this.replace(index, {
-					blob:    blob,
-					id:      id,
-					info:    info,
-					profile: profile
+				index.buffer = index.buffer.replaceObject({
+					blob:    env.serialize(),
+					id:      env.id,
+					profile: this.profile
 				});
 
-				fs.write('/icon.png',   icon);
-				fs.write('/core.js',    core);
-				fs.write('/index.html', index);
+
+				stash.write(sandbox + '/core.js',    core);
+				stash.write(sandbox + '/icon.png',   icon);
+				stash.write(sandbox + '/index.html', index);
 
 
 				oncomplete(true);
@@ -116,31 +127,23 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 
 		this.bind('package', function(oncomplete) {
 
-			var runtime_fs = new fertilizer.data.Filesystem('/bin/runtime/html-webview');
-			var runtime_sh = new fertilizer.data.Shell('/bin/runtime/html-webview');
-			var project_fs = this.filesystem;
-			var project_id = this.environment.id.split('/').pop();
+			var name    = this.environment.id.split('/')[2];
+			var shell   = new fertilizer.data.Shell('/bin/runtime/html-webview');
+			var sandbox = this.sandbox;
 
-			if (project_fs !== null) {
+			if (sandbox !== '') {
 
-				console.log('fertilizer: PACKAGE ' + project_fs.root + ' ' + project_id);
+				console.log('fertilizer: PACKAGE ' + sandbox + ' ' + name);
 
-				if (runtime_fs.info('/package.sh') !== null) {
 
-					var result = runtime_sh.exec('/package.sh ' + project_fs.root + ' ' + project_id);
-					if (result === true) {
+				var result = shell.exec('/package.sh ' + sandbox + ' ' + name);
+				if (result === true) {
 
-						oncomplete(true);
-
-					} else {
-
-						runtime_sh.trace();
-						oncomplete(false);
-
-					}
+					oncomplete(true);
 
 				} else {
 
+					shell.trace();
 					oncomplete(false);
 
 				}

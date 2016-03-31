@@ -83,12 +83,12 @@ lychee.define('fertilizer.template.node.Application').requires([
 
 				index.buffer = index.buffer.replaceObject({
 					blob:    env.serialize(),
-					core:    core.buffer,
 					id:      env.id,
 					profile: this.profile
 				});
 
 
+				stash.write(sandbox + '/core.js',  core);
 				stash.write(sandbox + '/index.js', index);
 
 

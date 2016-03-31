@@ -8,10 +8,10 @@ lychee.define('fertilizer.Main').requires([
 	'fertilizer.template.html.Library',
 	'fertilizer.template.html-nwjs.Application',
 	'fertilizer.template.html-nwjs.Library',
-//	'fertilizer.template.html-webview.Application',
-//	'fertilizer.template.html-webview.Library',
-//	'fertilizer.template.node.Application',
-//	'fertilizer.template.node.Library'
+	'fertilizer.template.html-webview.Application',
+	'fertilizer.template.html-webview.Library',
+	'fertilizer.template.node.Application',
+	'fertilizer.template.node.Library'
 ]).includes([
 	'lychee.event.Emitter'
 ]).exports(function(lychee, fertilizer, global, attachments) {

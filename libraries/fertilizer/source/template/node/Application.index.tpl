@@ -1,5 +1,6 @@
 
-${core}
+require('./core.js')(__dirname);
+
 
 (function(lychee, global) {
 
