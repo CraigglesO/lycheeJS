@@ -50,6 +50,7 @@
 				"sandbox": false,
 				"tags": {
 					"platform": [
+						"node-sdl",
 						"node"
 					]
 				},

@@ -83,8 +83,18 @@ else
 			_fertilize node/dist /libraries/lychee;
 			# _fertilize node-sdl/dist /libraries/lychee;
 
+			# _fertilize node/dist /libraries/breeder;
+			# _fertilize node-sdl/dist /libraries/breeder;
+
+			_fertilize node/dist /libraries/fertilizer;
+			# _fertilize node-sdl/dist /libraries/fertilizer;
+
 			_fertilize node/dist /libraries/harvester;
 			# _fertilize node-sdl/dist /libraries/harvester;
+
+			# _fertilize node/dist /libraries/strainer;
+			# _fertilize node-sdl/dist /libraries/strainer;
+
 
 			echo "> DONE";
 
