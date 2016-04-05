@@ -1,15 +1,16 @@
 
 lychee.define('breeder.Template').requires([
-	'lychee.data.JSON',
-	'fertilizer.data.Filesystem'
+	'lychee.Stash',
+	'lychee.data.JSON'
 ]).includes([
-	'fertilizer.Template'
+	'lychee.event.Flow'
 ]).exports(function(lychee, breeder, global, attachments) {
 
-	var _JSON      = lychee.data.JSON;
-	var fertilizer = lychee.environment.global.fertilizer;
-	var _LIB       = new fertilizer.data.Filesystem('/');
-	var _TPL       = new fertilizer.data.Filesystem('/libraries/breeder/asset');
+	var _JSON  = lychee.data.JSON;
+	var _ASSET = '/libraries/breeder/asset';
+	var _STASH = new lychee.Stash({
+		type: lychee.Stash.TYPE.persistent
+	});
 
 
 
@@ -94,7 +95,21 @@ lychee.define('breeder.Template').requires([
 
 	var Class = function(data) {
 
-		fertilizer.Template.call(this, data);
+		var settings = lychee.extend({}, data);
+
+
+		this.sandbox = '';
+		this.stash   = new lychee.Stash({
+			type: lychee.Stash.TYPE.persistent
+		});
+
+
+		this.setSandbox(settings.sandbox);
+
+
+		lychee.event.Flow.call(this);
+
+		settings = null;
 
 
 
@@ -104,43 +119,62 @@ lychee.define('breeder.Template').requires([
 
 		this.bind('init', function(oncomplete) {
 
-			var fs = this.filesystem;
-			if (fs !== null) {
+			var sandbox = this.sandbox;
+			var stash   = this.stash;
 
-				// _TPL.copy(fs, '/lychee.pkg');
-				_TPL.copy(fs, '/harvester.js');
-				fs.chmod('/harvester.js', '775');
+			if (sandbox !== '' && stash !== null) {
 
+				_STASH.bind('batch', function(type, assets) {
 
-				_LIB.copy(fs, '/libraries/lychee/build/html/core.js');
-				_LIB.copy(fs, '/libraries/lychee/build/html-nwjs/core.js');
-				_LIB.copy(fs, '/libraries/lychee/build/html-webview/core.js');
-				_LIB.copy(fs, '/libraries/lychee/build/node/core.js');
-				_LIB.copy(fs, '/libraries/lychee/build/node-sdl/core.js');
-
-
-				_TPL.copy(fs, '/source/Main.js');
-				_TPL.copy(fs, '/source/net/Server.js');
-				_TPL.copy(fs, '/source/net/Client.js');
-				_TPL.copy(fs, '/source/net/client/Ping.js');
-				_TPL.copy(fs, '/source/net/remote/Ping.js');
-				_TPL.copy(fs, '/source/state/Welcome.js');
-				_TPL.copy(fs, '/source/state/Welcome.json');
-
-				_TPL.copy(fs, '/icon.png');
-				_TPL.copy(fs, '/favicon.ico');
-				_TPL.copy(fs, '/index.html');
+					var pkg  = assets.find(function(asset) {
+						return asset.url === _ASSET + '/lychee.pkg';
+					}) || null;
+					var urls = assets.map(function(asset) {
+						return sandbox + asset.url.substr(_ASSET.length);
+					});
 
 
-				var id  = fs.root.split('/').pop();
-				var pkg = _TPL.read('/lychee.pkg').toString();
+					if (pkg !== null) {
 
-				pkg = this.replace(pkg, { id: id });
+						var tmp = JSON.stringify(pkg.buffer, null, '\t');
 
-				fs.write('/lychee.pkg', pkg);
+						tmp = tmp.replaceObject({
+							id: sandbox
+						});
+
+						pkg.buffer = JSON.parse(tmp);
+
+					}
 
 
-				oncomplete(true);
+					stash.bind('batch', function(action, woop) {
+
+						if (action === 'write') {
+							oncomplete(true);
+						}
+
+					}, this, true);
+
+					stash.batch('write', urls, assets);
+
+				}, this, true);
+
+				_STASH.batch('read', [
+
+					_ASSET + '/harvester.js',
+					_ASSET + '/icon.png',
+					_ASSET + '/index.html',
+					_ASSET + '/lychee.pkg',
+
+					_ASSET + '/source/Main.js',
+					_ASSET + '/source/net/Client.js',
+					_ASSET + '/source/net/Server.js',
+					_ASSET + '/source/net/client/Ping.js',
+					_ASSET + '/source/net/remote/Ping.js',
+					_ASSET + '/source/state/Welcome.js',
+					_ASSET + '/source/state/Welcome.json'
+
+				]);
 
 			} else {
 
@@ -225,13 +259,61 @@ lychee.define('breeder.Template').requires([
 		 * ENTITY API
 		 */
 
+		deserialize: function(blob) {
+
+			var stash = lychee.deserialize(blob.stash);
+			if (stash !== null) {
+				this.stash = stash;
+			}
+
+		},
+
 		serialize: function() {
 
-			var data = fertilizer.Template.prototype.serialize.call(this);
+			var data = lychee.event.Flow.prototype.serialize.call(this);
 			data['constructor'] = 'breeder.Template';
 
 
+			var settings = data['arguments'][0] || {};
+			var blob     = data['blob'] || {};
+
+
+			if (this.sandbox !== '') settings.sandbox = this.sandbox;
+
+
+			if (this.stash !== null) blob.stash = lychee.serialize(this.stash);
+
+
+			data['arguments'][0] = settings;
+			data['blob']         = Object.keys(blob).length > 0 ? blob : null;
+
+
 			return data;
+
+		},
+
+
+
+		/*
+		 * CUSTOM API
+		 */
+
+		setSandbox: function(sandbox) {
+
+			sandbox = typeof sandbox === 'string' ? sandbox : null;
+
+
+			if (sandbox !== null) {
+
+				this.sandbox = sandbox;
+
+
+				return true;
+
+			}
+
+
+			return false;
 
 		}
 

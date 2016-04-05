@@ -22,8 +22,8 @@
 				},
 				"variant": "application",
 				"profile": {
-					"client": "/api/Server?identifier=/projects/${id}",
-					"server": "/api/Server?identifier=/projects/${id}"
+					"client": "/api/Server?identifier=${id}",
+					"server": "/api/Server?identifier=${id}"
 				}
 			},
 			"html-webview/main": {
@@ -44,8 +44,8 @@
 				},
 				"variant": "application",
 				"profile": {
-					"client": "/api/Server?identifier=/projects/${id}",
-					"server": "/api/Server?identifier=/projects/${id}"
+					"client": "/api/Server?identifier=${id}",
+					"server": "/api/Server?identifier=${id}"
 				}
 			},
 			"html/main": {
@@ -65,8 +65,8 @@
 				},
 				"variant": "application",
 				"profile": {
-					"client": "/api/Server?identifier=/projects/${id}",
-					"server": "/api/Server?identifier=/projects/${id}"
+					"client": "/api/Server?identifier=${id}",
+					"server": "/api/Server?identifier=${id}"
 				}
 			},
 			"node/main": {

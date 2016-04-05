@@ -1,5 +1,6 @@
 
 lychee.define('fertilizer.Template').requires([
+	'lychee.Stash',
 	'lychee.data.JSON',
 	'fertilizer.data.Shell'
 ]).includes([
@@ -59,11 +60,11 @@ lychee.define('fertilizer.Template').requires([
 			}
 
 			if (shell !== null) {
-				this.setShell(shell);
+				this.shell = shell;
 			}
 
 			if (stash !== null) {
-				this.setStash(stash);
+				this.stash = stash;
 			}
 
 		},
@@ -101,61 +102,6 @@ lychee.define('fertilizer.Template').requires([
 		/*
 		 * CUSTOM API
 		 */
-
-		getInfo: function(full) {
-
-			full = full === true;
-
-
-			var year  = new Date().getFullYear();
-			var lines = [];
-
-
-			lines.push('/*');
-			lines.push(' * lycheeJS v' + lychee.VERSION);
-			lines.push(' * http://lycheejs.org');
-			lines.push(' * ');
-			lines.push(' * (c) 2012-' + year + ' Artificial-Engineering');
-			lines.push(' * MIT / Expat License');
-			lines.push(' * ');
-
-			var env = this.environment;
-			if (env !== null && full === true) {
-
-				lines.push(' * ');
-				lines.push(' * Build:');
-				lines.push(' * \t' + env.build);
-				lines.push(' * ');
-				lines.push(' * Tags:');
-				lines.push(' * \t' + _JSON.encode(env.tags));
-				lines.push(' * ');
-				lines.push(' * Definitions:');
-
-				var definitions = Object.keys(env.definitions);
-				if (definitions.length > 0) {
-
-					definitions.sort(function(a, b) {
-						if (a < b) return -1;
-						if (a > b) return  1;
-						return 0;
-					});
-
-					definitions.forEach(function(id) {
-						lines.push(' * \t' + id);
-					});
-
-				}
-
-				lines.push(' * ');
-
-			}
-
-
-			lines.push(' */');
-
-			return lines.join('\n');
-
-		},
 
 		setEnvironment: function(environment) {
 
@@ -220,24 +166,6 @@ lychee.define('fertilizer.Template').requires([
 			if (settings !== null) {
 
 				this.settings = settings;
-
-				return true;
-
-			}
-
-
-			return false;
-
-		},
-
-		setShell: function(shell) {
-
-			shell = shell instanceof fertilizer.data.Shell ? shell : null;
-
-
-			if (shell !== null) {
-
-				this.shell = shell;
 
 				return true;
 
