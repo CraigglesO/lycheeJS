@@ -72,7 +72,8 @@ lychee.define('breeder.Main').requires([
 		this.bind('init', function(project, action) {
 
 			var template = new breeder.Template({
-				sandbox: project
+				sandbox:  project,
+				settings: this.settings
 			});
 
 
