@@ -2,6 +2,7 @@
 lychee.define('app.state.Chat').requires([
 	'lychee.effect.Color',
 	'lychee.effect.Offset',
+	'lychee.app.sprite.Background',
 	'lychee.ui.entity.Button',
 	'lychee.ui.entity.Select',
 	'lychee.ui.entity.Slider',
@@ -156,11 +157,11 @@ lychee.define('app.state.Chat').requires([
 					var height = renderer.height;
 
 
-					entity = this.getLayer('background');
+					entity = this.getLayer('bg');
 					entity.width  = width;
 					entity.height = height;
 
-					entity = this.queryLayer('background', 'background');
+					entity = this.queryLayer('bg', 'background');
 					entity.width     = width;
 					entity.height    = height;
 					entity.__isDirty = true;
