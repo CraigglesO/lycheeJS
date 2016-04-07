@@ -8,8 +8,7 @@
 		"icon":      "./icon.png",
 		"toolbar":   ${debug},
 		"frame":     true,
-		"position":  "mouse",
-		"resizable": true 
+		"position":  "mouse"
 	},
 	"webkit": {
 		"plugin": false
