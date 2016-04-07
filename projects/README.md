@@ -24,8 +24,8 @@ lycheejs-breeder init;
 ```
 
 If you want to isolate your library dependencies, you can
-pull them in with the `lycheejs-breeder`.
-
+pull them in. The dependency tree is automatically shrinked
+down to its minimum.
 This allows deploying your App to other system where there's
 no `lycheejs-harvester` available.
 
