@@ -68,6 +68,8 @@
 			"template": {
 				"html": {
 					"Application": [
+						"config.tpl",
+						"icon.png",
 						"index.tpl",
 						"js"
 					],

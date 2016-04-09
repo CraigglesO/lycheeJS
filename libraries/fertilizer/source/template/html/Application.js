@@ -7,8 +7,10 @@ lychee.define('fertilizer.template.html.Application').requires([
 
 	var _JSON      = lychee.data.JSON;
 	var _TEMPLATES = {
-		core:  null,
-		index: attachments["index.tpl"]
+		config: attachments["config.tpl"],
+		core:   null,
+		icon:   attachments["icon.png"],
+		index:  attachments["index.tpl"]
 	};
 
 
@@ -22,8 +24,10 @@ lychee.define('fertilizer.template.html.Application').requires([
 		fertilizer.Template.call(this, data);
 
 
-		this.__core  = lychee.deserialize(lychee.serialize(_TEMPLATES.core));
-		this.__index = lychee.deserialize(lychee.serialize(_TEMPLATES.index));
+		this.__config = lychee.deserialize(lychee.serialize(_TEMPLATES.config));
+		this.__core   = lychee.deserialize(lychee.serialize(_TEMPLATES.core));
+		this.__icon   = lychee.deserialize(lychee.serialize(_TEMPLATES.icon));
+		this.__index  = lychee.deserialize(lychee.serialize(_TEMPLATES.index));
 
 
 
@@ -36,9 +40,29 @@ lychee.define('fertilizer.template.html.Application').requires([
 			console.log('fertilizer: CONFIGURE');
 
 
-			var that = this;
-			var load = 1;
-			var core = this.stash.read('/libraries/lychee/build/html/core.js');
+			var that   = this;
+			var load   = 3;
+			var config = this.stash.read('./manifest.json');
+			var core   = this.stash.read('/libraries/lychee/build/html/core.js');
+			var icon   = this.stash.read('./icon.png');
+
+			if (config !== null) {
+
+				config.onload = function(result) {
+
+					if (result === true) {
+						that.__config = this;
+					}
+
+					if ((--load) === 0) {
+						oncomplete(true);
+					}
+
+				};
+
+				config.load();
+
+			}
 
 			if (core !== null) {
 
@@ -58,8 +82,26 @@ lychee.define('fertilizer.template.html.Application').requires([
 
 			}
 
+			if (icon !== null) {
 
-			if (core === null) {
+				icon.onload = function(result) {
+
+					if (result === true) {
+						that.__icon = this;
+					}
+
+					if ((--load) === 0) {
+						oncomplete(true);
+					}
+
+				};
+
+				icon.load();
+
+			}
+
+
+			if (config === null && core === null && icon === null) {
 				oncomplete(false);
 			}
 
@@ -76,9 +118,17 @@ lychee.define('fertilizer.template.html.Application').requires([
 
 
 				var sandbox = this.sandbox;
+				var config  = this.__config;
 				var core    = this.__core;
+				var icon    = this.__icon;
 				var index   = this.__index;
 
+
+				config.buffer = config.buffer.replaceObject({
+					debug:   env.debug,
+					id:      env.id,
+					version: lychee.VERSION
+				});
 
 				index.buffer = index.buffer.replaceObject({
 					blob:    env.serialize(),
@@ -87,8 +137,10 @@ lychee.define('fertilizer.template.html.Application').requires([
 				});
 
 
-				stash.write(sandbox + '/core.js',    core);
-				stash.write(sandbox + '/index.html', index);
+				stash.write(sandbox + '/manifest.json', config);
+				stash.write(sandbox + '/core.js',       core);
+				stash.write(sandbox + '/icon.png',      icon);
+				stash.write(sandbox + '/index.html',    index);
 
 
 				oncomplete(true);
