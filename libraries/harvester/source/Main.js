@@ -381,7 +381,52 @@ lychee.define('harvester.Main').requires([
 		}, this, true);
 
 
+
 		if (settings.sandbox === true) {
+
+			console.log('\n');
+			console.info('harvester: SANDBOX mode active');
+			console.log('harvester: harvester.mod.Fertilizer disabled');
+			console.log('harvester: harvester.mod.Strainer disabled');
+			console.log('\n');
+
+
+			(function(libraries, projects) {
+
+				libraries.forEach(function(library, l) {
+
+					if (harvester.mod.Package.can(library) === true) {
+						harvester.mod.Package.process(library);
+					}
+
+				});
+
+				setTimeout(function() {
+
+					projects.forEach(function(project, p) {
+
+						if (harvester.mod.Package.can(project) === true) {
+							harvester.mod.Package.process(project);
+						}
+
+						if (harvester.mod.Server.can(project) === true) {
+							harvester.mod.Server.process(project);
+						}
+
+					});
+
+				}, libraries.length * 1000);
+
+			})(Object.values(_LIBRARIES), Object.values(_PROJECTS));
+
+		} else {
+
+			console.log('\n');
+			console.info('harvester: SANDBOX mode inactive');
+			console.log('harvester: harvester.mod.Fertilizer enabled');
+			console.log('harvester: harvester.mod.Strainer enabled');
+			console.log('\n');
+
 
 			(function(libraries, projects) {
 
@@ -416,36 +461,6 @@ lychee.define('harvester.Main').requires([
 								harvester.mod.Fertilizer.process(project);
 							}, p * 2000);
 
-						}
-
-					});
-
-				}, libraries.length * 1000);
-
-			})(Object.values(_LIBRARIES), Object.values(_PROJECTS));
-
-		} else {
-
-			(function(libraries, projects) {
-
-				libraries.forEach(function(library, l) {
-
-					if (harvester.mod.Package.can(library) === true) {
-						harvester.mod.Package.process(library);
-					}
-
-				});
-
-				setTimeout(function() {
-
-					projects.forEach(function(project, p) {
-
-						if (harvester.mod.Package.can(project) === true) {
-							harvester.mod.Package.process(project);
-						}
-
-						if (harvester.mod.Server.can(project) === true) {
-							harvester.mod.Server.process(project);
 						}
 
 					});

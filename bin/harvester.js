@@ -62,7 +62,7 @@ var _settings = (function() {
 	var settings = {
 		action:  null,
 		profile: null,
-		sandbox: true
+		sandbox: false
 	};
 
 
@@ -105,7 +105,7 @@ var _settings = (function() {
 
 
 	if (raw_arg2 === '--sandbox') {
-		settings.sandbox = false;
+		settings.sandbox = true;
 	}
 
 
