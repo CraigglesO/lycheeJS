@@ -115,13 +115,13 @@ The `./bin/configure.sh` script has to be executed initially one time as `root` 
 order to compile down all the lycheeJS core libraries.
 
 If you want a sandboxed installation without the awesome system-wide integration of
-the `lycheejs-` tools, you can use the `--no-integration` flag.
+the `lycheejs-` tools, you can use the `--sandbox` flag.
 
 ```bash
 cd /opt/lycheejs;
 
-sudo ./bin/configure.sh;              # --no-integration if you want a sandboxed installation
-lycheejs-harvester start development; # --no-integration if you want a sandboxed harvester
+sudo ./bin/configure.sh;              # --sandbox if you want a sandboxed installation
+lycheejs-harvester start development; # --sandbox if you want a sandboxed harvester
 ```
 
 The above commands will look similar to this if everything went fine.

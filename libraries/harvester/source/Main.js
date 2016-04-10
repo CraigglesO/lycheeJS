@@ -211,9 +211,9 @@ lychee.define('harvester.Main').requires([
 
 	var _defaults = {
 
-		port:        null,
-		hosts:       null,
-		integration: false,
+		port:    null,
+		hosts:   null,
+		sandbox: false,
 
 		server: {
 			host: null,
@@ -381,7 +381,7 @@ lychee.define('harvester.Main').requires([
 		}, this, true);
 
 
-		if (settings.integration === true) {
+		if (settings.sandbox === true) {
 
 			(function(libraries, projects) {
 

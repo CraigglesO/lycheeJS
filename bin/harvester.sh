@@ -59,18 +59,18 @@ case "$1" in
 
 	start)
 
-		INTEGRATION_FLAG="";
-		if [ "$3" == "--no-integration" ]; then
-			INTEGRATION_FLAG="--no-integration";
+		SANDBOX_FLAG="";
+		if [ "$3" == "--sandbox" ]; then
+			SANDBOX_FLAG="--sandbox";
 		fi;
 
 
 		cd $LYCHEEJS_ROOT;
 
 		if [ "$HARVESTER_USER" == "root" ] || [ "$HARVESTER_USER" == "lycheejs-harvester" ]; then
-			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$INTEGRATION_FLAG" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
+			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$SANDBOX_FLAG" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
 		else
-			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$INTEGRATION_FLAG"
+			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$SANDBOX_FLAG"
 		fi;
 
 	;;
@@ -109,9 +109,9 @@ case "$1" in
 
 	restart)
 
-		INTEGRATION_FLAG="";
-		if [ "$3" == "--no-integration" ]; then
-			INTEGRATION_FLAG="--no-integration";
+		SANDBOX_FLAG="";
+		if [ "$3" == "--sandbox" ]; then
+			SANDBOX_FLAG="--sandbox";
 		fi;
 
 
@@ -120,9 +120,9 @@ case "$1" in
 		$LYCHEEJS_NODE ./bin/harvester.js stop;
 
 		if [ "$HARVESTER_USER" == "root" ] || [ "$HARVESTER_USER" == "lycheejs-harvester" ]; then
-			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$INTEGRATION_FLAG" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
+			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$SANDBOX_FLAG" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
 		else
-			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$INTEGRATION_FLAG"
+			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$SANDBOX_FLAG"
 		fi;
 
 	;;

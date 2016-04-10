@@ -11,9 +11,9 @@ USER=`whoami`;
 LYCHEEJS_NODE="";
 LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
 
-NO_INTEGRATION=false;
-if [ "$1" == "--no-integration" ]; then
-	NO_INTEGRATION=true;
+SANDBOX_FLAG=false;
+if [ "$1" == "--sandbox" ]; then
+	SANDBOX_FLAG=true;
 fi;
 
 
@@ -159,7 +159,7 @@ else
 	fi;
 
 
-	if [ "$NO_INTEGRATION" == "false" ]; then
+	if [ "$SANDBOX_FLAG" == "false" ]; then
 
 		if [ "$OS" == "linux" ]; then
 

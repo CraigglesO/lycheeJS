@@ -45,12 +45,12 @@ var _print_help = function() {
 	console.log('                                                            ');
 	console.log('Available Flags:                                            ');
 	console.log('                                                            ');
-	console.log('   --no-integration                                         ');
+	console.log('   --sandbox        Disables Fertilizer and Strainer Modules');
 	console.log('                                                            ');
 	console.log('Examples:                                                   ');
 	console.log('                                                            ');
 	console.log('    lycheejs-harvester start development;                   ');
-	console.log('    lycheejs-harvester restart development --no-integration;');
+	console.log('    lycheejs-harvester restart development --sandbox;       ');
 	console.log('                                                            ');
 
 };
@@ -60,9 +60,9 @@ var _print_help = function() {
 var _settings = (function() {
 
 	var settings = {
-		action:      null,
-		profile:     null,
-		integration: true
+		action:  null,
+		profile: null,
+		sandbox: true
 	};
 
 
@@ -104,8 +104,8 @@ var _settings = (function() {
 	}
 
 
-	if (raw_arg2 === '--no-integration') {
-		settings.integration = false;
+	if (raw_arg2 === '--sandbox') {
+		settings.sandbox = false;
 	}
 
 
@@ -257,7 +257,7 @@ var _bootup = function(settings) {
 
 	if (action === 'start' && has_profile) {
 
-		settings.profile.integration = settings.integration === true;
+		settings.profile.sandbox = settings.sandbox === true;
 
 		_bootup(settings.profile);
 
