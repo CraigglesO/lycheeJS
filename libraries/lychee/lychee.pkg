@@ -206,6 +206,14 @@
 				}
 			},
 			"app": {
+				"Blueprint": [
+					"js"
+				],
+				"Element": [
+					"js",
+					"label.fnt",
+					"order.fnt"
+				],
 				"Entity": [
 					"js"
 				],

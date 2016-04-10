@@ -118,7 +118,6 @@ lychee.define('lychee.ui.Blueprint').requires([
 
 				}
 
-
 			} else if (type === Class.TYPE.view) {
 
 				if (this.entities.length === 2) {
