@@ -84,7 +84,7 @@ if [ -d "./bin/ranger" ]; then
 
 	if [ "$OS" == "linux" ]; then
 
-		./bin/ranger/$ARCH/main.bin;
+		./bin/ranger/$ARCH/ranger.bin;
 		exit 0;
 
 	elif [ "$OS" == "osx" ]; then
