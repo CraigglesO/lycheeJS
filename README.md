@@ -75,7 +75,7 @@ machine and not on the target platform. Starting with
 the `2016-Q2` release, we also have automatic updates
 integrated into the `lycheejs-harvester`.
 
-Visit [lycheejs.org](http://lycheejs.org) for a list of available bundles.
+A list of bundles is available [lycheejs.org/#!bundles](http://lycheejs.org/#!bundles).
 
 
 
