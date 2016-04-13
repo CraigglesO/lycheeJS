@@ -256,10 +256,10 @@ if [ "$protocol" == "lycheejs" ]; then
 
 				elif [ "$OS" == "osx" ]; then
 
-					chrome1="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+					chrome1="/Applications/Google Chrome.app";
 
 					if [ -x "$chrome1" ]; then
-						"$chrome1" "$clean_resource";
+						open -a "$chrome1" "$clean_resource";
 					else
 						open "$clean_resource" 2>&1;
 					fi;
