@@ -7,7 +7,7 @@ lowercase() {
 OS=`lowercase \`uname\``;
 ARCH=`lowercase \`uname -m\``;
 
-LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
+LYCHEEJS_ROOT="/opt/lycheejs";
 CHILD_PID="";
 
 
@@ -27,10 +27,12 @@ fi;
 if [ "$OS" == "darwin" ]; then
 
 	OS="osx";
+	LYCHEEJS_ROOT=$(cd "$(dirname "$(greadlink -f "$0")")/../"; pwd);
 
 elif [ "$OS" == "linux" ]; then
 
 	OS="linux";
+	LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
 
 fi;
 

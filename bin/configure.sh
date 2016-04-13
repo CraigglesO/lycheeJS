@@ -9,7 +9,7 @@ ARCH=`lowercase \`uname -m\``;
 USER=`whoami`;
 
 LYCHEEJS_NODE="";
-LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
+LYCHEEJS_ROOT="/opt/lycheejs";
 PACKAGE_CMD="";
 
 SANDBOX_FLAG=false;
@@ -34,16 +34,19 @@ fi;
 if [ "$OS" == "darwin" ]; then
 
 	OS="osx";
+	LYCHEEJS_ROOT=$(cd "$(dirname "$0")/../"; pwd);
 	LYCHEEJS_NODE="$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node";
 	LYCHEEJS_NWJS="$LYCHEEJS_ROOT/bin/runtime/html-nwjs/osx/$ARCH/nwjs.app";
 
 elif [ "$OS" == "linux" ]; then
 
 	OS="linux";
+	LYCHEEJS_ROOT=$(cd "$(dirname "$0")/../"; pwd);
 	LYCHEEJS_NODE="$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node";
 	LYCHEEJS_NWJS="$LYCHEEJS_ROOT/bin/runtime/html-nwjs/linux/$ARCH/nw";
 
 fi;
+
 
 
 _fertilize() {
@@ -72,8 +75,8 @@ else
 
 		if [[ -x "/usr/local/bin/brew" ]]; then
 			USER_NAME=`who am i | awk '{print $1}'`;
-			PACKAGE_LIST="binutils coreutils libicns gnu-sed zip unzip gnu-tar curl git wget";
-			PACKAGE_CMD="su $USER_NAME brew install $PACKAGE_LIST --with-default-names";
+			PACKAGE_LIST="binutils coreutils libicns gnu-sed gnu-tar curl git wget";
+			PACKAGE_CMD="sudo -u $USER_NAME brew install $PACKAGE_LIST --with-default-names";
 		elif [[ -x "/opt/local/bin/port" ]]; then
 			PACKAGE_LIST="binutils coreutils libicns gsed zip unzip gnutar curl git wget";
 			PACKAGE_CMD="port install $PACKAGE_LIST";

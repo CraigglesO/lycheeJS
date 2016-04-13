@@ -8,7 +8,7 @@ OS=`lowercase \`uname\``;
 ARCH=`lowercase \`uname -m\``;
 
 LYCHEEJS_NODE="";
-LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
+LYCHEEJS_ROOT="/opt/lycheejs";
 HARVESTER_PID="$LYCHEEJS_ROOT/bin/harvester.pid";
 HARVESTER_LOG="/var/log/lycheejs-harvester.log";
 HARVESTER_ERR="/var/log/lycheejs-harvester.err";
@@ -31,11 +31,13 @@ fi;
 if [ "$OS" == "darwin" ]; then
 
 	OS="osx";
+	LYCHEEJS_ROOT=$(cd "$(dirname "$(greadlink -f "$0")")/../"; pwd);
 	LYCHEEJS_NODE="$LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node";
 
 elif [ "$OS" == "linux" ]; then
 
 	OS="linux";
+	LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
 	LYCHEEJS_NODE="$LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node";
 
 fi;
