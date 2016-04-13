@@ -206,7 +206,7 @@ else
 		chmod +x ./projects/*/harvester.js;
 
 		chmod 0777 ./bin;
-		chmod 0777 -R ./bin/harvester;
+		chmod -R 0777 ./bin/harvester;
 
 		chmod +x ./bin/breeder.js;
 		chmod +x ./bin/breeder.sh;
