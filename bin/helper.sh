@@ -94,7 +94,7 @@ _trap() {
 
 _start_env () {
 
-	_trap _handle_signal INT HUP TERM EXIT;
+	_trap _handle_signal INT HUP KILL TERM EXIT;
 
 	$1 $2 $3 $4 $5 &
 
@@ -283,9 +283,12 @@ elif [ "$protocol" == "env" ]; then
 
 	platform=$(echo $content | cut -d":" -f 2);
 	program=$2;
+	arg1=$3;
+	arg2=$4;
+	arg3=$5;
 
 
-	if [ -f "$program" ]; then
+	if [ "$program" != "" ]; then
 
 		if [ "$platform" == "html" ]; then
 
@@ -304,10 +307,10 @@ elif [ "$protocol" == "env" ]; then
 
 			elif [ "$OS" == "osx" ]; then
 
-				chrome1="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+				chrome1="/Applications/Google Chrome.app";
 
-				if [ -x "$chrome1" ]; then
-					"$chrome1" "$program";
+				if [ -d "$chrome1" ]; then
+					open -a "$chrome1" "$program";
 				else
 					open "$program" 2>&1;
 				fi;
@@ -317,17 +320,17 @@ elif [ "$protocol" == "env" ]; then
 		elif [ "$platform" == "html-nwjs" ]; then
 
 			if [ "$OS" == "linux" ]; then
-				_start_env $LYCHEEJS_ROOT/bin/runtime/html-nwjs/linux/$ARCH/nw $program $3 $4 $5;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/html-nwjs/linux/$ARCH/nw $program $arg1 $arg2 $arg3;
 			elif [ "$OS" == "osx" ]; then
-				_start_env $LYCHEEJS_ROOT/bin/runtime/html-nwjs/osx/$ARCH/nw $program $3 $4 $5;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/html-nwjs/osx/$ARCH/nw $program $arg1 $arg2 $arg3;
 			fi;
 
 		elif [ "$platform" == "node" ]; then
 
 			if [ "$OS" == "linux" ]; then
-				_start_env $LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node $program $3 $4 $5;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/node/linux/$ARCH/node $program $arg1 $arg2 $arg3;
 			elif [ "$OS" == "osx" ]; then
-				_start_env $LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node $program $3 $4 $5;
+				_start_env $LYCHEEJS_ROOT/bin/runtime/node/osx/$ARCH/node $program $arg1 $arg2 $arg3;
 			fi;
 
 		fi;
