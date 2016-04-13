@@ -131,6 +131,11 @@ lychee.define('fertilizer.template.html-webview.Application').requires([
 			var shell   = new fertilizer.data.Shell('/bin/runtime/html-webview');
 			var sandbox = this.sandbox;
 
+			if (name === 'cultivator') {
+				name = this.environment.id.split('/')[3];
+			}
+
+
 			if (sandbox !== '') {
 
 				console.log('fertilizer: PACKAGE ' + sandbox + ' ' + name);
