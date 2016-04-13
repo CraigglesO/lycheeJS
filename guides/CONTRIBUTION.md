@@ -38,7 +38,7 @@ already.
 After you have forked the project you can start picking some issues you
 want to help us on.
 
-We use internally our own [GitHub Scrum Board extension](https://github.com/Artificial-Engineering/AE-github),
+We use internally our own [GitHub Scrum Board](https://github.com/Artificial-Engineering/AE-github-scrumboard),
 but that's not required for contributors. This extension just shows you
 a neat Scrum Board with easier-to-use Issue Cards and the typical Scrum
 columns with `backlog` (open and unlabeled), `todo`, `in-progress`,
@@ -55,7 +55,7 @@ this repository.
 
 When you've found something you like to work on, you can assign an issue
 to yourself so that the other lycheeJS team members know what you're
-working on. This helps them to help you, they love to help you :)
+working on. This helps them to help you and they love to help you :)
 
 ![How to assign an Issue](./asset/contribution-assignissue.png)
 

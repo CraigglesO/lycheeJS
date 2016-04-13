@@ -6,6 +6,7 @@ brought to you as libre software with joy and pride by [Artificial Engineering](
 Support our libre Bot Cloud via BTC [1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2](bitcoin:1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2?amount=0.5&label=lycheeJS%20Support).
 
 
+
 ## Overview
 
 The following repositories are related to the lycheeJS project:
@@ -54,36 +55,41 @@ due to XCode limitations. You can still create an own WebView iOS
 app and use the `html` platform adapter.
 
 lycheeJS does not ship x86 (32 bit) runtimes in order to save hard disk
-space. If you still have a x86 computer and want to use lycheeJS,
-you have to fix (uncomment) at least the
+space. If you still have an old x86 computer you have to modify at least
 [node/update.sh](https://github.com/Artificial-Engineering/lycheeJS-runtime/blob/master/node/update.sh)
 script in the `./bin/runtime` folder and execute it once before
 starting the `lycheejs-harvester`.
 
 
-## Install lycheeJS
+
+## Install lycheeJS (Developer Machine)
 
 **1) Easy Way: Bundle Installation**
 
-There are prebuilt bundles that ship all dependencies and
-runtimes lycheeJS needs in order to work and cross-compile
-properly. These bundles should be installed on the developer's
-machine and not on the target platform.
+The lycheeJS website offers prebuilt bundles that
+ship all the necessary dependencies and runtimes
+with them.
+
+These bundles should be installed on the developer's
+machine and not on the target platform. Starting with
+the `2016-Q2` release, we also have automatic updates
+integrated into the `lycheejs-harvester`.
 
 Visit [lycheejs.org](http://lycheejs.org) for a list of available bundles.
 
 
-**2) UNIX Way: Net Installation**
+
+**2) UNIX Way: Git/Net Installation**
 
 The netinstall shell script allows to automatically install
-lycheeJS on any UNIX-compatible machine (arm or amd64).
+lycheeJS on any UNIX-compatible machine (arm, x86 or amd64).
 
-Note that the lycheeJS toolchain has some dependencies, but those
-are installed among typical GNU systems. We don't need any compiler
-here as we ship our own runtimes as binaries.
+The only requirements beforehand are working `bash`, `git` and `curl`.
 
 ```bash
-sudo bash -c "$(wget -q -O - http://lycheejs.org/download/lycheejs-2016-Q1-netinstall.sh)";
+# This will clone lycheejs into /opt/lycheejs
+
+sudo bash -c "$(curl -fsSL http://lycheejs.org/install.sh)";
 ```
 
 The above commands will look similar to this if everything went fine.
@@ -91,28 +97,17 @@ The above commands will look similar to this if everything went fine.
 ![Install lycheeJS](./guides/asset/readme-netinstall.gif)
 
 
-**3) Awesome Way: Git Installation**
 
-We love your contributions of any kind. Please consider reading
-the [Contribution Guide](./guides/CONTRIBUTION.md) to get
-you started in a couple minutes.
-
-```bash
-sudo mkdir -m 0777 /opt/lycheejs-edge;
-cd /opt/lycheejs-edge;
-
-git clone https://github.com/Artificial-Engineering/lycheeJS.git ./;
-git checkout development;
-git clone https://github.com/Artificial-Engineering/lycheeJS-runtime.git ./bin/runtime;
-```
-
-
-## Bootup lycheeJS
+## Bootup lycheeJS (Developer Machine)
 
 After you've installed lycheeJS, you can directly start the `lycheejs-harvester`.
 
 The `./bin/configure.sh` script has to be executed initially one time as `root` in
-order to compile down all the lycheeJS core libraries.
+order to compile down all the lycheeJS core libraries and to symlink the `lycheejs-`
+tools correctly into `/usr/local/bin`.
+
+We try to support as much package managers as possible inside the `./bin/configure.sh`,
+but if your package manager isn't supported please let us know.
 
 If you want a sandboxed installation without the awesome system-wide integration of
 the `lycheejs-` tools, you can use the `--sandbox` flag.
