@@ -10,8 +10,8 @@ ARCH=`lowercase \`uname -m\``;
 LYCHEEJS_NODE="";
 LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
 HARVESTER_PID="$LYCHEEJS_ROOT/bin/harvester.pid";
-HARVESTER_LOG="/var/log/harvester.log";
-HARVESTER_ERR="/var/log/harvester.err";
+HARVESTER_LOG="/var/log/lycheejs-harvester.log";
+HARVESTER_ERR="/var/log/lycheejs-harvester.err";
 HARVESTER_USER=`whoami`;
 
 
@@ -68,9 +68,9 @@ case "$1" in
 		cd $LYCHEEJS_ROOT;
 
 		if [ "$HARVESTER_USER" == "root" ] || [ "$HARVESTER_USER" == "lycheejs-harvester" ]; then
-			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$SANDBOX_FLAG" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
+			$LYCHEEJS_NODE ./bin/harvester.js start "$2" "$SANDBOX_FLAG" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
 		else
-			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$SANDBOX_FLAG"
+			$LYCHEEJS_NODE ./bin/harvester.js start "$2" "$SANDBOX_FLAG"
 		fi;
 
 	;;
@@ -120,9 +120,9 @@ case "$1" in
 		$LYCHEEJS_NODE ./bin/harvester.js stop;
 
 		if [ "$HARVESTER_USER" == "root" ] || [ "$HARVESTER_USER" == "lycheejs-harvester" ]; then
-			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$SANDBOX_FLAG" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
+			$LYCHEEJS_NODE ./bin/harvester.js start "$2" "$SANDBOX_FLAG" >> $HARVESTER_LOG 2>> $HARVESTER_ERR
 		else
-			$LYCHEEJS_NODE --expose-gc ./bin/harvester.js start "$2" "$SANDBOX_FLAG"
+			$LYCHEEJS_NODE ./bin/harvester.js start "$2" "$SANDBOX_FLAG"
 		fi;
 
 	;;

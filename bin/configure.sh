@@ -10,6 +10,7 @@ USER=`whoami`;
 
 LYCHEEJS_NODE="";
 LYCHEEJS_ROOT=$(cd "$(dirname "$(readlink -f "$0")")/../"; pwd);
+PACKAGE_CMD="";
 
 SANDBOX_FLAG=false;
 if [ "$1" == "--sandbox" ]; then
@@ -63,11 +64,83 @@ if [ "$USER" != "root" ]; then
 	echo "You are not root.";
 	echo "Use \"sudo $0\"";
 
+	exit 1;
+
 else
+
+	if [ "$OS" == "osx" ]; then
+
+		if [[ -x "/usr/local/bin/brew" ]]; then
+			USER_NAME=`who am i | awk '{print $1}'`;
+			PACKAGE_LIST="binutils coreutils libicns gnu-sed zip unzip gnu-tar curl git wget";
+			PACKAGE_CMD="su $USER_NAME brew install $PACKAGE_LIST --with-default-names";
+		elif [[ -x "/opt/local/bin/port" ]]; then
+			PACKAGE_LIST="binutils coreutils libicns gsed zip unzip gnutar curl git wget";
+			PACKAGE_CMD="port install $PACKAGE_LIST";
+		fi;
+
+	elif [ "$OS" == "linux" ]; then
+
+		if [[ -x "/usr/bin/apt-get" ]]; then
+			PACKAGE_LIST="bash binutils binutils-multiarch coreutils icnsutils sed zip unzip tar curl git wget";
+			PACKAGE_CMD="apt-get -y install $PACKAGE_LIST";
+		elif [[ -x "/usr/bin/dnf" ]]; then
+			PACKAGE_LIST="bash binutils binutils-arm-linux-gnu binutils-x86_64-linux-gnu coreutils libicns-utils sed zip unzip tar curl git wget";
+			PACKAGE_CMD="dnf -y install $PACKAGE_LIST";
+		elif [[ -x "/usr/bin/yum" ]]; then
+			PACKAGE_LIST="bash binutils binutils-arm-linux-gnu binutils-x86_64-linux-gnu coreutils libicns-utils sed zip unzip tar curl git wget";
+			PACKAGE_CMD="yum --setopt=alwaysprompt=no install $PACKAGE_LIST";
+		fi;
+
+	fi;
+
+
+	echo "";
+	echo "> Installing Dependencies ...";
+
+	if [ "$PACKAGE_CMD" != "" ]; then
+
+		echo -e "\t$PACKAGE_CMD";
+
+		$PACKAGE_CMD 2>&1 > /dev/null;
+
+		if [ "$?" == "0" ]; then
+
+			echo "> DONE";
+
+		else
+			echo "> FAIL";
+			echo "";
+			echo "Installation command failed, please verify that this is working (don't forget to sudo):";
+			echo "$PACKAGE_CMD";
+			echo "";
+
+			exit 1;
+
+		fi;
+
+
+	else
+
+		echo "> FAIL";
+
+		echo "";
+		echo "Your system is not officially supported.";
+		echo "Feel free to modify this script to add the dependencies!";
+		echo "";
+		echo "Also, please let us know about this at https://github.com/Artificial-Engineering/lycheeJS/issues";
+		echo "";
+
+		exit 1;
+
+	fi;
+
 
 	if [[ "$OS" == "linux" || "$OS" == "osx" ]]; then
 
+		echo "";
 		echo "> Building lycheeJS core and fertilizers";
+		echo "";
 
 
 		cd $LYCHEEJS_ROOT;
@@ -97,10 +170,13 @@ else
 
 
 			echo "> DONE";
+			echo "";
 
 		else
 
 			echo "> FAIL";
+			echo "";
+
 			exit 1;
 
 		fi;
@@ -110,7 +186,9 @@ else
 
 	if [[ "$OS" == "linux" || "$OS" == "osx" ]]; then
 
+		echo "";
 		echo "> Fixing chmod rights";
+		echo "";
 
 
 		cd $LYCHEEJS_ROOT;
@@ -155,6 +233,7 @@ else
 
 
 		echo "> DONE";
+		echo "";
 
 	fi;
 
@@ -165,7 +244,9 @@ else
 
 			if [ -d /usr/share/applications ]; then
 
+				echo "";
 				echo "> Integrating GUI Applications";
+				echo "";
 
 
 				cp ./bin/helper/linux/editor.desktop /usr/share/applications/lycheejs-editor.desktop;
@@ -192,12 +273,15 @@ else
 
 
 				echo "> DONE";
+				echo "";
 
 			fi;
 
 			if [ -d /usr/local/bin ]; then
 
+				echo "";
 				echo "> Integrating CLI Applications";
+				echo "";
 
 
 				rm /usr/local/bin/lycheejs-breeder 2> /dev/null;
@@ -218,23 +302,29 @@ else
 
 
 				echo "> DONE";
+				echo "";
 
 			fi;
 
 		elif [ "$OS" == "osx" ]; then
 
+			echo "";
 			echo "> Integrating GUI Applications";
+			echo "";
 
 
 			open ./bin/helper/osx/helper.app;
 
 
 			echo "> DONE";
+			echo "";
 
 
 			if [ -d /usr/local/bin ]; then
 
+				echo "";
 				echo "> Integrating CLI Applications";
+				echo "";
 
 
 				# Well, fuck you, Apple.
@@ -262,6 +352,7 @@ else
 
 
 				echo "> DONE";
+				echo "";
 
 			fi;
 
