@@ -123,10 +123,11 @@ lychee.define('fertilizer.Main').requires([
 							// IMPORTANT: Don't use Environment's imperative API here!
 							// Environment identifier is /libraries/lychee/main instead of /libraries/lychee/html/main
 
-							environment.id      = project + '/' + identifier.split('/').pop();
-							environment.type    = 'build';
-							environment.debug   = that.defaults.settings.debug;
-							environment.sandbox = that.defaults.settings.sandbox;
+							environment.id       = project + '/' + identifier.split('/').pop();
+							environment.type     = 'build';
+							environment.debug    = that.defaults.settings.debug;
+							environment.sandbox  = that.defaults.settings.sandbox;
+							environment.packages = [];
 
 
 							_lychee.setEnvironment(null);
