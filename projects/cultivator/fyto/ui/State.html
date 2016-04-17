@@ -1,0 +1,99 @@
+<template id="template">
+	<style>
+	:host([type="grid"]) {
+		display: block;
+		padding: 32px 32px;
+	}
+
+	:host([type="grid"]) > * {
+		display: inline-block;
+		margin: 0px 32px 32px 0px;
+		vertical-align: middle;
+	}
+
+	:host([type="view"]) {
+		display: block;
+		position: absolute;
+	}
+
+	:host([type="view"]) > *:nth-of-type(1) {
+		display: block;
+		position: absolute;
+		top: 0px;
+		right: auto;
+		bottom: 0px;
+		left: 32px;
+		width: 256px;
+		height: auto;
+		min-width: initial;
+		max-width: initial;
+	}
+
+	:host([type="view"]) > *:nth-of-type(2) {
+		display: block;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+		left: 320px;
+		width: auto;
+		height: auto;
+		min-width: initial;
+		max-width: initial;
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+
+	:host([type="full"]) {
+		display: block;
+	}
+	</style>
+
+	<content></content>
+</template>
+
+<script>
+(function(globaldoc, importdoc) {
+
+	var _id = 0;
+
+
+
+
+	/*
+	 * DOM SHIT
+	 */
+
+	var element = fyto.define('fyto.ui.State', importdoc.querySelector('#template'));
+	if (element !== null) {
+
+		element._init = function() {
+
+			var name    = this.getAttribute('name');
+			var type    = this.getAttribute('type');
+			var visible = this.getAttribute('visible');
+
+
+			if (name === null) {
+				this.setAttribute('name', 'lychee-ui-State-' + _id++);
+			}
+
+			if (type === null) {
+				this.setAttribute('type', 'grid');
+			}
+
+			if (visible === null) {
+				this.setAttribute('visible', 'false');
+			}
+
+		};
+
+		element._change = function(name, oldvalue, newvalue) {
+			
+		};
+
+	}
+
+})(document, document.currentScript.ownerDocument);
+</script>
+
