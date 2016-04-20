@@ -28,15 +28,15 @@
 		overflow-y: auto;
 	}
 
-	:host fyto-app-State[visible="false"],
-	:host fyto-ui-State[visible="false"] {
+	::content fyto-app-State[visible="false"],
+	::content fyto-ui-State[visible="false"] {
 		opacity: 0;
 		transition: 300ms all ease-out;
 		transform: translate(0%, -200%);
 	}
 
-	:host fyto-app-State[visible="true"],
-	:host fyto-ui-State[visible="true"] {
+	::content fyto-app-State[visible="true"],
+	::content fyto-ui-State[visible="true"] {
 		opacity: 1;
 		transition: 300ms 300ms all ease-out;
 		transform: translate(0%, 0%);

@@ -26,13 +26,14 @@
 		margin: 0px 16px 0px 0px;
 	}
 
-	::content div,
-	::content img,
-	::content p {
+	::content > div,
+	::content > img,
+	::content > p {
 		display: block;
 		margin: 16px;
 		padding: 0px;
 	}
+
 	::content > img {
 		display: block;
 		width: 128px;
@@ -45,7 +46,7 @@
 	}
 	::content > p {
 		margin: 16px;
-		text-align: center;
+		text-align: justify;
 	}
 	::content > button {
 		display: block;
@@ -89,7 +90,7 @@
 	<label><b>1</b><span>PROJECT</span></label>
 	<content>
 		<img src="/projects/boilerplate/icon.png">
-		<p>(No Description)</p>
+		<p></p>
 		<button title="Open in Browser">Browse</button>
 		<button title="Open in Terminal" class="hidden">Start</button>
 	</content>
@@ -166,6 +167,25 @@
 			var label      = this.getAttribute('label');
 			var order      = this.getAttribute('order');
 
+			var descriptions = [].slice.call(this.querySelectorAll('p'));
+			if (descriptions.length === 2) {
+
+				var code1 = (descriptions[0].innerHTML || '').trim();
+				var code2 = (descriptions[1].innerHTML || '').trim();
+
+				if (code2 !== code1) {
+
+					descriptions[0].innerHTML = code2;
+					descriptions[1].parentNode.removeChild(descriptions[1]);
+
+				} else if (code2 === code1) {
+
+					descriptions[1].parentNode.removeChild(descriptions[1]);
+
+				}
+
+			}
+
 
 			if (command !== null) {
 				_on_command.call(this, command);
@@ -182,6 +202,7 @@
 			} else {
 				_on_label.call(this, label);
 			}
+
 
 			if (order === null) {
 				this.setAttribute('order', '1');
