@@ -106,35 +106,35 @@
 				An easy template and starting point for developing projects with lycheeJS.
 			</p>
 		</fyto-ui-element-Project>
-		<fyto-ui-element-Project order="3" identifier="/projects/lethalmaze" label="lethalmaze">
+		<fyto-ui-element-Project order="2" identifier="/projects/lethalmaze" label="lethalmaze">
 			<p>
 				Fast-paced Multiplayer action game with battling Tanks in a Maze.
 				Hackathon project (48 hours).
 			</p>
 		</fyto-ui-element-Project>
-		<fyto-ui-element-Project order="4" identifier="/projects/mode7" label="mode7">
+		<fyto-ui-element-Project order="3" identifier="/projects/mode7" label="mode7">
 			<p>
 				A demo that shows multiple sandboxed instances and a custom game-specific Renderer.
 			</p>
 		</fyto-ui-element-Project>
-		<fyto-ui-element-Project order="5" identifier="/projects/over-there" label="over-there">
+		<fyto-ui-element-Project order="4" identifier="/projects/over-there" label="over-there">
 			<p>
 				Live view from the ISS (International Space Station).
 				Hackathon project (48 hours).
 			</p>
 		</fyto-ui-element-Project>
-		<fyto-ui-element-Project order="6" identifier="/projects/pong" label="pong">
+		<fyto-ui-element-Project order="5" identifier="/projects/pong" label="pong">
 			<p>
 				Pong implementation that is easy to follow. No adaptive layout, everything as simple
 				as possible.
 			</p>
 		</fyto-ui-element-Project>
-		<fyto-ui-element-Project order="7" identifier="/projects/text-chat" label="text-chat">
+		<fyto-ui-element-Project order="6" identifier="/projects/text-chat" label="text-chat">
 			<p>
 				Broadcast and Multicast peer-to-peer networking chat service with multiple rooms.
 			</p>
 		</fyto-ui-element-Project>
-		<fyto-ui-element-Project order="8" identifier="/projects/tictactoe" label="tictactoe">
+		<fyto-ui-element-Project order="7" identifier="/projects/tictactoe" label="tictactoe">
 			<p>
 				Tic Tac Toe implementation that is easy to follow. No adaptive layout, everything as simple
 				as possible.
@@ -179,13 +179,65 @@
 
 </fyto-app-Main>
 <script>
-(function(info) {
+(function(global, version, projects) {
 
-	if (info !== null) {
-		info.innerHTML = lychee.VERSION;
+	var host = (function(location) {
+
+		if (typeof location.hostname === 'string') {
+			return location.hostname;
+		}
+
+		return null;
+
+	})(global.location || {});
+
+
+	if (version !== null) {
+		version.innerHTML = lychee.VERSION;
 	}
 
-})(document.querySelector('#lychee-VERSION'));
+
+	if (host === 'localhost' && projects !== null) {
+
+		var config = new Config('http://localhost:4848/api/Project');
+		var other  = [].slice.call(projects.querySelectorAll('fyto-ui-element-Project'));
+		var order  = other.length;
+
+
+		config.onload = function(result) {
+
+			if (result === true && this.buffer instanceof Array) {
+
+				this.buffer.filter(function(project) {
+					return project.identifier.match(/projects\/cultivator/g) === null;
+				}).forEach(function(project) {
+
+					var node = other.find(function(obj) {
+						return obj.getAttribute('identifier') === project.identifier;
+					}) || null;
+
+					if (node === null) {
+
+						node = document.createElement('fyto-ui-element-Project');
+						node.setAttribute('identifier', project.identifier);
+						node.setAttribute('label',      project.identifier.split('/').pop());
+						node.setAttribute('order',      ++order);
+
+						projects.appendChild(node);
+
+					}
+
+				});
+
+			}
+
+		};
+
+		config.load();
+
+	}
+
+})(typeof global !== 'undefined' ? global : this, document.querySelector('#lychee-VERSION'), document.querySelector('fyto-ui-State[name="projects"]'));
 </script>
 </body>
 </html>    
