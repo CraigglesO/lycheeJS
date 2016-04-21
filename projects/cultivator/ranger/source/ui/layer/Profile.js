@@ -1,9 +1,15 @@
 
-lychee.define('app.ui.layer.Profile').includes([
-	'lychee.ui.Layer'
-]).requires([
+lychee.define('app.ui.layer.Profile').requires([
 	'lychee.ui.entity.Input'
-]).exports(function(lychee, app, global, attachments) {
+]).includes([
+	'lychee.ui.Layer'
+]).exports(function(lychee, global, attachments) {
+
+	var _Button = lychee.import('lychee.ui.entity.Button');
+	var _Input  = lychee.import('lychee.ui.entity.Input');
+	var _Layer  = lychee.import('lychee.ui.Layer');
+
+
 
 	/*
 	 * HELPERS
@@ -49,7 +55,7 @@ lychee.define('app.ui.layer.Profile').includes([
 		settings.relayout = false;
 
 
-		lychee.ui.Layer.call(this, settings);
+		_Layer.call(this, settings);
 
 		settings = null;
 
@@ -63,17 +69,17 @@ lychee.define('app.ui.layer.Profile').includes([
 		this.bind('relayout', _on_relayout, this);
 
 
-		this.setEntity('@host', new lychee.ui.entity.Input({
-			type:  lychee.ui.entity.Input.TYPE.text,
+		this.setEntity('@host', new _Input({
+			type:  _Input.TYPE.text,
 			value: 'boilerplate.org'
 		}));
 
-		this.setEntity('@project', new lychee.ui.entity.Input({
-			type:  lychee.ui.entity.Input.TYPE.text,
+		this.setEntity('@project', new _Input({
+			type:  _Input.TYPE.text,
 			value: '/projects/boilerplate'
 		}));
 
-		this.setEntity('@options-next', new lychee.ui.entity.Button({
+		this.setEntity('@options-next', new _Button({
 			label: 'Add',
 			value: 'add'
 		}));
@@ -103,7 +109,7 @@ lychee.define('app.ui.layer.Profile').includes([
 
 		serialize: function() {
 
-			var data = lychee.ui.Layer.prototype.serialize.call(this);
+			var data = _Layer.prototype.serialize.call(this);
 			data['constructor'] = 'app.ui.layer.Control';
 
 
@@ -138,7 +144,7 @@ lychee.define('app.ui.layer.Profile').includes([
 			);
 
 			if (alpha !== 0) {
-				lychee.ui.Layer.prototype.render.call(this, renderer, offsetX, offsetY);
+				_Layer.prototype.render.call(this, renderer, offsetX, offsetY);
 			}
 
 			if (alpha !== 1) {

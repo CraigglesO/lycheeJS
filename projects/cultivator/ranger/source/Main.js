@@ -6,7 +6,13 @@ lychee.define('app.Main').requires([
 //	'app.state.Remote'
 ]).includes([
 	'lychee.app.Main'
-]).exports(function(lychee, app, global, attachments) {
+]).exports(function(lychee, global, attachments) {
+
+	var _lychee = lychee.import('lychee');
+	var _app    = lychee.import('app');
+	var _Main   = lychee.import('lychee.app.Main');
+
+
 
 	/*
 	 * IMPLEMENTATION
@@ -26,7 +32,7 @@ lychee.define('app.Main').requires([
 		this.profile = null;
 
 
-		lychee.app.Main.call(this, settings);
+		_Main.call(this, settings);
 
 
 
@@ -44,10 +50,10 @@ lychee.define('app.Main').requires([
 
 		this.bind('init', function() {
 
-			this.setState('welcome', new app.state.Welcome(this));
-			this.setState('profile', new app.state.Profile(this));
-			// this.setState('console',  new app.state.Remote(this));
-			// this.setState('remote',  new app.state.Remote(this));
+			this.setState('welcome', new _app.state.Welcome(this));
+			this.setState('profile', new _app.state.Profile(this));
+			// this.setState('console', new _app.state.Console(this));
+			// this.setState('remote',  new _app.state.Remote(this));
 
 
 			this.changeState('welcome', 'welcome');
@@ -67,7 +73,7 @@ lychee.define('app.Main').requires([
 
 		serialize: function() {
 
-			var data = lychee.app.Main.prototype.serialize.call(this);
+			var data = _Main.prototype.serialize.call(this);
 			data['constructor'] = 'app.Main';
 
 			var settings = data['arguments'][0] || {};

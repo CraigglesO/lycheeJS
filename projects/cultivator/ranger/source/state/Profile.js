@@ -1,7 +1,5 @@
 
-lychee.define('app.state.Profile').includes([
-	'lychee.ui.State'
-]).requires([
+lychee.define('app.state.Profile').requires([
 	'lychee.data.JSON',
 	'lychee.ui.Blueprint',
 	'lychee.ui.Element',
@@ -10,12 +8,16 @@ lychee.define('app.state.Profile').includes([
 	'lychee.ui.entity.Select',
 	'lychee.ui.layer.Table',
 	'app.ui.layer.Profile'
-]).exports(function(lychee, app, global, attachments) {
+]).includes([
+	'lychee.ui.State'
+]).exports(function(lychee, global, attachments) {
 
+	var _Helper = lychee.import('lychee.ui.entity.Helper');
+	var _State  = lychee.import('lychee.ui.State');
+	var _JSON   = lychee.import('lychee.data.JSON');
 	var _BLOB   = attachments["json"].buffer;
 	var _cache  = {};
-	var _helper = new lychee.ui.entity.Helper();
-	var _JSON   = lychee.data.JSON;
+	var _helper = new _Helper();
 
 
 
@@ -187,7 +189,7 @@ lychee.define('app.state.Profile').includes([
 
 	var Class = function(main) {
 
-		lychee.ui.State.call(this, main);
+		_State.call(this, main);
 
 
 		this.deserialize(_BLOB);
@@ -203,7 +205,7 @@ lychee.define('app.state.Profile').includes([
 
 		deserialize: function(blob) {
 
-			lychee.ui.State.prototype.deserialize.call(this, blob);
+			_State.prototype.deserialize.call(this, blob);
 
 
 			var menu = this.queryLayer('ui', 'menu');
@@ -270,7 +272,7 @@ lychee.define('app.state.Profile').includes([
 
 		serialize: function() {
 
-			var data = lychee.ui.State.prototype.serialize.call(this);
+			var data = _State.prototype.serialize.call(this);
 			data['constructor'] = 'app.state.Profile';
 
 
@@ -308,13 +310,13 @@ lychee.define('app.state.Profile').includes([
 			}
 
 
-			lychee.ui.State.prototype.enter.call(this, oncomplete, data);
+			_State.prototype.enter.call(this, oncomplete, data);
 
 		},
 
 		leave: function(oncomplete, data) {
 
-			lychee.ui.State.prototype.leave.call(this, oncomplete, data);
+			_State.prototype.leave.call(this, oncomplete, data);
 
 		}
 

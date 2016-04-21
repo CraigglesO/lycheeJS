@@ -1,17 +1,19 @@
 
-lychee.define('app.state.Welcome').includes([
-	'lychee.ui.State'
-]).requires([
+lychee.define('app.state.Welcome').requires([
 	'lychee.ui.entity.Helper',
 	'lychee.ui.entity.Label',
 	'app.ui.entity.Identifier',
 	'app.ui.entity.Status',
 	'app.ui.layer.Control',
 	'app.ui.layer.Web'
-]).exports(function(lychee, app, global, attachments) {
+]).includes([
+	'lychee.ui.State'
+]).exports(function(lychee, global, attachments) {
 
+	var _Helper = lychee.import('lychee.ui.entity.Helper');
+	var _State  = lychee.import('lychee.ui.State');
 	var _BLOB   = attachments["json"].buffer;
-	var _helper = new lychee.ui.entity.Helper();
+	var _helper = new _Helper();
 
 
 
@@ -104,7 +106,7 @@ lychee.define('app.state.Welcome').includes([
 
 	var Class = function(main) {
 
-		lychee.ui.State.call(this, main);
+		_State.call(this, main);
 
 
 		this.deserialize(_BLOB);
@@ -120,7 +122,7 @@ lychee.define('app.state.Welcome').includes([
 
 		deserialize: function(blob) {
 
-			lychee.ui.State.prototype.deserialize.call(this, blob);
+			_State.prototype.deserialize.call(this, blob);
 
 
 			this.queryLayer('ui', 'menu').setHelpers([
@@ -186,7 +188,7 @@ lychee.define('app.state.Welcome').includes([
 
 		serialize: function() {
 
-			var data = lychee.ui.State.prototype.serialize.call(this);
+			var data = _State.prototype.serialize.call(this);
 			data['constructor'] = 'app.state.Welcome';
 
 
@@ -212,7 +214,7 @@ lychee.define('app.state.Welcome').includes([
 			}
 
 
-			lychee.ui.State.prototype.enter.call(this, oncomplete, data);
+			_State.prototype.enter.call(this, oncomplete, data);
 
 		},
 
@@ -223,7 +225,7 @@ lychee.define('app.state.Welcome').includes([
 			}
 
 
-			lychee.ui.State.prototype.leave.call(this, oncomplete);
+			_State.prototype.leave.call(this, oncomplete);
 
 		}
 
