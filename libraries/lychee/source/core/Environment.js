@@ -225,69 +225,31 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 
 			if (this.debug === true) {
 
-				if (packageId === 'lychee') {
+				try {
 
-					try {
+					// TODO: This needs to be sandboxed, so global will be this.global
 
-						// TODO: This needs to be sandboxed, so global will be this.global
+					template = definition._exports.call(
+						definition._exports,
+						this.global.lychee,
+						global,
+						definition._attaches
+					) || null;
 
-						template = definition._exports.call(
-							definition._exports,
-							this.global.lychee,
-							global,
-							definition._attaches
-						) || null;
-
-					} catch(err) {
-						lychee.Debugger.report(this, err, definition);
-					}
-
-				} else {
-
-					try {
-
-						// TODO: This needs to be sandboxed, so global will be this.global
-
-						template = definition._exports.call(
-							definition._exports,
-							this.global.lychee,
-							this.global[packageId],
-							global,
-							definition._attaches
-						) || null;
-
-					} catch(err) {
-						lychee.Debugger.report(this, err, definition);
-					}
-
+				} catch(err) {
+					lychee.Debugger.report(this, err, definition);
 				}
 
 			} else {
 
-				if (packageId === 'lychee') {
+				// TODO: This needs to be sandboxed, so global will be this.global
 
-					// TODO: This needs to be sandboxed, so global will be this.global
-
-					template = definition._exports.call(
-						definition._exports,
-						this.global.lychee,
-						global,
-						definition._attaches
-					) || null;
-
-				} else {
-
-					// TODO: This needs to be sandboxed, so global will be this.global
-
-					template = definition._exports.call(
-						definition._exports,
-						this.global.lychee,
-						this.global[packageId],
-						global,
-						definition._attaches
-					) || null;
-
-				}
+				template = definition._exports.call(
+					definition._exports,
+					this.global.lychee,
+					global,
+					definition._attaches
+				) || null;
 
 			}
 
