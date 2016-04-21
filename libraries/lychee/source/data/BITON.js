@@ -1,5 +1,5 @@
 
-lychee.define('lychee.data.BitON').exports(function(lychee, global, attachments) {
+lychee.define('lychee.data.BITON').exports(function(lychee, global, attachments) {
 
 	/*
 	 * HELPERS
@@ -696,7 +696,7 @@ lychee.define('lychee.data.BitON').exports(function(lychee, global, attachments)
 		serialize: function() {
 
 			return {
-				'reference': 'lychee.data.BitON',
+				'reference': 'lychee.data.BITON',
 				'blob':      null
 			};
 

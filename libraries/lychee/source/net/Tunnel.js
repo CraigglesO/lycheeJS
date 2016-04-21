@@ -1,16 +1,16 @@
 
 lychee.define('lychee.net.Tunnel').requires([
 	'lychee.data.BENCODE',
-	'lychee.data.BitON',
+	'lychee.data.BITON',
 	'lychee.data.JSON',
 	'lychee.net.Service'
 ]).includes([
 	'lychee.event.Emitter'
 ]).exports(function(lychee, global, attachments) {
 
-	var _BENCODE = lychee.data.BENCODE;
-	var _BitON   = lychee.data.BitON;
-	var _JSON    = lychee.data.JSON;
+	var _BENCODE = lychee.import('lychee.data.BENCODE');
+	var _BITON   = lychee.import('lychee.data.BITON');
+	var _JSON    = lychee.import('lychee.data.JSON');
 
 
 

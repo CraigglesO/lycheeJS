@@ -183,7 +183,7 @@ lychee.define('harvester.serve.File').requires([
 			} else if (host.cultivator === true && url.substr(0, 20) === '/projects/cultivator') {
 
 				path = url.substr(20);
-				info = _cultivator_filesystem.info(path);
+				info = _CULTIVATOR_FILESYSTEM.info(path);
 
 				if (info !== null && info.type === 'file') {
 					return true;
@@ -226,7 +226,7 @@ lychee.define('harvester.serve.File').requires([
 			}
 
 
-			var public_info = _public_filesystem.info(url);
+			var public_info = _PUBLIC_FILESYSTEM.info(url);
 			if (public_info !== null && public_info.type === 'file') {
 				return true;
 			}

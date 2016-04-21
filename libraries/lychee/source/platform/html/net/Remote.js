@@ -11,11 +11,6 @@ lychee.define('lychee.net.Remote').tags({
 	'lychee.net.Tunnel'
 ]).exports(function(lychee, global, attachments) {
 
-	var _BitON = lychee.data.BitON;
-	var _JSON  = lychee.data.JSON;
-
-
-
 	/*
 	 * IMPLEMENTATION
 	 */
