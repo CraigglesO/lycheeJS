@@ -12,8 +12,14 @@
 		padding: 0px;
 	}
 
-	fyto-ui-Menu ~ :host {
+	fyto-ui-Menu[state="active"] ~ :host {
 		left: 144px;
+		transition: 300ms 300ms left ease-out;
+	}
+ 
+	fyto-ui-Menu[state="default"] ~ :host {
+		left: 64px;
+		transition: 300ms 300ms left ease-out;
 	}
 
 	:host fyto-app-State,
