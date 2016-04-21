@@ -1,8 +1,9 @@
 
 lychee.define('app.ui.sprite.Avatar').includes([
 	'lychee.ui.Sprite'
-]).exports(function(lychee, app, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
+	var _Sprite  = lychee.import('lychee.ui.Sprite');
 	var _TEXTURE = attachments["png"];
 	var _CONFIG  = {
 		width:  128,
@@ -68,7 +69,7 @@ lychee.define('app.ui.sprite.Avatar').includes([
 		settings.height  = _CONFIG.height;
 
 
-		lychee.ui.Sprite.call(this, settings);
+		_Sprite.call(this, settings);
 
 
 
@@ -99,7 +100,7 @@ lychee.define('app.ui.sprite.Avatar').includes([
 
 		serialize: function() {
 
-			var data = lychee.ui.Sprite.prototype.serialize.call(this);
+			var data = _Sprite.prototype.serialize.call(this);
 			data['constructor'] = 'app.ui.sprite.Avatar';
 
 			var settings = data['arguments'][0] || {};

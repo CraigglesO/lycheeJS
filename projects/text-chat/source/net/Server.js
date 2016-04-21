@@ -1,10 +1,16 @@
 
 lychee.define('app.net.Server').requires([
-	'lychee.data.BitON',
+	'lychee.data.BITON',
 	'lychee.net.remote.Chat'
 ]).includes([
 	'lychee.net.Server'
-]).exports(function(lychee, app, global, attachments) {
+]).exports(function(lychee, global, attachments) {
+
+	var _Chat   = lychee.import('lychee.net.remote.Chat');
+	var _Server = lychee.import('lychee.net.Server');
+	var _BITON  = lychee.import('lychee.data.BITON');
+
+
 
 	/*
 	 * IMPLEMENTATION
@@ -13,11 +19,11 @@ lychee.define('app.net.Server').requires([
 	var Class = function(data) {
 
 		var settings = lychee.extend({
-			codec: lychee.data.BitON
+			codec: _BITON
 		}, data);
 
 
-		lychee.net.Server.call(this, settings);
+		_Server.call(this, settings);
 
 
 
@@ -27,7 +33,7 @@ lychee.define('app.net.Server').requires([
 
 		this.bind('connect', function(remote) {
 
-			remote.addService(new lychee.net.remote.Chat('chat', remote, {
+			remote.addService(new _Chat('chat', remote, {
 				limit: 64
 			}));
 
@@ -57,7 +63,7 @@ lychee.define('app.net.Server').requires([
 
 		serialize: function() {
 
-			var data = lychee.net.Server.prototype.serialize.call(this);
+			var data = _Server.prototype.serialize.call(this);
 			data['constructor'] = 'app.net.Server';
 
 

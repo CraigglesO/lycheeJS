@@ -12,8 +12,11 @@ lychee.define('app.state.Chat').requires([
 	'app.ui.sprite.Avatar'
 ]).includes([
 	'lychee.app.State'
-]).exports(function(lychee, app, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
+	var _Color  = lychee.import('lychee.effect.Color');
+	var _Offset = lychee.import('lychee.effect.Offset');
+	var _State  = lychee.import('lychee.app.State');
 	var _BLOB   = attachments["json"].buffer;
 	var _SOUNDS = {
 		join_empty: attachments["join_empty.snd"],
@@ -52,8 +55,8 @@ lychee.define('app.state.Chat').requires([
 			if (background.effects.length === 0) {
 
 				background.color = '#32afe5',
-				background.addEffect(new lychee.effect.Color({
-					type:     lychee.effect.Color.TYPE.easeout,
+				background.addEffect(new _Color({
+					type:     _Color.TYPE.easeout,
 					duration: 300,
 					color:    '#405050'
 				}));
@@ -120,7 +123,7 @@ lychee.define('app.state.Chat').requires([
 
 	var Class = function(main) {
 
-		lychee.app.State.call(this, main);
+		_State.call(this, main);
 
 
 		this.__cache = {
@@ -213,7 +216,7 @@ lychee.define('app.state.Chat').requires([
 
 		serialize: function() {
 
-			var data = lychee.app.State.prototype.serialize.call(this);
+			var data = _State.prototype.serialize.call(this);
 			data['constructor'] = 'app.state.Chat';
 
 
@@ -223,7 +226,7 @@ lychee.define('app.state.Chat').requires([
 
 		deserialize: function(blob) {
 
-			lychee.app.State.prototype.deserialize.call(this, blob);
+			_State.prototype.deserialize.call(this, blob);
 
 
 			var entity = null;
@@ -285,8 +288,8 @@ lychee.define('app.state.Chat').requires([
 
 				if (layer !== null) {
 
-					layer.addEffect(new lychee.effect.Offset({
-						type:     lychee.effect.Offset.TYPE.easeout,
+					layer.addEffect(new _Offset({
+						type:     _Offset.TYPE.easeout,
 						duration: 500,
 						offset: {
 							y: index * (this.__cache.messages.length * 32 - layer.height)
@@ -300,13 +303,13 @@ lychee.define('app.state.Chat').requires([
 
 		update: function(clock, delta) {
 
-			lychee.app.State.prototype.update.call(this, clock, delta);
+			_State.prototype.update.call(this, clock, delta);
 
 		},
 
 		enter: function(oncomplete) {
 
-			lychee.app.State.prototype.enter.call(this, oncomplete);
+			_State.prototype.enter.call(this, oncomplete);
 
 
 			var service = this.client.getService('chat');
@@ -331,7 +334,7 @@ lychee.define('app.state.Chat').requires([
 			}
 
 
-			lychee.app.State.prototype.leave.call(this, oncomplete);
+			_State.prototype.leave.call(this, oncomplete);
 
 		}
 
