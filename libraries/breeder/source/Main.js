@@ -1,15 +1,17 @@
 
 lychee.define('breeder.Main').requires([
 	'lychee.Input',
-	'lychee.Stash',
 	'lychee.data.JSON',
 	'breeder.Template'
 ]).includes([
 	'lychee.event.Emitter'
-]).exports(function(lychee, breeder, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
-	var _lychee = lychee;
-	var _JSON   = lychee.data.JSON;
+	var _lychee  = lychee.import('lychee');
+	var _breeder = lychee.import('breeder');
+	var _Emitter = lychee.import('lychee.event.Emitter');
+	var _JSON    = lychee.import('lychee.data.JSON');
+	var _Input   = lychee.import('lychee.Input');
 
 
 
@@ -33,11 +35,11 @@ lychee.define('breeder.Main').requires([
 
 	var Class = function(settings) {
 
-		this.settings = lychee.extendunlink({}, _defaults, settings);
-		this.defaults = lychee.extendunlink({}, this.settings);
+		this.settings = _lychee.extendunlink({}, _defaults, settings);
+		this.defaults = _lychee.extendunlink({}, this.settings);
 
 
-		lychee.event.Emitter.call(this);
+		_Emitter.call(this);
 
 
 
@@ -52,8 +54,8 @@ lychee.define('breeder.Main').requires([
 
 			if (action !== null && project !== null) {
 
-				lychee.ROOT.project                           = lychee.ROOT.lychee + project;
-				lychee.environment.global.lychee.ROOT.project = lychee.ROOT.lychee + project;
+				lychee.ROOT.project                           = _lychee.ROOT.lychee + project;
+				lychee.environment.global.lychee.ROOT.project = _lychee.ROOT.lychee + project;
 
 
 				this.trigger('init', [ project, action ]);
@@ -117,11 +119,11 @@ lychee.define('breeder.Main').requires([
 
 		serialize: function() {
 
-			var data = lychee.event.Emitter.prototype.serialize.call(this);
+			var data = _Emitter.prototype.serialize.call(this);
 			data['constructor'] = 'breeder.Main';
 
 
-			var settings = lychee.extendunlink({}, this.settings);
+			var settings = _lychee.extendunlink({}, this.settings);
 			var blob     = data['blob'] || {};
 
 

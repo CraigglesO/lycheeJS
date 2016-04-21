@@ -4,12 +4,14 @@ lychee.define('breeder.Template').requires([
 	'lychee.data.JSON'
 ]).includes([
 	'lychee.event.Flow'
-]).exports(function(lychee, breeder, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
-	var _JSON  = lychee.data.JSON;
+	var _Flow  = lychee.import('lychee.event.Flow');
+	var _Stash = lychee.import('lychee.Stash');
+	var _JSON  = lychee.import('lychee.data.JSON');
 	var _ASSET = '/libraries/breeder/asset';
-	var _STASH = new lychee.Stash({
-		type: lychee.Stash.TYPE.persistent
+	var _STASH = new _Stash({
+		type: _Stash.TYPE.persistent
 	});
 
 
@@ -165,7 +167,7 @@ lychee.define('breeder.Template').requires([
 		this.setSettings(settings.settings);
 
 
-		lychee.event.Flow.call(this);
+		_Flow.call(this);
 
 		settings = null;
 
@@ -417,7 +419,7 @@ lychee.define('breeder.Template').requires([
 
 		serialize: function() {
 
-			var data = lychee.event.Flow.prototype.serialize.call(this);
+			var data = _Flow.prototype.serialize.call(this);
 			data['constructor'] = 'breeder.Template';
 
 
