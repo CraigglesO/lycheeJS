@@ -1,7 +1,7 @@
 
 lychee.define('harvester.serve.api.Server').requires([
 	'lychee.data.JSON'
-]).exports(function(lychee, harvester, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
 	var _JSON = lychee.data.JSON;
 

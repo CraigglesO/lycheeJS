@@ -12,9 +12,10 @@ lychee.define('harvester.Main').requires([
 	'harvester.serve.Redirect'
 ]).includes([
 	'lychee.event.Emitter'
-]).exports(function(lychee, harvester, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
-	var _JSON = lychee.data.JSON;
+	var _JSON      = lychee.data.JSON;
+	var _harvester = lychee.import('harvester');
 
 
 
@@ -114,9 +115,9 @@ lychee.define('harvester.Main').requires([
 			}
 
 
-			if (harvester.serve.API.can(host, url) === true) {
+			if (_harvester.serve.API.can(host, url) === true) {
 
-				harvester.serve.API.process(host, url, data, ready);
+				_harvester.serve.API.process(host, url, data, ready);
 				return true;
 
 			}
@@ -177,19 +178,19 @@ lychee.define('harvester.Main').requires([
 			}
 
 
-			if (harvester.serve.API.can(host, url) === true) {
+			if (_harvester.serve.API.can(host, url) === true) {
 
-				harvester.serve.API.process(host, url, data, ready);
+				_harvester.serve.API.process(host, url, data, ready);
 				return true;
 
-			} else if (harvester.serve.File.can(host, url) === true) {
+			} else if (_harvester.serve.File.can(host, url) === true) {
 
-				harvester.serve.File.process(host, url, data, ready);
+				_harvester.serve.File.process(host, url, data, ready);
 				return true;
 
-			} else if (harvester.serve.Redirect.can(host, url) === true) {
+			} else if (_harvester.serve.Redirect.can(host, url) === true) {
 
-				harvester.serve.Redirect.process(host, url, data, ready);
+				_harvester.serve.Redirect.process(host, url, data, ready);
 				return true;
 
 			}
@@ -225,7 +226,7 @@ lychee.define('harvester.Main').requires([
 
 	(function(libraries, projects) {
 
-		var filesystem = new harvester.data.Filesystem();
+		var filesystem = new _harvester.data.Filesystem();
 
 
 		filesystem.dir('/libraries').filter(function(value) {
@@ -236,7 +237,7 @@ lychee.define('harvester.Main').requires([
 
 			var info1 = filesystem.info(identifier + '/lychee.pkg');
 			if ((info1 !== null && info1.type === 'file')) {
-				libraries[identifier] = new harvester.data.Project(identifier);
+				libraries[identifier] = new _harvester.data.Project(identifier);
 			}
 
 		});
@@ -250,7 +251,7 @@ lychee.define('harvester.Main').requires([
 			var info1 = filesystem.info(identifier + '/index.html');
 			var info2 = filesystem.info(identifier + '/lychee.pkg');
 			if ((info1 !== null && info1.type === 'file') || (info2 !== null && info2.type === 'file')) {
-				projects[identifier] = new harvester.data.Project(identifier);
+				projects[identifier] = new _harvester.data.Project(identifier);
 			}
 
 		});
@@ -264,7 +265,7 @@ lychee.define('harvester.Main').requires([
 			var info1 = filesystem.info(identifier + '/index.html');
 			var info2 = filesystem.info(identifier + '/lychee.pkg');
 			if ((info1 !== null && info1.type === 'file') || (info2 !== null && info2.type === 'file')) {
-				projects[identifier] = new harvester.data.Project(identifier);
+				projects[identifier] = new _harvester.data.Project(identifier);
 			}
 
 		});
@@ -331,8 +332,8 @@ lychee.define('harvester.Main').requires([
 			var settings = this.settings.server || null;
 			if (settings !== null) {
 
-				this.admin  = new harvester.net.Server({ port: 4848 });
-				this.server = new harvester.net.Server(settings);
+				this.admin  = new _harvester.net.Server({ port: 4848 });
+				this.server = new _harvester.net.Server(settings);
 
 				this.admin.bind('serve', function(data, ready) {
 					_process_admin.call(this, data, ready);
@@ -395,8 +396,8 @@ lychee.define('harvester.Main').requires([
 
 				libraries.forEach(function(library, l) {
 
-					if (harvester.mod.Package.can(library) === true) {
-						harvester.mod.Package.process(library);
+					if (_harvester.mod.Package.can(library) === true) {
+						_harvester.mod.Package.process(library);
 					}
 
 				});
@@ -405,12 +406,12 @@ lychee.define('harvester.Main').requires([
 
 					projects.forEach(function(project, p) {
 
-						if (harvester.mod.Package.can(project) === true) {
-							harvester.mod.Package.process(project);
+						if (_harvester.mod.Package.can(project) === true) {
+							_harvester.mod.Package.process(project);
 						}
 
-						if (harvester.mod.Server.can(project) === true) {
-							harvester.mod.Server.process(project);
+						if (_harvester.mod.Server.can(project) === true) {
+							_harvester.mod.Server.process(project);
 						}
 
 					});
@@ -432,12 +433,12 @@ lychee.define('harvester.Main').requires([
 
 				libraries.forEach(function(library, l) {
 
-					if (harvester.mod.Package.can(library) === true) {
-						harvester.mod.Package.process(library);
+					if (_harvester.mod.Package.can(library) === true) {
+						_harvester.mod.Package.process(library);
 					}
 
-					if (harvester.mod.Fertilizer.can(library) === true) {
-						harvester.mod.Fertilizer.process(library);
+					if (_harvester.mod.Fertilizer.can(library) === true) {
+						_harvester.mod.Fertilizer.process(library);
 					}
 
 				});
@@ -446,19 +447,19 @@ lychee.define('harvester.Main').requires([
 
 					projects.forEach(function(project, p) {
 
-						if (harvester.mod.Package.can(project) === true) {
-							harvester.mod.Package.process(project);
+						if (_harvester.mod.Package.can(project) === true) {
+							_harvester.mod.Package.process(project);
 						}
 
-						if (harvester.mod.Server.can(project) === true) {
-							harvester.mod.Server.process(project);
+						if (_harvester.mod.Server.can(project) === true) {
+							_harvester.mod.Server.process(project);
 						}
 
 
-						if (harvester.mod.Fertilizer.can(project) === true) {
+						if (_harvester.mod.Fertilizer.can(project) === true) {
 
 							setTimeout(function() {
-								harvester.mod.Fertilizer.process(project);
+								_harvester.mod.Fertilizer.process(project);
 							}, p * 2000);
 
 						}
@@ -504,16 +505,16 @@ lychee.define('harvester.Main').requires([
 
 				Object.values(_LIBRARIES).forEach(function(library) {
 
-					if (harvester.mod.Package.can(library) === true) {
-						harvester.mod.Package.process(library);
+					if (_harvester.mod.Package.can(library) === true) {
+						_harvester.mod.Package.process(library);
 					}
 
 				});
 
 				Object.values(_PROJECTS).forEach(function(project) {
 
-					if (harvester.mod.Package.can(project) === true) {
-						harvester.mod.Package.process(project);
+					if (_harvester.mod.Package.can(project) === true) {
+						_harvester.mod.Package.process(project);
 					}
 
 				});
@@ -645,7 +646,7 @@ lychee.define('harvester.Main').requires([
 				}
 
 
-				this.hosts[id] = new harvester.data.Host({
+				this.hosts[id] = new _harvester.data.Host({
 					cultivator: projects.length > 1,
 					libraries:  libraries,
 					projects:   projects

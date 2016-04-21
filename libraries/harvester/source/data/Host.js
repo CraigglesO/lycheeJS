@@ -3,7 +3,11 @@ lychee.define('harvester.data.Host').requires([
 	'harvester.data.Project'
 ]).includes([
 	'lychee.event.Emitter'
-]).exports(function(lychee, harvester, global, attachments) {
+]).exports(function(lychee, global, attachments) {
+
+	var _Project = lychee.import('harvester.data.Project');
+
+
 
 	/*
 	 * HELPERS
@@ -122,7 +126,7 @@ lychee.define('harvester.data.Host').requires([
 
 		addLibrary: function(library) {
 
-			library = library instanceof harvester.data.Project ? library : null;
+			library = library instanceof _Project ? library : null;
 
 
 			if (library !== null) {
@@ -172,7 +176,7 @@ lychee.define('harvester.data.Host').requires([
 
 		removeLibrary: function(library) {
 
-			library = library instanceof harvester.data.Project ? library : null;
+			library = library instanceof _Project ? library : null;
 
 
 			if (library !== null) {
@@ -235,7 +239,7 @@ lychee.define('harvester.data.Host').requires([
 
 		addProject: function(project) {
 
-			project = project instanceof harvester.data.Project ? project : null;
+			project = project instanceof _Project ? project : null;
 
 
 			if (project !== null) {
@@ -285,7 +289,7 @@ lychee.define('harvester.data.Host').requires([
 
 		removeProject: function(project) {
 
-			project = project instanceof harvester.data.Project ? project : null;
+			project = project instanceof _Project ? project : null;
 
 
 			if (project !== null) {

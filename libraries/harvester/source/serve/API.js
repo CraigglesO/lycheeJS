@@ -6,18 +6,17 @@ lychee.define('harvester.serve.API').requires([
 	'harvester.serve.api.Profile',
 	'harvester.serve.api.Project',
 	'harvester.serve.api.Server'
-]).exports(function(lychee, harvester, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
 	var _JSON   = lychee.data.JSON;
-
 	var _ADMIN  = {
-		'Console': harvester.serve.api.Console,
-		'Library': harvester.serve.api.Library,
-		'Profile': harvester.serve.api.Profile,
-		'Project': harvester.serve.api.Project
+		'Console': lychee.import('harvester.serve.api.Console'),
+		'Library': lychee.import('harvester.serve.api.Library'),
+		'Profile': lychee.import('harvester.serve.api.Profile'),
+		'Project': lychee.import('harvester.serve.api.Project')
 	};
 	var _PUBLIC = {
-		'Server': harvester.serve.api.Server
+		'Server': lychee.import('harvester.serve.api.Server')
 	};
 
 
@@ -44,11 +43,11 @@ lychee.define('harvester.serve.API').requires([
 			var api  = url.split('/').pop().split('?')[0];
 			var name = (data.headers.host || '');
 
-			if (name === 'localhost:4848' && _ADMIN[api] !== undefined) {
+			if (name === 'localhost:4848' && _ADMIN[api] !== null) {
 
 				_ADMIN[api].process(host, url, data, ready);
 
-			} else if (_PUBLIC[api] !== undefined) {
+			} else if (_PUBLIC[api] !== null) {
 
 				_PUBLIC[api].process(host, url, data, ready);
 

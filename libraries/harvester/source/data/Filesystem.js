@@ -17,7 +17,7 @@ lychee.define('harvester.data.Filesystem').tags({
 
 	return false;
 
-}).exports(function(lychee, harvester, global, attachments) {
+}).exports(function(lychee, global, attachments) {
 
 	var _ROOT = lychee.ROOT.lychee;
 	var _fs   = require('fs');

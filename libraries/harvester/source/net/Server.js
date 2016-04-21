@@ -22,9 +22,10 @@ lychee.define('harvester.net.Server').tags({
 
 	return false;
 
-}).exports(function(lychee, harvester, global, attachments) {
+}).exports(function(lychee, global, attachments) {
 
-	var _net = require('net');
+	var _net    = require('net');
+	var _Remote = lychee.import('harvester.net.Remote');
 
 
 
@@ -151,7 +152,7 @@ lychee.define('harvester.net.Server').tags({
 					socket.setTimeout(0);
 
 
-					var remote = new harvester.net.Remote({
+					var remote = new _Remote({
 						host: host,
 						port: port
 					});

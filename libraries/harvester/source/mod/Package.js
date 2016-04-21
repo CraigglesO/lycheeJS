@@ -1,7 +1,11 @@
 
 lychee.define('harvester.mod.Package').requires([
 	'harvester.data.Package'
-]).exports(function(lychee, harvester, global, attachments) {
+]).exports(function(lychee, global, attachments) {
+
+	var _Package = lychee.import('harvester.data.Package');
+
+
 
 	/*
 	 * HELPERS
@@ -163,7 +167,7 @@ lychee.define('harvester.mod.Package').requires([
 				var blob = JSON.stringify(data, null, '\t');
 				if (blob !== null) {
 					project.filesystem.write('/lychee.pkg', blob);
-					project.package = new harvester.data.Package(new Buffer(blob, 'utf8'));
+					project.package = new _Package(new Buffer(blob, 'utf8'));
 				}
 
 			}

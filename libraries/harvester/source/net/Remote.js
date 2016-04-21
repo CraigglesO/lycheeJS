@@ -3,7 +3,7 @@ lychee.define('harvester.net.Remote').requires([
 	'lychee.net.protocol.HTTP'
 ]).includes([
 	'lychee.net.Tunnel'
-]).exports(function(lychee, harvester, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
 	/*
 	 * IMPLEMENTATION

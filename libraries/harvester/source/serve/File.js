@@ -1,15 +1,17 @@
 
 lychee.define('harvester.serve.File').requires([
 	'harvester.data.Filesystem'
-]).exports(function(lychee, harvester, global, attachments) {
+]).exports(function(lychee, global, attachments) {
+
+	var _Filesystem            = lychee.import('harvester.data.Filesystem');
+	var _PUBLIC_FILESYSTEM     = new _Filesystem('/libraries/harvester/public');
+	var _CULTIVATOR_FILESYSTEM = new _Filesystem('/projects/cultivator');
+
+
 
 	/*
 	 * HELPERS
 	 */
-
-	var _public_filesystem     = new harvester.data.Filesystem('/libraries/harvester/public');
-	var _cultivator_filesystem = new harvester.data.Filesystem('/projects/cultivator');
-
 
 	var _get_response = function(info, mime) {
 
@@ -38,10 +40,10 @@ lychee.define('harvester.serve.File').requires([
 
 	var _serve_cultivator = function(url, mime, ready) {
 
-		var info = _cultivator_filesystem.info(url);
+		var info = _CULTIVATOR_FILESYSTEM.info(url);
 		if (info !== null && info.type === 'file') {
 
-			_cultivator_filesystem.read(url, function(buffer) {
+			_CULTIVATOR_FILESYSTEM.read(url, function(buffer) {
 
 				var response;
 
@@ -67,10 +69,10 @@ lychee.define('harvester.serve.File').requires([
 
 	var _serve_public = function(url, mime, ready) {
 
-		var info = _public_filesystem.info(url);
+		var info = _PUBLIC_FILESYSTEM.info(url);
 		if (info !== null && info.type === 'file') {
 
-			_public_filesystem.read(url, function(buffer) {
+			_PUBLIC_FILESYSTEM.read(url, function(buffer) {
 
 				var response;
 

@@ -1,5 +1,5 @@
 
-lychee.define('harvester.serve.Redirect').exports(function(lychee, harvester, global, attachments) {
+lychee.define('harvester.serve.Redirect').exports(function(lychee, global, attachments) {
 
 	/*
 	 * IMPLEMENTATION

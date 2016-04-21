@@ -1,8 +1,8 @@
 
 lychee.define('harvester.mod.Server').requires([
-	'harvester.data.Filesystem',
+	'harvester.data.Project',
 	'harvester.data.Server'
-]).exports(function(lychee, harvester, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
 	var _MIN_PORT      = 49152;
 	var _MAX_PORT      = 65534;
@@ -12,6 +12,7 @@ lychee.define('harvester.mod.Server').requires([
 	var _child_process = require('child_process');
 	var _net           = require('net');
 	var _port          = _MIN_PORT;
+	var _Server        = lychee.import('harvester.data.Server');
 
 
 
@@ -304,7 +305,7 @@ lychee.define('harvester.mod.Server').requires([
 							var server = _serve(project.identifier, null, port);
 							if (server !== null) {
 
-								project.setServer(new harvester.data.Server({
+								project.setServer(new _Server({
 									process: server,
 									host:    null,
 									port:    port
