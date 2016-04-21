@@ -889,7 +889,56 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 				};
 
+
 				return definition;
+
+			}
+
+
+			return null;
+
+		},
+
+		import: function(reference) {
+
+			reference = typeof reference === 'string' ? reference : null;
+
+
+			if (reference !== null) {
+
+				_bootstrap_environment.call(this);
+
+
+				var instance = null;
+				var that     = this;
+
+				// XXX: First sandboxed hierarchy
+				if (that.environment.sandbox === true) {
+					that = that.environment.global.lychee;
+				}
+
+				// XXX: Second sandboxed hierarchy
+				if (that.environment.sandbox === true) {
+					that = that.environment.global.lychee;
+				}
+
+
+				var resolved_module = _resolve_reference.call(scope, reference);
+				if (resolved_module !== null) {
+					instance = resolved_module;
+				}
+
+
+				if (instance === null) {
+
+					if (lychee.debug === true) {
+						console.warn('lychee.deserialize: Require ' + (reference) + ' to import it.');
+					}
+
+				}
+
+
+				return instance;
 
 			}
 
