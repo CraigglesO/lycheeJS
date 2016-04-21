@@ -1,10 +1,16 @@
 
 lychee.define('game.net.Server').requires([
-	'lychee.data.BitON',
+	'lychee.data.BITON',
 	'game.net.remote.Control'
 ]).includes([
 	'lychee.net.Server'
-]).exports(function(lychee, game, global, attachments) {
+]).exports(function(lychee, global, attachments) {
+
+	var _Control = lychee.import('game.net.remote.Control');
+	var _Server  = lychee.import('lychee.net.Server');
+	var _BITON   = lychee.import('lychee.data.BITON');
+
+
 
 	/*
 	 * IMPLEMENTATION
@@ -13,11 +19,11 @@ lychee.define('game.net.Server').requires([
 	var Class = function(data) {
 
 		var settings = lychee.extend({
-			codec: lychee.data.BitON
+			codec: _BITON
 		}, data);
 
 
-		lychee.net.Server.call(this, settings);
+		_Server.call(this, settings);
 
 
 
@@ -29,7 +35,7 @@ lychee.define('game.net.Server').requires([
 
 			console.log('game.net.Server: Remote connected (' + remote.host + ':' + remote.port + ')');
 
-			remote.addService(new game.net.remote.Control(remote));
+			remote.addService(new _Control(remote));
 
 		}, this);
 
@@ -53,7 +59,7 @@ lychee.define('game.net.Server').requires([
 
 		serialize: function() {
 
-			var data = lychee.net.Server.prototype.serialize.call(this);
+			var data = _Server.prototype.serialize.call(this);
 			data['constructor'] = 'game.net.Server';
 
 

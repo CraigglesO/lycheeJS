@@ -1,8 +1,10 @@
 
 lychee.define('game.app.sprite.Terrain').includes([
 	'lychee.app.Sprite'
-]).exports(function(lychee, game, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
+	var _Entity  = lychee.import('lychee.app.Entity');
+	var _Sprite  = lychee.import('lychee.app.Sprite');
 	var _TEXTURE = attachments["png"];
 	var _CONFIG  = attachments["json"].buffer;
 
@@ -21,12 +23,12 @@ lychee.define('game.app.sprite.Terrain').includes([
 		settings.map     = _CONFIG.map;
 		settings.width   = _CONFIG.width;
 		settings.height  = _CONFIG.height;
-		settings.shape   = lychee.app.Entity.SHAPE.rectangle;
+		settings.shape   = _Entity.SHAPE.rectangle;
 		settings.states  = _CONFIG.states;
 		settings.state   = 'default';
 
 
-		lychee.app.Sprite.call(this, settings);
+		_Sprite.call(this, settings);
 
 		settings = null;
 
@@ -41,7 +43,7 @@ lychee.define('game.app.sprite.Terrain').includes([
 
 		serialize: function() {
 
-			var data = lychee.app.Sprite.prototype.serialize.call(this);
+			var data = _Sprite.prototype.serialize.call(this);
 			data['constructor'] = 'game.app.sprite.Terrain';
 
 
