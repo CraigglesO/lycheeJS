@@ -9,6 +9,7 @@ lychee.define('app.Main').requires([
 
 	var _lychee = lychee.import('lychee');
 	var _app    = lychee.import('app');
+	var _Main   = lychee.import('lychee.app.Main');
 
 
 
@@ -46,7 +47,7 @@ lychee.define('app.Main').requires([
 		}, data);
 
 
-		_lychee.app.Main.call(this, settings);
+		_Main.call(this, settings);
 
 
 
@@ -99,7 +100,7 @@ lychee.define('app.Main').requires([
 
 		serialize: function() {
 
-			var data = _lychee.app.Main.prototype.serialize.call(this);
+			var data = _Main.prototype.serialize.call(this);
 			data['constructor'] = 'app.Main';
 
 

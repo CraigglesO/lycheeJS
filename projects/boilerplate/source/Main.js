@@ -9,6 +9,7 @@ lychee.define('app.Main').requires([
 
 	var _lychee = lychee.import('lychee');
 	var _app    = lychee.import('app');
+	var _Main   = lychee.import('lychee.app.Main');
 
 
 
@@ -19,9 +20,6 @@ lychee.define('app.Main').requires([
 	var Class = function(data) {
 
 		var settings = lychee.extend({
-
-			// Is configured in lychee.pkg
-			// client: '/api/Server?identifier=/projects/boilerplate',
 
 			input: {
 				delay:       0,
@@ -37,7 +35,7 @@ lychee.define('app.Main').requires([
 			},
 
 			renderer: {
-				id:     'boilerplate',
+				id:     'app',
 				width:  null,
 				height: null
 			},
@@ -49,7 +47,7 @@ lychee.define('app.Main').requires([
 		}, data);
 
 
-		_lychee.app.Main.call(this, settings);
+		_Main.call(this, settings);
 
 
 
@@ -102,7 +100,7 @@ lychee.define('app.Main').requires([
 
 		serialize: function() {
 
-			var data = _lychee.app.Main.prototype.serialize.call(this);
+			var data = _Main.prototype.serialize.call(this);
 			data['constructor'] = 'app.Main';
 
 
