@@ -43,13 +43,17 @@ lychee.define('harvester.serve.API').requires([
 			var api  = url.split('/').pop().split('?')[0];
 			var name = (data.headers.host || '');
 
-			if (name === 'localhost:4848' && _ADMIN[api] !== null) {
+			var admin_api  = _ADMIN[api]  || null;
+			var public_api = _PUBLIC[api] || null;
 
-				_ADMIN[api].process(host, url, data, ready);
 
-			} else if (_PUBLIC[api] !== null) {
+			if (name === 'localhost:4848' && admin_api !== null) {
 
-				_PUBLIC[api].process(host, url, data, ready);
+				admin_api.process(host, url, data, ready);
+
+			} else if (public_api !== null) {
+
+				public_api.process(host, url, data, ready);
 
 			} else {
 
