@@ -923,7 +923,7 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 				}
 
 
-				var resolved_module = _resolve_reference.call(scope, reference);
+				var resolved_module = _resolve_reference.call(that.environment.global, reference);
 				if (resolved_module !== null) {
 					instance = resolved_module;
 				}

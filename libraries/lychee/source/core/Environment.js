@@ -555,6 +555,7 @@ lychee.Environment = typeof lychee.Environment !== 'undefined' ? lychee.Environm
 			'deserialize',
 			'serialize',
 			'define',
+			'import',
 			'envinit',
 			'pkginit',
 			'setEnvironment',
