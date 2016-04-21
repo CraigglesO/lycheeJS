@@ -133,18 +133,19 @@ fyto = (function(global) {
 	 * IMPLEMENTATION
 	 */
 
+	var _ONCHANGE      = {};
+	var _ONINIT        = {};
+	var _LAZY_ONINIT   = {};
+	var _LAZY_ONCHANGE = {};
+
+
 	var fyto = {
 
 		define: function(identifier, template) {
 
-			_HTML_IMPORT = true;
-
-
-			// XXX: Thanks, you fuckers over at Mozilla. Dumbass bitches with no JS knowledge.
-
-			var __INIT   = null;
-			var __CREATE = null;
-			var __CHANGE = null;
+			_HTML_IMPORT               = true;
+			_LAZY_ONINIT[identifier]   = [];
+			_LAZY_ONCHANGE[identifier] = [];
 
 
 			var ns       = _get_namespace.call(global, identifier);
@@ -156,17 +157,34 @@ fyto = (function(global) {
 
 				attributeChangedCallback: function(name, oldvalue, newvalue) {
 
-					var change = __CHANGE;
+					var change = _ONCHANGE[identifier] || null;
 					if (change !== null) {
 						change.call(this, name, oldvalue, newvalue);
+					} else {
+						_LAZY_ONCHANGE[identifier].push(this);
 					}
+
+
+					// XXX: Fuck those Mozilla Monkey Retards.
+
+					setTimeout(function() {
+
+						var onchange = _ONCHANGE[identifier] || null;
+						if (onchange !== null) {
+
+							for (var l = 0, ll = _LAZY_ONCHANGE[identifier].length; l < ll; l++) {
+								onchange.call(_LAZY_ONCHANGE[identifier][l]);
+							}
+
+							_LAZY_ONCHANGE[identifier] = [];
+
+						}
+
+					}, 0);
 
 				},
 
 				createdCallback: function() {
-
-					__CREATE = this;
-
 
 					var clone   = template.cloneNode(true);
 					var shadow  = clone.innerHTML;
@@ -178,11 +196,30 @@ fyto = (function(global) {
 						this.__SHADOW = null;
 					}
 
-
-					var init = __INIT;
+					var init = _ONINIT[identifier] || null;
 					if (init !== null) {
 						init.call(this);
+					} else {
+						_LAZY_ONINIT[identifier].push(this);
 					}
+
+
+					// XXX: Fuck those Mozilla Monkey Retards.
+
+					setTimeout(function() {
+
+						var oninit = _ONINIT[identifier] || null;
+						if (oninit !== null) {
+
+							for (var l = 0, ll = _LAZY_ONINIT[identifier].length; l < ll; l++) {
+								oninit.call(_LAZY_ONINIT[identifier][l]);
+							}
+
+							_LAZY_ONINIT[identifier] = [];
+
+						}
+
+					}, 0);
 
 				}
 
@@ -193,23 +230,17 @@ fyto = (function(global) {
 
 				get: function() {
 
-					return __INIT || null;
+					return _ONINIT[identifier] || null;
 
 				},
 
 				set: function(val) {
 
-					if (__INIT === null && __CREATE !== null) {
+					var oldinit = _ONINIT[identifier] || null;
+					if (oldinit === null) {
 
 						if (typeof val === 'function') {
-							__INIT = val;
-							__INIT.call(__CREATE);
-						}
-
-					} else {
-
-						if (typeof val === 'function') {
-							__INIT = val;
+							_ONINIT[identifier] = val;
 						}
 
 					}
@@ -222,14 +253,14 @@ fyto = (function(global) {
 
 				get: function() {
 
-					return __CHANGE || null;
+					return _ONCHANGE[identifier] || null;
 
 				},
 
 				set: function(val) {
 
 					if (typeof val === 'function') {
-						__CHANGE = val;
+						_ONCHANGE[identifier] = val;
 					}
 
 				}
