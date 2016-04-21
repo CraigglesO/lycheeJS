@@ -3,9 +3,10 @@ lychee.define('fertilizer.template.html-webview.Library').requires([
 	'lychee.data.JSON'
 ]).includes([
 	'fertilizer.Template'
-]).exports(function(lychee, fertilizer, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
-	var _JSON     = lychee.data.JSON;
+	var _Template = lychee.import('fertilizer.Template');
+	var _JSON     = lychee.import('lychee.data.JSON');
 	var _TEMPLATE = attachments["tpl"];
 
 
@@ -16,7 +17,7 @@ lychee.define('fertilizer.template.html-webview.Library').requires([
 
 	var Class = function(data) {
 
-		fertilizer.Template.call(this, data);
+		_Template.call(this, data);
 
 
 		this.__index = lychee.deserialize(lychee.serialize(_TEMPLATE));
@@ -79,7 +80,7 @@ lychee.define('fertilizer.template.html-webview.Library').requires([
 
 		serialize: function() {
 
-			var data = fertilizer.Template.prototype.serialize.call(this);
+			var data = _Template.prototype.serialize.call(this);
 			data['constructor'] = 'fertilizer.template.html-webview.Library';
 
 

@@ -1,7 +1,6 @@
 
 lychee.define('fertilizer.Main').requires([
 	'lychee.Input',
-	'lychee.Stash',
 	'lychee.data.JSON',
 	'fertilizer.data.Shell',
 	'fertilizer.template.html.Application',
@@ -14,10 +13,13 @@ lychee.define('fertilizer.Main').requires([
 	'fertilizer.template.node.Library'
 ]).includes([
 	'lychee.event.Emitter'
-]).exports(function(lychee, fertilizer, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
-	var _lychee = lychee;
-	var _JSON   = lychee.data.JSON;
+	var _lychee     = lychee.import('lychee');
+	var _fertilizer = lychee.import('fertilizer');
+	var _Emitter    = lychee.import('lychee.event.Emitter');
+	var _Input      = lychee.import('lychee.Input');
+	var _JSON       = lychee.import('lychee.data.JSON');
 
 
 
@@ -41,11 +43,11 @@ lychee.define('fertilizer.Main').requires([
 
 	var Class = function(settings) {
 
-		this.settings = lychee.extendunlink({}, _defaults, settings);
-		this.defaults = lychee.extendunlink({}, this.settings);
+		this.settings = _lychee.extendunlink({}, _defaults, settings);
+		this.defaults = _lychee.extendunlink({}, this.settings);
 
 
-		lychee.event.Emitter.call(this);
+		_Emitter.call(this);
 
 
 
@@ -63,7 +65,7 @@ lychee.define('fertilizer.Main').requires([
 
 				var platform = data.tags.platform[0] || null;
 				var variant  = data.variant || null;
-				var settings = _JSON.decode(_JSON.encode(lychee.extend({}, data, {
+				var settings = _JSON.decode(_JSON.encode(_lychee.extend({}, data, {
 					debug:   false,
 					sandbox: true,
 					timeout: 5000,
@@ -98,7 +100,7 @@ lychee.define('fertilizer.Main').requires([
 
 
 					var that           = this;
-					var environment    = new lychee.Environment(settings);
+					var environment    = new _lychee.Environment(settings);
 					var fertilizer_pkg = environment.packages.filter(function(pkg) {
 						return pkg.id === 'fertilizer';
 					})[0] || null;
@@ -179,13 +181,13 @@ lychee.define('fertilizer.Main').requires([
 
 		this.bind('init', function(project, identifier, platform, variant, environment, profile) {
 
-			if (typeof fertilizer.template[platform] === 'object') {
+			if (typeof _fertilizer.template[platform] === 'object') {
 
-				var construct = fertilizer.template[platform][variant.charAt(0).toUpperCase() + variant.substr(1).toLowerCase()] || null;
+				var construct = _fertilizer.template[platform][variant.charAt(0).toUpperCase() + variant.substr(1).toLowerCase()] || null;
 				if (construct !== null) {
 
-					lychee.ROOT.project                           = lychee.ROOT.lychee + project;
-					lychee.environment.global.lychee.ROOT.project = lychee.ROOT.lychee + project;
+					lychee.ROOT.project                           = _lychee.ROOT.lychee + project;
+					lychee.environment.global.lychee.ROOT.project = _lychee.ROOT.lychee + project;
 
 
 					var template = new construct({
@@ -242,11 +244,11 @@ lychee.define('fertilizer.Main').requires([
 
 		serialize: function() {
 
-			var data = lychee.event.Emitter.prototype.serialize.call(this);
+			var data = _Emitter.prototype.serialize.call(this);
 			data['constructor'] = 'fertilizer.Main';
 
 
-			var settings = lychee.extendunlink({}, this.settings);
+			var settings = _lychee.extendunlink({}, this.settings);
 			var blob     = data['blob'] || {};
 
 

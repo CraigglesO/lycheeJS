@@ -4,9 +4,11 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 	'fertilizer.data.Shell'
 ]).includes([
 	'fertilizer.Template'
-]).exports(function(lychee, fertilizer, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
-	var _JSON      = lychee.data.JSON;
+	var _Template  = lychee.import('fertilizer.Template');
+	var _Shell     = lychee.import('fertilizer.data.Shell');
+	var _JSON      = lychee.import('lychee.data.JSON');
 	var _TEMPLATES = {
 		config: attachments["config.tpl"],
 		core:   null,
@@ -22,7 +24,7 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 
 	var Class = function(data) {
 
-		fertilizer.Template.call(this, data);
+		_Template.call(this, data);
 
 
 		this.__config = lychee.deserialize(lychee.serialize(_TEMPLATES.config));
@@ -157,7 +159,7 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 		this.bind('package', function(oncomplete) {
 
 			var name    = this.environment.id.split('/')[2];
-			var shell   = new fertilizer.data.Shell('/bin/runtime/html-nwjs');
+			var shell   = new _Shell('/bin/runtime/html-nwjs');
 			var sandbox = this.sandbox;
 
 			if (name === 'cultivator') {
@@ -201,7 +203,7 @@ lychee.define('fertilizer.template.html-nwjs.Application').requires([
 
 		serialize: function() {
 
-			var data = fertilizer.Template.prototype.serialize.call(this);
+			var data = _Template.prototype.serialize.call(this);
 			data['constructor'] = 'fertilizer.template.html-nwjs.Application';
 
 

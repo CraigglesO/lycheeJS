@@ -5,9 +5,11 @@ lychee.define('fertilizer.Template').requires([
 	'fertilizer.data.Shell'
 ]).includes([
 	'lychee.event.Flow'
-]).exports(function(lychee, fertilizer, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
-	var _JSON = lychee.data.JSON;
+	var _JSON  = lychee.import('lychee.data.JSON');
+	var _Stash = lychee.import('lychee.Stash');
+	var _Shell = lychee.import('fertilizer.data.Shell');
 
 
 
@@ -24,9 +26,9 @@ lychee.define('fertilizer.Template').requires([
 		this.sandbox     = '';
 		this.settings    = {};
 		this.profile     = null;
-		this.shell       = new fertilizer.data.Shell();
-		this.stash       = new lychee.Stash({
-			type: lychee.Stash.TYPE.persistent
+		this.shell       = new _Shell();
+		this.stash       = new _Stash({
+			type: _Stash.TYPE.persistent
 		});
 
 

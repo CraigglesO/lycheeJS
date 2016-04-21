@@ -19,7 +19,7 @@ lychee.define('fertilizer.data.Shell').tags({
 
 	return false;
 
-}).exports(function(lychee, fertilizer, global, attachments) {
+}).exports(function(lychee, global, attachments) {
 
 	var _ROOT          = lychee.ROOT.lychee;
 	var _child_process = require('child_process');
