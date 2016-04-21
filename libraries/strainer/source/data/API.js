@@ -1,9 +1,12 @@
 
-lychee.define('strainer.data.API').requires([
-	'lychee.data.JSON'
-]).tags({
-	platform: 'html'
-}).exports(function(lychee, tool, global, attachments) {
+lychee.define('strainer.data.API').exports(function(lychee, global, attachments) {
+
+	var _JSON = {
+		encode: JSON.stringify,
+		decode: JSON.parse
+	};
+
+
 
 	/*
 	 * HELPERS
@@ -131,7 +134,7 @@ lychee.define('strainer.data.API').requires([
 
 				}
 
-				val = JSON.stringify(val);
+				val = _JSON.encode(val);
 
 			break;
 
@@ -1023,7 +1026,7 @@ lychee.define('strainer.data.API').requires([
 				}
 
 
-				var example_params = JSON.parse(JSON.stringify(method.params));
+				var example_params = _JSON.decode(_JSON.encode(method.params));
 
 				if (method.name.substr(0, 3) === 'set') {
 

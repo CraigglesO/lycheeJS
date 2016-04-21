@@ -154,8 +154,8 @@ lychee.define('breeder.Template').requires([
 
 		this.sandbox  = '';
 		this.settings = {};
-		this.stash    = new lychee.Stash({
-			type: lychee.Stash.TYPE.persistent
+		this.stash    = new _Stash({
+			type: _Stash.TYPE.persistent
 		});
 
 
@@ -303,8 +303,8 @@ lychee.define('breeder.Template').requires([
 							var injections = platforms.sort().map(function(platform) {
 								return library + '/build/' + platform + '/dist/index.js';
 							});
-							var tmp_stash  = new lychee.Stash({
-								type: lychee.Stash.TYPE.temporary
+							var tmp_stash  = new _Stash({
+								type: _Stash.TYPE.temporary
 							});
 
 

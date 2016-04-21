@@ -5,10 +5,13 @@ lychee.define('strainer.Main').requires([
 	'strainer.Template'
 ]).includes([
 	'lychee.event.Emitter'
-]).exports(function(lychee, strainer, global, attachments) {
+]).exports(function(lychee, global, attachments) {
 
-	var _lychee = lychee;
-	var _JSON   = lychee.data.JSON;
+	var _lychee   = lychee.import('lychee');
+	var _strainer = lychee.import('strainer');
+	var _Emitter  = lychee.import('lychee.event.Emitter');
+	var _JSON     = lychee.import('lychee.data.JSON');
+	var _Input    = lychee.import('lychee.Input');
 
 
 
@@ -18,48 +21,9 @@ lychee.define('strainer.Main').requires([
 
 	var _defaults = {
 
-		action:   null,
-		project:  null
-
-	};
-
-
-
-	/*
-	 * HELPERS
-	 */
-
-	var _strain = function(settings) {
-
-		var project  = settings.project;
-		var template = new strainer.Template({
-			filesystem: new fertilizer.data.Filesystem(project),
-			shell:      new fertilizer.data.Shell(project),
-			settings:   settings
-		});
-
-		template.bind('complete', function() {
-
-			if (lychee.debug === true) {
-				console.info('strainer: SUCCESS ("' + project + '")');
-			}
-
-			this.destroy();
-
-		}, this);
-
-		template.bind('error', function(event) {
-
-			if (lychee.debug === true) {
-				console.error('strainer: FAILURE ("' + project + '") at "' + event + '" template event');
-			}
-
-			this.destroy();
-
-		}, this);
-
-
-		return template;
+		action:  null,
+		project: null,
+		library: null
 
 	};
 
@@ -71,11 +35,11 @@ lychee.define('strainer.Main').requires([
 
 	var Class = function(settings) {
 
-		this.settings = lychee.extendunlink({}, _defaults, settings);
-		this.defaults = lychee.extendunlink({}, this.settings);
+		this.settings = _lychee.extendunlink({}, _defaults, settings);
+		this.defaults = _lychee.extendunlink({}, this.settings);
 
 
-		lychee.event.Emitter.call(this);
+		_Emitter.call(this);
 
 
 
@@ -85,37 +49,62 @@ lychee.define('strainer.Main').requires([
 
 		this.bind('load', function() {
 
+			var action  = this.settings.action  || null;
 			var project = this.settings.project || null;
-			if (project !== null) {
 
-				lychee.ROOT.project = project;
+			if (action !== null && project !== null) {
+
+				lychee.ROOT.project                           = _lychee.ROOT.lychee + project;
+				lychee.environment.global.lychee.ROOT.project = _lychee.ROOT.lychee + project;
+
+
+				this.trigger('init', [ project, action ]);
+
+			} else {
+
+				console.error('strainer: FAILURE ("' + project + '") at "load" event');
+
+
+				this.destroy(1);
 
 			}
 
 		}, this, true);
 
-		this.bind('init', function() {
+		this.bind('init', function(project, action) {
 
-			var settings = this.settings;
-			var template = _strain.call(this, settings);
-			if (template !== null) {
-
-				template.then(settings.action);
-				template.init();
-
-				return true;
-
-			}
+			var template = new _strainer.Template({
+				sandbox:  project,
+				settings: this.settings
+			});
 
 
-			if (lychee.debug === true) {
-				console.error('strainer: FAILURE ("' + settings.project + '") at "init" event');
-			}
+			template.then(action);
+
+			template.bind('complete', function() {
+
+				if (lychee.debug === true) {
+					console.info('strainer: SUCCESS ("' + project + '")');
+				}
+
+				this.destroy();
+
+			}, this);
+
+			template.bind('error', function(event) {
+
+				if (lychee.debug === true) {
+					console.error('strainer: FAILURE ("' + project + '") at "' + event + '" template event');
+				}
+
+				this.destroy();
+
+			}, this);
 
 
-			this.destroy();
+			template.init();
 
-			return false;
+			return true;
 
 		}, this, true);
 
@@ -130,11 +119,11 @@ lychee.define('strainer.Main').requires([
 
 		serialize: function() {
 
-			var data = lychee.event.Emitter.prototype.serialize.call(this);
+			var data = _Emitter.prototype.serialize.call(this);
 			data['constructor'] = 'strainer.Main';
 
 
-			var settings = lychee.extendunlink({}, this.settings);
+			var settings = _lychee.extendunlink({}, this.settings);
 			var blob     = data['blob'] || {};
 
 
@@ -155,13 +144,15 @@ lychee.define('strainer.Main').requires([
 		init: function() {
 
 			this.trigger('load');
-			this.trigger('init');
 
 		},
 
-		destroy: function() {
+		destroy: function(code) {
 
-			this.trigger('destroy');
+			code = typeof code === 'number' ? code : 0;
+
+
+			this.trigger('destroy', [ code ]);
 
 		}
 
