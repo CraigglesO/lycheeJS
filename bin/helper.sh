@@ -57,6 +57,8 @@ _print_help() {
 	echo "    stop=[Library/Project]                                 ";
 	echo "    file=[Library/Project]                                 ";
 	echo "    edit=[Library/Project]                                 ";
+	echo "                                                           ";
+	echo "    cmd=[Command]&data=[JSON]                              ";
 	echo "    web=[URL]                                              ";
 	echo "                                                           ";
 	echo "                                                           ";
@@ -67,12 +69,16 @@ _print_help() {
 	echo " Examples:                                                 ";
 	echo "                                                           ";
 	echo "    lycheejs-helper lycheejs://start=/projects/boilerplate ";
+	echo "    lycheejs-helper lycheejs://cmd=lycheejs-ranger         ";
 	echo "    lycheejs-helper lycheejs://web=http://lycheejs.org     ";
+	echo "                                                           ";
 	echo "    lycheejs-helper env:node /path/to/program.js           ";
 	echo "                                                           ";
 	echo " Notes:                                                    ";
 	echo "                                                           ";
-	echo " The \"env:\" can be used as Shebang, like this:           ";
+	echo " The [JSON] data is encoded as base64 only.                ";
+	echo "                                                           ";
+	echo " The \"env:\" can be used as a Shebang in shell scripts:   ";
 	echo " #!/usr/local/bin/lycheejs-helper env:node                 ";
 	echo "                                                           ";
 
@@ -148,6 +154,10 @@ if [ "$protocol" == "lycheejs" ]; then
 		data=$(echo $1 | cut -d"=" -f 3-5);
 	elif [ "$action" == "unboot" ]; then
 		resource="DUMMY";
+	elif [ "$action" == "cmd" ]; then
+		# XXX: base64 encoded strings end with = (8 Bit) or == (16 Bit)
+		resource=$(echo $1 | cut -d"&" -f 1 | cut -d"=" -f 2);
+		data=$(echo $1 | cut -d"=" -f 3-5);
 	elif [ "$action" == "web" ]; then
 		resource=$(echo $1 | cut -c 16-);
 	fi;
@@ -226,6 +236,25 @@ if [ "$protocol" == "lycheejs" ]; then
 
 					open "file://$LYCHEEJS_ROOT/$resource" 2>&1;
 					exit 0;
+
+				fi;
+
+			;;
+
+			cmd)
+
+				if [[ "$(echo $resource | cut -c 1-8)" == "lycheejs" && "$resource" != "lycheejs-helper" ]]; then
+
+					if [ -x /usr/local/bin/$resource ]; then
+
+						if [ "$data" != "" ]; then
+							$resource $data;
+						else
+							$resource;
+						fi;
+
+					fi;
+
 
 				fi;
 
