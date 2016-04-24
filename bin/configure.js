@@ -235,6 +235,8 @@
 			if (a > b) return  1;
 			if (a < b) return -1;
 			return 0;
+		}).filter(function(value) {
+			return value.indexOf('__') === -1;
 		});
 
 	};
@@ -259,6 +261,8 @@
 			if (a > b) return  1;
 			if (a < b) return -1;
 			return 0;
+		}).filter(function(value) {
+			return value.indexOf('__') === -1;
 		});
 
 	};

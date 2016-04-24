@@ -74,7 +74,7 @@ Examples:
 
 The lycheeJS Definition system always uses so-called Definition closures in order to have advanced memory functionality among different instances. A basic layout of a Definition has (if the functionality is required) these sections:
 
-- HEADER
+- HEAD
   - `lychee.define(identifier)`
   - `.tags()`
   - `.requires()`

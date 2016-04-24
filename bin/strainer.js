@@ -42,7 +42,7 @@ var _print_help = function() {
 	console.log('                                                    ');
 	console.log('Available Actions:                                  ');
 	console.log('                                                    ');
-	console.log('    init, stash                                     ');
+	console.log('    stash                                           ');
 	console.log('                                                    ');
 	console.log('Available Libraries:                                ');
 	console.log('                                                    ');
@@ -60,10 +60,7 @@ var _print_help = function() {
 	console.log('                                                    ');
 	console.log('Examples:                                           ');
 	console.log('                                                    ');
-	console.log('    lycheejs-strainer init /libraries/lychee;       ');
 	console.log('    lycheejs-strainer stash /libraries/lychee;      ');
-	console.log('                                                    ');
-	console.log('    lycheejs-strainer init /projects/boilerplate;   ');
 	console.log('    lycheejs-strainer stash /projects/boilerplate;  ');
 	console.log('                                                    ');
 
@@ -89,13 +86,8 @@ var _settings = (function() {
 	}
 
 
-	// init /projects/boilerplate
-	if (raw_arg0 === 'init') {
-
-		settings.action = 'init';
-
 	// stash /projects/boilerplate
-	} else if (raw_arg0 === 'stash') {
+	if (raw_arg0 === 'stash') {
 
 		settings.action = 'stash';
 
