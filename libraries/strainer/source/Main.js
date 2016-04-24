@@ -22,8 +22,7 @@ lychee.define('strainer.Main').requires([
 	var _defaults = {
 
 		action:  null,
-		project: null,
-		library: null
+		project: null
 
 	};
 
@@ -79,7 +78,18 @@ lychee.define('strainer.Main').requires([
 			});
 
 
-			template.then(action);
+			if (action === 'stash') {
+
+				template.then('read');
+				template.then('read-fix');
+				template.then('read-api');
+//				template.then('stash');
+//				template.then('stash-fix');
+//				template.then('stash-api');
+				template.then('write');
+
+			}
+
 
 			template.bind('complete', function() {
 
