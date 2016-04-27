@@ -256,6 +256,47 @@ lychee = typeof lychee !== 'undefined' ? lychee : (function(global) {
 
 	}
 
+	if (typeof Object.map !== 'function') {
+
+		Object.map = function(object, predicate/*, thisArg */) {
+
+			if (object !== Object(object)) {
+				throw new TypeError('Object.map called on a non-object');
+			}
+
+			if (typeof predicate !== 'function') {
+				throw new TypeError('predicate must be a function');
+			}
+
+
+			var clone   = {};
+			var keys    = Object.keys(object).sort();
+			var length  = keys.length >>> 0;
+			var thisArg = arguments.length >= 3 ? arguments[2] : void 0;
+			var key;
+			var value;
+			var tmp;
+
+
+			for (var k = 0; k < length; k++) {
+
+				key   = keys[k];
+				value = object[key];
+				tmp   = predicate.call(thisArg, value, key);
+
+				if (tmp !== undefined) {
+					clone[key] = tmp;
+				}
+
+			}
+
+
+			return clone;
+
+		};
+
+	}
+
 	if (typeof Object.sort !== 'function') {
 
 		Object.sort = function(object) {

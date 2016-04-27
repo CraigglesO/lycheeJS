@@ -244,9 +244,11 @@ lychee.define('strainer.Template').requires([
 
 				stash.bind('write', function(type, assets) {
 
-console.log('write is over');
-
-					oncomplete(true);
+					if (assets.length === configs.length) {
+						oncomplete(true);
+					} else {
+						oncomplete(false);
+					}
 
 				}, this, true);
 
@@ -274,6 +276,36 @@ console.log('write is over');
 
 		deserialize: function(blob) {
 
+			if (blob.codes instanceof Array) {
+
+				var codes = [];
+
+				for (var bc1 = 0, bc1l = blob.codes.length; bc1 < bc1l; bc1++) {
+					codes.push(lychee.deserialize(blob.codes[bc1]));
+				}
+
+				if (codes.length > 0) {
+					this.setCodes(codes);
+				}
+
+			}
+
+
+			if (blob.configs instanceof Array) {
+
+				var configs = [];
+
+				for (var bc2 = 0, bc2l = blob.configs.length; bc2 < bc2l; bc2++) {
+					configs.push(lychee.deserialize(blob.codes[bc2]));
+				}
+
+				if (configs.length > 0) {
+					this.setConfigs(configs);
+				}
+
+			}
+
+
 			var stash = lychee.deserialize(blob.stash);
 			if (stash !== null) {
 				this.stash = stash;
@@ -291,10 +323,13 @@ console.log('write is over');
 			var blob     = data['blob'] || {};
 
 
-			if (this.sandbox !== '') settings.sandbox = this.sandbox;
+			if (this.sandbox !== '')                   settings.sandbox  = this.sandbox;
+			if (Object.keys(this.settings).length > 0) settings.settings = this.settings;
 
 
-			if (this.stash !== null) blob.stash = lychee.serialize(this.stash);
+			if (this.stash !== null)     blob.stash   = lychee.serialize(this.stash);
+			if (this.codes.length > 0)   blob.codes   = this.codes.map(lychee.serialize);
+			if (this.configs.length > 0) blob.configs = this.configs.map(lychee.serialize);
 
 
 			data['arguments'][0] = settings;
