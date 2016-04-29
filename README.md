@@ -64,22 +64,10 @@ starting the `lycheejs-harvester`.
 
 ## Install lycheeJS (Developer Machine)
 
-**1) Easy Way: Bundle Installation**
-
-The lycheeJS website offers prebuilt bundles that
-ship all the necessary dependencies and runtimes
-with them.
-
-These bundles should be installed on the developer's
-machine and not on the target platform. Starting with
-the `2016-Q2` release, we also have automatic updates
-integrated into the `lycheejs-harvester`.
-
-A list of bundles is available [lycheejs.org/#!bundles](http://lycheejs.org/#!bundles).
-
-
-
-**2) UNIX Way: Git/Net Installation**
+The native bundles (such as a Debian or OSX package or the lycheeOS
+image) are being deprecated, but can be built by anyone using the
+[lycheeJS-bundle](https://github.com/Artificial-Engineering/lycheeJS-bundle)
+repository.
 
 The netinstall shell script allows to automatically install
 lycheeJS on any UNIX-compatible machine (arm, x86 or amd64).
