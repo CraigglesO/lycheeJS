@@ -11,10 +11,11 @@ Support our libre Bot Cloud via BTC [1CamMuvrFU1QAMebPoDsL3JrioVDoxezY2](bitcoin
 
 The following repositories are related to the lycheeJS project:
 
-- [lycheeJS-bundle](https://github.com/Artificial-Engineering/lycheeJS-bundle.git) generates all OS-ready bundles.
+- [lycheeJS-bundle](https://github.com/Artificial-Engineering/lycheeJS-bundle.git) generates the OS-ready bundles.
+- [lycheeJS-library](https://github.com/Artificial-Engineering/lycheeJS-library.git) contains the lycheeJS library (for `bower` and `npm`).
 - [lycheeJS-future](https://github.com/Artificial-Engineering/lycheeJS-future.git) contains concepts and ideas not yet finished.
-- [lycheeJS-runtime](https://github.com/Artificial-Engineering/lycheeJS-runtime.git) contains all pre-compiled runtimes used by the Fertilizers.
-- [lycheeJS-tutorial](https://github.com/Artificial-Engineering/lycheeJS-tutorial.git) generates all OS-ready tutorials.
+- [lycheeJS-runtime](https://github.com/Artificial-Engineering/lycheeJS-runtime.git) contains all pre-compiled runtimes (fertilizers).
+- [lycheeJS-tutorial](https://github.com/Artificial-Engineering/lycheeJS-tutorial.git) contains the lycheeJS tutorial.
 - [lycheeJS-website](https://github.com/Artificial-Engineering/lycheeJS-website.git) contains the lycheeJS website.
 
 
