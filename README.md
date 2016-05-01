@@ -19,8 +19,8 @@ The following repositories are related to the lycheeJS project:
 - [lycheeJS-website](https://github.com/Artificial-Engineering/lycheeJS-website.git) contains the lycheeJS website.
 
 
-lycheeJS is a Next-Gen Isomorphic Application Engine that
-offers a complete solution for prototyping and deployment
+lycheeJS is a [Next-Gen Isomorphic Application Engine](https://lychee.js.org/#!vision)
+that offers a complete solution for prototyping and deployment
 of applications. The underlying technology stack does not
 matter (HTML5, WebGL, OpenGL, OpenGLES, libSDL) and is
 completely automated behind the scenes.
@@ -78,7 +78,7 @@ The only requirements beforehand are working `bash`, `git` and `curl`.
 ```bash
 # This will clone lycheejs into /opt/lycheejs
 
-sudo bash -c "$(curl -fsSL http://lycheejs.org/install.sh)";
+sudo bash -c "$(curl -fsSL https://lychee.js.org/install.sh)";
 ```
 
 The above commands will look similar to this if everything went fine.
