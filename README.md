@@ -83,7 +83,7 @@ sudo bash -c "$(curl -fsSL https://lychee.js.org/install.sh)";
 
 The above commands will look similar to this if everything went fine.
 
-![Install lycheeJS](./guides/asset/readme-netinstall.gif)
+![Install lycheeJS](./guides/asset/readme-install.gif)
 
 
 
