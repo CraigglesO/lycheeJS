@@ -1,5 +1,8 @@
 
 lychee.define('lychee.net.Tunnel').requires([
+	'lychee.net.socket.HTTP',
+	'lychee.net.socket.REST',
+	'lychee.net.socket.WS',
 	'lychee.data.BENCODE',
 	'lychee.data.BITON',
 	'lychee.data.JSON',
@@ -119,7 +122,9 @@ lychee.define('lychee.net.Tunnel').requires([
 		this.reconnect = 0;
 
 
-		this.__services  = {
+		this.__isConnected = false;
+		this.__socket      = null;
+		this.__services    = {
 			waiting: [],
 			active:  []
 		};
@@ -141,7 +146,24 @@ lychee.define('lychee.net.Tunnel').requires([
 		 * INITIALIZATION
 		 */
 
+		this.bind('connect', function() {
+
+			this.__isConnected = true;
+
+		}, this);
+
+		this.bind('send', function(blob, binary) {
+
+			if (this.__socket !== null) {
+				this.socket.send(blob, binary);
+			}
+
+		}, this);
+
 		this.bind('disconnect', function() {
+
+			this.__isConnected = false;
+
 
 			for (var a = 0, al = this.__services.active.length; a < al; a++) {
 				this.__services.active[a].trigger('unplug');
@@ -166,6 +188,13 @@ lychee.define('lychee.net.Tunnel').requires([
 	};
 
 
+	Class.TYPE = {
+		WS:   0,
+		REST: 1,
+		HTTP: 2
+	};
+
+
 	Class.prototype = {
 
 		/*
@@ -173,6 +202,12 @@ lychee.define('lychee.net.Tunnel').requires([
 		 */
 
 		deserialize: function(blob) {
+
+			var socket = lychee.deserialize(blob.socket);
+			if (socket !== null) {
+				this.__socket = socket;
+			}
+
 
 			if (blob.services instanceof Array) {
 
@@ -193,11 +228,15 @@ lychee.define('lychee.net.Tunnel').requires([
 			var blob     = (data['blob'] || {});
 
 
-			if (this.codec !== _JSON)      settings.codec     = lychee.serialize(this.codec);
-			if (this.host !== 'localhost') settings.host      = this.host;
-			if (this.port !== 1337)        settings.port      = this.port;
-			if (this.binary !== false)     settings.binary    = this.binary;
-			if (this.reconnect !== 0)      settings.reconnect = this.reconnect;
+			if (this.codec !== _JSON)        settings.codec     = lychee.serialize(this.codec);
+			if (this.host !== 'localhost')   settings.host      = this.host;
+			if (this.port !== 1337)          settings.port      = this.port;
+			if (this.binary !== false)       settings.binary    = this.binary;
+			if (this.reconnect !== 0)        settings.reconnect = this.reconnect;
+			if (this.type !== Class.TYPE.WS) settings.type      = this.type;
+
+
+			if (this.__socket !== null) blob.socket = lychee.serialize(this.__socket);
 
 
 			if (this.__services.active.length > 0) {
@@ -228,6 +267,82 @@ lychee.define('lychee.net.Tunnel').requires([
 		/*
 		 * CUSTOM API
 		 */
+
+		connect: function(connection) {
+
+			connection = typeof connection === 'object' ? connection : null;
+
+
+			if (this.__isConnected === false) {
+
+				var type = this.type;
+				if (type === Class.TYPE.WS) {
+					this.__socket = new lychee.net.socket.WS();
+				} else if (type === Class.TYPE.REST) {
+					this.__socket = new lychee.net.socket.REST();
+				} else if (type === Class.TYPE.HTTP) {
+					this.__socket = new lychee.net.socket.HTTP();
+				}
+
+
+				this.__socket.bind('connect', function() {
+					this.trigger('connect');
+				}, this)
+
+				this.__socket.bind('receive', function(data) {
+					this.receive(data);
+				}, this);
+
+				this.__socket.bind('disconnect', function() {
+					this.disconnect();
+				}, this);
+
+				this.__socket.bind('error', function() {
+					this.setReconnect(0);
+					this.disconnect();
+				}, this);
+
+
+				this.__socket.connect(connection, this.host, this.port);
+
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
+		disconnect: function() {
+
+			if (this.__isConnected === true) {
+
+				var socket = this.__socket;
+				if (socket !== null) {
+
+					this.__socket.unbind('connect');
+					this.__socket.unbind('receive');
+					this.__socket.unbind('disconnect');
+					this.__socket.unbind('error');
+					this.__socket.disconnect();
+					this.__socket = null;
+
+				}
+
+
+				this.trigger('disconnect');
+
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
 
 		send: function(data, service) {
 
@@ -524,6 +639,33 @@ lychee.define('lychee.net.Tunnel').requires([
 						id:     service.id,
 						method: '@unplug'
 					});
+
+				}
+
+
+				return true;
+
+			}
+
+
+			return false;
+
+		},
+
+		setType: function(type) {
+
+			type = lychee.enumof(Class.TYPE, type) ? type : null;
+
+
+			if (type !== null) {
+
+				var oldtype = this.type;
+				if (oldtype !== type) {
+
+					this.type = type;
+
+					this.disconnect();
+					this.connect();
 
 				}
 
