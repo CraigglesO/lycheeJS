@@ -119,6 +119,7 @@ lychee.define('lychee.net.Tunnel').requires([
 		this.host      = 'localhost';
 		this.port      = 1337;
 		this.reconnect = 0;
+		this.type      = Class.TYPE.WS;
 
 
 		this.__isConnected = false;
@@ -132,6 +133,7 @@ lychee.define('lychee.net.Tunnel').requires([
 		this.setHost(settings.host);
 		this.setPort(settings.port);
 		this.setReconnect(settings.reconnect);
+		this.setType(settings.type);
 
 
 		lychee.event.Emitter.call(this);
@@ -153,7 +155,7 @@ lychee.define('lychee.net.Tunnel').requires([
 		this.bind('send', function(blob) {
 
 			if (this.__socket !== null) {
-				this.socket.send(blob);
+				this.__socket.send(blob);
 			}
 
 		}, this);

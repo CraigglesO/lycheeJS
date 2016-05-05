@@ -145,6 +145,7 @@ lychee.define('lychee.net.Server').tags({
 				var codec  = this.codec;
 				var server = new _http.Server();
 
+
 				server.on('connection', function(socket) {
 
 					var host   = socket.remoteAddress || socket.server._connectionKey.split(':')[1];
@@ -166,6 +167,16 @@ lychee.define('lychee.net.Server').tags({
 
 
 					remote.connect(socket);
+
+				});
+
+
+				server.on('upgrade', function(request, socket) {
+
+					socket.emit('upgrade', {
+						headers: request.headers,
+						socket:  socket
+					});
 
 				});
 

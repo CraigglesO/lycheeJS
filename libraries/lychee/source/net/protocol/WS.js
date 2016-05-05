@@ -475,7 +475,7 @@ lychee.define('lychee.net.protocol.WS').exports(function(lychee, global, attachm
 
 					this.close(Class.STATUS.message_too_big);
 
-				} else if (that.__isClosed === false) {
+				} else if (this.__isClosed === false) {
 
 					var buf = this.__buffer;
 					var tmp = new Buffer(buf.length + blob.length);
@@ -490,7 +490,10 @@ lychee.define('lychee.net.protocol.WS').exports(function(lychee, global, attachm
 
 					while (result.bytes !== -1) {
 
-						chunks.push(result.chunk);
+						if (result.chunk !== null) {
+							chunks.push(result.chunk);
+						}
+
 
 						tmp = new Buffer(buf.length - result.bytes);
 						buf.copy(tmp, 0, result.bytes);

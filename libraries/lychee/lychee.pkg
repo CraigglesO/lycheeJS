@@ -373,6 +373,12 @@
 				]
 			},
 			"net": {
+				"Client": [
+					"js"
+				],
+				"Remote": [
+					"js"
+				],
 				"Service": [
 					"js"
 				],
@@ -443,15 +449,14 @@
 						"js"
 					],
 					"net": {
-						"Client": [
-							"js"
-						],
-						"Remote": [
-							"js"
-						],
 						"Server": [
 							"js"
-						]
+						],
+						"socket": {
+							"WS": [
+								"js"
+							]
+						}
 					},
 					"ui": {
 						"entity": {
@@ -509,15 +514,14 @@
 						"js"
 					],
 					"net": {
-						"Client": [
-							"js"
-						],
-						"Remote": [
-							"js"
-						],
 						"Server": [
 							"js"
-						]
+						],
+						"socket": {
+							"WS": [
+								"js"
+							]
+						}
 					},
 					"ui": {
 						"entity": {

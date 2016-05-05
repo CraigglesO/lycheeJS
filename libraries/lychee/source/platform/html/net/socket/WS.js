@@ -28,6 +28,7 @@ lychee.define('lychee.net.socket.WS').tags({
 	var Class = function() {
 
 		this.__connection = null;
+		this.__protocol   = null;
 
 		lychee.event.Emitter.call(this);
 
@@ -65,54 +66,107 @@ lychee.define('lychee.net.socket.WS').tags({
 			connection = typeof connection === 'object' ? connection : null;
 
 
-			if (connection !== null) {
+			var that = this;
+			var url  = 'ws://' + host + ':' + port;
 
-				// TODO: Port lychee.net.Remote code
+
+			if (host !== null && port !== null) {
+
+				if (connection !== null) {
+
+					// TODO: Port lychee.net.Remote code
 
 
-				this.__connection = connection;
+					this.__connection = connection;
+					this.__protocol   = new _Protocol(_Protocol.TYPE.remote);
 
-			} else {
+				} else {
 
-				var that = this;
-				var url  = 'ws://' + host + ':' + port;
 
-				if (host.match(/:/g) !== null) {
-					url = 'ws://[' + host + ']:' + port;
+					if (host.match(/:/g) !== null) {
+						url = 'ws://[' + host + ']:' + port;
+					}
+
+
+					connection = new _WebSocket(url, [ 'lycheejs' ]);
+
+					connection.onopen = function() {
+
+						that.trigger('connect');
+
+					};
+
+					connection.onmessage = function(event) {
+
+						that.trigger('receive', [ event.data ]);
+
+					};
+
+					connection.onclose = function() {
+
+						that.__connection = null;
+						that.__protocol   = null;
+						that.trigger('disconnect');
+
+					};
+
+					connection.ontimeout = function() {
+
+						that.trigger('error');
+						this.close();
+
+					};
+
+					connection.onerror = function() {
+
+						that.trigger('error');
+						this.close();
+
+					};
+
+
+					if (lychee.debug === true) {
+						console.log('lychee.net.socket.WS: Connected to ' + host + ':' + port);
+					}
+
+
+					this.__connection = connection;
+					this.__protocol   = new _Protocol(_Protocol.TYPE.client);
+
 				}
 
+			}
 
-				connection = new _WebSocket(url, [ 'lycheejs' ]);
+		},
 
-				connection.onopen = function() {
-					that.trigger('connect');
-				};
+		send: function(data, binary) {
 
-				connection.onmessage = function(event) {
-					that.trigger('receive', [ event.data ]);
-				};
-
-				connection.onclose = function() {
-					that.trigger('disconnect');
-				};
-
-				connection.ontimeout = function() {
-					that.trigger('error');
-					this.close();
-				};
-
-				connection.onerror = function() {
-					that.trigger('error');
-					this.close();
-				};
+// TODO: Fix this shit here
+if (typeof data === 'string') {
+	data = new Buffer(data, 'utf8');
+}
 
 
-				if (lychee.debug === true) {
-					console.log('lychee.net.socket.WS: Connected to ' + host + ':' + port);
+			data   = data instanceof Buffer ? data : null;
+			binary = binary === true;
+
+
+			if (data !== null) {
+
+				var connection = this.__connection;
+				var protocol   = this.__protocol;
+
+				if (connection !== null && protocol !== null) {
+
+					connection.send(data.toString('utf8'), binary);
+
+					// XXX: Normally, Protocol encodes data into chunk
+					// var chunk = this.__protocol.send(data, binary);
+					// if (chunk !== null) {
+					// 	connection.write(buffer);
+					// }
+
 				}
-
-
-				this.__connection = connection;
 
 			}
 

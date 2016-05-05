@@ -162,248 +162,261 @@ lychee.define('lychee.net.socket.WS').tags({
 			connection = typeof connection === 'object' ? connection : null;
 
 
-			if (connection !== null) {
-
-				connection.on('upgrade', function(request) {
-
-					var protocol = new _Protocol(_Protocol.TYPE.remote);
-					var socket   = request.socket || null;
+			var that = this;
+			var url  = host.match(/:/g) !== null ? ('ws://[' + host + ']:' + port) : ('ws://' + host + ':' + port);
 
 
-					if (socket !== null) {
+			if (host !== null && port !== null) {
 
-						var verification = _verify_remote(request.headers);
-						if (verification !== null) {
+				if (connection !== null) {
 
-							socket.write(verification, 'ascii');
-							socket.setTimeout(0);
-							socket.setNoDelay(true);
-							socket.setKeepAlive(true, 0);
-							socket.removeAllListeners('timeout');
+					connection.on('upgrade', function(request) {
+
+						var protocol = new _Protocol(_Protocol.TYPE.remote);
+						var socket   = request.socket || null;
 
 
-							socket.on('data', function(blob) {
+						if (socket !== null) {
 
-								var chunks = protocol.receive(blob);
-								if (chunks.length > 0) {
+							var verification = _verify_remote(request.headers);
+							if (verification !== null) {
 
-									for (var c = 0, cl = chunks.length; c < cl; c++) {
-										that.trigger('receive', [ chunks[c] ]);
+								socket.write(verification, 'ascii');
+								socket.setTimeout(0);
+								socket.setNoDelay(true);
+								socket.setKeepAlive(true, 0);
+								socket.removeAllListeners('timeout');
+
+
+								socket.on('data', function(blob) {
+
+									var chunks = protocol.receive(blob);
+									if (chunks.length > 0) {
+
+										for (var c = 0, cl = chunks.length; c < cl; c++) {
+											that.trigger('receive', [ chunks[c] ]);
+										}
+
 									}
 
-								}
+								});
 
-							});
+								socket.on('error', function() {
 
-							socket.on('error', function() {
+									that.trigger('error');
+									this.end();
 
-								that.trigger('error');
-								this.end();
+								});
 
-							});
+								socket.on('timeout', function() {
+									// XXX: Do nothing
+								});
 
-							socket.on('timeout', function() {
-								// XXX: Do nothing
-							});
+								socket.on('close', function() {
+									// XXX: Do nothing
+								});
 
-							socket.on('close', function() {
-								// XXX: Do nothing
-							});
+								socket.on('end', function() {
 
-							socket.on('end', function() {
+									if (lychee.debug === true) {
+										console.log('lychee.net.socket.WS: Disconnected');
+									}
+
+									that.__connection = null;
+									that.__protocol   = null;
+									that.trigger('disconnect');
+									// this.destroy();
+
+								});
+
 
 								if (lychee.debug === true) {
-									console.log('lychee.net.socket.WS: Disconnected');
+									console.log('lychee.net.socket.WS: Connected to ' + host + ':' + port);
 								}
 
+
+								that.__connection = socket;
+								that.__protocol   = protocol;
+
+								setTimeout(function() {
+									that.trigger('connect');
+								}, 1000);
+
+							} else {
+
+								socket.end();
+								socket.destroy();
+
+
 								that.__connection = null;
-								that.trigger('disconnect');
-								// this.destroy();
+								that.__protocol   = null;
+								that.trigger('error');
 
-							});
-
-
-							if (lychee.debug === true) {
-								console.log('lychee.net.socket.WS: Connected to ' + host + ':' + port);
 							}
 
+						}
 
-							that.__connection = socket;
-							that.trigger('connect');
+					});
 
-						} else {
+				} else {
+
+					var nonce = new Buffer(16);
+
+					for (var n = 0; n < 16; n++) {
+						nonce[n] = Math.round(Math.random() * 0xff);
+					}
+
+
+					var connector = _http.request({
+						hostname: host,
+						port:     port,
+						method:   'GET',
+						headers:  {
+							'Upgrade':                'websocket',
+							'Connection':             'Upgrade',
+							'Origin':                 url,
+							'Host':                   host + ':' + port,
+							'Sec-WebSocket-Key':      nonce.toString('base64'),
+							'Sec-WebSocket-Version':  '13',
+							'Sec-WebSocket-Protocol': 'lycheejs'
+						}
+					});
+
+
+					connector.on('upgrade', function(response) {
+
+						var protocol = new _Protocol(_Protocol.TYPE.client);
+						var socket   = response.socket || null;
+
+
+						if (socket !== null) {
+
+							var verification = _verify_client(response.headers, nonce);
+							if (verification !== null) {
+
+								socket.setTimeout(0);
+								socket.setNoDelay(true);
+								socket.setKeepAlive(true, 0);
+								socket.removeAllListeners('timeout');
+
+
+								_setInterval(function() {
+
+									var chunk = protocol.ping();
+									if (chunk !== null) {
+										socket.write(chunk);
+									}
+
+								}.bind(this), 60000);
+
+
+								socket.on('data', function(blob) {
+
+									var chunks = protocol.receive(blob);
+									if (chunks.length > 0) {
+
+										for (var c = 0, cl = chunks.length; c < cl; c++) {
+											that.trigger('receive', [ chunks[c] ]);
+										}
+
+									}
+
+								});
+
+								socket.on('error', function() {
+
+									that.trigger('error');
+									this.end();
+
+								});
+
+								socket.on('timeout', function() {
+
+									that.trigger('error');
+									this.end();
+
+								});
+
+								socket.on('close', function() {
+									// XXX: Do nothing
+								});
+
+								socket.on('end', function() {
+
+									if (lychee.debug === true) {
+										console.log('lychee.net.socket.WS: Disconnected');
+									}
+
+									that.__connection = null;
+									that.__protocol   = null;
+									that.trigger('disconnect');
+									// this.destroy();
+
+								});
+
+
+								if (lychee.debug === true) {
+									console.log('lychee.net.socket.WS: Connected to ' + host + ':' + port);
+								}
+
+
+								that.__connection = socket;
+								that.__protocol   = protocol;
+								that.trigger('connect');
+
+							} else {
+
+								socket.end();
+								socket.destroy();
+
+
+								that.__connection = null;
+								that.__protocol   = null;
+								that.trigger('error');
+
+							}
+
+						}
+
+					});
+
+					connector.on('error', function(response) {
+
+						var socket = response.socket || null;
+						if (socket !== null) {
 
 							socket.end();
 							socket.destroy();
 
 
 							that.__connection = null;
+							that.__protocol   = null;
 							that.trigger('error');
 
 						}
 
-					}
+					});
 
-				});
+					connector.on('response', function(response) {
 
-			} else {
-
-				var that  = this;
-				var url   = 'ws://' + host + ':' + port;
-				var nonce = new Buffer(16);
-
-				if (host.match(/:/g) !== null) {
-					url = 'ws://[' + host + ']:' + port;
-				}
-
-				for (var n = 0; n < 16; n++) {
-					nonce[n] = Math.round(Math.random() * 0xff);
-				}
-
-
-				var connector = _http.request({
-					hostname: host,
-					port:     port,
-					method:   'GET',
-					headers:  {
-						'Upgrade':                'websocket',
-						'Connection':             'Upgrade',
-						'Origin':                 url,
-						'Host':                   host + ':' + port,
-						'Sec-WebSocket-Key':      nonce.toString('base64'),
-						'Sec-WebSocket-Version':  '13',
-						'Sec-WebSocket-Protocol': 'lycheejs'
-					}
-				});
-
-
-				connector.on('upgrade', function(response) {
-
-					var protocol = new _Protocol(_Protocol.TYPE.client);
-					var socket   = response.socket || null;
-
-
-					if (socket !== null) {
-
-						var verification = _verify_client(response.headers, nonce);
-						if (verification !== null) {
-
-							socket.setTimeout(0);
-							socket.setNoDelay(true);
-							socket.setKeepAlive(true, 0);
-							socket.removeAllListeners('timeout');
-
-
-							_setInterval(function() {
-
-								var chunk = protocol.ping();
-								if (chunk !== null) {
-									socket.write(chunk);
-								}
-
-							}.bind(this), 60000);
-
-
-							socket.on('data', function(blob) {
-
-								var chunks = protocol.receive(blob);
-								if (chunks.length > 0) {
-
-									for (var c = 0, cl = chunks.length; c < cl; c++) {
-										that.trigger('receive', [ chunks[c] ]);
-									}
-
-								}
-
-							});
-
-							socket.on('error', function() {
-
-								that.trigger('error');
-								this.end();
-
-							});
-
-							socket.on('timeout', function() {
-
-								that.trigger('error');
-								this.end();
-
-							});
-
-							socket.on('close', function() {
-								// XXX: Do nothing
-							});
-
-							socket.on('end', function() {
-
-								if (lychee.debug === true) {
-									console.log('lychee.net.socket.WS: Disconnected');
-								}
-
-								that.__connection = null;
-								that.trigger('disconnect');
-								// this.destroy();
-
-							});
-
-
-							if (lychee.debug === true) {
-								console.log('lychee.net.socket.WS: Connected to ' + host + ':' + port);
-							}
-
-
-							that.__connection = socket;
-							that.trigger('connect');
-
-						} else {
+						var socket = response.socket || null;
+						if (socket !== null) {
 
 							socket.end();
 							socket.destroy();
 
 
 							that.__connection = null;
+							that.__protocol   = null;
 							that.trigger('error');
 
 						}
 
-					}
+					});
 
-				});
+					connector.end();
 
-				connector.on('error', function(response) {
-
-					var socket = response.socket || null;
-					if (socket !== null) {
-
-						socket.end();
-						socket.destroy();
-
-
-						that.__connection = null;
-						that.trigger('error');
-
-					}
-
-				});
-
-				connector.on('response', function(response) {
-
-					var socket = response.socket || null;
-					if (socket !== null) {
-
-						socket.end();
-						socket.destroy();
-
-
-						that.__connection = null;
-						that.trigger('error');
-
-					}
-
-				});
-
-				connector.end();
+				}
 
 			}
 
@@ -411,12 +424,29 @@ lychee.define('lychee.net.socket.WS').tags({
 
 		send: function(data, binary) {
 
-			var connection = this.__connection;
-			if (connection !== null) {
+// TODO: Fix this shit here
+if (typeof data === 'string') {
+	data = new Buffer(data, 'utf8');
+}
 
-				var chunk = this.__protocol.send(data, binary);
-				if (chunk !== null) {
-					connection.write(buffer);
+			data   = data instanceof Buffer ? data : null;
+			binary = binary === true;
+
+
+			if (data !== null) {
+
+				var connection = this.__connection;
+				var protocol   = this.__protocol;
+
+				if (connection !== null && protocol !== null) {
+
+					var chunk = this.__protocol.send(data, binary);
+					var enc   = binary === true ? 'binary' : 'utf8';
+
+					if (chunk !== null) {
+						connection.write(chunk, enc);
+					}
+
 				}
 
 			}
