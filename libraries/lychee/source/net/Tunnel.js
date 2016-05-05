@@ -1,7 +1,7 @@
 
 lychee.define('lychee.net.Tunnel').requires([
-	'lychee.net.socket.HTTP',
-	'lychee.net.socket.REST',
+//	'lychee.net.socket.HTTP',
+//	'lychee.net.socket.REST',
 	'lychee.net.socket.WS',
 	'lychee.data.BENCODE',
 	'lychee.data.BITON',
@@ -116,7 +116,6 @@ lychee.define('lychee.net.Tunnel').requires([
 
 
 		this.codec     = lychee.interfaceof(_JSON, settings.codec) ? settings.codec : _JSON;
-		this.binary    = false;
 		this.host      = 'localhost';
 		this.port      = 1337;
 		this.reconnect = 0;
@@ -130,7 +129,6 @@ lychee.define('lychee.net.Tunnel').requires([
 		};
 
 
-		this.setBinary(settings.binary);
 		this.setHost(settings.host);
 		this.setPort(settings.port);
 		this.setReconnect(settings.reconnect);
@@ -152,10 +150,10 @@ lychee.define('lychee.net.Tunnel').requires([
 
 		}, this);
 
-		this.bind('send', function(blob, binary) {
+		this.bind('send', function(blob) {
 
 			if (this.__socket !== null) {
-				this.socket.send(blob, binary);
+				this.socket.send(blob);
 			}
 
 		}, this);
@@ -231,7 +229,6 @@ lychee.define('lychee.net.Tunnel').requires([
 			if (this.codec !== _JSON)        settings.codec     = lychee.serialize(this.codec);
 			if (this.host !== 'localhost')   settings.host      = this.host;
 			if (this.port !== 1337)          settings.port      = this.port;
-			if (this.binary !== false)       settings.binary    = this.binary;
 			if (this.reconnect !== 0)        settings.reconnect = this.reconnect;
 			if (this.type !== Class.TYPE.WS) settings.type      = this.type;
 
@@ -303,7 +300,7 @@ lychee.define('lychee.net.Tunnel').requires([
 				}, this);
 
 
-				this.__socket.connect(connection, this.host, this.port);
+				this.__socket.connect(this.host, this.port, connection);
 
 
 				return true;
@@ -367,21 +364,7 @@ lychee.define('lychee.net.Tunnel').requires([
 			var blob = this.codec.encode(data);
 			if (blob !== null) {
 
-				if (this.binary === true) {
-
-					var bl    = blob.length;
-					var bytes = new Uint8Array(bl);
-
-					for (var b = 0; b < bl; b++) {
-						bytes[b] = blob.charCodeAt(b);
-					}
-
-					blob = bytes.buffer;
-
-				}
-
-
-				this.trigger('send', [ blob, this.binary ]);
+				this.trigger('send', [ blob ]);
 
 				return true;
 
@@ -393,14 +376,6 @@ lychee.define('lychee.net.Tunnel').requires([
 		},
 
 		receive: function(blob) {
-
-			if (this.binary === true) {
-
-				var bytes = new Uint8Array(blob);
-				blob = String.fromCharCode.apply(null, bytes);
-
-			}
-
 
 			var data = this.codec.decode(blob);
 			if (data instanceof Object && typeof data._serviceId === 'string') {
@@ -452,21 +427,6 @@ lychee.define('lychee.net.Tunnel').requires([
 
 
 			return true;
-
-		},
-
-		setBinary: function(binary) {
-
-			if (binary === true || binary === false) {
-
-				this.binary = binary;
-
-				return true;
-
-			}
-
-
-			return false;
 
 		},
 
