@@ -1,13 +1,11 @@
 
 lychee.define('fertilizer.Template').requires([
 	'lychee.Stash',
-	'lychee.data.JSON',
 	'fertilizer.data.Shell'
 ]).includes([
 	'lychee.event.Flow'
 ]).exports(function(lychee, global, attachments) {
 
-	var _JSON  = lychee.import('lychee.data.JSON');
 	var _Stash = lychee.import('lychee.Stash');
 	var _Shell = lychee.import('fertilizer.data.Shell');
 

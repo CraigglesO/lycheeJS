@@ -59,7 +59,7 @@ lychee.define('harvester.net.Server').tags({
 
 		return {
 			headers: { status: 404, 'Content-Type': content },
-			payload: payload
+			payload: new Buffer(payload, 'utf8')
 		};
 
 	};

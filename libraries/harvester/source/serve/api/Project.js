@@ -4,10 +4,7 @@ lychee.define('harvester.serve.api.Project').requires([
 	'harvester.mod.Server'
 ]).exports(function(lychee, global, attachments) {
 
-	var _JSON   = {
-		encode: JSON.stringify,
-		decode: JSON.parse
-	};
+	var _JSON   = lychee.import('lychee.data.JSON');
 	var _Server = lychee.import('harvester.mod.Server');
 
 

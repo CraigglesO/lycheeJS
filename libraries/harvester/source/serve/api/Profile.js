@@ -4,8 +4,8 @@ lychee.define('harvester.serve.api.Profile').requires([
 	'harvester.data.Filesystem'
 ]).exports(function(lychee, global, attachments) {
 
+	var _JSON       = lychee.import('lychee.data.JSON');
 	var _Filesystem = lychee.import('harvester.data.Filesystem');
-	var _JSON       = lychee.data.JSON;
 
 
 

@@ -1,14 +1,12 @@
 
 lychee.define('breeder.Template').requires([
-	'lychee.Stash',
-	'lychee.data.JSON'
+	'lychee.Stash'
 ]).includes([
 	'lychee.event.Flow'
 ]).exports(function(lychee, global, attachments) {
 
 	var _Flow  = lychee.import('lychee.event.Flow');
 	var _Stash = lychee.import('lychee.Stash');
-	var _JSON  = lychee.import('lychee.data.JSON');
 	var _ASSET = '/libraries/breeder/asset';
 	var _STASH = new _Stash({
 		type: _Stash.TYPE.persistent

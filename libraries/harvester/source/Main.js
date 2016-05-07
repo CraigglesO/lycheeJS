@@ -14,7 +14,7 @@ lychee.define('harvester.Main').requires([
 	'lychee.event.Emitter'
 ]).exports(function(lychee, global, attachments) {
 
-	var _JSON      = lychee.data.JSON;
+	var _JSON      = lychee.import('lychee.data.JSON');
 	var _harvester = lychee.import('harvester');
 
 
@@ -416,7 +416,7 @@ lychee.define('harvester.Main').requires([
 
 					});
 
-				}, libraries.length * 1000);
+				}, 3000);
 
 			})(Object.values(_LIBRARIES), Object.values(_PROJECTS));
 
@@ -466,7 +466,7 @@ lychee.define('harvester.Main').requires([
 
 					});
 
-				}, libraries.length * 1000);
+				}, 3000);
 
 			})(Object.values(_LIBRARIES), Object.values(_PROJECTS));
 
