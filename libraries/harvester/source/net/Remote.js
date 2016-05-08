@@ -34,14 +34,17 @@ lychee.define('harvester.net.Remote').requires([
 		 * INITIALIZATION
 		 */
 
+		this.unbind('connect');
 		this.bind('connect', function() {
 			this.__isConnected = true;
 		}, this);
 
+		this.unbind('disconnect');
 		this.bind('disconnect', function() {
 			this.__isConnected = false;
 		}, this);
 
+		this.unbind('send');
 		this.bind('send', function(blob) {
 
 			if (this.__socket !== null) {
