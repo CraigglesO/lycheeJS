@@ -98,7 +98,28 @@ lychee.define('lychee.net.socket.WS').tags({
 
 					connection.onmessage = function(event) {
 
-						that.trigger('receive', [ event.data ]);
+						var blob = null;
+						var view = null;
+
+						if (typeof event.data === 'string') {
+
+							blob = new Buffer(event.data, 'utf8');
+
+						} else if (event.data instanceof ArrayBuffer) {
+
+							blob = new Buffer(event.data.byteLength);
+							view = new Uint8Array(event.data);
+
+							for (var v = 0, vl = blob.length; v < vl; v++) {
+								blob[v] = view[v];
+							}
+
+						}
+
+
+						if (blob !== null) {
+							that.trigger('receive', [ blob ]);
+						}
 
 					};
 
@@ -141,12 +162,6 @@ lychee.define('lychee.net.socket.WS').tags({
 
 		send: function(data, binary) {
 
-// TODO: Fix this shit here
-if (typeof data === 'string') {
-	data = new Buffer(data, 'utf8');
-}
-
-
 			data   = data instanceof Buffer ? data : null;
 			binary = binary === true;
 
@@ -158,13 +173,22 @@ if (typeof data === 'string') {
 
 				if (connection !== null && protocol !== null) {
 
-					connection.send(data.toString('utf8'), binary);
+					if (binary === true) {
 
-					// XXX: Normally, Protocol encodes data into chunk
-					// var chunk = this.__protocol.send(data, binary);
-					// if (chunk !== null) {
-					// 	connection.write(buffer);
-					// }
+						var blob = new ArrayBuffer(buffer.length);
+						var view = new Uint8Array(blob);
+
+						for (var b = 0, bl = blob.length; b < bl; b++) {
+							view[b] = blob[b];
+						}
+
+						connection.send(blob);
+
+					} else {
+
+						connection.send(data.toString('utf8'));
+
+					}
 
 				}
 

@@ -1,12 +1,9 @@
 
-lychee.define('fertilizer.template.html.Application').requires([
-	'lychee.data.JSON'
-]).includes([
+lychee.define('fertilizer.template.html.Application').includes([
 	'fertilizer.Template'
 ]).exports(function(lychee, global, attachments) {
 
 	var _Template  = lychee.import('fertilizer.Template');
-	var _JSON      = lychee.import('lychee.data.JSON');
 	var _TEMPLATES = {
 		config: attachments["config.tpl"],
 		core:   null,

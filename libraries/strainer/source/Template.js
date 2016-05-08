@@ -1,7 +1,6 @@
 
 lychee.define('strainer.Template').requires([
 	'lychee.Stash',
-	'lychee.data.JSON',
 	'strainer.data.API'
 //	'strainer.data.FIX'
 ]).includes([
@@ -12,7 +11,6 @@ lychee.define('strainer.Template').requires([
 	var _FIX   = lychee.import('strainer.data.FIX');
 	var _Flow  = lychee.import('lychee.event.Flow');
 	var _Stash = lychee.import('lychee.Stash');
-	var _JSON  = lychee.import('lychee.data.JSON');
 	var _STASH = new _Stash({
 		type: _Stash.TYPE.persistent
 	});

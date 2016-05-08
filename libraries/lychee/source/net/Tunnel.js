@@ -3,17 +3,17 @@ lychee.define('lychee.net.Tunnel').requires([
 //	'lychee.net.socket.HTTP',
 //	'lychee.net.socket.REST',
 	'lychee.net.socket.WS',
-	'lychee.data.BENCODE',
-	'lychee.data.BITON',
-	'lychee.data.JSON',
+	'lychee.codec.BENCODE',
+	'lychee.codec.BITON',
+	'lychee.codec.JSON',
 	'lychee.net.Service'
 ]).includes([
 	'lychee.event.Emitter'
 ]).exports(function(lychee, global, attachments) {
 
-	var _BENCODE = lychee.import('lychee.data.BENCODE');
-	var _BITON   = lychee.import('lychee.data.BITON');
-	var _JSON    = lychee.import('lychee.data.JSON');
+	var _BENCODE = lychee.import('lychee.codec.BENCODE');
+	var _BITON   = lychee.import('lychee.codec.BITON');
+	var _JSON    = lychee.import('lychee.codec.JSON');
 
 
 

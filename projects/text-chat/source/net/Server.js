@@ -1,6 +1,5 @@
 
 lychee.define('app.net.Server').requires([
-	'lychee.data.BITON',
 	'lychee.net.remote.Chat'
 ]).includes([
 	'lychee.net.Server'
@@ -8,7 +7,6 @@ lychee.define('app.net.Server').requires([
 
 	var _Chat   = lychee.import('lychee.net.remote.Chat');
 	var _Server = lychee.import('lychee.net.Server');
-	var _BITON  = lychee.import('lychee.data.BITON');
 
 
 
@@ -19,7 +17,6 @@ lychee.define('app.net.Server').requires([
 	var Class = function(data) {
 
 		var settings = lychee.extend({
-			codec: _BITON
 		}, data);
 
 

@@ -1,12 +1,10 @@
 
 lychee.define('app.net.Server').requires([
-	'lychee.data.BITON'
 ]).includes([
 	'lychee.net.Server'
 ]).exports(function(lychee, global, attachments) {
 
 	var _Server = lychee.import('lychee.net.Server');
-	var _BITON  = lychee.import('lychee.data.BITON');
 
 
 
@@ -17,7 +15,6 @@ lychee.define('app.net.Server').requires([
 	var Class = function(data) {
 
 		var settings = lychee.extend({
-			codec: _BITON
 		}, data);
 
 

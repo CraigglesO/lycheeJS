@@ -1,6 +1,5 @@
 
 lychee.define('fertilizer.template.node.Application').requires([
-	'lychee.data.JSON',
 	'fertilizer.data.Shell'
 ]).includes([
 	'fertilizer.Template'
@@ -8,7 +7,6 @@ lychee.define('fertilizer.template.node.Application').requires([
 
 	var _Template  = lychee.import('fertilizer.Template');
 	var _Shell     = lychee.import('fertilizer.data.Shell');
-	var _JSON      = lychee.import('lychee.data.JSON');
 	var _TEMPLATES = {
 		core:  null,
 		index: attachments["index.tpl"]

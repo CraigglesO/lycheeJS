@@ -3,7 +3,7 @@ lychee.define('lychee.net.Server').tags({
 	platform: 'node'
 }).requires([
 	'lychee.Storage',
-	'lychee.data.JSON',
+	'lychee.codec.JSON',
 	'lychee.net.Remote'
 ]).includes([
 	'lychee.event.Emitter'
@@ -24,7 +24,7 @@ lychee.define('lychee.net.Server').tags({
 }).exports(function(lychee, global, attachments) {
 
 	var _http    = require('http');
-	var _JSON    = lychee.import('lychee.data.JSON');
+	var _JSON    = lychee.import('lychee.codec.JSON');
 	var _Storage = lychee.import('lychee.Storage');
 	var _storage = new _Storage({
 		id:    'server',

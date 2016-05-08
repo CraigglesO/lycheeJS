@@ -1,7 +1,7 @@
 
 lychee.define('harvester.Main').requires([
 	'lychee.Input',
-	'lychee.data.JSON',
+	'lychee.codec.JSON',
 	'harvester.data.Host',
 	'harvester.net.Server',
 	'harvester.mod.Fertilizer',
@@ -14,7 +14,7 @@ lychee.define('harvester.Main').requires([
 	'lychee.event.Emitter'
 ]).exports(function(lychee, global, attachments) {
 
-	var _JSON      = lychee.import('lychee.data.JSON');
+	var _JSON      = lychee.import('lychee.codec.JSON');
 	var _harvester = lychee.import('harvester');
 
 

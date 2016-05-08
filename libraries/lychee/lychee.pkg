@@ -261,6 +261,17 @@
 					]
 				}
 			},
+			"codec": {
+				"BENCODE": [
+					"js"
+				],
+				"BITON": [
+					"js"
+				],
+				"JSON": [
+					"js"
+				]
+			},
 			"core": {
 				"Asset": [
 					"js"
@@ -287,16 +298,7 @@
 				]
 			},
 			"data": {
-				"BENCODE": [
-					"js"
-				],
-				"BITON": [
-					"js"
-				],
 				"HTML": [
-					"js"
-				],
-				"JSON": [
 					"js"
 				],
 				"MD": [

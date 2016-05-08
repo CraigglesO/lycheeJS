@@ -1,6 +1,5 @@
 
 lychee.define('game.net.Client').requires([
-	'lychee.data.BITON',
 	'game.net.client.Control'
 ]).includes([
 	'lychee.net.Client'
@@ -8,7 +7,6 @@ lychee.define('game.net.Client').requires([
 
 	var _Client  = lychee.import('lychee.net.Client');
 	var _Control = lychee.import('game.net.client.Control');
-	var _BITON   = lychee.import('lychee.data.BITON');
 
 
 
@@ -19,7 +17,6 @@ lychee.define('game.net.Client').requires([
 	var Class = function(data, main) {
 
 		var settings = lychee.extend({
-			codec:     _BITON,
 			reconnect: 10000
 		}, data);
 

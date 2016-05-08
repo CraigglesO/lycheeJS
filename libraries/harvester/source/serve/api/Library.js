@@ -1,10 +1,10 @@
 
 lychee.define('harvester.serve.api.Library').requires([
-	'lychee.data.JSON',
+	'lychee.codec.JSON',
 	'harvester.mod.Server'
 ]).exports(function(lychee, global, attachments) {
 
-	var _JSON   = lychee.import('lychee.data.JSON');
+	var _JSON   = lychee.import('lychee.codec.JSON');
 	var _Server = lychee.import('harvester.mod.Server');
 
 

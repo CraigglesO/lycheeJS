@@ -1,7 +1,7 @@
 
 lychee.define('fertilizer.Main').requires([
 	'lychee.Input',
-	'lychee.data.JSON',
+	'lychee.codec.JSON',
 	'fertilizer.data.Shell',
 	'fertilizer.template.html.Application',
 	'fertilizer.template.html.Library',
@@ -19,7 +19,7 @@ lychee.define('fertilizer.Main').requires([
 	var _fertilizer = lychee.import('fertilizer');
 	var _Emitter    = lychee.import('lychee.event.Emitter');
 	var _Input      = lychee.import('lychee.Input');
-	var _JSON       = lychee.import('lychee.data.JSON');
+	var _JSON       = lychee.import('lychee.codec.JSON');
 
 
 

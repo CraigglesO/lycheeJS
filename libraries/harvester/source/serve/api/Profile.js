@@ -1,10 +1,10 @@
 
 lychee.define('harvester.serve.api.Profile').requires([
-	'lychee.data.JSON',
+	'lychee.codec.JSON',
 	'harvester.data.Filesystem'
 ]).exports(function(lychee, global, attachments) {
 
-	var _JSON       = lychee.import('lychee.data.JSON');
+	var _JSON       = lychee.import('lychee.codec.JSON');
 	var _Filesystem = lychee.import('harvester.data.Filesystem');
 
 
@@ -27,7 +27,7 @@ lychee.define('harvester.serve.api.Profile').requires([
 
 				var profile = fs.read('/' + identifier + '.json');
 				if (profile !== null) {
-					profiles[identifier] = _JSON.decode(profile.toString());
+					profiles[identifier] = _JSON.decode(profile);
 					profiles[identifier].identifier = identifier;
 				}
 

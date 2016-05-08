@@ -1,7 +1,6 @@
 
 lychee.define('breeder.Main').requires([
 	'lychee.Input',
-	'lychee.data.JSON',
 	'breeder.Template'
 ]).includes([
 	'lychee.event.Emitter'
@@ -10,7 +9,6 @@ lychee.define('breeder.Main').requires([
 	var _lychee  = lychee.import('lychee');
 	var _breeder = lychee.import('breeder');
 	var _Emitter = lychee.import('lychee.event.Emitter');
-	var _JSON    = lychee.import('lychee.data.JSON');
 	var _Input   = lychee.import('lychee.Input');
 
 

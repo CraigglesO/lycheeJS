@@ -3,13 +3,13 @@ lychee.define('lychee.net.Server').tags({
 	platform: 'html'
 }).requires([
 	'lychee.Storage',
-	'lychee.data.JSON',
+	'lychee.codec.JSON',
 	'lychee.net.Remote'
 ]).includes([
 	'lychee.event.Emitter'
 ]).exports(function(lychee, global, attachments) {
 
-	var _JSON = lychee.data.JSON;
+	var _JSON = lychee.import('lychee.codec.JSON');
 
 
 

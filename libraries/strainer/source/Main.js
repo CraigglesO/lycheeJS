@@ -1,7 +1,6 @@
 
 lychee.define('strainer.Main').requires([
 	'lychee.Input',
-	'lychee.data.JSON',
 	'strainer.Template'
 ]).includes([
 	'lychee.event.Emitter'
@@ -10,7 +9,6 @@ lychee.define('strainer.Main').requires([
 	var _lychee   = lychee.import('lychee');
 	var _strainer = lychee.import('strainer');
 	var _Emitter  = lychee.import('lychee.event.Emitter');
-	var _JSON     = lychee.import('lychee.data.JSON');
 	var _Input    = lychee.import('lychee.Input');
 
 

@@ -1,6 +1,6 @@
 
 lychee.define('harvester.serve.API').requires([
-	'lychee.data.JSON',
+	'lychee.codec.JSON',
 //	'harvester.serve.api.Console',
 	'harvester.serve.api.Library',
 	'harvester.serve.api.Profile',
@@ -8,7 +8,7 @@ lychee.define('harvester.serve.API').requires([
 	'harvester.serve.api.Server'
 ]).exports(function(lychee, global, attachments) {
 
-	var _JSON   = lychee.data.JSON;
+	var _JSON   = lychee.import('lychee.codec.JSON');
 	var _ADMIN  = {
 		'Console': lychee.import('harvester.serve.api.Console'),
 		'Library': lychee.import('harvester.serve.api.Library'),
