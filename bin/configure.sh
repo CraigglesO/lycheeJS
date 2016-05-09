@@ -93,6 +93,12 @@ else
 		elif [[ -x "/usr/bin/yum" ]]; then
 			PACKAGE_LIST="bash binutils binutils-arm-linux-gnu binutils-x86_64-linux-gnu coreutils libicns-utils sed zip unzip tar curl git wget";
 			PACKAGE_CMD="yum --setopt=alwaysprompt=no install $PACKAGE_LIST";
+		elif [[ -x "/usr/bin/pacman" ]]; then
+			PACKAGE_LIST="bash binutils coreutils libicns sed zip unzip tar curl git wget";
+			PACKAGE_CMD="pacman -S --noconfirm $PACKAGE_LIST";
+		elif [[ -x "/usr/bin/zypper" ]]; then
+			PACKAGE_LIST="bash binutils coreutils icns-utils sed zip unzip tar curl git wget";
+			PACKAGE_CMD="zypper --non-interactive install $PACKAGE_LIST";
 		fi;
 
 	fi;
