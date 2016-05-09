@@ -1,0 +1,466 @@
+Script started on Mon May  9 12:29:37 2016
+]7;file://Craiggless-MBP.domain/Users/connor[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;~]7;file://Craiggless-MBP.domain/Users/connor[0m[27m[24m[Jconnor@Craiggless-MBP:~% [K[?1h=ssudo bash -c "$(curl -fsSL https://lychee.js.org/instal [Kll.sh)"[A[19C[4m[32ms[4m[32mu[4m[32md[4m[32mo[24m[39m [32mb[32ma[32ms[32mh[39m[4C[33m"[33m$[33m([33mc[33mu[33mr[33ml[33m [33m-[33mf[33ms[33mS[33mL[33m [33mh[33mt[33mt[33mp[33ms[33m:[33m/[33m/[33ml[33my[33mc[33mh[33me[33me[33m.[33mj[33ms[33m.[33mo[33mr[33mg[33m/[33mi[33mn[33ms[33mt[33ma[33ml[33ml[33m.[33ms[33mh[33m)[33m"[39m;[?1l>
+]2;sudo bash -c "$(curl -fsSL https://lychee.js.org/install.sh)"]1;bash
+lychee.js Git/Net Installer
+
+This installer will download and install lychee.js to /opt/lycheejs
+
+Continue (y/n)? y
+
+
+Installing lychee.js ...
+Cloning into '.'...
+remote: Counting objects: 8164, done.[K
+remote: Compressing objects:   0% (1/111)   [Kremote: Compressing objects:   1% (2/111)   [Kremote: Compressing objects:   2% (3/111)   [Kremote: Compressing objects:   3% (4/111)   [Kremote: Compressing objects:   4% (5/111)   [Kremote: Compressing objects:   5% (6/111)   [Kremote: Compressing objects:   6% (7/111)   [Kremote: Compressing objects:   7% (8/111)   [Kremote: Compressing objects:   8% (9/111)   [Kremote: Compressing objects:   9% (10/111)   [Kremote: Compressing objects:  10% (12/111)   [Kremote: Compressing objects:  11% (13/111)   [Kremote: Compressing objects:  12% (14/111)   [Kremote: Compressing objects:  13% (15/111)   [Kremote: Compressing objects:  14% (16/111)   [Kremote: Compressing objects:  15% (17/111)   [Kremote: Compressing objects:  16% (18/111)   [Kremote: Compressing objects:  17% (19/111)   [Kremote: Compressing objects:  18% (20/111)   [Kremote: Compressing objects:  19% (22/111)   [Kremote: Compressing objects:  20% (23/111)   [Kremote: Compressing objects:  21% (24/111)   [Kremote: Compressing objects:  22% (25/111)   [Kremote: Compressing objects:  23% (26/111)   [Kremote: Compressing objects:  24% (27/111)   [Kremote: Compressing objects:  25% (28/111)   [Kremote: Compressing objects:  26% (29/111)   [Kremote: Compressing objects:  27% (30/111)   [Kremote: Compressing objects:  28% (32/111)   [Kremote: Compressing objects:  29% (33/111)   [Kremote: Compressing objects:  30% (34/111)   [Kremote: Compressing objects:  31% (35/111)   [Kremote: Compressing objects:  32% (36/111)   [Kremote: Compressing objects:  33% (37/111)   [Kremote: Compressing objects:  34% (38/111)   [Kremote: Compressing objects:  35% (39/111)   [Kremote: Compressing objects:  36% (40/111)   [Kremote: Compressing objects:  37% (42/111)   [Kremote: Compressing objects:  38% (43/111)   [Kremote: Compressing objects:  39% (44/111)   [Kremote: Compressing objects:  40% (45/111)   [Kremote: Compressing objects:  41% (46/111)   [Kremote: Compressing objects:  42% (47/111)   [Kremote: Compressing objects:  43% (48/111)   [Kremote: Compressing objects:  44% (49/111)   [Kremote: Compressing objects:  45% (50/111)   [Kremote: Compressing objects:  46% (52/111)   [Kremote: Compressing objects:  47% (53/111)   [Kremote: Compressing objects:  48% (54/111)   [Kremote: Compressing objects:  49% (55/111)   [Kremote: Compressing objects:  50% (56/111)   [Kremote: Compressing objects:  51% (57/111)   [Kremote: Compressing objects:  52% (58/111)   [Kremote: Compressing objects:  53% (59/111)   [Kremote: Compressing objects:  54% (60/111)   [Kremote: Compressing objects:  55% (62/111)   [Kremote: Compressing objects:  56% (63/111)   [Kremote: Compressing objects:  57% (64/111)   [Kremote: Compressing objects:  58% (65/111)   [Kremote: Compressing objects:  59% (66/111)   [Kremote: Compressing objects:  60% (67/111)   [Kremote: Compressing objects:  61% (68/111)   [Kremote: Compressing objects:  62% (69/111)   [Kremote: Compressing objects:  63% (70/111)   [Kremote: Compressing objects:  64% (72/111)   [Kremote: Compressing objects:  65% (73/111)   [Kremote: Compressing objects:  66% (74/111)   [Kremote: Compressing objects:  67% (75/111)   [Kremote: Compressing objects:  68% (76/111)   [Kremote: Compressing objects:  69% (77/111)   [Kremote: Compressing objects:  70% (78/111)   [Kremote: Compressing objects:  71% (79/111)   [Kremote: Compressing objects:  72% (80/111)   [Kremote: Compressing objects:  73% (82/111)   [Kremote: Compressing objects:  74% (83/111)   [Kremote: Compressing objects:  75% (84/111)   [Kremote: Compressing objects:  76% (85/111)   [Kremote: Compressing objects:  77% (86/111)   [Kremote: Compressing objects:  78% (87/111)   [Kremote: Compressing objects:  79% (88/111)   [Kremote: Compressing objects:  80% (89/111)   [Kremote: Compressing objects:  81% (90/111)   [Kremote: Compressing objects:  82% (92/111)   [Kremote: Compressing objects:  83% (93/111)   [Kremote: Compressing objects:  84% (94/111)   [Kremote: Compressing objects:  85% (95/111)   [Kremote: Compressing objects:  86% (96/111)   [Kremote: Compressing objects:  87% (97/111)   [Kremote: Compressing objects:  88% (98/111)   [Kremote: Compressing objects:  89% (99/111)   [Kremote: Compressing objects:  90% (100/111)   [Kremote: Compressing objects:  91% (102/111)   [Kremote: Compressing objects:  92% (103/111)   [Kremote: Compressing objects:  93% (104/111)   [Kremote: Compressing objects:  94% (105/111)   [Kremote: Compressing objects:  95% (106/111)   [Kremote: Compressing objects:  96% (107/111)   [Kremote: Compressing objects:  97% (108/111)   [Kremote: Compressing objects:  98% (109/111)   [Kremote: Compressing objects:  99% (110/111)   [Kremote: Compressing objects: 100% (111/111)   [Kremote: Compressing objects: 100% (111/111), done.[K
+Receiving objects:   0% (1/8164)   Receiving objects:   1% (82/8164)   Receiving objects:   2% (164/8164)   Receiving objects:   3% (245/8164)   Receiving objects:   4% (327/8164)   Receiving objects:   5% (409/8164)   Receiving objects:   6% (490/8164)   Receiving objects:   6% (546/8164), 308.01 KiB | 291.00 KiB/s   Receiving objects:   6% (548/8164), 476.01 KiB | 160.00 KiB/s   Receiving objects:   6% (550/8164), 476.01 KiB | 160.00 KiB/s   Receiving objects:   6% (552/8164), 1.27 MiB | 288.00 KiB/s   Receiving objects:   6% (552/8164), 2.00 MiB | 372.00 KiB/s   Receiving objects:   6% (553/8164), 2.64 MiB | 449.00 KiB/s   Receiving objects:   6% (553/8164), 4.46 MiB | 711.00 KiB/s   Receiving objects:   7% (572/8164), 4.46 MiB | 711.00 KiB/s   Receiving objects:   8% (654/8164), 4.46 MiB | 711.00 KiB/s   Receiving objects:   9% (735/8164), 4.46 MiB | 711.00 KiB/s   Receiving objects:  10% (817/8164), 4.46 MiB | 711.00 KiB/s   Receiving objects:  11% (899/8164), 4.46 MiB | 711.00 KiB/s   Receiving objects:  12% (980/8164), 4.46 MiB | 711.00 KiB/s   Receiving objects:  13% (1062/8164), 4.46 MiB | 711.00 KiB/s   Receiving objects:  14% (1143/8164), 4.46 MiB | 711.00 KiB/s   Receiving objects:  15% (1225/8164), 5.61 MiB | 1.12 MiB/s   Receiving objects:  16% (1307/8164), 5.61 MiB | 1.12 MiB/s   Receiving objects:  17% (1388/8164), 5.61 MiB | 1.12 MiB/s   Receiving objects:  17% (1423/8164), 6.72 MiB | 1.32 MiB/s   Receiving objects:  17% (1423/8164), 6.84 MiB | 1.05 MiB/s   Receiving objects:  18% (1470/8164), 6.84 MiB | 1.05 MiB/s   Receiving objects:  18% (1533/8164), 6.84 MiB | 1.05 MiB/s   Receiving objects:  19% (1552/8164), 6.84 MiB | 1.05 MiB/s   Receiving objects:  20% (1633/8164), 7.75 MiB | 1.15 MiB/s   Receiving objects:  21% (1715/8164), 7.75 MiB | 1.15 MiB/s   Receiving objects:  21% (1777/8164), 10.36 MiB | 1.49 MiB/s   Receiving objects:  21% (1779/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  22% (1797/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  23% (1878/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  24% (1960/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  25% (2041/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  26% (2123/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  27% (2205/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  28% (2286/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  29% (2368/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  30% (2450/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  31% (2531/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  32% (2613/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  33% (2695/8164), 11.82 MiB | 1.64 MiB/s   Receiving objects:  34% (2776/8164), 13.29 MiB | 1.76 MiB/s   Receiving objects:  35% (2858/8164), 13.29 MiB | 1.76 MiB/s   Receiving objects:  36% (2940/8164), 13.29 MiB | 1.76 MiB/s   Receiving objects:  37% (3021/8164), 13.29 MiB | 1.76 MiB/s   Receiving objects:  37% (3083/8164), 16.19 MiB | 1.90 MiB/s   Receiving objects:  38% (3103/8164), 17.64 MiB | 1.96 MiB/s   Receiving objects:  39% (3184/8164), 17.64 MiB | 1.96 MiB/s   Receiving objects:  39% (3217/8164), 19.10 MiB | 2.71 MiB/s   Receiving objects:  40% (3266/8164), 19.10 MiB | 2.71 MiB/s   Receiving objects:  41% (3348/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  42% (3429/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  43% (3511/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  44% (3593/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  45% (3674/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  46% (3756/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  47% (3838/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  48% (3919/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  49% (4001/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  50% (4082/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  51% (4164/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  52% (4246/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  53% (4327/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  54% (4409/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  55% (4491/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  56% (4572/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  57% (4654/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  58% (4736/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  59% (4817/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  60% (4899/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  61% (4981/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  62% (5062/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  63% (5144/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  64% (5225/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  65% (5307/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  66% (5389/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  67% (5470/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  68% (5552/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  69% (5634/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  70% (5715/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  71% (5797/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  72% (5879/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  73% (5960/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  74% (6042/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  75% (6123/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  76% (6205/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  77% (6287/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  78% (6368/8164), 20.55 MiB | 2.84 MiB/s   Receiving objects:  78% (6393/8164), 22.01 MiB | 2.88 MiB/s   Receiving objects:  79% (6450/8164), 23.46 MiB | 2.91 MiB/s   Receiving objects:  79% (6471/8164), 23.46 MiB | 2.91 MiB/s   Receiving objects:  80% (6532/8164), 24.90 MiB | 2.90 MiB/s   Receiving objects:  81% (6613/8164), 24.90 MiB | 2.90 MiB/s   Receiving objects:  82% (6695/8164), 24.90 MiB | 2.90 MiB/s   Receiving objects:  83% (6777/8164), 24.90 MiB | 2.90 MiB/s   Receiving objects:  84% (6858/8164), 24.90 MiB | 2.90 MiB/s   Receiving objects:  85% (6940/8164), 24.90 MiB | 2.90 MiB/s   Receiving objects:  86% (7022/8164), 24.90 MiB | 2.90 MiB/s   Receiving objects:  87% (7103/8164), 24.90 MiB | 2.90 MiB/s   Receiving objects:  88% (7185/8164), 24.90 MiB | 2.90 MiB/s   Receiving objects:  88% (7205/8164), 26.36 MiB | 2.90 MiB/s   Receiving objects:  88% (7250/8164), 29.25 MiB | 2.90 MiB/s   Receiving objects:  89% (7266/8164), 29.25 MiB | 2.90 MiB/s   Receiving objects:  89% (7294/8164), 33.60 MiB | 2.90 MiB/s   Receiving objects:  89% (7294/8164), 36.49 MiB | 2.89 MiB/s   Receiving objects:  89% (7339/8164), 37.96 MiB | 2.90 MiB/s   Receiving objects:  90% (7348/8164), 37.96 MiB | 2.90 MiB/s   Receiving objects:  91% (7430/8164), 37.96 MiB | 2.90 MiB/s   Receiving objects:  92% (7511/8164), 37.96 MiB | 2.90 MiB/s   Receiving objects:  93% (7593/8164), 39.29 MiB | 2.87 MiB/s   Receiving objects:  94% (7675/8164), 39.29 MiB | 2.87 MiB/s   Receiving objects:  95% (7756/8164), 39.29 MiB | 2.87 MiB/s   Receiving objects:  96% (7838/8164), 39.29 MiB | 2.87 MiB/s   Receiving objects:  97% (7920/8164), 39.29 MiB | 2.87 MiB/s   Receiving objects:  98% (8001/8164), 39.29 MiB | 2.87 MiB/s   Receiving objects:  99% (8083/8164), 40.83 MiB | 2.88 MiB/s   remote: Total 8164 (delta 40), reused 0 (delta 0), pack-reused 8052[K
+Receiving objects: 100% (8164/8164), 40.83 MiB | 2.88 MiB/s   Receiving objects: 100% (8164/8164), 41.07 MiB | 2.89 MiB/s, done.
+Resolving deltas:   0% (0/4367)   Resolving deltas:   1% (49/4367)   Resolving deltas:   2% (99/4367)   Resolving deltas:   3% (138/4367)   Resolving deltas:   4% (191/4367)   Resolving deltas:   5% (222/4367)   Resolving deltas:   6% (273/4367)   Resolving deltas:   7% (306/4367)   Resolving deltas:   8% (355/4367)   Resolving deltas:   9% (397/4367)   Resolving deltas:  10% (438/4367)   Resolving deltas:  11% (488/4367)   Resolving deltas:  12% (530/4367)   Resolving deltas:  13% (570/4367)   Resolving deltas:  14% (616/4367)   Resolving deltas:  15% (664/4367)   Resolving deltas:  16% (705/4367)   Resolving deltas:  17% (743/4367)   Resolving deltas:  18% (789/4367)   Resolving deltas:  19% (831/4367)   Resolving deltas:  20% (878/4367)   Resolving deltas:  21% (918/4367)   Resolving deltas:  22% (964/4367)   Resolving deltas:  23% (1006/4367)   Resolving deltas:  24% (1049/4367)   Resolving deltas:  25% (1096/4367)   Resolving deltas:  26% (1138/4367)   Resolving deltas:  27% (1188/4367)   Resolving deltas:  28% (1223/4367)   Resolving deltas:  29% (1269/4367)   Resolving deltas:  30% (1323/4367)   Resolving deltas:  31% (1354/4367)   Resolving deltas:  32% (1410/4367)   Resolving deltas:  33% (1447/4367)   Resolving deltas:  34% (1485/4367)   Resolving deltas:  35% (1538/4367)   Resolving deltas:  36% (1574/4367)   Resolving deltas:  37% (1647/4367)   Resolving deltas:  38% (1677/4367)   Resolving deltas:  39% (1706/4367)   Resolving deltas:  40% (1753/4367)   Resolving deltas:  41% (1815/4367)   Resolving deltas:  42% (1852/4367)   Resolving deltas:  43% (1879/4367)   Resolving deltas:  44% (1926/4367)   Resolving deltas:  45% (1970/4367)   Resolving deltas:  46% (2015/4367)   Resolving deltas:  47% (2053/4367)   Resolving deltas:  48% (2103/4367)   Resolving deltas:  49% (2142/4367)   Resolving deltas:  50% (2187/4367)   Resolving deltas:  51% (2232/4367)   Resolving deltas:  52% (2283/4367)   Resolving deltas:  53% (2321/4367)   Resolving deltas:  54% (2366/4367)   Resolving deltas:  55% (2407/4367)   Resolving deltas:  56% (2446/4367)   Resolving deltas:  57% (2498/4367)   Resolving deltas:  58% (2537/4367)   Resolving deltas:  59% (2580/4367)   Resolving deltas:  60% (2625/4367)   Resolving deltas:  61% (2681/4367)   Resolving deltas:  62% (2716/4367)   Resolving deltas:  63% (2753/4367)   Resolving deltas:  64% (2795/4367)   Resolving deltas:  65% (2844/4367)   Resolving deltas:  66% (2884/4367)   Resolving deltas:  67% (2926/4367)   Resolving deltas:  68% (2974/4367)   Resolving deltas:  69% (3017/4367)   Resolving deltas:  70% (3074/4367)   Resolving deltas:  72% (3153/4367)   Resolving deltas:  73% (3192/4367)   Resolving deltas:  74% (3233/4367)   Resolving deltas:  75% (3279/4367)   Resolving deltas:  76% (3329/4367)   Resolving deltas:  77% (3371/4367)   Resolving deltas:  78% (3408/4367)   Resolving deltas:  79% (3452/4367)   Resolving deltas:  80% (3498/4367)   Resolving deltas:  81% (3548/4367)   Resolving deltas:  82% (3582/4367)   Resolving deltas:  83% (3633/4367)   Resolving deltas:  84% (3681/4367)   Resolving deltas:  85% (3714/4367)   Resolving deltas:  86% (3756/4367)   Resolving deltas:  87% (3801/4367)   Resolving deltas:  88% (3846/4367)   Resolving deltas:  89% (3887/4367)   Resolving deltas:  90% (3931/4367)   Resolving deltas:  91% (3974/4367)   Resolving deltas:  92% (4018/4367)   Resolving deltas:  93% (4063/4367)   Resolving deltas:  94% (4108/4367)   Resolving deltas:  95% (4149/4367)   Resolving deltas:  96% (4193/4367)   Resolving deltas:  97% (4238/4367)   Resolving deltas:  98% (4280/4367)   Resolving deltas:  99% (4324/4367)   Resolving deltas: 100% (4367/4367)   Resolving deltas: 100% (4367/4367), done.
+Checking connectivity... done.
+Already on 'development'
+Your branch is up-to-date with 'origin/development'.
+Done.
+
+Installing lycheejs runtimes ...
+Cloning into './bin/runtime'...
+remote: Counting objects: 6660, done.[K
+remote: Compressing objects:   0% (1/3600)   [Kremote: Compressing objects:   1% (36/3600)   [Kremote: Compressing objects:   2% (72/3600)   [Kremote: Compressing objects:   3% (108/3600)   [Kremote: Compressing objects:   4% (144/3600)   [Kremote: Compressing objects:   5% (180/3600)   [Kremote: Compressing objects:   6% (216/3600)   [Kremote: Compressing objects:   7% (252/3600)   [Kremote: Compressing objects:   8% (288/3600)   [Kremote: Compressing objects:   9% (324/3600)   [Kremote: Compressing objects:  10% (360/3600)   [Kremote: Compressing objects:  11% (396/3600)   [Kremote: Compressing objects:  12% (432/3600)   [Kremote: Compressing objects:  13% (468/3600)   [Kremote: Compressing objects:  14% (504/3600)   [Kremote: Compressing objects:  15% (540/3600)   [Kremote: Compressing objects:  16% (576/3600)   [Kremote: Compressing objects:  17% (612/3600)   [Kremote: Compressing objects:  18% (648/3600)   [Kremote: Compressing objects:  19% (684/3600)   [Kremote: Compressing objects:  20% (720/3600)   [Kremote: Compressing objects:  21% (756/3600)   [Kremote: Compressing objects:  22% (792/3600)   [Kremote: Compressing objects:  23% (828/3600)   [Kremote: Compressing objects:  24% (864/3600)   [Kremote: Compressing objects:  25% (900/3600)   [Kremote: Compressing objects:  26% (936/3600)   [Kremote: Compressing objects:  27% (972/3600)   [Kremote: Compressing objects:  28% (1008/3600)   [Kremote: Compressing objects:  29% (1044/3600)   [Kremote: Compressing objects:  30% (1080/3600)   [Kremote: Compressing objects:  31% (1116/3600)   [Kremote: Compressing objects:  32% (1152/3600)   [Kremote: Compressing objects:  33% (1188/3600)   [Kremote: Compressing objects:  34% (1224/3600)   [Kremote: Compressing objects:  35% (1260/3600)   [Kremote: Compressing objects:  36% (1296/3600)   [Kremote: Compressing objects:  37% (1332/3600)   [Kremote: Compressing objects:  38% (1368/3600)   [Kremote: Compressing objects:  39% (1404/3600)   [Kremote: Compressing objects:  40% (1440/3600)   [Kremote: Compressing objects:  41% (1476/3600)   [Kremote: Compressing objects:  42% (1512/3600)   [Kremote: Compressing objects:  43% (1548/3600)   [Kremote: Compressing objects:  44% (1584/3600)   [Kremote: Compressing objects:  45% (1620/3600)   [Kremote: Compressing objects:  46% (1656/3600)   [Kremote: Compressing objects:  47% (1692/3600)   [Kremote: Compressing objects:  48% (1728/3600)   [Kremote: Compressing objects:  49% (1764/3600)   [Kremote: Compressing objects:  50% (1800/3600)   [Kremote: Compressing objects:  51% (1836/3600)   [Kremote: Compressing objects:  52% (1872/3600)   [Kremote: Compressing objects:  53% (1908/3600)   [Kremote: Compressing objects:  54% (1944/3600)   [Kremote: Compressing objects:  55% (1980/3600)   [Kremote: Compressing objects:  56% (2016/3600)   [Kremote: Compressing objects:  57% (2052/3600)   [Kremote: Compressing objects:  58% (2088/3600)   [Kremote: Compressing objects:  59% (2124/3600)   [Kremote: Compressing objects:  60% (2160/3600)   [Kremote: Compressing objects:  61% (2196/3600)   [Kremote: Compressing objects:  62% (2232/3600)   [Kremote: Compressing objects:  63% (2268/3600)   [Kremote: Compressing objects:  64% (2304/3600)   [Kremote: Compressing objects:  65% (2340/3600)   [Kremote: Compressing objects:  66% (2376/3600)   [Kremote: Compressing objects:  67% (2412/3600)   [Kremote: Compressing objects:  68% (2448/3600)   [Kremote: Compressing objects:  69% (2484/3600)   [Kremote: Compressing objects:  70% (2520/3600)   [Kremote: Compressing objects:  71% (2556/3600)   [Kremote: Compressing objects:  72% (2592/3600)   [Kremote: Compressing objects:  73% (2628/3600)   [Kremote: Compressing objects:  74% (2664/3600)   [Kremote: Compressing objects:  75% (2700/3600)   [Kremote: Compressing objects:  76% (2736/3600)   [Kremote: Compressing objects:  77% (2772/3600)   [Kremote: Compressing objects:  78% (2808/3600)   [Kremote: Compressing objects:  79% (2844/3600)   [Kremote: Compressing objects:  80% (2880/3600)   [Kremote: Compressing objects:  81% (2916/3600)   [Kremote: Compressing objects:  82% (2952/3600)   [Kremote: Compressing objects:  83% (2988/3600)   [Kremote: Compressing objects:  84% (3024/3600)   [Kremote: Compressing objects:  85% (3060/3600)   [Kremote: Compressing objects:  86% (3096/3600)   [Kremote: Compressing objects:  87% (3132/3600)   [Kremote: Compressing objects:  88% (3168/3600)   [Kremote: Compressing objects:  89% (3204/3600)   [Kremote: Compressing objects:  90% (3240/3600)   [Kremote: Compressing objects:  91% (3276/3600)   [Kremote: Compressing objects:  92% (3312/3600)   [Kremote: Compressing objects:  93% (3348/3600)   [Kremote: Compressing objects:  94% (3384/3600)   [Kremote: Compressing objects:  95% (3420/3600)   [Kremote: Compressing objects:  96% (3456/3600)   [Kremote: Compressing objects:  97% (3492/3600)   [Kremote: Compressing objects:  98% (3528/3600)   [Kremote: Compressing objects:  99% (3564/3600)   [Kremote: Compressing objects: 100% (3600/3600)   [Kremote: Compressing objects: 100% (3600/3600), done.[K
+Receiving objects:   0% (1/6660)   Receiving objects:   0% (7/6660), 452.00 KiB | 446.00 KiB/s   Receiving objects:   0% (7/6660), 852.00 KiB | 414.00 KiB/s   Receiving objects:   0% (7/6660), 1.90 MiB | 447.00 KiB/s   Receiving objects:   0% (7/6660), 3.66 MiB | 700.00 KiB/s   Receiving objects:   0% (9/6660), 5.08 MiB | 888.00 KiB/s   Receiving objects:   0% (9/6660), 8.72 MiB | 1.40 MiB/s   Receiving objects:   0% (9/6660), 11.47 MiB | 1.73 MiB/s   Receiving objects:   0% (9/6660), 14.48 MiB | 2.61 MiB/s   Receiving objects:   0% (9/6660), 17.39 MiB | 2.70 MiB/s   Receiving objects:   0% (9/6660), 20.27 MiB | 2.78 MiB/s   Receiving objects:   0% (9/6660), 23.14 MiB | 2.88 MiB/s   Receiving objects:   0% (9/6660), 26.01 MiB | 2.91 MiB/s   Receiving objects:   0% (9/6660), 28.92 MiB | 2.88 MiB/s   Receiving objects:   0% (9/6660), 31.82 MiB | 2.88 MiB/s   Receiving objects:   0% (10/6660), 34.72 MiB | 2.89 MiB/s   Receiving objects:   1% (67/6660), 34.72 MiB | 2.89 MiB/s   Receiving objects:   1% (81/6660), 37.63 MiB | 2.89 MiB/s   Receiving objects:   1% (81/6660), 40.55 MiB | 2.90 MiB/s   Receiving objects:   1% (81/6660), 43.46 MiB | 2.90 MiB/s   Receiving objects:   1% (81/6660), 46.37 MiB | 2.90 MiB/s   Receiving objects:   1% (81/6660), 49.27 MiB | 2.90 MiB/s   Receiving objects:   1% (81/6660), 52.14 MiB | 2.88 MiB/s   Receiving objects:   1% (81/6660), 55.13 MiB | 2.90 MiB/s   Receiving objects:   1% (81/6660), 58.05 MiB | 2.90 MiB/s   Receiving objects:   1% (81/6660), 60.96 MiB | 2.90 MiB/s   Receiving objects:   1% (104/6660), 62.40 MiB | 2.90 MiB/s   Receiving objects:   1% (112/6660), 65.32 MiB | 2.92 MiB/s   Receiving objects:   1% (112/6660), 69.70 MiB | 2.90 MiB/s   Receiving objects:   1% (112/6660), 72.61 MiB | 2.90 MiB/s   Receiving objects:   1% (112/6660), 75.50 MiB | 2.90 MiB/s   Receiving objects:   1% (112/6660), 78.39 MiB | 2.90 MiB/s   Receiving objects:   1% (112/6660), 81.28 MiB | 2.89 MiB/s   Receiving objects:   1% (112/6660), 84.15 MiB | 2.88 MiB/s   Receiving objects:   1% (112/6660), 85.61 MiB | 2.88 MiB/s   Receiving objects:   1% (112/6660), 88.51 MiB | 2.88 MiB/s   Receiving objects:   1% (123/6660), 91.36 MiB | 2.87 MiB/s   Receiving objects:   1% (133/6660), 94.35 MiB | 2.89 MiB/s   Receiving objects:   2% (134/6660), 94.35 MiB | 2.89 MiB/s   Receiving objects:   2% (145/6660), 97.26 MiB | 2.90 MiB/s   Receiving objects:   2% (145/6660), 100.13 MiB | 2.89 MiB/s   Receiving objects:   2% (145/6660), 103.04 MiB | 2.89 MiB/s   Receiving objects:   2% (153/6660), 105.94 MiB | 2.89 MiB/s   Receiving objects:   2% (173/6660), 108.85 MiB | 2.89 MiB/s   Receiving objects:   2% (176/6660), 110.29 MiB | 2.89 MiB/s   Receiving objects:   2% (179/6660), 114.63 MiB | 2.90 MiB/s   Receiving objects:   2% (189/6660), 117.54 MiB | 2.90 MiB/s   Receiving objects:   3% (200/6660), 117.54 MiB | 2.90 MiB/s   Receiving objects:   3% (216/6660), 119.00 MiB | 2.89 MiB/s   Receiving objects:   3% (230/6660), 121.84 MiB | 2.88 MiB/s   Receiving objects:   3% (259/6660), 124.82 MiB | 2.88 MiB/s   Receiving objects:   4% (267/6660), 127.82 MiB | 2.90 MiB/s   Receiving objects:   4% (276/6660), 127.82 MiB | 2.90 MiB/s   Receiving objects:   4% (289/6660), 130.72 MiB | 2.90 MiB/s   Receiving objects:   5% (333/6660), 132.19 MiB | 2.90 MiB/s   Receiving objects:   6% (400/6660), 132.19 MiB | 2.90 MiB/s   Receiving objects:   7% (467/6660), 132.19 MiB | 2.90 MiB/s   Receiving objects:   8% (533/6660), 132.19 MiB | 2.90 MiB/s   Receiving objects:   9% (600/6660), 132.19 MiB | 2.90 MiB/s   Receiving objects:  10% (666/6660), 132.19 MiB | 2.90 MiB/s   Receiving objects:  11% (733/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  12% (800/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  13% (866/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  14% (933/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  15% (999/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  16% (1066/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  17% (1133/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  18% (1199/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  19% (1266/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  20% (1332/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  21% (1399/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  22% (1466/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  23% (1532/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  24% (1599/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  25% (1665/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  26% (1732/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  27% (1799/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  28% (1865/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  29% (1932/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  30% (1998/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  31% (2065/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  32% (2132/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  33% (2198/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  34% (2265/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  35% (2331/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  36% (2398/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  36% (2454/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  37% (2465/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  38% (2531/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  39% (2598/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  40% (2664/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  41% (2731/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  42% (2798/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  43% (2864/6660), 133.65 MiB | 2.91 MiB/s   Receiving objects:  44% (2931/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  45% (2997/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  46% (3064/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  47% (3131/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  48% (3197/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  49% (3264/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  50% (3330/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  51% (3397/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  52% (3464/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  53% (3530/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  54% (3597/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  55% (3663/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  56% (3730/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  57% (3797/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  58% (3863/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  59% (3930/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  60% (3996/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  61% (4063/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  62% (4130/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  63% (4196/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  64% (4263/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  65% (4329/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  66% (4396/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  67% (4463/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  68% (4529/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  69% (4596/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  70% (4662/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  71% (4729/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  72% (4796/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  73% (4862/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  74% (4929/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  75% (4995/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  76% (5062/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  77% (5129/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  78% (5195/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  79% (5262/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  80% (5328/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  81% (5395/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  82% (5462/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  83% (5528/6660), 135.11 MiB | 2.92 MiB/s   Receiving objects:  84% (5595/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  85% (5661/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  86% (5728/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  87% (5795/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  88% (5861/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  89% (5928/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  90% (5994/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  91% (6061/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  92% (6128/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  93% (6194/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  94% (6261/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  95% (6327/6660), 136.55 MiB | 2.90 MiB/s   Receiving objects:  95% (6379/6660), 138.00 MiB | 2.92 MiB/s   Receiving objects:  95% (6380/6660), 140.92 MiB | 2.90 MiB/s   Receiving objects:  95% (6380/6660), 143.84 MiB | 2.90 MiB/s   Receiving objects:  95% (6381/6660), 146.75 MiB | 2.90 MiB/s   Receiving objects:  96% (6394/6660), 148.20 MiB | 2.90 MiB/s   Receiving objects:  96% (6460/6660), 148.20 MiB | 2.90 MiB/s   Receiving objects:  97% (6461/6660), 148.20 MiB | 2.90 MiB/s   Receiving objects:  97% (6512/6660), 152.21 MiB | 2.69 MiB/s   Receiving objects:  98% (6527/6660), 152.21 MiB | 2.69 MiB/s   Receiving objects:  98% (6554/6660), 155.63 MiB | 2.80 MiB/s   Receiving objects:  98% (6554/6660), 158.57 MiB | 2.80 MiB/s   Receiving objects:  98% (6554/6660), 161.46 MiB | 2.80 MiB/s   Receiving objects:  98% (6554/6660), 164.32 MiB | 2.79 MiB/s   Receiving objects:  98% (6554/6660), 167.22 MiB | 2.89 MiB/s   Receiving objects:  98% (6563/6660), 168.68 MiB | 2.89 MiB/s   Receiving objects:  98% (6577/6660), 173.04 MiB | 2.89 MiB/s   Receiving objects:  98% (6577/6660), 175.95 MiB | 2.89 MiB/s   Receiving objects:  98% (6577/6660), 178.77 MiB | 2.87 MiB/s   Receiving objects:  98% (6581/6660), 181.77 MiB | 2.89 MiB/s   Receiving objects:  98% (6581/6660), 184.68 MiB | 2.89 MiB/s   Receiving objects:  98% (6587/6660), 186.14 MiB | 2.89 MiB/s   Receiving objects:  99% (6594/6660), 186.14 MiB | 2.89 MiB/s   Receiving objects:  99% (6646/6660), 190.48 MiB | 2.89 MiB/s   Receiving objects:  99% (6646/6660), 193.39 MiB | 2.90 MiB/s   Receiving objects:  99% (6648/6660), 195.92 MiB | 2.69 MiB/s   Receiving objects:  99% (6648/6660), 197.91 MiB | 2.80 MiB/s   Receiving objects:  99% (6648/6660), 200.81 MiB | 2.80 MiB/s   Receiving objects:  99% (6651/6660), 203.72 MiB | 2.80 MiB/s   Receiving objects:  99% (6651/6660), 206.43 MiB | 2.75 MiB/s   Receiving objects:  99% (6651/6660), 209.20 MiB | 2.93 MiB/s   Receiving objects:  99% (6657/6660), 212.12 MiB | 2.82 MiB/s   Receiving objects:  99% (6657/6660), 215.03 MiB | 2.82 MiB/s   remote: Total 6660 (delta 2710), reused 6655 (delta 2709), pack-reused 0[K
+Receiving objects: 100% (6660/6660), 215.03 MiB | 2.82 MiB/s   Receiving objects: 100% (6660/6660), 215.46 MiB | 2.81 MiB/s, done.
+Resolving deltas:   0% (0/2710)   Resolving deltas:   2% (75/2710)   Resolving deltas:   3% (83/2710)   Resolving deltas:   9% (244/2710)   Resolving deltas:  11% (303/2710)   Resolving deltas:  12% (327/2710)   Resolving deltas:  13% (354/2710)   Resolving deltas:  14% (385/2710)   Resolving deltas:  15% (411/2710)   Resolving deltas:  16% (436/2710)   Resolving deltas:  17% (462/2710)   Resolving deltas:  18% (489/2710)   Resolving deltas:  19% (515/2710)   Resolving deltas:  20% (545/2710)   Resolving deltas:  21% (570/2710)   Resolving deltas:  22% (597/2710)   Resolving deltas:  23% (625/2710)   Resolving deltas:  24% (654/2710)   Resolving deltas:  25% (688/2710)   Resolving deltas:  26% (706/2710)   Resolving deltas:  27% (732/2710)   Resolving deltas:  28% (761/2710)   Resolving deltas:  29% (786/2710)   Resolving deltas:  30% (815/2710)   Resolving deltas:  31% (850/2710)   Resolving deltas:  32% (869/2710)   Resolving deltas:  33% (896/2710)   Resolving deltas:  34% (923/2710)   Resolving deltas:  35% (949/2710)   Resolving deltas:  36% (976/2710)   Resolving deltas:  37% (1005/2710)   Resolving deltas:  38% (1031/2710)   Resolving deltas:  39% (1057/2710)   Resolving deltas:  40% (1094/2710)   Resolving deltas:  41% (1113/2710)   Resolving deltas:  42% (1139/2710)   Resolving deltas:  43% (1170/2710)   Resolving deltas:  44% (1193/2710)   Resolving deltas:  45% (1222/2710)   Resolving deltas:  46% (1247/2710)   Resolving deltas:  47% (1280/2710)   Resolving deltas:  48% (1301/2710)   Resolving deltas:  49% (1328/2710)   Resolving deltas:  50% (1356/2710)   Resolving deltas:  51% (1383/2710)   Resolving deltas:  52% (1421/2710)   Resolving deltas:  53% (1442/2710)   Resolving deltas:  54% (1465/2710)   Resolving deltas:  55% (1498/2710)   Resolving deltas:  56% (1523/2710)   Resolving deltas:  57% (1546/2710)   Resolving deltas:  58% (1572/2710)   Resolving deltas:  59% (1600/2710)   Resolving deltas:  60% (1627/2710)   Resolving deltas:  61% (1657/2710)   Resolving deltas:  62% (1681/2710)   Resolving deltas:  63% (1708/2710)   Resolving deltas:  64% (1735/2710)   Resolving deltas:  65% (1763/2710)   Resolving deltas:  66% (1792/2710)   Resolving deltas:  67% (1816/2710)   Resolving deltas:  68% (1844/2710)   Resolving deltas:  69% (1870/2710)   Resolving deltas:  70% (1897/2710)   Resolving deltas:  71% (1926/2710)   Resolving deltas:  72% (1952/2710)   Resolving deltas:  73% (1981/2710)   Resolving deltas:  74% (2006/2710)   Resolving deltas:  75% (2039/2710)   Resolving deltas:  76% (2060/2710)   Resolving deltas:  77% (2087/2710)   Resolving deltas:  78% (2114/2710)   Resolving deltas:  79% (2141/2710)   Resolving deltas:  80% (2172/2710)   Resolving deltas:  81% (2196/2710)   Resolving deltas:  82% (2224/2710)   Resolving deltas:  83% (2252/2710)   Resolving deltas:  84% (2278/2710)   Resolving deltas:  85% (2307/2710)   Resolving deltas:  86% (2331/2710)   Resolving deltas:  87% (2358/2710)   Resolving deltas:  88% (2388/2710)   Resolving deltas:  89% (2412/2710)   Resolving deltas:  90% (2439/2710)   Resolving deltas:  91% (2471/2710)   Resolving deltas:  92% (2494/2710)   Resolving deltas:  93% (2521/2710)   Resolving deltas:  94% (2548/2710)   Resolving deltas:  95% (2576/2710)   Resolving deltas:  96% (2603/2710)   Resolving deltas:  97% (2634/2710)   Resolving deltas:  98% (2656/2710)   Resolving deltas:  99% (2683/2710)   Resolving deltas: 100% (2710/2710)   Resolving deltas: 100% (2710/2710), done.
+Checking connectivity... done.
+Checking out files:   1% (70/5743)   Checking out files:   2% (115/5743)   Checking out files:   2% (121/5743)   Checking out files:   3% (173/5743)   Checking out files:   4% (230/5743)   Checking out files:   5% (288/5743)   Checking out files:   6% (345/5743)   Checking out files:   7% (403/5743)   Checking out files:   8% (460/5743)   Checking out files:   9% (517/5743)   Checking out files:  10% (575/5743)   Checking out files:  11% (632/5743)   Checking out files:  12% (690/5743)   Checking out files:  13% (747/5743)   Checking out files:  14% (805/5743)   Checking out files:  15% (862/5743)   Checking out files:  16% (919/5743)   Checking out files:  17% (977/5743)   Checking out files:  18% (1034/5743)   Checking out files:  19% (1092/5743)   Checking out files:  20% (1149/5743)   Checking out files:  21% (1207/5743)   Checking out files:  22% (1264/5743)   Checking out files:  23% (1321/5743)   Checking out files:  24% (1379/5743)   Checking out files:  25% (1436/5743)   Checking out files:  26% (1494/5743)   Checking out files:  27% (1551/5743)   Checking out files:  28% (1609/5743)   Checking out files:  29% (1666/5743)   Checking out files:  30% (1723/5743)   Checking out files:  31% (1781/5743)   Checking out files:  32% (1838/5743)   Checking out files:  33% (1896/5743)   Checking out files:  34% (1953/5743)   Checking out files:  35% (2011/5743)   Checking out files:  36% (2068/5743)   Checking out files:  37% (2125/5743)   Checking out files:  38% (2183/5743)   Checking out files:  39% (2240/5743)   Checking out files:  40% (2298/5743)   Checking out files:  41% (2355/5743)   Checking out files:  42% (2413/5743)   Checking out files:  43% (2470/5743)   Checking out files:  44% (2527/5743)   Checking out files:  45% (2585/5743)   Checking out files:  46% (2642/5743)   Checking out files:  47% (2700/5743)   Checking out files:  48% (2757/5743)   Checking out files:  49% (2815/5743)   Checking out files:  50% (2872/5743)   Checking out files:  51% (2929/5743)   Checking out files:  52% (2987/5743)   Checking out files:  53% (3044/5743)   Checking out files:  54% (3102/5743)   Checking out files:  55% (3159/5743)   Checking out files:  56% (3217/5743)   Checking out files:  57% (3274/5743)   Checking out files:  58% (3331/5743)   Checking out files:  59% (3389/5743)   Checking out files:  60% (3446/5743)   Checking out files:  61% (3504/5743)   Checking out files:  62% (3561/5743)   Checking out files:  63% (3619/5743)   Checking out files:  64% (3676/5743)   Checking out files:  65% (3733/5743)   Checking out files:  66% (3791/5743)   Checking out files:  67% (3848/5743)   Checking out files:  68% (3906/5743)   Checking out files:  69% (3963/5743)   Checking out files:  70% (4021/5743)   Checking out files:  71% (4078/5743)   Checking out files:  72% (4135/5743)   Checking out files:  73% (4193/5743)   Checking out files:  74% (4250/5743)   Checking out files:  75% (4308/5743)   Checking out files:  76% (4365/5743)   Checking out files:  77% (4423/5743)   Checking out files:  77% (4476/5743)   Checking out files:  78% (4480/5743)   Checking out files:  79% (4537/5743)   Checking out files:  80% (4595/5743)   Checking out files:  81% (4652/5743)   Checking out files:  82% (4710/5743)   Checking out files:  83% (4767/5743)   Checking out files:  84% (4825/5743)   Checking out files:  85% (4882/5743)   Checking out files:  86% (4939/5743)   Checking out files:  87% (4997/5743)   Checking out files:  88% (5054/5743)   Checking out files:  89% (5112/5743)   Checking out files:  90% (5169/5743)   Checking out files:  91% (5227/5743)   Checking out files:  92% (5284/5743)   Checking out files:  93% (5341/5743)   Checking out files:  94% (5399/5743)   Checking out files:  95% (5456/5743)   Checking out files:  96% (5514/5743)   Checking out files:  96% (5549/5743)   Checking out files:  97% (5571/5743)   Checking out files:  98% (5629/5743)   Checking out files:  99% (5686/5743)   Checking out files:  99% (5736/5743)   Checking out files: 100% (5743/5743)   Checking out files: 100% (5743/5743), done.
+Done.
+
+Configuring lychee.js ...
+
+> Installing Dependencies ...
+	sudo -u root brew install binutils coreutils libicns gnu-sed gnu-tar curl git wget --with-default-names
+[4;31mError[0m: Cowardly refusing to 'sudo brew install'
+You can use brew with sudo, but only if the brew executable is owned by root.
+However, this is both not recommended and completely unsupported so do so at
+your own risk.
+> FAIL
+
+Installation command failed, please verify that this is working (don't forget to sudo):
+sudo -u root brew install binutils coreutils libicns gnu-sed gnu-tar curl git wget --with-default-names
+
+Done.
+
+
+
+Now bootup lychee.js by starting lycheejs-harvester.
+
+1. Modify /opt/lycheejs/bin/harvester/development.json
+2. Start lycheejs-harvester with this command:
+
+cd /opt/lycheejs;
+lycheejs-harvester start development; # Trailing --sandbox for sandboxed harvester
+
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;~]7;file://Craiggless-MBP.domain/Users/connor[0m[27m[24m[Jconnor@Craiggless-MBP:~% [K[?1h=[32mw[39m[1m[31mw[1m[31mh[0m[39m[1m[31mw[1m[31mh[1m[31mi[0m[39m[1m[31mi[1m[31mc[0m[39m[0m[32mw[0m[32mh[0m[32mi[0m[32mc[32mh[39m lycheehs-harvester[1C[P[11C [12Djs-harvester[11D[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[?1l>
+]2;which lycheejs-harvester]1;whichlycheejs-harvester not found
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;~]7;file://Craiggless-MBP.domain/Users/connor[0m[27m[24m[Jconnor@Craiggless-MBP:~% [K[?1h=[4mc[24m[24m[32mc[32md[39m [4m/[24m[4m/[4mu[24m[4mu[4ms[24m[4ms[4mr[24m[4mr[4m/[24m[4m/[4ml[24m[4ml[4mo[24m[4mo[4mc[24m[4mc[4ma[24m[4ma[4ml[24m[4ml[4m/[24m[4m/[4mb[24m[4mb[4mi[24m[4mi[4mn[24m[?1l>
+]2;cd /usr/local/bin]1;cd[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;/usr/local/bin]7;file://Craiggless-MBP.domain/usr/local/bin[0m[27m[24m[Jconnor@Craiggless-MBP:/usr/local/bin% [K[?1h=[32ml[39m[32ml[32ms[39m[?1l>
+]2;ls -G]1;ls[35m2to3[39;49m[0m                                   [35mimgcmp[39;49m[0m
+[35m2to3-2[39;49m[0m                                 [35mimginfo[39;49m[0m
+[35m2to3-2.7[39;49m[0m                               [35minstallvst[39;49m[0m
+[35mClassInitGenerator[39;49m[0m                     [35mipy[39;49m[0m
+[35mHsColour[39;49m[0m                               [35mipy64[39;49m[0m
+[35mIronRuby.Tests[39;49m[0m                         [35mipyw[39;49m[0m
+[35mR[39;49m[0m                                      [35mipyw64[39;49m[0m
+[35mRscript[39;49m[0m                                [35mir[39;49m[0m
+[31mVBoxAutostart[39;49m[0m                          [35mir64[39;49m[0m
+[31mVBoxBalloonCtrl[39;49m[0m                        [35mirw[39;49m[0m
+[31mVBoxDTrace[39;49m[0m                             [35mirw64[39;49m[0m
+[31mVBoxHeadless[39;49m[0m                           [35mjasper[39;49m[0m
+[31mVBoxManage[39;49m[0m                             [35mjavascripting[39;49m[0m
+[31mVBoxVRDP[39;49m[0m                               [31mjikes[39;49m[0m
+[31mVirtualBox[39;49m[0m                             [35mjpegtran[39;49m[0m
+[35mack[39;49m[0m                                    [35mjpgicc[39;49m[0m
+[35maclocal[39;49m[0m                                [35mjsdoc[39;49m[0m
+[35maclocal-1.15[39;49m[0m                           [35mjshint[39;49m[0m
+[35mactivate-hs[39;49m[0m                            [35mkick-off-koa[39;49m[0m
+[35mag[39;49m[0m                                     [35mkotlin[39;49m[0m
+[35mal[39;49m[0m                                     [35mkotlinc[39;49m[0m
+[35mal2[39;49m[0m                                    [35mkotlinc-js[39;49m[0m
+[35malex[39;49m[0m                                   [35mkotlinc-jvm[39;49m[0m
+[35mant[39;49m[0m                                    [35mlc[39;49m[0m
+[35mantRun[39;49m[0m                                 [35mlearnyoubash[39;49m[0m
+[35mantRun.pl[39;49m[0m                              [35mlearnyounode[39;49m[0m
+[35mapm[39;49m[0m                                    [35mlibgcrypt-config[39;49m[0m
+[35marchey[39;49m[0m                                 [35mlibpng-config[39;49m[0m
+[35masn1Coding[39;49m[0m                             [35mlibpng16-config[39;49m[0m
+[35masn1Decoding[39;49m[0m                           [35mlinkicc[39;49m[0m
+[35masn1Parser[39;49m[0m                             [35mlsrc[39;49m[0m
+[35masp-state[39;49m[0m                              [35mlua[39;49m[0m
+[35masp-state2[39;49m[0m                             [35mlua-5.2[39;49m[0m
+[35masp-state4[39;49m[0m                             [35mlua5.2[39;49m[0m
+[35matom[39;49m[0m                                   [35mluac[39;49m[0m
+[35mautoconf[39;49m[0m                               [35mluac-5.2[39;49m[0m
+[35mautoheader[39;49m[0m                             [35mluac5.2[39;49m[0m
+[35mautom4te[39;49m[0m                               [35mluarocks[39;49m[0m
+[35mautomake[39;49m[0m                               [35mluarocks-5.2[39;49m[0m
+[35mautomake-1.15[39;49m[0m                          [35mluarocks-admin[39;49m[0m
+[35mautoreconf[39;49m[0m                             [35mluarocks-admin-5.2[39;49m[0m
+[35mautoscan[39;49m[0m                               [35mlzcat[39;49m[0m
+[35mautoupdate[39;49m[0m                             [35mlzcmp[39;49m[0m
+[35mbittorrent-tracker[39;49m[0m                     [35mlzdiff[39;49m[0m
+[35mblueutil[39;49m[0m                               [35mlzegrep[39;49m[0m
+[35mbmp2tiff[39;49m[0m                               [35mlzfgrep[39;49m[0m
+[35mbower[39;49m[0m                                  [35mlzgrep[39;49m[0m
+[31mbrew[39;49m[0m                                   [35mlzless[39;49m[0m
+[35mbsondump[39;49m[0m                               [35mlzma[39;49m[0m
+[31mbundle[39;49m[0m                                 [35mlzmadec[39;49m[0m
+[31mbundler[39;49m[0m                                [35mlzmainfo[39;49m[0m
+[35mc++-5[39;49m[0m                                  [35mlzmore[39;49m[0m
+[35mcabal[39;49m[0m                                  [35mmacpack[39;49m[0m
+[35mcabal.real[39;49m[0m                             [35mmakecert[39;49m[0m
+[35mcabal.wrap[39;49m[0m                             [35mmconfig[39;49m[0m
+[35mcairo-sphinx[39;49m[0m                           [35mmcs[39;49m[0m
+[35mcairo-trace[39;49m[0m                            [35mmdassembler[39;49m[0m
+[35mcake[39;49m[0m                                   [35mmdoc[39;49m[0m
+[35mcallgrind_annotate[39;49m[0m                     [35mmdoc-assemble[39;49m[0m
+[35mcallgrind_control[39;49m[0m                      [35mmdoc-export-html[39;49m[0m
+[35mcaspol[39;49m[0m                                 [35mmdoc-export-msxdoc[39;49m[0m
+[35mcccheck[39;49m[0m                                [35mmdoc-update[39;49m[0m
+[35mccmake[39;49m[0m                                 [35mmdoc-validate[39;49m[0m
+[35mccrewrite[39;49m[0m                              [35mmdvalidater[39;49m[0m
+[35mcert2spc[39;49m[0m                               [35mmimedb[39;49m[0m
+[35mcertmgr[39;49m[0m                                [35mmkbundle[39;49m[0m
+[35mcg_annotate[39;49m[0m                            [35mmkrc[39;49m[0m
+[35mcg_diff[39;49m[0m                                [35mmod[39;49m[0m
+[35mcg_merge[39;49m[0m                               [35mmod-mono-server[39;49m[0m
+[35mcharts[39;49m[0m                                 [35mmod-mono-server2[39;49m[0m
+[35mchktrust[39;49m[0m                               [35mmod-mono-server4[39;49m[0m
+[35mcjpeg[39;49m[0m                                  [35mmongo[39;49m[0m
+[35mcmake[39;49m[0m                                  [35mmongod[39;49m[0m
+[35mcmakexbuild[39;49m[0m                            [35mmongodump[39;49m[0m
+[35mcoffee[39;49m[0m                                 [35mmongoexport[39;49m[0m
+[35mcomplete-ant-cmd.pl[39;49m[0m                    [35mmongofiles[39;49m[0m
+[35mcpack[39;49m[0m                                  [35mmongoimport[39;49m[0m
+[35mcpp-5[39;49m[0m                                  [35mmongooplog[39;49m[0m
+[35mcreatefontdatachunk.py[39;49m[0m                 [35mmongoperf[39;49m[0m
+[35mcscope[39;49m[0m                                 [35mmongorestore[39;49m[0m
+[35mcsharp[39;49m[0m                                 [35mmongos[39;49m[0m
+[35mct_run[39;49m[0m                                 [35mmongosniff[39;49m[0m
+[35mctest[39;49m[0m                                  [35mmongostat[39;49m[0m
+[35mcwebp[39;49m[0m                                  [35mmongotop[39;49m[0m
+[35mdbsessmgr[39;49m[0m                              [35mmono[39;49m[0m
+[35mdbsessmgr2[39;49m[0m                             [35mmono-api-info[39;49m[0m
+[35mdbsessmgr4[39;49m[0m                             [35mmono-boehm[39;49m[0m
+[35mdialyzer[39;49m[0m                               [35mmono-cil-strip[39;49m[0m
+[35mdisco[39;49m[0m                                  [35mmono-configuration-crypto[39;49m[0m
+[35mdjpeg[39;49m[0m                                  [35mmono-find-provides[39;49m[0m
+[35mdmcs[39;49m[0m                                   [35mmono-find-requires[39;49m[0m
+[35mdocco[39;49m[0m                                  [35mmono-gdb.py[39;49m[0m
+[35mdtd2rng[39;49m[0m                                [35mmono-heapviz[39;49m[0m
+[35mdtd2xsd[39;49m[0m                                [35mmono-service[39;49m[0m
+[35mdumpsexp[39;49m[0m                               [35mmono-service2[39;49m[0m
+[35mdwebp[39;49m[0m                                  [35mmono-sgen[39;49m[0m
+[35measy_install[39;49m[0m                           [35mmono-shlib-cop[39;49m[0m
+[35measy_install-2.7[39;49m[0m                       [35mmono-symbolicate[39;49m[0m
+[35melectron[39;49m[0m                               [35mmono-test-install[39;49m[0m
+[35melectron-packager[39;49m[0m                      [35mmono-xmltool[39;49m[0m
+[35melementary-electron[39;49m[0m                    [35mmono64[39;49m[0m
+[35menhancer.py[39;49m[0m                            [35mmonodis[39;49m[0m
+[35mepmd[39;49m[0m                                   [35mmonodocer[39;49m[0m
+[35merl[39;49m[0m                                    [35mmonodocs2html[39;49m[0m
+[35merlc[39;49m[0m                                   [35mmonodocs2slashdoc[39;49m[0m
+[31merubis[39;49m[0m                                 [35mmonolinker[39;49m[0m
+[35mescript[39;49m[0m                                [35mmonop[39;49m[0m
+[35mevent_rpcgen.py[39;49m[0m                        [35mmonop2[39;49m[0m
+[35mex[39;49m[0m                                     [35mmozroots[39;49m[0m
+[35mexercism[39;49m[0m                               [35mmpicalc[39;49m[0m
+[35mexplode.py[39;49m[0m                             [35mmprof-report[39;49m[0m
+[35mexpress[39;49m[0m                                [35mms_print[39;49m[0m
+[35mf2py[39;49m[0m                                   [31mmux[39;49m[0m
+[35mfasd[39;49m[0m                                   [35mmvn[39;49m[0m
+[35mfastcgi-mono-server[39;49m[0m                    [35mmvn.cmd[39;49m[0m
+[35mfastcgi-mono-server2[39;49m[0m                   [35mmvnDebug[39;49m[0m
+[35mfastcgi-mono-server4[39;49m[0m                   [35mmvnDebug.cmd[39;49m[0m
+[35mfax2ps[39;49m[0m                                 [35mmvnyjp[39;49m[0m
+[35mfax2tiff[39;49m[0m                               [31mn[39;49m[0m
+[35mfc-cache[39;49m[0m                               [35mncu[39;49m[0m
+[35mfc-cat[39;49m[0m                                 [35mnettle-hash[39;49m[0m
+[35mfc-list[39;49m[0m                                [35mnettle-lfib-stream[39;49m[0m
+[35mfc-match[39;49m[0m                               [35mnettle-pbkdf2[39;49m[0m
+[35mfc-pattern[39;49m[0m                             [35mnode[39;49m[0m
+[35mfc-query[39;49m[0m                               [35mnode-gyp[39;49m[0m
+[35mfc-scan[39;49m[0m                                [35mnode-theseus[39;49m[0m
+[35mfc-validate[39;49m[0m                            [35mnode-vim-inspector[39;49m[0m
+[35mfish[39;49m[0m                                   [35mnodebot-workshop[39;49m[0m
+[35mfish_indent[39;49m[0m                            [35mnodemon[39;49m[0m
+[35mfreetype-config[39;49m[0m                        [35mnpm[39;49m[0m
+[35mfsharpc[39;49m[0m                                [35mnpm-check-updates[39;49m[0m
+[35mfsharpi[39;49m[0m                                [35mnuget[39;49m[0m
+[31mfuturize[39;49m[0m                               [35mnunit-console[39;49m[0m
+[35mg++-5[39;49m[0m                                  [35mnunit-console2[39;49m[0m
+[35mg[[39;49m[0m                                     [35mnunit-console4[39;49m[0m
+[35mgacutil[39;49m[0m                                [35mnvim[39;49m[0m
+[35mgacutil2[39;49m[0m                               [35mocs[39;49m[0m
+[35mgapi2-codegen[39;49m[0m                          [35mocsptool[39;49m[0m
+[35mgapi2-fixup[39;49m[0m                            [35mpainter.py[39;49m[0m
+[35mgapi2-parser[39;49m[0m                           [35mpal2rgb[39;49m[0m
+[35mgapplication[39;49m[0m                           [31mpasteurize[39;49m[0m
+[35mgbase32[39;49m[0m                                [35mpcre-config[39;49m[0m
+[35mgbase64[39;49m[0m                                [35mpcregrep[39;49m[0m
+[35mgbasename[39;49m[0m                              [35mpcretest[39;49m[0m
+[35mgcat[39;49m[0m                                   [35mpdb2mdb[39;49m[0m
+[35mgcc-5[39;49m[0m                                  [35mpedump[39;49m[0m
+[35mgcc-ar-5[39;49m[0m                               [35mperformance[39;49m[0m
+[35mgcc-nm-5[39;49m[0m                               [35mpermview[39;49m[0m
+[35mgcc-ranlib-5[39;49m[0m                           [35mpeverify[39;49m[0m
+[35mgchcon[39;49m[0m                                 [35mpilconvert.py[39;49m[0m
+[35mgchgrp[39;49m[0m                                 [35mpildriver.py[39;49m[0m
+[35mgchmod[39;49m[0m                                 [35mpilfile.py[39;49m[0m
+[35mgchown[39;49m[0m                                 [35mpilfont.py[39;49m[0m
+[35mgchroot[39;49m[0m                                [35mpilprint.py[39;49m[0m
+[35mgcksum[39;49m[0m                                 [35mpip[39;49m[0m
+[35mgcomm[39;49m[0m                                  [35mpip2[39;49m[0m
+[35mgcov-5[39;49m[0m                                 [35mpip2.7[39;49m[0m
+[35mgcov-tool-5[39;49m[0m                            [35mpkcs1-conv[39;49m[0m
+[35mgcp[39;49m[0m                                    [35mpkg-config[39;49m[0m
+[35mgcsplit[39;49m[0m                                [35mplayer.py[39;49m[0m
+[35mgcut[39;49m[0m                                   [35mpng-fix-itxt[39;49m[0m
+[35mgdate[39;49m[0m                                  [35mpng2icns[39;49m[0m
+[31mgdb[39;49m[0m                                    [35mpngfix[39;49m[0m
+[35mgdbm_dump[39;49m[0m                              [35mppm2tiff[39;49m[0m
+[35mgdbm_load[39;49m[0m                              [35mprj2make[39;49m[0m
+[35mgdbmtool[39;49m[0m                               [35mpsicc[39;49m[0m
+[35mgdbus[39;49m[0m                                  [35mpsktool[39;49m[0m
+[35mgdbus-codegen[39;49m[0m                          [35mpydoc[39;49m[0m
+[35mgdd[39;49m[0m                                    [35mpydoc2[39;49m[0m
+[35mgdf[39;49m[0m                                    [35mpydoc2.7[39;49m[0m
+[35mgdir[39;49m[0m                                   [35mpyenv[39;49m[0m
+[35mgdircolors[39;49m[0m                             [35mpyenv-install[39;49m[0m
+[35mgdirname[39;49m[0m                               [35mpyenv-sh-virtualenvwrapper[39;49m[0m
+[35mgdu[39;49m[0m                                    [35mpyenv-sh-virtualenvwrapper_lazy[39;49m[0m
+[35mgecho[39;49m[0m                                  [35mpyenv-uninstall[39;49m[0m
+[35mgenv[39;49m[0m                                   [35mpyenv-virtualenvwrapper[39;49m[0m
+[35mgenxs[39;49m[0m                                  [35mpyenv-virtualenvwrapper_lazy[39;49m[0m
+[35mgeos-config[39;49m[0m                            [31mpyfiglet[39;49m[0m
+[35mgexpand[39;49m[0m                                [35mpython[39;49m[0m
+[35mgexpr[39;49m[0m                                  [35mpython-build[39;49m[0m
+[35mgfactor[39;49m[0m                                [35mpython-config[39;49m[0m
+[35mgfalse[39;49m[0m                                 [35mpython2[39;49m[0m
+[35mgfmt[39;49m[0m                                   [35mpython2-config[39;49m[0m
+[35mgfold[39;49m[0m                                  [35mpython2.7[39;49m[0m
+[35mgfortran[39;49m[0m                               [35mpython2.7-config[39;49m[0m
+[35mgfortran-5[39;49m[0m                             [35mpythonw[39;49m[0m
+[35mggroups[39;49m[0m                                [35mpythonw2[39;49m[0m
+[35mghc[39;49m[0m                                    [35mpythonw2.7[39;49m[0m
+[35mghc-7.10.3[39;49m[0m                             [35mras2tiff[39;49m[0m
+[35mghc-clang-wrapper[39;49m[0m                      [35mraw2tiff[39;49m[0m
+[35mghc-pkg[39;49m[0m                                [35mrcdn[39;49m[0m
+[35mghc-pkg-7.10.3[39;49m[0m                         [35mrcup[39;49m[0m
+[35mghci[39;49m[0m                                   [35mrdjpgcom[39;49m[0m
+[35mghci-7.10.3[39;49m[0m                            [35mrealpath[39;49m[0m
+[35mghead[39;49m[0m                                  [31mregetron[39;49m[0m
+[35mghostid[39;49m[0m                                [35mregex-adventure[39;49m[0m
+[35mgid[39;49m[0m                                    [35mresgen[39;49m[0m
+[35mgif2tiff[39;49m[0m                               [35mresgen2[39;49m[0m
+[35mgifmaker.py[39;49m[0m                            [35mrgb2ycbcr[39;49m[0m
+[35mginstall[39;49m[0m                               [35mrun_erl[39;49m[0m
+[35mgio-querymodules[39;49m[0m                       [35mrunant.pl[39;49m[0m
+[35mgit[39;49m[0m                                    [35mrunant.py[39;49m[0m
+[35mgit-credential-osxkeychain[39;49m[0m             [35mrunghc[39;49m[0m
+[35mgit-cvsserver[39;49m[0m                          [35mrunghc-7.10.3[39;49m[0m
+[35mgit-it[39;49m[0m                                 [35mrunhaskell[39;49m[0m
+[35mgit-lfs[39;49m[0m                                [35mrview[39;49m[0m
+[35mgit-receive-pack[39;49m[0m                       [35mrvim[39;49m[0m
+[35mgit-shell[39;49m[0m                              [35mscreenfetch[39;49m[0m
+[35mgit-subtree[39;49m[0m                            [35msecutil[39;49m[0m
+[35mgit-upload-archive[39;49m[0m                     [35msed[39;49m[0m
+[35mgit-upload-pack[39;49m[0m                        [35msetreg[39;49m[0m
+[35mgithub[39;49m[0m                                 [35msexp-conv[39;49m[0m
+[35mgitk[39;49m[0m                                   [35msgen[39;49m[0m
+[35mgjoin[39;49m[0m                                  [35msigncode[39;49m[0m
+[35mgkill[39;49m[0m                                  [35msmartcomments[39;49m[0m
+[35mglib-compile-resources[39;49m[0m                 [35msmtpd.py[39;49m[0m
+[35mglib-compile-schemas[39;49m[0m                   [35msmtpd2.7.py[39;49m[0m
+[35mglib-genmarshal[39;49m[0m                        [35msmtpd2.py[39;49m[0m
+[35mglib-gettextize[39;49m[0m                        [35msn[39;49m[0m
+[35mglib-mkenums[39;49m[0m                           [35msoapsuds[39;49m[0m
+[35mglibtool[39;49m[0m                               [35mspotify[39;49m[0m
+[35mglibtoolize[39;49m[0m                            [35msqlmetal[39;49m[0m
+[35mglink[39;49m[0m                                  [35msqlsharp[39;49m[0m
+[35mgln[39;49m[0m                                    [35msrptool[39;49m[0m
+[35mglogname[39;49m[0m                               [35mstack[39;49m[0m
+[35mgls[39;49m[0m                                    [35msublime[39;49m[0m
+[35mgmd5sum[39;49m[0m                                [35msvcutil[39;49m[0m
+[35mgmkdir[39;49m[0m                                 [35mtar[39;49m[0m
+[35mgmkfifo[39;49m[0m                                [31mthor[39;49m[0m
+[35mgmknod[39;49m[0m                                 [35mthresholder.py[39;49m[0m
+[35mgmktemp[39;49m[0m                                [35mthumbnail[39;49m[0m
+[35mgmv[39;49m[0m                                    [35mtiff2bw[39;49m[0m
+[35mgnice[39;49m[0m                                  [35mtiff2pdf[39;49m[0m
+[35mgnl[39;49m[0m                                    [35mtiff2ps[39;49m[0m
+[35mgnohup[39;49m[0m                                 [35mtiff2rgba[39;49m[0m
+[35mgnproc[39;49m[0m                                 [35mtiffcmp[39;49m[0m
+[35mgnumfmt[39;49m[0m                                [35mtiffcp[39;49m[0m
+[35mgnutls-certtool[39;49m[0m                        [35mtiffcrop[39;49m[0m
+[35mgnutls-cli[39;49m[0m                             [35mtiffdither[39;49m[0m
+[35mgnutls-cli-debug[39;49m[0m                       [35mtiffdump[39;49m[0m
+[35mgnutls-serv[39;49m[0m                            [35mtiffinfo[39;49m[0m
+[35mgobject-query[39;49m[0m                          [35mtiffmedian[39;49m[0m
+[35mgod[39;49m[0m                                    [35mtiffset[39;49m[0m
+[35mgpaste[39;49m[0m                                 [35mtiffsplit[39;49m[0m
+[35mgpathchk[39;49m[0m                               [35mtificc[39;49m[0m
+[35mgpg-error[39;49m[0m                              [35mtmrdemo[39;49m[0m
+[35mgpg-error-config[39;49m[0m                       [35mtmux[39;49m[0m
+[35mgpinky[39;49m[0m                                 tmux-dev.sh
+[35mgpr[39;49m[0m                                    [31mtmux-mem-cpu-load[39;49m[0m
+[35mgprintenv[39;49m[0m                              [31mtmuxinator[39;49m[0m
+[35mgprintf[39;49m[0m                                [35mto_erl[39;49m[0m
+[35mgptx[39;49m[0m                                   [35mtorrent[39;49m[0m
+[35mgpwd[39;49m[0m                                   [35mtorrential[39;49m[0m
+[35mgradle[39;49m[0m                                 [35mtransicc[39;49m[0m
+[35mgreadlink[39;49m[0m                              [35mtree[39;49m[0m
+[35mgrealpath[39;49m[0m                              [35mttab[39;49m[0m
+[35mgresource[39;49m[0m                              [35mtyper[39;49m[0m
+[35mgrm[39;49m[0m                                    [35muninstall-hs[39;49m[0m
+[35mgrmdir[39;49m[0m                                 [35munlzma[39;49m[0m
+[35mgruncon[39;49m[0m                                [35munxz[39;49m[0m
+[35mgrunt[39;49m[0m                                  [35mvalgrind[39;49m[0m
+[35mgseq[39;49m[0m                                   [35mvalgrind-di-server[39;49m[0m
+[35mgsettings[39;49m[0m                              [35mvalgrind-listener[39;49m[0m
+[35mgsha1sum[39;49m[0m                               [35mvbnc[39;49m[0m
+[35mgsha224sum[39;49m[0m                             [35mvbnc2[39;49m[0m
+[35mgsha256sum[39;49m[0m                             [31mvbox-img[39;49m[0m
+[35mgsha384sum[39;49m[0m                             [31mvboxwebsrv[39;49m[0m
+[35mgsha512sum[39;49m[0m                             [35mvcprompt[39;49m[0m
+[35mgshred[39;49m[0m                                 [35mvgdb[39;49m[0m
+[35mgshuf[39;49m[0m                                  [35mview[39;49m[0m
+[35mgsleep[39;49m[0m                                 [35mviewer.py[39;49m[0m
+[35mgsort[39;49m[0m                                  [35mvifm[39;49m[0m
+[35mgsplit[39;49m[0m                                 [35mvifm-convert-dircolors[39;49m[0m
+[35mgstat[39;49m[0m                                  [35mvifm-pause[39;49m[0m
+[35mgstdbuf[39;49m[0m                                [35mvifm-screen-split[39;49m[0m
+[35mgstty[39;49m[0m                                  [35mvim[39;49m[0m
+[35mgsum[39;49m[0m                                   [35mvimdiff[39;49m[0m
+[35mgsync[39;49m[0m                                  [35mvimtutor[39;49m[0m
+[35mgtac[39;49m[0m                                   [35mvlc[39;49m[0m
+[35mgtail[39;49m[0m                                  [35mvtop[39;49m[0m
+[35mgtee[39;49m[0m                                   [35mvwebp[39;49m[0m
+[35mgtest[39;49m[0m                                  [35mwarp-mouse-cursor-position[39;49m[0m
+[35mgtester[39;49m[0m                                [35mwebpmux[39;49m[0m
+[35mgtester-report[39;49m[0m                         [35mweechat[39;49m[0m
+[35mgtimeout[39;49m[0m                               [35mweechat-curses[39;49m[0m
+[35mgtouch[39;49m[0m                                 [35mwemux[39;49m[0m
+[35mgtr[39;49m[0m                                    [35mwget[39;49m[0m
+[35mgtrue[39;49m[0m                                  [35mwheel[39;49m[0m
+[35mgtruncate[39;49m[0m                              [35mwrjpgcom[39;49m[0m
+[35mgtsort[39;49m[0m                                 [35mwsdl[39;49m[0m
+[35mgtty[39;49m[0m                                   [35mwsdl2[39;49m[0m
+[35mguname[39;49m[0m                                 [35mwx-config[39;49m[0m
+[35mgunexpand[39;49m[0m                              [35mwxrc[39;49m[0m
+[35mguniq[39;49m[0m                                  [35mwxrc-3.0[39;49m[0m
+[35mgunlink[39;49m[0m                                [35mx86_64-apple-darwin15.0.0-c++-5[39;49m[0m
+[35mguptime[39;49m[0m                                [35mx86_64-apple-darwin15.0.0-g++-5[39;49m[0m
+[35mgusers[39;49m[0m                                 [35mx86_64-apple-darwin15.0.0-gcc-5[39;49m[0m
+[35mgvdir[39;49m[0m                                  [35mx86_64-apple-darwin15.0.0-gcc-5.3.0[39;49m[0m
+[35mgwc[39;49m[0m                                    [35mx86_64-apple-darwin15.0.0-gcc-ar-5[39;49m[0m
+[35mgwho[39;49m[0m                                   [35mx86_64-apple-darwin15.0.0-gcc-nm-5[39;49m[0m
+[35mgwhoami[39;49m[0m                                [35mx86_64-apple-darwin15.0.0-gcc-ranlib-5[39;49m[0m
+[35mgyes[39;49m[0m                                   [35mx86_64-apple-darwin15.0.0-gfortran-5[39;49m[0m
+[35mhaddock[39;49m[0m                                [35mxbuild[39;49m[0m
+[35mhaddock-ghc-7.10.3[39;49m[0m                     [35mxsd[39;49m[0m
+[35mhappy[39;49m[0m                                  [35mxsp[39;49m[0m
+[35mhg[39;49m[0m                                     [35mxsp2[39;49m[0m
+[35mhighlight[39;49m[0m                              [35mxsp4[39;49m[0m
+[35mhmac256[39;49m[0m                                [35mxxd[39;49m[0m
+[35mhp2ps[39;49m[0m                                  [35mxz[39;49m[0m
+[35mhpc[39;49m[0m                                    [35mxzcat[39;49m[0m
+[35mhs[39;49m[0m                                     [35mxzcmp[39;49m[0m
+[35mhsc2hs[39;49m[0m                                 [35mxzdec[39;49m[0m
+[35mhtop[39;49m[0m                                   [35mxzdiff[39;49m[0m
+[35mhttp-server[39;49m[0m                            [35mxzegrep[39;49m[0m
+[35mhttpcfg[39;49m[0m                                [35mxzfgrep[39;49m[0m
+[35mhub[39;49m[0m                                    [35mxzgrep[39;49m[0m
+[35micns2png[39;49m[0m                               [35mxzless[39;49m[0m
+[35micontainer2icns[39;49m[0m                        [35mxzmore[39;49m[0m
+[35midle[39;49m[0m                                   [35myuidoc[39;49m[0m
+[35midle2[39;49m[0m                                  [35mznc[39;49m[0m
+[35midle2.7[39;49m[0m                                [35mznc-buildmod[39;49m[0m
+[35mifnames[39;49m[0m                                [35mzsh[39;49m[0m
+[35mikdasm[39;49m[0m                                 [35mzsh-5.2[39;49m[0m
+[35milasm[39;49m[0m
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;/usr/local/bin]7;file://Craiggless-MBP.domain/usr/local/bin[0m[27m[24m[Jconnor@Craiggless-MBP:/usr/local/bin% [K[?1h=ssudo -u root brew install binutils coreuti [Klls libicns gnu-sed gnu-tar curl git wget --with-default-name[A[22D[4m[32ms[4m[32mu[4m[32md[4m[32mo[24m[39m[9C[32mb[32mr[32me[32mw[39m[1B[23D[4mg[4mi[4mt[24m [4mw[4mg[4me[4mt[24m[20Cs[?1l>
+]2;sudo -u root brew install binutils coreutils libicns gnu-sed gnu-tar curl git]1;root[4;31mError[0m: Cowardly refusing to 'sudo brew install'
+You can use brew with sudo, but only if the brew executable is owned by root.
+However, this is both not recommended and completely unsupported so do so at
+your own risk.
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;/usr/local/bin]7;file://Craiggless-MBP.domain/usr/local/bin[0m[27m[24m[Jconnor@Craiggless-MBP:/usr/local/bin% [K[?1h=[4m[32msudo[24m[39m -u root [32mbrew[39m install binutils coreutils libicns gnu-sed gnu-tar curl [4mgit[24m [4mwget[24m --with-default-names[K[A[23D[24m[32ml[24m[32ms[39m[K[1B[K[A[40C[4m[32ms[4m[32mu[4m[32mdo[24m[39m -u root [32mbrew[39m install binutils coreutils libicns gnu-sed gnu-tar curl [4mgit[24m [4mwget[24m --with-default-names[K[A[23D[K[1B[K[A[38C[4m[32msudo[24m[39m -u root [32mbrew[39m install binutils coreutils libicns gnu-sed gnu-tar curl [4mgit[24m [4mwget[24m --with-default-names[K[A[79Cb[39mr[39me[39mw[39m [32mi[32mn[32ms[32mt[32ma[32ml[32ml[39m[P[17Cls[P[59C [A[11D[P[30Cs [P[58C [A[11D[P[31C l[P[57C [A[11D[P[32Cli[P[56C [A[11D[4mb[4mr[4me[4mw[24m[P[29Cib[P[55C [A[11Db[24mr[24me[24mw[P[30Cbi[P[54C [A[11D[P[35Cic[P[53C [A[11D[32mb[32mr[32me[32mw[39m i[39mn[39ms[39mt[39ma[39ml[39ml[P[24Ccn[P[52C [A[11D[24m[1m[31ms[24m[1m[31mu[24m[1m[31md[24m[1m[31mo[1m[31mb[1m[31mr[1m[31me[1m[31mw[0m[39m[P[33Cns[P[51C [A[11D[P[38Cs [P[50C [A[11D[P[39C g[P[49C [A[11D[1m[31ms[0m[39m[P[40Cgn[P[48C [A[11D[0m[32mb[0m[32mr[0m[32me[0m[32mw[39m[P[37Cnu[P[47C [A[11D[?1l>[1B
+zsh: correct 'install' to 'ginstall' [nyae]? y
+]2;brew ginstall binutils coreutils libicns gnu-sed gnu-tar curl git wget ]1;brew[4;31mError[0m: Unknown command: ginstall
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;/usr/local/bin]7;file://Craiggless-MBP.domain/usr/local/bin[0m[27m[24m[Jconnor@Craiggless-MBP:/usr/local/bin% [K[?1h=[32mbrew[39m [4mginstall[24m binutils coreutils libicns gnu-sed gnu-tar curl [4mgit[24m [4mwget[24m --with-default-names[K[A[79C[24mi[24mn[24ms[24mt[24ma[24ml[24ml[P[29Cnu[P[47C [A[?1l>[1B
+zsh: correct 'install' to 'ginstall' [nyae]? n
+]2;brew install binutils coreutils libicns gnu-sed gnu-tar curl git wget ]1;brew[4;33mWarning[0m: binutils-2.26 already installed, it's just not linked
+[4;33mWarning[0m: coreutils-8.25 already installed
+[4;33mWarning[0m: libicns-0.8.1_1 already installed
+[4;33mWarning[0m: gnu-sed-4.2.2 already installed
+[4;33mWarning[0m: gnu-tar-1.28 already installed
+[4;33mWarning[0m: curl-7.48.0 already installed
+[4;33mWarning[0m: git-2.8.1 already installed
+[4;33mWarning[0m: wget-1.17.1 already installed
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;/usr/local/bin]7;file://Craiggless-MBP.domain/usr/local/bin[0m[27m[24m[Jconnor@Craiggless-MBP:/usr/local/bin% [K[?1h=[4mb[24m[4mb[4mr[24m[4mb[4mr[4me[24m[24m[32mb[24m[32mr[24m[32me[32mw[39m [4ml[24m[4ml[4mi[24m[4mi[4mn[24m[4mn[4mk[24m[24ml[24mi[24mn[24mk [4mb[24m[4mb[4mi[24m[24mb[24minutils[1m [0m[0m [?1l>
+zsh: correct 'link' to 'glink' [nyae]? n
+]2;brew link binutils]1;brewLinking /usr/local/Cellar/binutils/2.26... 
+[4;31mError[0m: Could not symlink include/ansidecl.h
+Target /usr/local/include/ansidecl.h
+already exists. You may want to remove it:
+  rm '/usr/local/include/ansidecl.h'
+
+To force the link and overwrite all conflicting files:
+  brew link --overwrite binutils
+
+To list all files that would be deleted:
+  brew link --overwrite --dry-run binutils
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;/usr/local/bin]7;file://Craiggless-MBP.domain/usr/local/bin[0m[27m[24m[Jconnor@Craiggless-MBP:/usr/local/bin% [K[?1h=[4mb[24m[4mb[4mr[24m[4mb[4mr[4me[24m[24m[32mb[24m[32mr[24m[32me[32mw[39m [4ml[24m[4ml[4mi[24m[4mi[4mn[24m[4mn[4mk[24m[24ml[24mi[24mn[24mk --overwrite [4mb[24m[4mb[4mi[24m[24mb[24minutils[1m [0m[0m [?1l>
+zsh: correct 'link' to 'glink' [nyae]? n
+]2;brew link --overwrite binutils]1;brewLinking /usr/local/Cellar/binutils/2.26... 97 symlinks created
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;/usr/local/bin]7;file://Craiggless-MBP.domain/usr/local/bin[0m[27m[24m[Jconnor@Craiggless-MBP:/usr/local/bin% [K[?1h=[4mc[24m[24m[32mc[32md[39m [4m~[24m[?1l>
+]2;cd ~]1;cd[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;~]7;file://Craiggless-MBP.domain/Users/connor[0m[27m[24m[Jconnor@Craiggless-MBP:~% [K[?1h=[32ml[39m[32ml[32ms[39m[?1l>
+]2;ls -G]1;ls[1m[36mAlgorithm[39;49m[0m                [1m[36mNVIDIA_CUDA-7.5_Samples[39;49m[0m  install
+[1m[36mAlgorithm_Design[39;49m[0m         [1m[36mNetBeansProjects[39;49m[0m         java.snippets
+[1m[36mApplications[39;49m[0m             [1m[36mPictures[39;49m[0m                 java2.snippets
+[1m[36mColorsublime-Plugin[39;49m[0m      [1m[36mProjects[39;49m[0m                 javascript-node.snippets
+[1m[36mDesktop[39;49m[0m                  [1m[36mPublic[39;49m[0m                   [31mmy-script.sh[39;49m[0m
+[1m[36mDocuments[39;49m[0m                README.md                [1m[36mnode-cuda[39;49m[0m
+[1m[36mDownloads[39;49m[0m                [1m[36mVirtualBox VMs[39;49m[0m           [1m[36mnode_modules[39;49m[0m
+FETCH_HEAD               _hub                     screen.log
+[1m[36mGoogle Drive[39;49m[0m             [1m[36mbin[39;49m[0m                      [1m[36mscripts[39;49m[0m
+[1m[36mIdeaProjects[39;49m[0m             [1m[36mbower_components[39;49m[0m         sshv.sh
+[1m[36mJbug[39;49m[0m                     [31mcomposer.phar[39;49m[0m            typescript
+[1m[36mLibrary[39;49m[0m                  [1m[36mdotfiles[39;49m[0m                 [1m[36mvim-wombat256mod[39;49m[0m
+[1m[36mMovies[39;49m[0m                   [1m[36meclipse[39;49m[0m                  weechat.conf
+[1m[36mMusic[39;49m[0m                    [1m[36mexercism[39;49m[0m
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;~]7;file://Craiggless-MBP.domain/Users/connor[0m[27m[24m[Jconnor@Craiggless-MBP:~% [K[?1h=[4mc[24m[24m[32mc[32md[39m [4mD[24m[4mD[4mo[24m[4mo[4mc[24m[4mc[4muments[1m[4m/[0m[24m[0m[4m/[4mP[24m[4mP[4mr[24m[4mr[4mo[24m[13D[24mD[24mo[24mc[24mu[24mm[24me[24mn[24mt[24ms[24m/[24mP[24mr[24mo
+[J[1;31mProgramming[0m/  [J[1;31mProjects[0m/   [J[A[0m[27m[24m[25C[32mcd[39m Documents/Pro[Kgramming[1m/[0m
+[J[7mProgramming/[0m  [J[1;31mProjects[0m/   [J[A[0m[27m[24m[25C[32mcd[39m Documents/Programming[1m/[0m[K
+[7mProgramming/[0m  [7mProgramming/[0m  [A[0m[27m[24m[25C[32mcd[39m Documents/Programming[1m/[0m[K
+[J[A[50C[22D[4mD[4mo[4mc[4mu[4mm[4me[4mn[4mt[4ms[4m/[4mP[4mr[4mo[4mg[4mr[4ma[4mm[4mm[4mi[4mn[4mg[0m[4m/[4mj[24m[4mj[4ma[24m[4ma[4mv[24m[4mv[4ma[24m[26D[24mD[24mo[24mc[24mu[24mm[24me[24mn[24mt[24ms[24m/[24mP[24mr[24mo[24mg[24mr[24ma[24mm[24mm[24mi[24mn[24mg[24m/[24mj[24ma[24mv[24ma
+[J[J[1;31mJava[0m/           [J[1;31mjavascripting[0m/[J[A[0m[27m[24m[25C[32mcd[39m Documents/Programming/java[KJ[3C[1m/[0m
+[J[7mJava/         [0m  [J[1;31mjavascripting[0m/[J[A[0m[27m[24m[25C[32mcd[39m Documents/Programming/Java[1m/[0m[K
+[7mJava/         [0m  [7mJava/         [0m  [A[0m[27m[24m[25C[32mcd[39m Documents/Programming/Java[1m/[0m[Kj[3C[0mscripting[1m/[0m
+[16C[7mjavascripting/[0m[1;31mJava[0m/           [A[0m[27m[24m[25C[32mcd[39m Documents/Programming/javascripting[1m/[0m[K
+[J[A[64C[36D[4mD[4mo[4mc[4mu[4mm[4me[4mn[4mt[4ms[4m/[4mP[4mr[4mo[4mg[4mr[4ma[4mm[4mm[4mi[4mn[4mg[4m/[4mj[4ma[4mv[4ma[4ms[4mc[4mr[4mi[4mp[4mt[4mi[4mn[4mg[1m[4m/[0m[24m[4mg[24m[0m[24m [?1l>
+[J]2;cd Documents/Programming/javascripting]1;cd[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;..javascripting]7;file://Craiggless-MBP.domain/Users/connor/Documents/Programming/javascripting[0m[27m[24m[Jconnor@Craiggless-MBP:~/Documents/Programming/javascripting% [K[?1h=[32ml[39m[32ml[32ms[39m[?1l>
+]2;ls -G]1;ls[1m[36mLessons[39;49m[0m        [1m[36mTests[39;49m[0m          [1m[36mnodeschool[39;49m[0m
+[1m[36mLinearAlgrebra[39;49m[0m [1m[36meloquent[39;49m[0m       [1m[36mselfwork[39;49m[0m
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;..javascripting]7;file://Craiggless-MBP.domain/Users/connor/Documents/Programming/javascripting[0m[27m[24m[Jconnor@Craiggless-MBP:~/Documents/Programming/javascripting% [K[?1h=[1m[31mc[0m[39m[0m[32mc[32md[39m [4mT[24m[4mT[4mests[1m[4m/[0m[24m[4ms[24m[0m[24m [?1l>
+]2;cd Tests]1;cd[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;..ripting/Tests]7;file://Craiggless-MBP.domain/Users/connor/Documents/Programming/javascripting/Tests[0m[27m[24m[Jconnor@Craiggless-MBP:~/Documents/Programming/javascripting/Tests% [K[?1h=[32ml[39m[32ml[32ms[39m[?1l>
+]2;ls -G]1;lsobject_inheret.js read_file.js      text.txt
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;..ripting/Tests]7;file://Craiggless-MBP.domain/Users/connor/Documents/Programming/javascripting/Tests[0m[27m[24m[Jconnor@Craiggless-MBP:~/Documents/Programming/javascripting/Tests% [K[?1h=[1m[31me[0m[39m[1m[31me[1m[31mh[0m[39m[1m[31me[0m[39m[0m[39m [1m[31me[1m[31mc[0m[39m[1m[31me[1m[31mc[1m[31mh[0m[39m[0m[32me[0m[32mc[0m[32mh[32mo[39m [33m"[39m[33m"[33mc[39m[33mc[33mo[39m[33mo[33mn[39m[33mn[33ms[39m[33ms[33mo[39m[33mo[33ml[39m[33ml[33me[39m [K[A[79C[33me[33m.[39m[33m.[33ml[39m[33m.[33ml[33mo[39m[33mo[33mg[39m[33mg[33m([39m[33m([33mp[39m[33mp[33mr[39m[33mr[33mo[39m[33mo[33mc[39m[33mc[33me[39m[33me[33ms[39m[33ms[33ms[39m[33ms[33m.[39m[33m.[33mv[39m[33mv[33me[39m[33me[33mr[39m[33mr[33ms[39m[33ms[33mi[39m[33mi[33mo[39m[33mo[33mn[39m[33mn[33m_[39m[33mn[39m[39m [33mn[33m)[39m[33m)[33m"[39m > [4mt[24m[4mt[4me[24m[24mt[24mest [4mt[4me[24m [4mt[24m[24m [24m [4mo[24m[4mo[4mb[24m[4mb[4mj[24m[4mj[4me[24m[4me[4mc[24m[4mc[4mt[24m[4mt[4m_[24m[4m_[4mi[24m[4mi[4mn[24m[4mn[4mh[24m[4mh[4me[24m[4me[4mr[24m[12D[24mo[24mb[24mj[24me[24mc[24mt[24m_[24mi[24mn[24mh[24me[24mri[13D[4mo[4mb[4mj[4me[4mc[4mt[4m_[4mi[4mn[4mh[4me[4mr[24m [4me[24m[24m [4mh[24m[24m [4mn[24m[24m [4mi[24m[24m [4m_[24m[24m [4mt[24m[24m [4mc[24m[24m [4me[24m[24m [4mj[24m[24m [4mb[24m[24m [4mo[24m[24m [24m [4mr[24m[4mr[4me[24m[4me[4ma[24m[4ma[4md[24m[4md[4m_[24m[4m_[4mf[24m[4mf[4mi[24m[4mi[4ml[24m[4ml[4me[24m[4me[4m.[24m[4m.[4mj[24m[4mj[4ms[24m;[?1l>
+]2;echo "console.log(process.version)" > read_file.js]1;echo[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;..ripting/Tests]7;file://Craiggless-MBP.domain/Users/connor/Documents/Programming/javascripting/Tests[0m[27m[24m[Jconnor@Craiggless-MBP:~/Documents/Programming/javascripting/Tests% [K[?1h=[32ml[39m[32ml[32ms[39m[?1l>
+]2;ls -G]1;lsobject_inheret.js read_file.js      text.txt
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;..ripting/Tests]7;file://Craiggless-MBP.domain/Users/connor/Documents/Programming/javascripting/Tests[0m[27m[24m[Jconnor@Craiggless-MBP:~/Documents/Programming/javascripting/Tests% [K[?1h=ddtruss -f -t  [Keexecve /usr/local/bin/lycheejs-helper env:node test.j[A[14C[32md[32mt[32mr[32mu[32ms[32ms[39m[1B[20Ds[?1l>
+]2;dtruss -f -t execve /usr/local/bin/lycheejs-helper env:node test.js]1;dtrussdtrace: failed to initialize dtrace: DTrace requires additional privileges
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;..ripting/Tests]7;file://Craiggless-MBP.domain/Users/connor/Documents/Programming/javascripting/Tests[0m[27m[24m[Jconnor@Craiggless-MBP:~/Documents/Programming/javascripting/Tests% [K[?1h=[32mdtruss[39m -f -t execve /usr/local/bin/lycheejs-helper env:node test.js[K[1C[1C[1C[A[79C[1m[31ms[1m[31md[1m[31mt[1m[31mr[1m[31mu[1m[31ms[1m[31ms[0m[39m -f -t execve /usr/local/bin/lycheejs-helper env:node test.js[A[13C[1m[31ms[1m[31mu[1m[31md[1m[31mt[1m[31mr[1m[31mu[1m[31ms[1m[31ms[0m[39m -f -t execve /usr/local/bin/lycheejs-helper env:node test.js[A[13C[1C[1m[31md[1m[31mt[1m[31mr[1m[31mu[1m[31ms[1m[31ms[0m[39m -f -t execve /usr/local/bin/lycheejs-helper env:node test.js[A[13C[1m[31mo[1m[31md[1m[31mt[1m[31mr[1m[31mu[1m[31ms[1m[31ms[0m[39m -f -t execve /usr/local/bin/lycheejs-helper env:node test.js[A[13C[0m[4m[32ms[0m[4m[32mu[0m[4m[32md[0m[4m[32mo[24m[39m[0m[39m [0m[32md[0m[32mt[0m[32mr[0m[32mu[0m[32ms[32ms[39m -f -t execve /usr/local/bin/lycheejs-helper env:node test.js[A[13C[?1l>[1B
+]2;sudo dtruss -f -t execve /usr/local/bin/lycheejs-helper env:node test.js]1;dtrussdtrace: failed to execute /usr/local/bin/lycheejs-helper: file is set-id or unreadable [Note: the '-c' option requires a full pathname to the file]
+
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;..ripting/Tests]7;file://Craiggless-MBP.domain/Users/connor/Documents/Programming/javascripting/Tests[0m[27m[24m[Jconnor@Craiggless-MBP:~/Documents/Programming/javascripting/Tests% [K[?1h=[4m[32msudo[24m[39m [32mdtruss[39m -f -t execve /usr/local/bin/lycheejs-helper env:node test.js[K[K   [4mt[4me[24m [4mt[24m[24m [24m [4mr[24m[4mr[4me[24m[4me[4ma[24m[4ma[4md_file.js[24m[1m [0m[0m [?1l>
+]2;sudo dtruss -f -t execve /usr/local/bin/lycheejs-helper env:node read_file.js]1;dtrussdtrace: failed to execute /usr/local/bin/lycheejs-helper: file is set-id or unreadable [Note: the '-c' option requires a full pathname to the file]
+
+[1m[7m%[27m[1m[0m                                                                                ]2;connor@Craiggless-MBP]1;..ripting/Tests]7;file://Craiggless-MBP.domain/Users/connor/Documents/Programming/javascripting/Tests[0m[27m[24m[Jconnor@Craiggless-MBP:~/Documents/Programming/javascripting/Tests% [K[?1h=[1m[31me[0m[39m[0m[32me[32mx[39m[1m[31me[1m[31mx[1m[31mi[0m[39m[0m[32me[0m[32mx[0m[32mi[32mt[39m[?1l>
+]2;exit]1;exit
+Script done on Mon May  9 12:39:16 2016
